@@ -1,11 +1,12 @@
-﻿public class Class1
+﻿namespace Stage0
 {
-    public partial Class1()
+    partial class Class1
     {
-        public static void welcome8200()
+
+        static partial void welcome8200()
         {
             Console.WriteLine("I am also here!");
         }
-    }
 
+    }
 }
