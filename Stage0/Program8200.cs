@@ -1,6 +1,6 @@
 ﻿namespace Stage0
 {
-    partial class Class1
+    partial class Program
     {
 
         static partial void welcome8200()
