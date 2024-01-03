@@ -2,7 +2,7 @@
 using DalApi;
 using DO;
 
-internal class EngineerImplementation : IEngineer
+public class EngineerImplementation : IEngineer
 {
     public int Create(Engineer item)
     {

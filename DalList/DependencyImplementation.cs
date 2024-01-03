@@ -2,7 +2,7 @@
 using DalApi;
 using DO;
 
-internal class DependencyImplementation : IDependency
+public class DependencyImplementation : IDependency
 {
     //create a new dependency
     public int Create(Dependency item)
