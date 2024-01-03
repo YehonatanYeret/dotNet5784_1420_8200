@@ -12,156 +12,120 @@ internal class Program
     private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
     static void ShowMenu()
     {
-        Console.WriteLine("Choose an option:");
-        Console.WriteLine("0. Exit");
-        Console.WriteLine("1. task");
-        Console.WriteLine("2. engineer");
-        Console.WriteLine("3. dependency");
-        int? choice = int.Parse(Console.ReadLine()!);
-
-        switch (choice)
+        int? choice;
+        do
         {
-            case 0:
-                return;
-            case 1:
-            case 2:
-            case 3:
-                SubMenu(choice);
-                break;
-            default:
-                Console.WriteLine("Invalid input");
-                break;
-        }
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("0. Exit");
+            Console.WriteLine("1. task");
+            Console.WriteLine("2. engineer");
+            Console.WriteLine("3. dependency");
+            choice = int.Parse(Console.ReadLine()!);
+
+            switch (choice)
+            {
+                case 0:
+                    return;
+                case 1:
+                case 2:
+                case 3:
+                    SubMenu(choice);
+                    break;
+                default:
+                    Console.WriteLine("Invalid input");
+                    break;
+            }
+        } while (choice != 0);
     }
 
     static void SubMenu(int? choice)
     {
-        Console.WriteLine("Choose an option:");
-        Console.WriteLine("0. Back");
-        Console.WriteLine("1. Create");
-        Console.WriteLine("2. Read");
-        Console.WriteLine("3. ReadAll");
-        Console.WriteLine("4. Update");
-        Console.WriteLine("5. Delete");
-
-        int? subChoice = int.Parse(Console.ReadLine()!);
-
-        switch (choice, subChoice)
+        int? subChoice;
+        do
         {
-            case (1, 1):
-                CreateTask();
-                break;
-            case (1, 2):
-                ReadTask();
-                break;
-            case (1, 3):
-                ReadAllTask();
-                break;
-            case (1, 4):
-                UpdateTask();
-                break;
-            case (1, 5):
-                DeleteTask();
-                break;
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("0. Back");
+            Console.WriteLine("1. Create");
+            Console.WriteLine("2. Read");
+            Console.WriteLine("3. ReadAll");
+            Console.WriteLine("4. Update");
+            Console.WriteLine("5. Delete");
+
+            subChoice = int.Parse(Console.ReadLine()!);
+
+            try
+            {
+                switch (choice, subChoice)
+                {
+                    case (1, 1):
+                        CreateTask();
+                        break;
+                    case (1, 2):
+                        ReadTask();
+                        break;
+                    case (1, 3):
+                        ReadAllTask();
+                        break;
+                    case (1, 4):
+                        UpdateTask();
+                        break;
+                    case (1, 5):
+                        DeleteTask();
+                        break;
 
 
-            case (2, 1):
-                CreateEngineer();
-                break;
-            case (2, 2):
-                ReadEngineer();
-                break;
-            case (2, 3):
-                ReadAllEngineer();
-                break;
-            case (2, 4):
-                UpdateEngineer();
-                break;
-            case (2, 5):
-                DeleteEngineer();
-                break;
+                    case (2, 1):
+                        CreateEngineer();
+                        break;
+                    case (2, 2):
+                        ReadEngineer();
+                        break;
+                    case (2, 3):
+                        ReadAllEngineer();
+                        break;
+                    case (2, 4):
+                        UpdateEngineer();
+                        break;
+                    case (2, 5):
+                        DeleteEngineer();
+                        break;
 
-            case (3, 1):
-                CreateDependency();
-                break;
-            case (3, 2):
-                ReadDependency();
-                break;
-            case (3, 3):
-                ReadAllDependency();
-                break;
-            case (3, 4):
-                UpdateDependency();
-                break;
-            case (3, 5):
-                DeleteDependency();
-                break;
+                    case (3, 1):
+                        CreateDependency();
+                        break;
+                    case (3, 2):
+                        ReadDependency();
+                        break;
+                    case (3, 3):
+                        ReadAllDependency();
+                        break;
+                    case (3, 4):
+                        UpdateDependency();
+                        break;
+                    case (3, 5):
+                        DeleteDependency();
+                        break;
 
-            case (1, 0):
-            case (2, 0):
-            case (3, 0):
-                return;
+                    case (1, 0):
+                    case (2, 0):
+                    case (3, 0):
+                        break;
 
-            default:
-                Console.WriteLine("Invalid input");
-                break;
-        }
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }while (subChoice != 0);
     }
-
-    private static void CreateDependency()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void ReadDependency()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void DeleteEngineer()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void ReadAllDependency()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void UpdateEngineer()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void ReadAllEngineer()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void ReadEngineer()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void UpdateDependency()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void DeleteDependency()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void CreateEngineer()
-    {
-        throw new NotImplementedException();
-    }
-
-
 
     static void CreateTask()
     {
+        //get the new values
         string alias = Console.ReadLine()?? "";
         string description = Console.ReadLine() ?? "" ;
         DateTime createdAtDate = DateTime.Parse(Console.ReadLine());
@@ -176,6 +140,7 @@ internal class Program
         int? engineerId = int.Parse(Console.ReadLine()!);
         EngineerExperience? copmlexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
 
+        //create the new task
         Task task = new(
             0,
             alias,
@@ -192,28 +157,31 @@ internal class Program
             engineerId,
             copmlexity
         );
-        s_dalTask.Create(task);
+        s_dalTask.Create(task);//add the task to the data base
     }
-
     static void ReadTask()
     {
         int id = int.Parse(Console.ReadLine()!);
-        Task? task = s_dalTask.Read(id);
-        Console.WriteLine(task);
+        Task? task = s_dalTask.Read(id);//find the task with the id
+        Console.WriteLine(task);//print the task
     }
-
     static void ReadAllTask()
     {
+        //get all the tasks
         List<Task> tasks = s_dalTask.ReadAll();
         foreach (Task task in tasks)
         {
-            Console.WriteLine(task);
+            Console.WriteLine(task);//print any task of the tasks
         }
     }
-
     static void UpdateTask()
     {
         int id = int.Parse(Console.ReadLine()!);
+
+        Task? oldTask = s_dalTask.Read(id);//find the index of the task with the same id
+        Console.WriteLine(oldTask);//print the task
+
+        //get the new values
         string alias = Console.ReadLine() ?? "";
         string description = Console.ReadLine() ?? "";
         DateTime createdAtDate = DateTime.Parse(Console.ReadLine());
@@ -228,6 +196,7 @@ internal class Program
         int? engineerId = int.Parse(Console.ReadLine()!);
         EngineerExperience? copmlexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
 
+        //create the new task
         Task task = new(
             id,
             alias,
@@ -243,21 +212,141 @@ internal class Program
             remarks,
             engineerId,
             copmlexity
-);
-        s_dalTask.Update(task);
+        );
+        s_dalTask.Update(task);//update the task
     }
 
     static void DeleteTask()
     {
         int id = int.Parse(Console.ReadLine()!);
-        s_dalTask.Delete(id);
+        s_dalTask.Delete(id);//delete the task
+    }
+
+    private static void CreateEngineer()
+    {
+        //get the new values
+        int id = int.Parse(Console.ReadLine()!);
+        double cost = double.Parse(Console.ReadLine()!);
+        string name = Console.ReadLine() ?? "";
+        string email = Console.ReadLine() ?? "";
+        EngineerExperience level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
+
+        //create the new engineer
+        Engineer engineer = new(
+            id,
+            cost,
+            name,
+            email,
+            level
+        );
+        s_dalEngineer.Create(engineer);//add the engineer to the data base
+    }
+    private static void ReadEngineer()
+    {
+        //get the id of the engineer
+        int id = int.Parse(Console.ReadLine()!);
+        Engineer? engineer = s_dalEngineer.Read(id) ;
+        Console.WriteLine(engineer);//print the engineer
+    }
+    private static void ReadAllEngineer()
+    {
+        //get all the engineers
+        List<Engineer> engineers = s_dalEngineer.ReadAll();
+        foreach (Engineer engineer in engineers)
+        {
+            Console.WriteLine(engineer);//print any engineer of the engineers
+        }
+    }
+    private static void UpdateEngineer()
+    {
+        int id = int.Parse(Console.ReadLine()!);
+
+        Engineer? oldEngineer = s_dalEngineer.Read(id);//find the index of the engineer with the same id
+        Console.WriteLine(oldEngineer);//print the engineer
+
+        //get the new values
+        double cost = double.Parse(Console.ReadLine()!);
+        string name = Console.ReadLine() ?? "";
+        string email = Console.ReadLine() ?? "";
+        EngineerExperience level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
+
+        //create the new engineer
+        Engineer engineer = new(
+            id,
+            cost,
+            name,
+            email,
+            level
+        );
+        s_dalEngineer.Update(engineer);//update the engineer
+    }
+    private static void DeleteEngineer()
+    {
+        int id = int.Parse(Console.ReadLine()!);
+        s_dalEngineer.Delete(id);//delete the engineer
+    }
+
+    private static void CreateDependency()
+    {
+        //get the new values
+        int id = int.Parse(Console.ReadLine()!);
+        int taskId = int.Parse(Console.ReadLine()!);
+        int dependOnTaskId = int.Parse(Console.ReadLine()!);
+
+        //create the new dependency
+        Dependency dependency = new(
+            id,
+            taskId,
+            dependOnTaskId
+        );
+        s_dalDependency.Create(dependency);//add the dependency to the data base
+
+    }
+    private static void ReadDependency()
+    {
+        int id = int.Parse(Console.ReadLine()!);
+        Dependency? dependency = s_dalDependency.Read(id);
+        Console.WriteLine(dependency);//print the dependency
+    }
+    private static void ReadAllDependency()
+    {
+        //get all the dependencies
+        List<Dependency> dependencies = s_dalDependency.ReadAll();
+        foreach (Dependency dependency in dependencies)
+        {
+            Console.WriteLine(dependency);//print any dependency of the dependencies
+        }
+    }
+    private static void UpdateDependency()
+    {
+        int id = int.Parse(Console.ReadLine()!);
+
+        Dependency? oldDependency = s_dalDependency.Read(id);//find the index of the dependency with the same id
+        Console.WriteLine(oldDependency);//print the dependency
+
+        //get the new values
+        int taskId = int.Parse(Console.ReadLine()!);
+        int dependOnTaskId = int.Parse(Console.ReadLine()!);
+
+        //create the new dependency
+        Dependency dependency = new(
+            id,
+            taskId,
+            dependOnTaskId
+        );
+        s_dalDependency.Update(dependency);//update the dependency
+    }
+    private static void DeleteDependency()
+    {
+        int id = int.Parse(Console.ReadLine()!);
+        s_dalDependency.Delete(id);//delete the dependency
     }
 
     static void Main(string[] args)
     {
         Initialization.DO(s_dalTask, s_dalEngineer, s_dalDependency);
 
-
-
+        Console.WriteLine("!strat of the program!\n");
+        ShowMenu();
     }
 }
