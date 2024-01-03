@@ -2,7 +2,6 @@
 
 internal static class DataSource
 {
-
     internal static class Config
     {
         ///running id for the tasks
@@ -21,4 +20,3 @@ internal static class DataSource
     internal static List<DO.Engineer> Engineers { get; } = new();
     internal static List<DO.Dependency> Dependencies { get; } = new();
 }
-
