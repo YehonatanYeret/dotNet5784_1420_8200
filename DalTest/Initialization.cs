@@ -55,16 +55,8 @@ public static class Initialization
             Engineer? findEngineer;
             do
             {
-                try
-                {
-                    id = s_rand.Next(200000001) + 200000000;//random id from 200000000 to 400000000
-                    findEngineer = s_dalEngineer!.Read(id);
-                }
-                catch (Exception)
-                {
-                    findEngineer = null;
-                }
-            } while (findEngineer != null);//check if id already exist
+                id = s_rand.Next(200000001) + 200000000;//random id from 200000000 to 400000000
+            } while (s_dalEngineer!.Read(id) != null);//check if id already exist
 
             int cost = s_rand.Next(10001) + 10000;//random cost from 10000 to 20000
             string email = name + emails[s_rand.Next(emails.Length)];//random email
