@@ -51,7 +51,7 @@ public static class Initialization
 
         foreach (string name in firstName)
         {
-            int id=0;
+            int id=0;// add defaulte value
             Engineer? findEngineer;
             do
             {
