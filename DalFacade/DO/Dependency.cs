@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// Milestone entitiy for the database. represents a milestone in the project with all the relevant data
+/// Dependency entitiy for the database. represents a milestone in the project with all the relevant data
 /// </summary>
 /// <param name="Id">the Id of the Milestone</param>
 /// <param name="DependentTask">the Id of the Task that depend on this Mailestone</param>

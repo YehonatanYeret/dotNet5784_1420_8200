@@ -1,32 +1,44 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
 
 internal class DependencyImplementation : IDependency
 {
+    //create a new dependency
     public int Create(Dependency item)
     {
-        throw new NotImplementedException();
+        int id = DataSource.Config.NextDependencyId;//get the next id
+        Dependency dependency = item with { Id = id };//create a new dependency with the new id
+        DataSource.Dependencies.Add(dependency);    //add the dependency to the list
+        return id;
     }
 
-    public void Delete(int id)
-    {
-        throw new NotImplementedException();
-    }
-
+    //read a dependency and return it. if not found return null
     public Dependency? Read(int id)
     {
-        throw new NotImplementedException();
+        return DataSource.Dependencies.Find(dependency => dependency.Id == id);
     }
 
+    //return a copy of the list of dependencies
     public List<Dependency> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<Dependency>(DataSource.Dependencies);
     }
-
+    
+    //update a dependency by removing the old one and adding the new one
     public void Update(Dependency item)
     {
-        throw new NotImplementedException();
+        Dependency? dependency = DataSource.Dependencies.Find(dependency => dependency.Id == item.Id);
+        if (dependency == null)
+            throw new Exception($"Dependency with ID={item.Id} does not exist");
+
+        DataSource.Dependencies.Remove(dependency);
+        DataSource.Dependencies.Add(item);
+    }
+
+    //delete a dependency. always throw an exception
+    public void Delete(int id)
+    {
+        throw new Exception("cannot delete a dependency");
     }
 }

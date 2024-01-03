@@ -1,7 +1,6 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
-using System.Collections.Generic;
 
 internal class EngineerImplementation : IEngineer
 {
