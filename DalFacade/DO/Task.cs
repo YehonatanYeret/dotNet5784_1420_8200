@@ -33,6 +33,7 @@ public record Task
     string? Remarks = null,
     int? EngineerId = null,
     EngineerExperience? Copmlexity = null
+    //we can add a bool field to check if the task is done or not
 )
 {
     public Task() : this(0, "", "", DateTime.Now) { }// empty ctor for task
