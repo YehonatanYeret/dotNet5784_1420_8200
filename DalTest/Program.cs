@@ -1,6 +1,7 @@
 ﻿namespace DalTest;
 using DalApi;
 using Dal;
+using DO;
 
 
 internal class Program
