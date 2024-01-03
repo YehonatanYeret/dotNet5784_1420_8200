@@ -11,10 +11,42 @@ public static class Initialization
 
     private static void creatTask()
     {
-     }
+        (string, string)[] aliasAndDescription = new (string, string)[] {
+        ("digging", "the engineeer need to take control over the digging so we can start build"),
+        ("foundations","the engineeer need to take control over the foundation proccess"),
+        ("cement","the engineeer need to take controll over the creation of the cement"),
+        ("iron","the engineeer need to take control over the iron for the structure"),
+        ("brick","the engineeer need to take control over the import of the bricks"),
+        ("protective measures","the engineeer need to take control over the buying of the protective measures"),
+        ("ladder","the engineeer need to take control over buildig the ladder for the house"),
+        ("cranes","the engineeer need to take control moving the cranes"),
+        ("paint","the engineeer need to take control over painting the house"),
+        ("electricity","the engineeer need to take control over the electric wires and the wiring"),
+        ("plumbing","the engineeer need to take control over the plumbing"),
+        ("workers","the engineeer need to take control over hirring workers"),
+        ("plaster","the engineeer need to take control over the plaster of the building"),
+        ("skull","the engineeer need to take control over the skull of the building"),
+        ("flooring","the engineeer need to take control over the flooring"),
+        ("windows and door","the engineeer need to take control over the exits of the building"),
+        ("roof","the engineeer need to control the roof constraction"),
+        ("Solar panels","the engineeer need to take control over putting Solar panels"),
+        ("Air-Conditioner","the engineeer need to take control the Air-Conditioning"),
+        ("rail","the engineeer need to take control over building the rails in the house"),
+        ("architect","the engineeer need to take control over the architection"),
+        ("Construction permits","the engineeer need to take control over the Construction permits")
+        };
+
+        foreach(var (alias, description) in aliasAndDescription)
+        {
+            DateTime dateTime = DateTime.Now.AddDays(-s_rand.Next(60)-20);//random date from now to -80 days from -20 days
+            Task task = new(0, alias, description, dateTime);//create new task
+            s_dalTask!.Create(task);//add to data base
+        }
+    }
+
     private static void creatEngineer()
     {
-        string[] firstName = new string[] { "Adam Chohen", "Alex Charcov", "Aaron Israeli", "Ben Baruch", "Carlo Batusik", "Asaf Lotz"};
+        string[] firstName = new string[] { "Adam Chohen", "Alex Charcov", "Aaron Israeli", "Ben Baruch", "Carlo Batusik", "Asaf Lotz" };
         string[] emails = new string[] { "@gmail.com", "@hotmail.com", "@yahoo.com", "@walla.com", "@outlook.com" };
 
         foreach (string name in firstName)
@@ -56,7 +88,6 @@ public static class Initialization
             Dependency newDependency = new(0, Item1, Item2);//create new dependency
             s_dalDependency!.Create(newDependency);//add to data base
         }
-
     }
 
     public static void DO(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)

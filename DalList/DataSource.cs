@@ -5,12 +5,12 @@ internal static class DataSource
     internal static class Config
     {
         ///running id for the tasks
-        internal const int StartTaskId = 0;
+        internal const int StartTaskId = 1;
         private static int nextTaskId = StartTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
 
-        ///running id for the dependencies
-        internal const int StartDependencyId = 0;
+        ///running id for the engineers
+        internal const int StartDependencyId = 1;
         private static int nextDependencyId = StartDependencyId;
         internal static int NextDependencyId { get => nextDependencyId++; }
     }
