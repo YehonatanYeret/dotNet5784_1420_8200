@@ -14,7 +14,7 @@ public static class Initialization
      }
     private static void creatEngineer()
     {
-        string[] firstName = new string[] { "Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack", "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter" };
+        string[] firstName = new string[] { "Adam Chohen", "Alex Charcov", "Aaron Israeli", "Ben Baruch", "Carlo Batusik", "Asaf Lotz"};
         string[] emails = new string[] { "@gmail.com", "@hotmail.com", "@yahoo.com", "@walla.com", "@outlook.com" };
 
         foreach (string name in firstName)
@@ -37,6 +37,25 @@ public static class Initialization
     }
     private static void creatDependency()
     {
+        //all of the dependencies, first number is the id of the task and the second is the id of the task it depends on:
+        (int, int)[] dependencies = new (int, int)[] {
+        (1,22),(1,6),(1,8),(1,12),
+        (2,1),(2,3),(2,4),(2,5),
+        (3,12),(4,22),(5,22),(6,12),
+        (7,4),(8,22),(9,13),(10,14),
+        (11,14),(11,22),(12,21),(13,14),
+        (13,3),(13,10),(13,7),(14,2),
+        (14,5),(15,13),(15,3),(15,9),
+        (16,14),(16,5),(16,7),(17,14),
+        (17,5),(17,7),(18,17),(19,14),
+        (19,10),(19,11),(20,17),(20,4),(22,21)};
+
+        foreach ((int Item1, int Item2) in dependencies)
+        {
+            //id equal 0 because the id is auto generated
+            Dependency newDependency = new(0, Item1, Item2);//create new dependency
+            s_dalDependency!.Create(newDependency);//add to data base
+        }
 
     }
 

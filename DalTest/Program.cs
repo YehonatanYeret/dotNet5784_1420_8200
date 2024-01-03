@@ -1,10 +1,14 @@
-﻿namespace DalTest
+﻿namespace DalTest;
+using DalApi;
+
+
+
+internal class Program
 {
-    internal class Program
+    private static IDependency? s_dalDependency = new DependencyImplementation();
+
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello, World!");
-        }
+       
     }
 }
