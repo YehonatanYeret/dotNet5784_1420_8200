@@ -108,6 +108,51 @@ internal class Program
         }
     }
 
+    private static void CreateDependency()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void ReadDependency()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void DeleteEngineer()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void ReadAllDependency()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void UpdateEngineer()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void ReadAllEngineer()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void ReadEngineer()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void UpdateDependency()
+    {
+        throw new NotImplementedException();
+    }
+
+    private static void DeleteDependency()
+    {
+        throw new NotImplementedException();
+    }
+
     private static void CreateEngineer()
     {
         throw new NotImplementedException();
