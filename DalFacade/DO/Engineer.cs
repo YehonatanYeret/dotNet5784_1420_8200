@@ -3,14 +3,14 @@
 /// <summary>
 /// Engineer entitiy for the database. represents an engineer in the project with all the relevant data
 /// </summary>
-/// <param name="ID">the ID of the Engineer</param>
+/// <param name="Id">the Id of the Engineer</param>
 /// <param name="Cost">how much the Engineer take for hour</param>
 /// <param name="Name">the name of the Engineer</param>
 /// <param name="Email">the email of the Engineer</param>
 /// <param name="Level">the level of the Engineer - from Beginner to Expert</param>
 public record Engineer
 (
-    int ID,
+    int Id,
     double Cost,
     string Name,
     string Email,
