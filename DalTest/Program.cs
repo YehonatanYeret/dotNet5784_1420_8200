@@ -314,7 +314,7 @@ internal class Program
         Console.WriteLine(oldEngineer);//print the engineer
 
         //get the new values
-        Console.WriteLine("Enter the new values of the engineer:")
+        Console.WriteLine("Enter the new values of the engineer:");
         Console.WriteLine("cost:");
         double cost = double.Parse(Console.ReadLine()!);
         Console.WriteLine("name:");
