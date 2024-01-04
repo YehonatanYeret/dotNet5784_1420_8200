@@ -125,19 +125,33 @@ internal class Program
 
     static void CreateTask()
     {
+        Console.WriteLine("Enter the values of the task:");
+
         //get the new values
+        Console.WriteLine("alias:");
         string alias = Console.ReadLine()?? "";
+        Console.WriteLine("description:");
         string description = Console.ReadLine() ?? "" ;
+        Console.WriteLine("created at date:");
         DateTime createdAtDate = DateTime.Parse(Console.ReadLine());
-        bool isMileStone = bool.Parse(Console.ReadLine());
+        bool isMileStone = false;
+        Console.WriteLine("scheduled date:");
         DateTime? scheduledDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("start date:");
         DateTime? startDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("required effort time:");
         TimeSpan? requiredEffortTime = TimeSpan.Parse(Console.ReadLine()!);
+        Console.WriteLine("deadline date:");
         DateTime? deadlineDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("complete date:");
         DateTime? completeDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("deliverables:");
         string? deliverables = Console.ReadLine();
+        Console.WriteLine("remarks:");
         string? remarks = Console.ReadLine();
+        Console.WriteLine("engineer id:");
         int? engineerId = int.Parse(Console.ReadLine()!);
+        Console.WriteLine("copmlexity:");
         EngineerExperience? copmlexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
 
         //create the new task
@@ -161,12 +175,14 @@ internal class Program
     }
     static void ReadTask()
     {
+        Console.WriteLine("Enter the id of the task:");
         int id = int.Parse(Console.ReadLine()!);
         Task? task = s_dalTask.Read(id);//find the task with the id
         Console.WriteLine(task);//print the task
     }
     static void ReadAllTask()
     {
+        Console.WriteLine("All of the tasks:");
         //get all the tasks
         List<Task> tasks = s_dalTask.ReadAll();
         foreach (Task task in tasks)
@@ -176,24 +192,41 @@ internal class Program
     }
     static void UpdateTask()
     {
+        Console.WriteLine("Enter the id of the task:");
         int id = int.Parse(Console.ReadLine()!);
 
         Task? oldTask = s_dalTask.Read(id);//find the index of the task with the same id
+        Console.WriteLine("The old task:");
         Console.WriteLine(oldTask);//print the task
 
+        Console.WriteLine("Enter the new values of the task:");
+
         //get the new values
+        Console.WriteLine("alias:");
         string alias = Console.ReadLine() ?? "";
+        Console.WriteLine("description:");
         string description = Console.ReadLine() ?? "";
+        Console.WriteLine("created at date:");
         DateTime createdAtDate = DateTime.Parse(Console.ReadLine());
-        bool isMileStone = bool.Parse(Console.ReadLine());
+        Console.WriteLine("is milestone:");
+        bool isMileStone = bool.Parse(Console.ReadLine()!);
+        Console.WriteLine("scheduled date:");
         DateTime? scheduledDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("start date:");
         DateTime? startDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("required effort time:");
         TimeSpan? requiredEffortTime = TimeSpan.Parse(Console.ReadLine()!);
+        Console.WriteLine("deadline date:");
         DateTime? deadlineDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("complete date:");
         DateTime? completeDate = DateTime.Parse(Console.ReadLine()!);
+        Console.WriteLine("deliverables:");
         string? deliverables = Console.ReadLine();
+        Console.WriteLine("remarks:");
         string? remarks = Console.ReadLine();
+        Console.WriteLine("engineer id:");
         int? engineerId = int.Parse(Console.ReadLine()!);
+        Console.WriteLine("copmlexity:");
         EngineerExperience? copmlexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
 
         //create the new task
@@ -218,17 +251,25 @@ internal class Program
 
     static void DeleteTask()
     {
+        Console.WriteLine("Enter the id of the task:");
         int id = int.Parse(Console.ReadLine()!);
         s_dalTask.Delete(id);//delete the task
     }
 
     private static void CreateEngineer()
     {
+        Console.WriteLine("Enter the values of the engineer:");
+
         //get the new values
+        Console.WriteLine("id:");
         int id = int.Parse(Console.ReadLine()!);
+        Console.WriteLine("cost:");
         double cost = double.Parse(Console.ReadLine()!);
+        Console.WriteLine("name:");
         string name = Console.ReadLine() ?? "";
+        Console.WriteLine("email:");
         string email = Console.ReadLine() ?? "";
+        Console.WriteLine("level:");
         EngineerExperience level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
 
         //create the new engineer
@@ -243,6 +284,8 @@ internal class Program
     }
     private static void ReadEngineer()
     {
+        Console.WriteLine("Enter the id of the engineer:");
+
         //get the id of the engineer
         int id = int.Parse(Console.ReadLine()!);
         Engineer? engineer = s_dalEngineer.Read(id) ;
@@ -250,6 +293,8 @@ internal class Program
     }
     private static void ReadAllEngineer()
     {
+        Console.WriteLine("All of the engineers:");
+
         //get all the engineers
         List<Engineer> engineers = s_dalEngineer.ReadAll();
         foreach (Engineer engineer in engineers)
@@ -259,15 +304,22 @@ internal class Program
     }
     private static void UpdateEngineer()
     {
+        Console.WriteLine("Enter the id of the engineer:");
         int id = int.Parse(Console.ReadLine()!);
 
         Engineer? oldEngineer = s_dalEngineer.Read(id);//find the index of the engineer with the same id
+        Console.WriteLine("The old engineer:");
         Console.WriteLine(oldEngineer);//print the engineer
 
         //get the new values
+        Console.WriteLine("Enter the new values of the engineer:")
+        Console.WriteLine("cost:");
         double cost = double.Parse(Console.ReadLine()!);
+        Console.WriteLine("name:");
         string name = Console.ReadLine() ?? "";
+        Console.WriteLine("email:");
         string email = Console.ReadLine() ?? "";
+        Console.WriteLine("level:");
         EngineerExperience level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), Console.ReadLine()!);
 
         //create the new engineer
@@ -282,15 +334,23 @@ internal class Program
     }
     private static void DeleteEngineer()
     {
+        Console.WriteLine("Enter the id of the engineer:");
+
+        //get the id of the engineer
         int id = int.Parse(Console.ReadLine()!);
         s_dalEngineer.Delete(id);//delete the engineer
     }
 
     private static void CreateDependency()
     {
+        Console.WriteLine("Enter the values of the dependency:");
+
         //get the new values
+        Console.WriteLine("id:");
         int id = int.Parse(Console.ReadLine()!);
+        Console.WriteLine("task id:");
         int taskId = int.Parse(Console.ReadLine()!);
+        Console.WriteLine("depend on task id:");
         int dependOnTaskId = int.Parse(Console.ReadLine()!);
 
         //create the new dependency
@@ -304,12 +364,16 @@ internal class Program
     }
     private static void ReadDependency()
     {
+        //get the id of the dependency
+        Console.WriteLine("Enter the id of the dependency:");
         int id = int.Parse(Console.ReadLine()!);
         Dependency? dependency = s_dalDependency.Read(id);
         Console.WriteLine(dependency);//print the dependency
     }
     private static void ReadAllDependency()
     {
+        Console.WriteLine("All of the dependencies:");
+
         //get all the dependencies
         List<Dependency> dependencies = s_dalDependency.ReadAll();
         foreach (Dependency dependency in dependencies)
@@ -319,13 +383,18 @@ internal class Program
     }
     private static void UpdateDependency()
     {
+        Console.WriteLine("Enter the id of the dependency:");
         int id = int.Parse(Console.ReadLine()!);
 
         Dependency? oldDependency = s_dalDependency.Read(id);//find the index of the dependency with the same id
+        Console.WriteLine("The old dependency:");
         Console.WriteLine(oldDependency);//print the dependency
 
+        Console.WriteLine("Enter the new values of the dependency:");
         //get the new values
+        Console.WriteLine("task id:");
         int taskId = int.Parse(Console.ReadLine()!);
+        Console.WriteLine("depend on task id:");
         int dependOnTaskId = int.Parse(Console.ReadLine()!);
 
         //create the new dependency
@@ -338,6 +407,7 @@ internal class Program
     }
     private static void DeleteDependency()
     {
+        Console.WriteLine("Enter the id of the dependency:");
         int id = int.Parse(Console.ReadLine()!);
         s_dalDependency.Delete(id);//delete the dependency
     }
