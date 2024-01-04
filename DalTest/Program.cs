@@ -12,47 +12,49 @@ internal class Program
     private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
     static void ShowMenu()
     {
-        int? choice;
+        int choice;
         do
         {
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("0. Exit");
-            Console.WriteLine("1. task");
-            Console.WriteLine("2. engineer");
-            Console.WriteLine("3. dependency");
-            choice = int.Parse(Console.ReadLine()!);
+            Console.WriteLine("Choose an option:\n"+
+                "0. Exit \n" +
+                "1. task \n" +
+                "2. engineer\n" +
+                "3. dependency");
+            
+            if(!int.TryParse(Console.ReadLine(), out choice))// if we entered invalid response 
+                choice=10;// set invalid value
 
             switch (choice)
-            {
-                case 0:
-                    return;
-                case 1:
-                case 2:
-                case 3:
-                    SubMenu(choice);
-                    break;
-                default:
-                    Console.WriteLine("Invalid input");
-                    break;
+                {
+                    case 0:
+                        return;
+                    case 1:
+                    case 2:
+                    case 3:
+                        SubMenu(choice);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
             }
         } while (choice != 0);
     }
 
-    static void SubMenu(int? choice)
+    static void SubMenu(int choice)
     {
-        int? subChoice;
+        int subChoice;
         do
         {
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("0. Back");
-            Console.WriteLine("1. Create");
-            Console.WriteLine("2. Read");
-            Console.WriteLine("3. ReadAll");
-            Console.WriteLine("4. Update");
-            Console.WriteLine("5. Delete");
+            Console.WriteLine("Choose an option:\n"+
+                "0. Back\n"+
+                "1. Create\n"+
+                "2. Read\n"+
+                "3. ReadAll\n"+
+                "4. Update\n"+
+                "5. Delete\n");
 
-            subChoice = int.Parse(Console.ReadLine()!);
-
+            if(!int.TryParse(Console.ReadLine(), out subChoice))
+                subChoice = 10;
             try
             {
                 switch (choice, subChoice)
@@ -126,15 +128,15 @@ internal class Program
     static void CreateTask()
     {
         //get the new values
-        string alias = Console.ReadLine()?? "";
-        string description = Console.ReadLine() ?? "" ;
-        DateTime createdAtDate = DateTime.Parse(Console.ReadLine());
-        bool isMileStone = bool.Parse(Console.ReadLine());
-        DateTime? scheduledDate = DateTime.Parse(Console.ReadLine()!);
-        DateTime? startDate = DateTime.Parse(Console.ReadLine()!);
-        TimeSpan? requiredEffortTime = TimeSpan.Parse(Console.ReadLine()!);
-        DateTime? deadlineDate = DateTime.Parse(Console.ReadLine()!);
-        DateTime? completeDate = DateTime.Parse(Console.ReadLine()!);
+        string alias = Console.ReadLine()!;
+        string description = Console.ReadLine()!;
+        DateTime createdAtDate = DateTime.Parse(Console.ReadLine()!);
+        bool isMileStone = bool.Parse(Console.ReadLine()?? "false");
+        DateTime? scheduledDate = DateTime.Parse(Console.ReadLine());
+        DateTime? startDate = DateTime.Parse(Console.ReadLine());
+        TimeSpan? requiredEffortTime = TimeSpan.Parse(Console.ReadLine());
+        DateTime? deadlineDate = DateTime.Parse(Console.ReadLine());
+        DateTime? completeDate = DateTime.Parse(Console.ReadLine());
         string? deliverables = Console.ReadLine();
         string? remarks = Console.ReadLine();
         int? engineerId = int.Parse(Console.ReadLine()!);
