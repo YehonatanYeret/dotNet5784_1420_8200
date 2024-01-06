@@ -2,7 +2,6 @@
 using DalApi;
 using Dal;
 using DO;
-using System.Threading.Channels;
 
 internal class Program
 {
@@ -13,10 +12,10 @@ internal class Program
 
     static void ShowMenu()
     {
-        int choice = 0 ;
+        int choice;
         do
         {
-            try
+            try// try to get the choice and for all the exceptions below
             {
                 Console.WriteLine("Choose an option:\n" +
                     "0. Exit \n" +
@@ -25,8 +24,8 @@ internal class Program
                     "3. dependency\n"+
                     "4. clear the console");
 
-                if (!int.TryParse(Console.ReadLine(), out choice))
-                    throw new Exception("Invalid input");// if we entered invalid response 
+                if (!int.TryParse(Console.ReadLine(), out choice))// try to get the choice
+                    throw new ArgumentException("Invalid input");// if we entered invalid response 
 
                 switch (choice)
                 {
@@ -34,20 +33,20 @@ internal class Program
                         return;
                     case 1:
                     case 2:
-                    case 3:
+                    case 3:// if we chose 1,2 or 3 we will go to the sub menu
                         SubMenu(choice);
                         break;
-                    case 4:
+                    case 4:// if we chose 4 we will clear the console
                         Console.Clear();
                         break;
-                    default:
-                        throw new Exception("Invalid input");
+                    default:// if we chose any other number we will throw an exception
+                        throw new ArgumentOutOfRangeException("Invalid input");
                 }
             }
-            catch (Exception ex)
+            catch (Exception ex)// catch all the exceptions
             {
-                Console.WriteLine(ex.Message);
-                choice = 10 ;
+                Console.WriteLine(ex.Message);// print the exception
+                choice = 10 ;// initialize the choice to 10 so we will not exit the program
             }
         } while (choice != 0);
     }
@@ -66,66 +65,65 @@ internal class Program
                 "5. Delete\n");
 
             if(!int.TryParse(Console.ReadLine(), out subChoice))
-                throw new Exception("Invalid input");// if we entered invalid response 
+                throw new ArgumentException("Invalid input");// if we entered invalid response 
 
             switch (choice, subChoice)
                 {
-                    case (1, 1):
+                    case (1, 1):// task create
                         CreateTask();
                         break;
-                    case (1, 2):
+                    case (1, 2):// task read
                         ReadTask();
                         break;
                     case (1, 3):
-                        ReadAllTask();
+                        ReadAllTask();// task read all
                         break;
                     case (1, 4):
-                        UpdateTask();
+                        UpdateTask();// task update
                         break;
                     case (1, 5):
-                        DeleteTask();
+                        DeleteTask();// task delete
                         break;
 
-
-                    case (2, 1):
+                    case (2, 1):/// engineer create
                         CreateEngineer();
                         break;
                     case (2, 2):
-                        ReadEngineer();
+                        ReadEngineer();// engineer read
                         break;
                     case (2, 3):
-                        ReadAllEngineer();
+                        ReadAllEngineer();// engineer read all
                         break;
                     case (2, 4):
-                        UpdateEngineer();
+                        UpdateEngineer();// engineer update
                         break;
                     case (2, 5):
-                        DeleteEngineer();
+                        DeleteEngineer();// engineer delete
                         break;
 
                     case (3, 1):
-                        CreateDependency();
+                        CreateDependency();// dependency create
                         break;
                     case (3, 2):
-                        ReadDependency();
+                        ReadDependency();// dependency read
                         break;
                     case (3, 3):
-                        ReadAllDependency();
+                        ReadAllDependency();// dependency read all
                         break;
                     case (3, 4):
-                        UpdateDependency();
+                        UpdateDependency();// dependency update
                         break;
                     case (3, 5):
-                        DeleteDependency();
+                        DeleteDependency();// dependency delete
                         break;
 
-                    case (1, 0):
+                    case (1, 0):// if we chose 0 we will go back to the main menu
                     case (2, 0):
                     case (3, 0):
                         break;
 
-                    default:
-                        throw new Exception("Invalid input");
+                    default:// if we chose any other number we will throw an exception
+                        throw new ArgumentOutOfRangeException("Invalid input");
                 }
 
         }while (subChoice != 0);
@@ -133,97 +131,15 @@ internal class Program
 
     static void CreateTask()
     {
-        DateTime temp1;// to use for the nullable dates
-        TimeSpan temp2;
-        int temp3;
-        Console.WriteLine("Enter the values of the task:");
-
-        //get the new values
-        Console.Write("alias:");
-        string alias = Console.ReadLine()!;
-        if (string.IsNullOrWhiteSpace(alias))
-            throw new ArgumentNullException();
-        
-        Console.Write("description:");
-        string description = Console.ReadLine()!;
-        if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentNullException();
-
-        Console.Write("created at date:");
-        DateTime createdAtDate;
-        if(!DateTime.TryParse(Console.ReadLine()!, out createdAtDate))
-            throw new ArgumentException("Invalid input");
-
-        Console.Write("scheduled date:");
-        DateTime? scheduledDate=null;
-        if(DateTime.TryParse(Console.ReadLine(), out temp1))
-            scheduledDate = temp1;
-
-        Console.Write("start date:");
-        DateTime? startDate=null;
-        if (DateTime.TryParse(Console.ReadLine() , out temp1))
-            startDate = temp1;
-
-        Console.Write("required effort time:");
-        TimeSpan? requiredEffortTime = null;
-        if(TimeSpan.TryParse(Console.ReadLine(), out temp2))
-            requiredEffortTime = temp2;
-        
-
-        Console.Write("deadline date:");
-        DateTime? deadlineDate = null;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
-            deadlineDate = temp1;
-
-        Console.Write("complete date:");
-        DateTime? completeDate = null;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
-            completeDate = temp1;
-
-        Console.Write("deliverables:");
-        string? deliverables = Console.ReadLine();
-
-        Console.Write("remarks:");
-        string? remarks = Console.ReadLine();
-
-        Console.Write("engineer id:");
-        int? engineerId = null;
-        if(int.TryParse(Console.ReadLine(), out temp3))
-            engineerId=temp3;
-        
-
-        Console.Write("copmlexity:");
-        EngineerExperience? copmlexity=null;
-        if(Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
-        {
-            copmlexity = experience;
-        }
-
-        //create the new task
-        Task task = new(
-            0,
-            alias,
-            description,
-            createdAtDate,
-            false,
-            scheduledDate,
-            startDate,
-            requiredEffortTime,
-            deadlineDate,
-            completeDate,
-            deliverables,
-            remarks,
-            engineerId,
-            copmlexity
-        );
+        Task task = TaskCreation();//create the task
         s_dalTask.Create(task);//add the task to the data base
     }
 
     static void ReadTask()
     {
         Console.WriteLine("Enter the id of the task:");
-        if (!int.TryParse(Console.ReadLine(), out int id))
-            throw new ArgumentException("Invalid input");
+        if (!int.TryParse(Console.ReadLine(), out int id))// if the input is not valid
+            throw new ArgumentException("Invalid input");// throw an exception
 
         Task? task = s_dalTask.Read(id);//find the task with the id
         Console.WriteLine(task);//print the task
@@ -250,87 +166,7 @@ internal class Program
         Console.WriteLine("The old task:");
         Console.WriteLine(oldTask);//print the task
 
-        DateTime temp1;// to use for the nullable dates
-        TimeSpan temp2;
-        int temp3;
-        Console.WriteLine("Enter the values of the task:");
-
-        //get the new values
-        Console.Write("alias:");
-        string alias = Console.ReadLine()!;
-        if (string.IsNullOrWhiteSpace(alias))
-            throw new ArgumentNullException();
-
-        Console.Write("description:");
-        string description = Console.ReadLine()!;
-        if (string.IsNullOrWhiteSpace(description))
-            throw new ArgumentNullException();
-
-        Console.Write("created at date:");
-        DateTime createdAtDate;
-        if (!DateTime.TryParse(Console.ReadLine()!, out createdAtDate))
-            throw new ArgumentException("Invalid input");
-
-        Console.Write("scheduled date:");
-        DateTime? scheduledDate = null;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
-            scheduledDate = temp1;
-
-        Console.Write("start date:");
-        DateTime? startDate = null;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
-            startDate = temp1;
-
-        Console.Write("required effort time:");
-        TimeSpan? requiredEffortTime = null;
-        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))
-            requiredEffortTime = temp2;
-
-
-        Console.Write("deadline date:");
-        DateTime? deadlineDate = null;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
-            deadlineDate = temp1;
-
-        Console.Write("complete date:");
-        DateTime? completeDate = null;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
-            completeDate = temp1;
-
-        Console.Write("deliverables:");
-        string? deliverables = Console.ReadLine();
-
-        Console.Write("remarks:");
-        string? remarks = Console.ReadLine();
-
-        Console.Write("engineer id:");
-        int? engineerId = null;
-        if (int.TryParse(Console.ReadLine(), out temp3))
-            engineerId = temp3;
-
-
-        Console.Write("copmlexity:");
-        EngineerExperience? copmlexity = null;
-        if (Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
-            copmlexity = experience;
-
-        //create the new task
-        Task task = new(
-            id,
-            alias,
-            description,
-            createdAtDate,
-            false,// told us to put only null for now
-            scheduledDate,
-            startDate,
-            requiredEffortTime,
-            deadlineDate,
-            completeDate,
-            deliverables,
-            remarks,
-            engineerId,
-            copmlexity
-        );
+        Task task = TaskCreation();//create the new task
         s_dalTask.Update(task);//update the task
     }
 
@@ -341,42 +177,10 @@ internal class Program
             throw new ArgumentException("Invalid input"); 
         s_dalTask.Delete(id);//delete the task
     }
-
+    //--------------------------------------------------------------------------------------------------------------
     private static void CreateEngineer()
     {
-        Console.WriteLine("Enter the values of the engineer:");
-
-        //get the new values
-        Console.Write("id:");
-        if(!int.TryParse(Console.ReadLine(),out int id))
-            throw new ArgumentException("Invalid input"); 
-
-        Console.Write("cost:");
-        if(!double.TryParse(Console.ReadLine()! ,out double cost))
-            throw new ArgumentException("Invalid input");
-
-        Console.Write("name:");
-        string name = Console.ReadLine()!;
-        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException();
-
-        Console.WriteLine("email:");
-        string email = Console.ReadLine()!;
-        if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException();
-
-        Console.WriteLine("level:");
-        EngineerExperience level = 0;
-        if(!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience experience))
-            throw new ArgumentException("Invalid input");
-
-        level = experience;
-        //create the new engineer
-        Engineer engineer = new(
-            id,
-            cost,
-            name,
-            email,
-            level
-        );
+        Engineer engineer = EngineerCreation();//create the engineer
         s_dalEngineer.Create(engineer);//add the engineer to the data base
     }
 
@@ -414,32 +218,7 @@ internal class Program
         Console.WriteLine("The old engineer:");
         Console.WriteLine(oldEngineer);//print the engineer
 
-        //get the new values
-        Console.Write("cost:");
-        if (!double.TryParse(Console.ReadLine()!, out double cost))
-            throw new ArgumentException("Invalid input");
-
-        Console.Write("name:");
-        string name = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(name)) throw new ArgumentNullException();
-
-        Console.WriteLine("email:");
-        string email = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(email)) throw new ArgumentNullException();
-
-        Console.WriteLine("level:");
-        EngineerExperience level = 0;
-        if(!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience experience)) 
-            throw new ArgumentException("Invalid input");
-        level = experience;
-        //create the new engineer
-        Engineer engineer = new(
-            id,
-            cost,
-            name,
-            email,
-            level
-        );
+        Engineer engineer = EngineerCreation();//create the new engineer
         s_dalEngineer.Update(engineer);//update the engineer
     }
 
@@ -452,29 +231,10 @@ internal class Program
             throw new ArgumentException("Invalid input");
         s_dalEngineer.Delete(id);//delete the engineer
     }
-
+    //--------------------------------------------------------------------------------------------------------------
     private static void CreateDependency()
     {
-        Console.WriteLine("Enter the values of the dependency:");
-
-        //get the new values
-        Console.Write("task id:");
-        int? taskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependent))
-            taskId = dependent;
-
-        Console.Write("depend on task id:");
-        int? dependOnTaskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependsOn))
-            dependOnTaskId = dependsOn;
-
-
-        //create the new dependency
-        Dependency dependency = new(
-            0,
-            taskId,
-            dependOnTaskId
-        );
+        Dependency dependency = DependencyCreation();//create the dependency
         s_dalDependency.Create(dependency);//add the dependency to the data base
 
     }
@@ -512,26 +272,7 @@ internal class Program
         Console.WriteLine("The old dependency:");
         Console.WriteLine(oldDependency);//print the dependency
 
-        Console.WriteLine("Enter the new values of the dependency:");
-
-        //get the new values
-        Console.Write("task id:");
-        int? taskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependent))
-            taskId = dependent;
-
-        Console.Write("depend on task id:");
-        int? dependOnTaskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependsOn))
-            dependOnTaskId = dependsOn;
-
-
-        //create the new dependency
-        Dependency dependency = new(
-            id,
-            taskId,
-            dependOnTaskId
-        );
+        Dependency dependency = DependencyCreation();//create the new dependency
         s_dalDependency.Update(dependency);//update the dependency
     }
 
@@ -542,11 +283,164 @@ internal class Program
         s_dalDependency.Delete(id);//delete the dependency
     }
 
+    //create a new task
+    private static Task TaskCreation()
+    {
+        // because we have nullable values we need to use temp variables to check if the input is valid
+        DateTime temp1;// to use for the nullable dates
+        TimeSpan temp2;// to use for the nullable time span
+        int temp3;
+
+        Console.WriteLine("Enter the values of the task:");
+
+        //get the new values
+        Console.Write("alias:");
+        string alias = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if (string.IsNullOrWhiteSpace(alias))// if the input is still null or empty or only spaces
+            throw new ArgumentNullException();
+
+        Console.Write("description:");
+        string description = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if (string.IsNullOrWhiteSpace(description))// if the input is still null or empty or only spaces
+            throw new ArgumentNullException();
+
+        Console.Write("created at date:");
+        if (!DateTime.TryParse(Console.ReadLine()!, out DateTime createdAtDate))
+            throw new ArgumentException("Invalid input");
+
+        Console.Write("scheduled date:");
+        DateTime? scheduledDate = null;// we initialize the nullable to default 
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            scheduledDate = temp1;// we change the nullable to the input
+
+        Console.Write("start date:");
+        DateTime? startDate = null;// we initialize the nullable to default
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            startDate = temp1;// we change the nullable to the input
+
+        Console.Write("required effort time:");
+        TimeSpan? requiredEffortTime = null;// we initialize the nullable to default
+        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))// if the input is valid
+            requiredEffortTime = temp2;// we change the nullable to the input
+
+        Console.Write("deadline date:");
+        DateTime? deadlineDate = null;// we initialize the nullable to default
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            deadlineDate = temp1;// we change the nullable to the input
+
+        Console.Write("complete date:");
+        DateTime? completeDate = null;// we initialize the nullable to default
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            completeDate = temp1;// we change the nullable to the input
+
+        Console.Write("deliverables:");
+        string? deliverables = Console.ReadLine();
+
+        Console.Write("remarks:");
+        string? remarks = Console.ReadLine();
+
+        Console.Write("engineer id:");
+        int? engineerId = null;// we initialize the nullable to default
+        if (int.TryParse(Console.ReadLine(), out temp3))// if the input is valid
+            engineerId = temp3;// we change the nullable to the input
+
+        Console.Write("copmlexity:");
+        EngineerExperience? copmlexity = null;// we initialize the nullable to default
+        if (Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
+            copmlexity = experience;//if the input is valid we change the nullable to the input
+
+        //create the new task
+        Task task = new(
+            0,// we put 0 because the id is auto increment
+            alias,
+            description,
+            createdAtDate,
+            false,// told us to put only null for now
+            scheduledDate,
+            startDate,
+            requiredEffortTime,
+            deadlineDate,
+            completeDate,
+            deliverables,
+            remarks,
+            engineerId,
+            copmlexity
+        );
+        return task;
+    }
+
+    //create a new engineer
+    private static Engineer EngineerCreation()
+    {
+        Console.WriteLine("Enter the values of the engineer:");
+
+        //get the new values
+        Console.Write("id:");
+        if (!int.TryParse(Console.ReadLine()!, out int id))// if the input is not valid
+            throw new ArgumentException("Invalid input");// throw an exception
+
+        Console.Write("cost:");
+        if (!double.TryParse(Console.ReadLine()!, out double cost))// if the input is not valid
+            throw new ArgumentException("Invalid input");// throw an exception
+
+        Console.Write("name:");
+        string name = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if (string.IsNullOrWhiteSpace(name)) 
+            throw new ArgumentNullException();// if the input is still null or empty or only spaces
+
+        Console.Write("email:");
+        string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentNullException();// if the input is still null or empty or only spaces
+
+        Console.Write("level:");
+        // if the input is not valid or not in the enum we will throw an exception
+        if (!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience level))
+            throw new ArgumentException("Invalid input");
+
+        //create the new engineer
+        Engineer engineer = new(
+            id,
+            cost,
+            name,
+            email,
+            level
+        );
+        return engineer;
+    }
+
+    //create a new dependency
+    private static Dependency DependencyCreation()
+    {
+        Console.WriteLine("Enter the values of the dependency:");
+
+        //get the new values
+        Console.Write("task id:");
+        int? taskId = null;// we initialize the nullable to default
+        if (int.TryParse(Console.ReadLine(), out int dependent))// if the input is valid
+            taskId = dependent;// we change the nullable to the input
+
+        Console.Write("depend on task id:");
+        int? dependOnTaskId = null;// we initialize the nullable to default
+        if (int.TryParse(Console.ReadLine(), out int dependsOn))// if the input is valid
+            dependOnTaskId = dependsOn;// we change the nullable to the input
+
+
+        //create the new dependency
+        Dependency dependency = new(
+            0,
+            taskId,
+            dependOnTaskId
+        );
+        return dependency;
+    }
+
     static void Main(string[] args)
     {
-        Initialization.DO(s_dalTask, s_dalEngineer, s_dalDependency);
+        Initialization.DO(s_dalTask, s_dalEngineer, s_dalDependency);//initialize the data base
 
-        Console.WriteLine("!strat of the program!\n");
-        ShowMenu();
+        Console.WriteLine("!start of the program!\n");
+        ShowMenu();//show the menu
+        Console.ReadKey();
     }
 }
