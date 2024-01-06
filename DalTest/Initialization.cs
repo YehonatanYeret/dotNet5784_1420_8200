@@ -9,6 +9,9 @@ public static class Initialization
 
     private static readonly Random s_rand = new();
 
+    const int COST = 10000;
+    const int ID = 200000000;
+
     private static void creatTask()
     {
         (string, string)[] aliasAndDescription = new (string, string)[] {
@@ -56,13 +59,13 @@ public static class Initialization
             do
             {
                 try {
-                    id = s_rand.Next(200000000, 400000001);//random id from 200000000 to 400000000
+                    id = s_rand.Next(ID, 2*ID + 1);//random id from 200000000 to 400000000
                     findEngineer = s_dalEngineer!.Read(id); 
                 }//try to read the engineer with the id
                 catch { findEngineer = null;}
             } while (findEngineer != null);//check if id already exist
 
-            int cost = s_rand.Next(10000, 20001);//random cost from 10000 to 20000
+            int cost = s_rand.Next(COST, 2*COST + 1);//random cost from 10000 to 20000
             string email = name + emails[s_rand.Next(emails.Length)];//random email
             EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5);//random engineerExperience
 
