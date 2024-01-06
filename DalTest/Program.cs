@@ -166,7 +166,7 @@ internal class Program
         Console.WriteLine("The old task:");
         Console.WriteLine(oldTask);//print the task
 
-        Task task = TaskCreation();//create the new task
+        Task task = TaskCreation(id);//create the new task
         s_dalTask.Update(task);//update the task
     }
 
@@ -272,7 +272,7 @@ internal class Program
         Console.WriteLine("The old dependency:");
         Console.WriteLine(oldDependency);//print the dependency
 
-        Dependency dependency = DependencyCreation();//create the new dependency
+        Dependency dependency = DependencyCreation(id);//create the new dependency
         s_dalDependency.Update(dependency);//update the dependency
     }
 
@@ -284,7 +284,7 @@ internal class Program
     }
 
     //create a new task
-    private static Task TaskCreation()
+    private static Task TaskCreation(int id = 0)
     {
         // because we have nullable values we need to use temp variables to check if the input is valid
         DateTime temp1;// to use for the nullable dates
@@ -351,11 +351,12 @@ internal class Program
 
         //create the new task
         Task task = new(
-            0,// we put 0 because the id is auto increment
+            id,// we put 0 because the id is auto increment
             alias,
             description,
             createdAtDate,
             false,// told us to put only null for now
+            true,
             scheduledDate,
             startDate,
             requiredEffortTime,
@@ -410,7 +411,7 @@ internal class Program
     }
 
     //create a new dependency
-    private static Dependency DependencyCreation()
+    private static Dependency DependencyCreation(int id = 0)
     {
         Console.WriteLine("Enter the values of the dependency:");
 
@@ -428,7 +429,7 @@ internal class Program
 
         //create the new dependency
         Dependency dependency = new(
-            0,
+            id,
             taskId,
             dependOnTaskId
         );
