@@ -49,10 +49,10 @@ public static class Initialization
 
     private static void creatEngineer()
     {
-        string[] firstName = new string[] { "Adam Chohen", "Alex Charcov", "Aaron Israeli", "Ben Baruch", "Carlo Batusik", "Asaf Lotz" };
+        (string, string)[] names = new (string, string)[] { ("Adam", "Chohen"), ("Alex", "Charcov"), ("Aaron", "Israeli"), ("Ben" ,"Baruch"), ("David", "Levi"), ("Asaf", "Bir") };
         string[] emails = new string[] { "@gmail.com", "@hotmail.com", "@yahoo.com", "@walla.com", "@outlook.com" };
 
-        foreach (string name in firstName)
+        foreach ((string fName, string lName) in names)
         {
             int id=0;// add defaulte value
             Engineer? findEngineer;
@@ -66,10 +66,10 @@ public static class Initialization
             } while (findEngineer != null);//check if id already exist
 
             int cost = s_rand.Next(COST, 2*COST + 1);//random cost from 10000 to 20000
-            string email = name + emails[s_rand.Next(emails.Length)];//random email
+            string email = fName + emails[s_rand.Next(emails.Length)];//random email
             EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5);//random engineerExperience
 
-            Engineer engineer = new(id, cost, name, email, engineerExperience);//create new engineer
+            Engineer engineer = new(id, cost, fName + " " + lName, email, engineerExperience);//create new engineer
 
             id = s_dalEngineer!.Create(engineer);//add to data base
             

@@ -218,7 +218,7 @@ internal class Program
         Console.WriteLine("The old engineer:");
         Console.WriteLine(oldEngineer);//print the engineer
 
-        Engineer engineer = EngineerCreation();//create the new engineer
+        Engineer engineer = EngineerCreation(id);//create the new engineer
         s_dalEngineer.Update(engineer);//update the engineer
     }
 
@@ -371,14 +371,17 @@ internal class Program
     }
 
     //create a new engineer
-    private static Engineer EngineerCreation()
+    private static Engineer EngineerCreation(int id = 0)
     {
         Console.WriteLine("Enter the values of the engineer:");
 
         //get the new values
-        Console.Write("id:");
-        if (!int.TryParse(Console.ReadLine()!, out int id))// if the input is not valid
-            throw new ArgumentException("Invalid input");// throw an exception
+        if (id == 0)
+        {
+            Console.Write("id:");
+            if (!int.TryParse(Console.ReadLine()!, out id))// if the input is not valid
+                throw new ArgumentException("Invalid input");// throw an exception
+        }
 
         Console.Write("cost:");
         if (!double.TryParse(Console.ReadLine()!, out double cost))// if the input is not valid
