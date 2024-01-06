@@ -459,12 +459,15 @@ internal class Program
 
         //get the new values
         Console.Write("task id:");
-        if (int.TryParse(Console.ReadLine(), out int taskId))
-            throw new ArgumentException("Invalid input");
+        int? taskId = null;
+        if (int.TryParse(Console.ReadLine(), out int dependent))
+            taskId = dependent;
 
         Console.Write("depend on task id:");
-        if (int.TryParse(Console.ReadLine(), out int dependOnTaskId))
-            throw new ArgumentException("Invalid input");
+        int? dependOnTaskId = null;
+        if (int.TryParse(Console.ReadLine(), out int dependsOn))
+            dependOnTaskId = dependsOn;
+
 
         //create the new dependency
         Dependency dependency = new(
@@ -513,12 +516,15 @@ internal class Program
 
         //get the new values
         Console.Write("task id:");
-        if (int.TryParse(Console.ReadLine(), out int taskId))
-            throw new ArgumentException("Invalid input");
+        int? taskId = null;
+        if (int.TryParse(Console.ReadLine(), out int dependent))
+            taskId = dependent;
 
         Console.Write("depend on task id:");
-        if (int.TryParse(Console.ReadLine(), out int dependOnTaskId))
-            throw new ArgumentException("Invalid input");
+        int? dependOnTaskId = null;
+        if (int.TryParse(Console.ReadLine(), out int dependsOn))
+            dependOnTaskId = dependsOn;
+
 
         //create the new dependency
         Dependency dependency = new(
