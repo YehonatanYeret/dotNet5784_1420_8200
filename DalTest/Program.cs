@@ -445,6 +445,7 @@ internal class Program
 
         Console.WriteLine("!start of the program!\n");
         ShowMenu();//show the menu
+        Console.WriteLine("press any key to continue");
         Console.ReadKey();
     }
 }
