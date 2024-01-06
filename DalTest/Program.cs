@@ -10,6 +10,7 @@ internal class Program
     private static IDependency? s_dalDependency = new DependencyImplementation();//stage 1
     private static ITask? s_dalTask = new TaskImplementation();//stage 1
     private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
+
     static void ShowMenu()
     {
         int choice = 0 ;
@@ -132,7 +133,6 @@ internal class Program
 
     static void CreateTask()
     {
-        Exception e = new Exception("Invalid input");
         DateTime temp1;// to use for the nullable dates
         TimeSpan temp2;
         int temp3;
@@ -141,18 +141,18 @@ internal class Program
         //get the new values
         Console.Write("alias:");
         string alias = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(alias))
-            throw e;
-
+        if (string.IsNullOrWhiteSpace(alias))
+            throw new ArgumentNullException();
+        
         Console.Write("description:");
         string description = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(description))
-            throw e;
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentNullException();
 
         Console.Write("created at date:");
         DateTime createdAtDate;
         if(!DateTime.TryParse(Console.ReadLine()!, out createdAtDate))
-            throw e;
+            throw new ArgumentException("Invalid input");
 
         Console.Write("scheduled date:");
         DateTime? scheduledDate=null;
@@ -222,7 +222,9 @@ internal class Program
     static void ReadTask()
     {
         Console.WriteLine("Enter the id of the task:");
-        int id = int.Parse(Console.ReadLine()!);
+        if (!int.TryParse(Console.ReadLine(), out int id))
+            throw new ArgumentException("Invalid input");
+
         Task? task = s_dalTask.Read(id);//find the task with the id
         Console.WriteLine(task);//print the task
     }
@@ -240,11 +242,9 @@ internal class Program
 
     static void UpdateTask()
     {
-        Exception e = new Exception("Invalid input");
-
         Console.WriteLine("Enter the id of the task:");
         if (!int.TryParse(Console.ReadLine()!, out int id))
-            throw e;
+            throw new ArgumentException("Invalid input"); ;
 
         Task? oldTask = s_dalTask.Read(id);//find the index of the task with the same id
         Console.WriteLine("The old task:");
@@ -258,18 +258,18 @@ internal class Program
         //get the new values
         Console.Write("alias:");
         string alias = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(alias))
-            throw e;
+        if (string.IsNullOrWhiteSpace(alias))
+            throw new ArgumentNullException();
 
         Console.Write("description:");
         string description = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(description))
-            throw e;
+        if (string.IsNullOrWhiteSpace(description))
+            throw new ArgumentNullException();
 
         Console.Write("created at date:");
         DateTime createdAtDate;
         if (!DateTime.TryParse(Console.ReadLine()!, out createdAtDate))
-            throw e;
+            throw new ArgumentException("Invalid input");
 
         Console.Write("scheduled date:");
         DateTime? scheduledDate = null;
@@ -337,36 +337,37 @@ internal class Program
     static void DeleteTask()
     {
         Console.WriteLine("Enter the id of the task:");
-        int id = int.Parse(Console.ReadLine()!);
+        if(!int.TryParse(Console.ReadLine()!, out int id))
+            throw new ArgumentException("Invalid input"); 
         s_dalTask.Delete(id);//delete the task
     }
 
     private static void CreateEngineer()
     {
-        Exception e = new Exception("Invalid input");
         Console.WriteLine("Enter the values of the engineer:");
 
         //get the new values
         Console.Write("id:");
         if(!int.TryParse(Console.ReadLine(),out int id))
-            throw e;
+            throw new ArgumentException("Invalid input"); 
 
         Console.Write("cost:");
         if(!double.TryParse(Console.ReadLine()! ,out double cost))
-            throw e;
+            throw new ArgumentException("Invalid input");
 
         Console.Write("name:");
         string name = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(name)) throw e;
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException();
 
         Console.WriteLine("email:");
         string email = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(email)) throw e;
+        if (string.IsNullOrWhiteSpace(email)) throw new ArgumentNullException();
 
         Console.WriteLine("level:");
         EngineerExperience level = 0;
         if(!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience experience))
-            throw e;
+            throw new ArgumentException("Invalid input");
+
         level = experience;
         //create the new engineer
         Engineer engineer = new(
@@ -384,7 +385,8 @@ internal class Program
         Console.WriteLine("Enter the id of the engineer:");
 
         //get the id of the engineer
-        int id = int.Parse(Console.ReadLine()!);
+        if (!int.TryParse(Console.ReadLine(), out int id))
+            throw new ArgumentException("Invalid input");
         Engineer? engineer = s_dalEngineer.Read(id) ;
         Console.WriteLine(engineer);//print the engineer
     }
@@ -403,11 +405,10 @@ internal class Program
 
     private static void UpdateEngineer()
     {
-        Exception e = new Exception("Invalid input");
 
         Console.WriteLine("Enter the id of the engineer:");
-        if (!int.TryParse(Console.ReadLine()!, out int id))
-            throw e;
+        if (!int.TryParse(Console.ReadLine(), out int id))
+            throw new ArgumentException("Invalid input");
 
         Engineer? oldEngineer = s_dalEngineer.Read(id);//find the index of the engineer with the same id
         Console.WriteLine("The old engineer:");
@@ -416,20 +417,20 @@ internal class Program
         //get the new values
         Console.Write("cost:");
         if (!double.TryParse(Console.ReadLine()!, out double cost))
-            throw e;
+            throw new ArgumentException("Invalid input");
 
         Console.Write("name:");
         string name = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(name)) throw e;
+        if (string.IsNullOrEmpty(name)) throw new ArgumentNullException();
 
         Console.WriteLine("email:");
         string email = Console.ReadLine()!;
-        if (string.IsNullOrEmpty(email)) throw e;
+        if (string.IsNullOrEmpty(email)) throw new ArgumentNullException();
 
         Console.WriteLine("level:");
         EngineerExperience level = 0;
         if(!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience experience)) 
-            throw e;
+            throw new ArgumentException("Invalid input");
         level = experience;
         //create the new engineer
         Engineer engineer = new(
@@ -447,7 +448,8 @@ internal class Program
         Console.WriteLine("Enter the id of the engineer:");
 
         //get the id of the engineer
-        int id = int.Parse(Console.ReadLine()!);
+        if(!int.TryParse(Console.ReadLine()!,out int id))
+            throw new ArgumentException("Invalid input");
         s_dalEngineer.Delete(id);//delete the engineer
     }
 
@@ -457,14 +459,12 @@ internal class Program
 
         //get the new values
         Console.Write("task id:");
-        int? taskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependent))
-            taskId = dependent;
+        if (int.TryParse(Console.ReadLine(), out int taskId))
+            throw new ArgumentException("Invalid input");
 
         Console.Write("depend on task id:");
-        int? dependOnTaskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependsOn))
-            dependOnTaskId = dependsOn;
+        if (int.TryParse(Console.ReadLine(), out int dependOnTaskId))
+            throw new ArgumentException("Invalid input");
 
         //create the new dependency
         Dependency dependency = new(
@@ -480,7 +480,9 @@ internal class Program
     {
         //get the id of the dependency
         Console.WriteLine("Enter the id of the dependency:");
-        int id = int.Parse(Console.ReadLine()!);
+        if (!int.TryParse(Console.ReadLine(), out int id))
+            throw new ArgumentException("Invalid input");
+
         Dependency? dependency = s_dalDependency.Read(id);
         Console.WriteLine(dependency);//print the dependency
     }
@@ -499,27 +501,24 @@ internal class Program
 
     private static void UpdateDependency()
     {
-        Exception e = new Exception("Invalid input");
-
         Console.Write("Enter the id of the dependency:");
         if (!int.TryParse(Console.ReadLine()!, out int id))
-            throw e;
+            throw new ArgumentException("Invalid input");
 
         Dependency? oldDependency = s_dalDependency.Read(id);//find the index of the dependency with the same id
         Console.WriteLine("The old dependency:");
         Console.WriteLine(oldDependency);//print the dependency
 
         Console.WriteLine("Enter the new values of the dependency:");
+
         //get the new values
         Console.Write("task id:");
-        int? taskId = null;
-        if(int.TryParse(Console.ReadLine(), out int dependent))
-            taskId = dependent;
+        if (int.TryParse(Console.ReadLine(), out int taskId))
+            throw new ArgumentException("Invalid input");
 
         Console.Write("depend on task id:");
-        int? dependOnTaskId = null;
-        if (int.TryParse(Console.ReadLine(), out int dependsOn))
-        dependOnTaskId = dependsOn;
+        if (int.TryParse(Console.ReadLine(), out int dependOnTaskId))
+            throw new ArgumentException("Invalid input");
 
         //create the new dependency
         Dependency dependency = new(
