@@ -141,12 +141,12 @@ internal class Program
         //get the new values
         Console.Write("alias:");
         string alias = Console.ReadLine()!;
-        if(alias=="")
+        if (string.IsNullOrEmpty(alias))
             throw e;
 
         Console.Write("description:");
         string description = Console.ReadLine()!;
-        if (description == "")
+        if (string.IsNullOrEmpty(description))
             throw e;
 
         Console.Write("created at date:");
@@ -258,12 +258,12 @@ internal class Program
         //get the new values
         Console.Write("alias:");
         string alias = Console.ReadLine()!;
-        if (alias == "")
+        if (string.IsNullOrEmpty(alias))
             throw e;
 
         Console.Write("description:");
         string description = Console.ReadLine()!;
-        if (description == "")
+        if (string.IsNullOrEmpty(description))
             throw e;
 
         Console.Write("created at date:");
@@ -312,16 +312,15 @@ internal class Program
         Console.Write("copmlexity:");
         EngineerExperience? copmlexity = null;
         if (Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
-        {
             copmlexity = experience;
-        }
+
         //create the new task
         Task task = new(
             id,
             alias,
             description,
             createdAtDate,
-            false,
+            false,// told us to put only null for now
             scheduledDate,
             startDate,
             requiredEffortTime,
@@ -358,11 +357,11 @@ internal class Program
 
         Console.Write("name:");
         string name = Console.ReadLine()!;
-        if (name == "") throw e;
+        if (string.IsNullOrEmpty(name)) throw e;
 
         Console.WriteLine("email:");
         string email = Console.ReadLine()!;
-        if(email=="") throw e;
+        if (string.IsNullOrEmpty(email)) throw e;
 
         Console.WriteLine("level:");
         EngineerExperience level = 0;
@@ -421,11 +420,11 @@ internal class Program
 
         Console.Write("name:");
         string name = Console.ReadLine()!;
-        if (name == "") throw e;
+        if (string.IsNullOrEmpty(name)) throw e;
 
         Console.WriteLine("email:");
         string email = Console.ReadLine()!;
-        if (email == "") throw e;
+        if (string.IsNullOrEmpty(email)) throw e;
 
         Console.WriteLine("level:");
         EngineerExperience level = 0;
