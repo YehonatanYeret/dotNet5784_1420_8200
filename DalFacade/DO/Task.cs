@@ -8,6 +8,7 @@
 /// <param name="Description"></param>
 /// <param name="CreatedAtDate">the time when the task have been created</param>
 /// <param name="IsMileStone"> does the task is a milestone</param>
+/// <param name="isActive">is the task active</param>
 /// <param name="ScheduledDate">the planned start date</param>
 /// <param name="StartDate">the real start date</param>
 /// <param name="RequiredEffortTime">how many days needed for the task</param>
@@ -24,6 +25,7 @@ public record Task
     string Description,
     DateTime CreatedAtDate,
     bool IsMileStone = false,
+    bool isActive = true,
     DateTime? ScheduledDate = null,
     DateTime? StartDate = null,
     TimeSpan? RequiredEffortTime = null,
@@ -33,7 +35,7 @@ public record Task
     string? Remarks = null,
     int? EngineerId = null,
     EngineerExperience? Copmlexity = null
-    //we can add a bool field to check if the task is done or not
+
 )
 {
     public Task() : this(0, "", "", DateTime.Now) { }// empty ctor for task
