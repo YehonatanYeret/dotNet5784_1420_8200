@@ -12,6 +12,9 @@ public static class Initialization
     const int COST = 10000;
     const int ID = 200000000;
 
+    /// <summary>
+    /// creat all the tasks
+    /// </summary>
     private static void creatTask()
     {
         (string, string)[] aliasAndDescription = new (string, string)[] {
@@ -47,6 +50,9 @@ public static class Initialization
         }
     }
 
+    /// <summary>
+    /// creat all the engineers
+    /// </summary>
     private static void creatEngineer()
     {
         (string, string)[] names = new (string, string)[] { ("Adam", "Chohen"), ("Alex", "Charcov"), ("Aaron", "Israeli"), ("Ben" ,"Baruch"), ("David", "Levi"), ("Asaf", "Bir") };
@@ -75,6 +81,9 @@ public static class Initialization
             
         }
     }
+    /// <summary>
+    /// creat all the dependencies
+    /// </summary>
     private static void creatDependency()
     {
         //all of the dependencies, first number is the id of the task and the second is the id of the task it depends on:
@@ -98,6 +107,12 @@ public static class Initialization
         }
     }
 
+    /// <summary>
+    /// creat all the tasks, engineers and dependencies
+    /// </summary>
+    /// <param name="dalTask">list of tasks</param>
+    /// <param name="dalEngineer">list of engineerss</param>
+    /// <param name="dalDependency">list of dependencies</param>
     public static void DO(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
     {
         s_dalTask = dalTask?? throw new NullReferenceException("Dal cannot be null!");

@@ -4,6 +4,7 @@ using DO;
 
 public class EngineerImplementation : IEngineer
 {
+    //create a new engineer
     public int Create(Engineer item)
     {
         Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == item.Id);
@@ -14,6 +15,7 @@ public class EngineerImplementation : IEngineer
         return item.Id;//return the id
     }
 
+    //read a engineer and return it. if not found return null
     public Engineer? Read(int id)
     {
         Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == id);//find the engineer with the id and if not found return null
@@ -22,11 +24,13 @@ public class EngineerImplementation : IEngineer
         return engineer;
     }
 
+    //return a copy of the list of engineers
     public List<Engineer> ReadAll()
     {
         return new List<Engineer>(DataSource.Engineers);//return a copy of the list of engineers
     }
 
+    //update a engineer by removing the old one and adding the new one
     public void Update(Engineer item)
     {
         Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == item.Id);//find the index of the engineer with the same id
@@ -36,11 +40,11 @@ public class EngineerImplementation : IEngineer
         DataSource.Engineers.Remove(engineer);//remove the engineer
         DataSource.Engineers.Add(item);//add the new engineer
     }
+    
+    //we dont need to check if there is no tasks with the engineer id because we will check it in the logic layer
     public void Delete(int id)
     {
-        Task? task = DataSource.Tasks.Find(engineer => engineer.EngineerId == id);//find the index of the task with the same id that the engineer is working on
-        if (task != null)//the engineer is working on a task
-            throw new Exception($"cannot delete the engineer with the ID={id} because he works on the task with the ID={task.Id}");
+        //we dont need to check if there is no tasks with the engineer id because we will check it in the logic layer
 
         Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == id);//find the index of the engineer with the same id
         if (engineer == null)//if not found

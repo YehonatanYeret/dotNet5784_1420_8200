@@ -4,6 +4,7 @@ using DO;
 
 public class TaskImplementation : ITask
 {
+    //create a new task
     public int Create(Task item)
     {
         int ID = DataSource.Config.NextTaskId;//get the next id
@@ -12,11 +13,13 @@ public class TaskImplementation : ITask
         return ID;//return the id
     }
 
+    //read a task and return it. if not found return null
     public Task? Read(int id)
     {
         return DataSource.Tasks.Find(task => task.Id == id && task.isActive);//find the task with the id and if not found return null
     }
 
+    //return a copy of the list of tasks
     public List<Task> ReadAll()
     {
         //return the list of tasks but only with the active ones
@@ -29,6 +32,7 @@ public class TaskImplementation : ITask
         return  (tList);//return a copy of the list of tasks
     }
 
+    //update a task by removing the old one and adding the new one
     public void Update(Task item)
     {
         Task? task =  DataSource.Tasks.Find(task => task.Id == item.Id && task.isActive);//find the index of the task with the same id
@@ -42,6 +46,7 @@ public class TaskImplementation : ITask
         DataSource.Tasks.Add(item);//add the new task
     }
 
+    //we dont need to check if there is no tasks with the task id because we will check it in the logic layer
     public void Delete(int id)
     {
         Task? task = DataSource.Tasks.Find(task => task.Id == id && task.isActive);//find the index of the task with the same id
