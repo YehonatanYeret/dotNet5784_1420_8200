@@ -18,8 +18,6 @@ internal class Program
         int choice;
         do
         {
-            try// try to get the choice and for all the exceptions below
-            {
                 Console.WriteLine("Choose an option:\n" +
                     "0. Exit \n" +
                     "1. task \n" +
@@ -34,12 +32,7 @@ internal class Program
                     throw new ArgumentOutOfRangeException("Invalid input");
 
                 SubMenu(choice);// call the sub menu
-            }
-            catch (Exception ex)// catch all the exceptions
-            {
-                Console.WriteLine(ex.Message);// print the exception
-                choice = 10 ;// initialize the choice to 10 so we will not exit the program
-            }
+            
         } while (choice != 0);
     }
 
@@ -59,70 +52,77 @@ internal class Program
                 "3. ReadAll\n"+
                 "4. Update\n"+
                 "5. Delete\n");
-
-            if(!int.TryParse(Console.ReadLine(), out subChoice))
+        try
+        {
+            if (!int.TryParse(Console.ReadLine(), out subChoice))
                 throw new ArgumentException("Invalid input");// if we entered invalid response 
 
             switch (choice, subChoice)
-                {
-                    case (1, 1):// task create
-                        CreateTask();
-                        break;
-                    case (1, 2):// task read
-                        ReadTask();
-                        break;
-                    case (1, 3):
-                        ReadAllTask();// task read all
-                        break;
-                    case (1, 4):
-                        UpdateTask();// task update
-                        break;
-                    case (1, 5):
-                        DeleteTask();// task delete
-                        break;
+            {
+                case (1, 1):// task create
+                    CreateTask();
+                    break;
+                case (1, 2):// task read
+                    ReadTask();
+                    break;
+                case (1, 3):
+                    ReadAllTask();// task read all
+                    break;
+                case (1, 4):
+                    UpdateTask();// task update
+                    break;
+                case (1, 5):
+                    DeleteTask();// task delete
+                    break;
 
-                    case (2, 1):/// engineer create
-                        CreateEngineer();
-                        break;
-                    case (2, 2):
-                        ReadEngineer();// engineer read
-                        break;
-                    case (2, 3):
-                        ReadAllEngineer();// engineer read all
-                        break;
-                    case (2, 4):
-                        UpdateEngineer();// engineer update
-                        break;
-                    case (2, 5):
-                        DeleteEngineer();// engineer delete
-                        break;
+                case (2, 1):/// engineer create
+                    CreateEngineer();
+                    break;
+                case (2, 2):
+                    ReadEngineer();// engineer read
+                    break;
+                case (2, 3):
+                    ReadAllEngineer();// engineer read all
+                    break;
+                case (2, 4):
+                    UpdateEngineer();// engineer update
+                    break;
+                case (2, 5):
+                    DeleteEngineer();// engineer delete
+                    break;
 
-                    case (3, 1):
-                        CreateDependency();// dependency create
-                        break;
-                    case (3, 2):
-                        ReadDependency();// dependency read
-                        break;
-                    case (3, 3):
-                        ReadAllDependency();// dependency read all
-                        break;
-                    case (3, 4):
-                        UpdateDependency();// dependency update
-                        break;
-                    case (3, 5):
-                        DeleteDependency();// dependency delete
-                        break;
+                case (3, 1):
+                    CreateDependency();// dependency create
+                    break;
+                case (3, 2):
+                    ReadDependency();// dependency read
+                    break;
+                case (3, 3):
+                    ReadAllDependency();// dependency read all
+                    break;
+                case (3, 4):
+                    UpdateDependency();// dependency update
+                    break;
+                case (3, 5):
+                    DeleteDependency();// dependency delete
+                    break;
 
-                    case (1, 0):// if we chose 0 we will go back to the main menu
-                    case (2, 0):
-                    case (3, 0):
-                        break;
+                case (1, 0):// if we chose 0 we will go back to the main menu
+                case (2, 0):
+                case (3, 0):
+                    break;
 
-                    default:// if we chose any other number we will throw an exception
-                        throw new ArgumentOutOfRangeException("Invalid input");
-                }
+                default:// if we chose any other number we will throw an exception
+                    throw new ArgumentOutOfRangeException("Invalid input");
+            }
+        }
+           catch (Exception ex)// catch all the exceptions
+           {
+                Console.WriteLine(ex.Message);// print the exception
+                subChoice = 10;// initialize the choice to 10 so we will not exit the program
+           }
 
-        }while (subChoice != 0);
+        } while (subChoice != 0);
     }
     /// <summary>
     /// create a new task and add it to the data base
@@ -478,11 +478,18 @@ internal class Program
 
     static void Main(string[] args)
     {
-        Initialization.DO(s_dalTask, s_dalEngineer, s_dalDependency);//initialize the data base
+        try
+        {
+            Initialization.DO(s_dalTask, s_dalEngineer, s_dalDependency);//initialize the data base
 
-        Console.WriteLine("!start of the program!\n");
-        ShowMenu();//show the menu
-        Console.WriteLine("press any key to continue");
+            Console.WriteLine("!start of the program!\n");
+            ShowMenu();//show the menu
+            Console.WriteLine("press any key to continue");
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
         Console.ReadKey();
     }
 }
