@@ -10,6 +10,9 @@ internal class Program
     private static ITask? s_dalTask = new TaskImplementation();//stage 1
     private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
 
+    /// <summary>
+    /// show the menu and call the sub menu with the choice
+    /// </summary>
     static void ShowMenu()
     {
         int choice;
@@ -27,21 +30,10 @@ internal class Program
                 if (!int.TryParse(Console.ReadLine(), out choice))// try to get the choice
                     throw new ArgumentException("Invalid input");// if we entered invalid response 
 
-                switch (choice)
-                {
-                    case 0:
-                        return;
-                    case 1:
-                    case 2:
-                    case 3:// if we chose 1,2 or 3 we will go to the sub menu
-                        SubMenu(choice);
-                        break;
-                    case 4:// if we chose 4 we will clear the console
-                        Console.Clear();
-                        break;
-                    default:// if we chose any other number we will throw an exception
-                        throw new ArgumentOutOfRangeException("Invalid input");
-                }
+                if(choice>4 || choice<0)// if we chose any other number we will throw an exception
+                    throw new ArgumentOutOfRangeException("Invalid input");
+
+                SubMenu(choice);// call the sub menu
             }
             catch (Exception ex)// catch all the exceptions
             {
@@ -51,6 +43,10 @@ internal class Program
         } while (choice != 0);
     }
 
+    /// <summary>
+    /// print the sub menu and call the function that the user chose
+    /// </summary>
+    /// <param name="choice">the choice from the previuos menu</param>
     static void SubMenu(int choice)
     {
         int subChoice;
@@ -128,23 +124,30 @@ internal class Program
 
         }while (subChoice != 0);
     }
-
+    /// <summary>
+    /// create a new task and add it to the data base
+    /// </summary>
     static void CreateTask()
     {
-        Task task = TaskCreation();//create the task
+        int id = GetId();
+        Task task = TaskCreation(id);//create the task
         s_dalTask.Create(task);//add the task to the data base
     }
 
+    /// <summary>
+    /// read a task from the data base and print it
+    /// </summary>
     static void ReadTask()
     {
-        Console.WriteLine("Enter the id of the task:");
-        if (!int.TryParse(Console.ReadLine(), out int id))// if the input is not valid
-            throw new ArgumentException("Invalid input");// throw an exception
+        int id = GetId();
 
         Task? task = s_dalTask.Read(id);//find the task with the id
         Console.WriteLine(task);//print the task
     }
 
+    /// <summary>
+    /// return all the tasks from the data base and print them
+    /// </summary>
     static void ReadAllTask()
     {
         Console.WriteLine("All of the tasks:");
@@ -156,12 +159,12 @@ internal class Program
         }
     }
 
+    /// <summary>
+    /// update a task from the data base
+    /// </summary>
     static void UpdateTask()
     {
-        Console.WriteLine("Enter the id of the task:");
-        if (!int.TryParse(Console.ReadLine()!, out int id))
-            throw new ArgumentException("Invalid input"); ;
-
+        int id = GetId();
         Task? oldTask = s_dalTask.Read(id);//find the index of the task with the same id
         Console.WriteLine("The old task:");
         Console.WriteLine(oldTask);//print the task
@@ -170,31 +173,41 @@ internal class Program
         s_dalTask.Update(task);//update the task
     }
 
+    /// <summary>
+    /// delete a task from the data base
+    /// </summary>
     static void DeleteTask()
     {
-        Console.WriteLine("Enter the id of the task:");
-        if(!int.TryParse(Console.ReadLine()!, out int id))
-            throw new ArgumentException("Invalid input"); 
+        int id = GetId();
         s_dalTask.Delete(id);//delete the task
     }
-    //--------------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// create a new engineer and add it to the data base
+    /// </summary>
     private static void CreateEngineer()
     {
-        Engineer engineer = EngineerCreation();//create the engineer
+        int id = GetId();
+        Engineer engineer = EngineerCreation(id);//create the engineer
         s_dalEngineer.Create(engineer);//add the engineer to the data base
     }
 
+    /// <summary>
+    /// read a engineer from the data base and print it
+    /// </summary>
     private static void ReadEngineer()
     {
         Console.WriteLine("Enter the id of the engineer:");
 
         //get the id of the engineer
-        if (!int.TryParse(Console.ReadLine(), out int id))
-            throw new ArgumentException("Invalid input");
+        int id = GetId();
         Engineer? engineer = s_dalEngineer.Read(id) ;
         Console.WriteLine(engineer);//print the engineer
     }
 
+    /// <summary>
+    /// return all the engineers from the data base and print them
+    /// </summary>
     private static void ReadAllEngineer()
     {
         Console.WriteLine("All of the engineers:");
@@ -207,12 +220,12 @@ internal class Program
         }
     }
 
+    /// <summary>
+    /// update a engineer from the data base
+    /// </summary>
     private static void UpdateEngineer()
     {
-
-        Console.WriteLine("Enter the id of the engineer:");
-        if (!int.TryParse(Console.ReadLine(), out int id))
-            throw new ArgumentException("Invalid input");
+        int id = GetId();
 
         Engineer? oldEngineer = s_dalEngineer.Read(id);//find the index of the engineer with the same id
         Console.WriteLine("The old engineer:");
@@ -222,34 +235,41 @@ internal class Program
         s_dalEngineer.Update(engineer);//update the engineer
     }
 
+    /// <summary>
+    /// delete a engineer from the data base
+    /// </summary>
     private static void DeleteEngineer()
     {
-        Console.WriteLine("Enter the id of the engineer:");
 
-        //get the id of the engineer
-        if(!int.TryParse(Console.ReadLine()!,out int id))
-            throw new ArgumentException("Invalid input");
+        int id = GetId();
         s_dalEngineer.Delete(id);//delete the engineer
     }
-    //--------------------------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// create a new dependency and add it to the data base
+    /// </summary>
     private static void CreateDependency()
     {
-        Dependency dependency = DependencyCreation();//create the dependency
+        int id = GetId();
+        Dependency dependency = DependencyCreation(id);//create the dependency
         s_dalDependency.Create(dependency);//add the dependency to the data base
 
     }
 
+    /// <summary>
+    /// read a dependency from the data base and print it
+    /// </summary>
     private static void ReadDependency()
     {
         //get the id of the dependency
-        Console.WriteLine("Enter the id of the dependency:");
-        if (!int.TryParse(Console.ReadLine(), out int id))
-            throw new ArgumentException("Invalid input");
-
+        int id = GetId();
         Dependency? dependency = s_dalDependency.Read(id);
         Console.WriteLine(dependency);//print the dependency
     }
 
+    /// <summary>
+    /// return all the dependencies from the data base and print them
+    /// </summary>
     private static void ReadAllDependency()
     {
         Console.WriteLine("All of the dependencies:");
@@ -262,11 +282,12 @@ internal class Program
         }
     }
 
+    /// <summary>
+    /// update a dependency from the data base
+    /// </summary>
     private static void UpdateDependency()
     {
-        Console.Write("Enter the id of the dependency:");
-        if (!int.TryParse(Console.ReadLine()!, out int id))
-            throw new ArgumentException("Invalid input");
+        int id = GetId();
 
         Dependency? oldDependency = s_dalDependency.Read(id);//find the index of the dependency with the same id
         Console.WriteLine("The old dependency:");
@@ -276,15 +297,21 @@ internal class Program
         s_dalDependency.Update(dependency);//update the dependency
     }
 
+    /// <summary>
+    /// delete a dependency from the data base
+    /// </summary>
     private static void DeleteDependency()
     {
-        Console.WriteLine("Enter the id of the dependency:");
-        int id = int.Parse(Console.ReadLine()!);
+        int id = GetId();
         s_dalDependency.Delete(id);//delete the dependency
     }
 
-    //create a new task
-    private static Task TaskCreation(int id = 0)
+    /// <summary>
+    /// create a new task and return it
+    /// </summary>
+    /// <param name="id">the id of the new Task</param>
+    /// <returns></returns>
+    private static Task TaskCreation(int id)
     {
         // because we have nullable values we need to use temp variables to check if the input is valid
         DateTime temp1;// to use for the nullable dates
@@ -370,19 +397,14 @@ internal class Program
         return task;
     }
 
-    //create a new engineer
-    private static Engineer EngineerCreation(int id = 0)
+    /// <summary>
+    /// create a new engineer and return it
+    /// </summary>
+    /// <param name="id">the id of the new Engineer</param>
+    /// <returns></returns>
+    private static Engineer EngineerCreation(int id)
     {
-        Console.WriteLine("Enter the values of the engineer:");
-
         //get the new values
-        if (id == 0)
-        {
-            Console.Write("id:");
-            if (!int.TryParse(Console.ReadLine()!, out id))// if the input is not valid
-                throw new ArgumentException("Invalid input");// throw an exception
-        }
-
         Console.Write("cost:");
         if (!double.TryParse(Console.ReadLine()!, out double cost))// if the input is not valid
             throw new ArgumentException("Invalid input");// throw an exception
@@ -413,8 +435,12 @@ internal class Program
         return engineer;
     }
 
-    //create a new dependency
-    private static Dependency DependencyCreation(int id = 0)
+    /// <summary>
+    /// create a new dependency
+    /// </summary>
+    /// <param name="id"> the id of the dependency</param>
+    /// <returns></returns>
+    private static Dependency DependencyCreation(int id)
     {
         Console.WriteLine("Enter the values of the dependency:");
 
@@ -437,6 +463,17 @@ internal class Program
             dependOnTaskId
         );
         return dependency;
+    }
+
+    /// <summary>
+    /// the function get an id from the user and return it, while checking if the input is valid
+    /// </summary>
+    private static int GetId()
+    {
+        Console.Write("enter the id:");
+        if (!int.TryParse(Console.ReadLine()!, out int id))// if the input is not valid
+            throw new ArgumentException("Invalid input");// throw an exception
+        return id;
     }
 
     static void Main(string[] args)
