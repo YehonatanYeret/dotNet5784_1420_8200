@@ -18,21 +18,31 @@ internal class Program
         int choice;
         do
         {
-                Console.WriteLine("Choose an option:\n" +
-                    "0. Exit \n" +
-                    "1. task \n" +
-                    "2. engineer\n" +
-                    "3. dependency\n"+
-                    "4. clear the console");
+            Console.WriteLine("Choose an option:\n" +
+                "0. Exit \n" +
+                "1. task \n" +
+                "2. engineer\n" +
+                "3. dependency\n"+
+                "4. clear the console");
 
-                if (!int.TryParse(Console.ReadLine(), out choice))// try to get the choice
-                    throw new ArgumentException("Invalid input");// if we entered invalid response 
-
-                if(choice>4 || choice<0)// if we chose any other number we will throw an exception
-                    throw new ArgumentOutOfRangeException("Invalid input");
-
-                SubMenu(choice);// call the sub menu
-            
+            int.TryParse(Console.ReadLine(), out choice);
+            switch (choice)
+            { 
+                case 0:// if we chose 0 we will exit the program
+                    return;
+                case 1:// if we chose 1 we will go to the task menu
+                    SubMenu("Task"); ;
+                    break;
+                case 2:// if we chose 2 we will go to the engineer menu
+                    SubMenu("Engineer");
+                    break;
+                case 3:// if we chose 3 we will go to the dependency menu
+                    SubMenu("Dependency");
+                    break;
+                default:// if we chose any other number we will throw an exception
+                    Console.WriteLine("Invalid input");
+                    break;
+            }        
         } while (choice != 0);
     }
 
@@ -40,7 +50,7 @@ internal class Program
     /// print the sub menu and call the function that the user chose
     /// </summary>
     /// <param name="choice">the choice from the previuos menu</param>
-    static void SubMenu(int choice)
+    static void SubMenu(string choice)
     {
         int subChoice;
         do
@@ -54,66 +64,66 @@ internal class Program
                 "5. Delete\n");
         try
         {
-            if (!int.TryParse(Console.ReadLine(), out subChoice))
-                throw new ArgumentException("Invalid input");// if we entered invalid response 
+            int.TryParse(Console.ReadLine(), out subChoice);
 
             switch (choice, subChoice)
             {
-                case (1, 1):// task create
+                case ("Task", 1):// task create
                     CreateTask();
                     break;
-                case (1, 2):// task read
+                case ("Task", 2):// task read
                     ReadTask();
                     break;
-                case (1, 3):
+                case ("Task", 3):
                     ReadAllTask();// task read all
                     break;
-                case (1, 4):
+                case ("Task", 4):
                     UpdateTask();// task update
                     break;
-                case (1, 5):
+                case ("Task", 5):
                     DeleteTask();// task delete
                     break;
 
-                case (2, 1):/// engineer create
+                case ("Engineer", 1):/// engineer create
                     CreateEngineer();
                     break;
-                case (2, 2):
+                case ("Engineer", 2):
                     ReadEngineer();// engineer read
                     break;
-                case (2, 3):
+                case ("Engineer", 3):
                     ReadAllEngineer();// engineer read all
                     break;
-                case (2, 4):
+                case ("Engineer", 4):
                     UpdateEngineer();// engineer update
                     break;
-                case (2, 5):
+                case ("Engineer", 5):
                     DeleteEngineer();// engineer delete
                     break;
 
-                case (3, 1):
+                case ("Dependency", 1):
                     CreateDependency();// dependency create
                     break;
-                case (3, 2):
+                case ("Dependency", 2):
                     ReadDependency();// dependency read
                     break;
-                case (3, 3):
+                case ("Dependency", 3):
                     ReadAllDependency();// dependency read all
                     break;
-                case (3, 4):
+                case ("Dependency", 4):
                     UpdateDependency();// dependency update
                     break;
-                case (3, 5):
+                case ("Dependency", 5):
                     DeleteDependency();// dependency delete
                     break;
 
-                case (1, 0):// if we chose 0 we will go back to the main menu
-                case (2, 0):
-                case (3, 0):
+                case ("Task", 0):// if we chose 0 we will go back to the main menu
+                case ("Engineer", 0):
+                case ("Dependency", 0):
                     break;
 
                 default:// if we chose any other number we will throw an exception
-                    throw new ArgumentOutOfRangeException("Invalid input");
+                    Console.WriteLine("Invalid input");
+                    break;
             }
         }
            catch (Exception ex)// catch all the exceptions
@@ -323,17 +333,12 @@ internal class Program
         //get the new values
         Console.Write("alias:");
         string alias = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
-        if (string.IsNullOrWhiteSpace(alias))// if the input is still null or empty or only spaces
-            throw new ArgumentNullException();
 
         Console.Write("description:");
         string description = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
-        if (string.IsNullOrWhiteSpace(description))// if the input is still null or empty or only spaces
-            throw new ArgumentNullException();
 
         Console.Write("created at date:");
-        if (!DateTime.TryParse(Console.ReadLine()!, out DateTime createdAtDate))
-            throw new ArgumentException("Invalid input");
+        DateTime.TryParse(Console.ReadLine()!, out DateTime createdAtDate);
 
         Console.Write("scheduled date:");
         DateTime? scheduledDate = null;// we initialize the nullable to default 
@@ -406,23 +411,16 @@ internal class Program
     {
         //get the new values
         Console.Write("cost:");
-        if (!double.TryParse(Console.ReadLine()!, out double cost))// if the input is not valid
-            throw new ArgumentException("Invalid input");// throw an exception
+        double.TryParse(Console.ReadLine()!, out double cost);
 
         Console.Write("name:");
         string name = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
-        if (string.IsNullOrWhiteSpace(name)) 
-            throw new ArgumentNullException();// if the input is still null or empty or only spaces
 
         Console.Write("email:");
         string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
-        if (string.IsNullOrWhiteSpace(email))
-            throw new ArgumentNullException();// if the input is still null or empty or only spaces
 
         Console.Write("level:");
-        // if the input is not valid or not in the enum we will throw an exception
-        if (!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience level))
-            throw new ArgumentException("Invalid input");
+        Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience level);
 
         //create the new engineer
         Engineer engineer = new(
@@ -471,8 +469,7 @@ internal class Program
     private static int GetId()
     {
         Console.Write("enter the id:");
-        if (!int.TryParse(Console.ReadLine()!, out int id))// if the input is not valid
-            throw new ArgumentException("Invalid input");// throw an exception
+        int.TryParse(Console.ReadLine()!, out int id);
         return id;
     }
 
@@ -484,12 +481,12 @@ internal class Program
 
             Console.WriteLine("!start of the program!\n");
             ShowMenu();//show the menu
-            Console.WriteLine("press any key to continue");
         }
         catch(Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
+        Console.WriteLine("press any key to continue");
         Console.ReadKey();
     }
 }
