@@ -22,8 +22,7 @@ internal class Program
                 "0. Exit \n" +
                 "1. task \n" +
                 "2. engineer\n" +
-                "3. dependency\n"+
-                "4. clear the console");
+                "3. dependency");
 
             int.TryParse(Console.ReadLine(), out choice);
             switch (choice)
@@ -141,7 +140,7 @@ internal class Program
     {
         int id = GetId();
         Task task = TaskCreation(id);//create the task
-        s_dalTask.Create(task);//add the task to the data base
+        s_dalTask!.Create(task);//add the task to the data base
     }
 
     /// <summary>
@@ -151,7 +150,7 @@ internal class Program
     {
         int id = GetId();
 
-        Task? task = s_dalTask.Read(id);//find the task with the id
+        Task? task = s_dalTask!.Read(id);//find the task with the id
         Console.WriteLine(task);//print the task
     }
 
@@ -162,7 +161,7 @@ internal class Program
     {
         Console.WriteLine("All of the tasks:");
         //get all the tasks
-        List<Task> tasks = s_dalTask.ReadAll();
+        List<Task> tasks = s_dalTask!.ReadAll();
         foreach (Task task in tasks)
         {
             Console.WriteLine(task);//print any task of the tasks
@@ -175,21 +174,26 @@ internal class Program
     static void UpdateTask()
     {
         int id = GetId();
-        Task? oldTask = s_dalTask.Read(id);//find the index of the task with the same id
+        Task? oldTask = s_dalTask!.Read(id);//find the index of the task with the same id
+        if(oldTask == null)// if the task is not exist
+        {
+            Console.WriteLine("The task is not exist");
+            return;
+        }
         Console.WriteLine("The old task:");
         Console.WriteLine(oldTask);//print the task
 
-        Task task = TaskCreation(id);//create the new task
-        s_dalTask.Update(task);//update the task
+        
+        s_dalTask.Update(TaskUpdate(oldTask));//update the task
     }
-
+    
     /// <summary>
     /// delete a task from the data base
     /// </summary>
     static void DeleteTask()
     {
         int id = GetId();
-        s_dalTask.Delete(id);//delete the task
+        s_dalTask!.Delete(id);//delete the task
     }
 
     /// <summary>
@@ -199,7 +203,7 @@ internal class Program
     {
         int id = GetId();
         Engineer engineer = EngineerCreation(id);//create the engineer
-        s_dalEngineer.Create(engineer);//add the engineer to the data base
+        s_dalEngineer!.Create(engineer);//add the engineer to the data base
     }
 
     /// <summary>
@@ -211,7 +215,7 @@ internal class Program
 
         //get the id of the engineer
         int id = GetId();
-        Engineer? engineer = s_dalEngineer.Read(id) ;
+        Engineer? engineer = s_dalEngineer!.Read(id) ;
         Console.WriteLine(engineer);//print the engineer
     }
 
@@ -223,7 +227,7 @@ internal class Program
         Console.WriteLine("All of the engineers:");
 
         //get all the engineers
-        List<Engineer> engineers = s_dalEngineer.ReadAll();
+        List<Engineer> engineers = s_dalEngineer!.ReadAll();
         foreach (Engineer engineer in engineers)
         {
             Console.WriteLine(engineer);//print any engineer of the engineers
@@ -237,12 +241,16 @@ internal class Program
     {
         int id = GetId();
 
-        Engineer? oldEngineer = s_dalEngineer.Read(id);//find the index of the engineer with the same id
+        Engineer? oldEngineer = s_dalEngineer!.Read(id);//find the index of the engineer with the same id
+        if (oldEngineer == null)// if the engineer is not exist
+        {
+            Console.WriteLine("The engineer is not exist");
+            return;
+        }
         Console.WriteLine("The old engineer:");
         Console.WriteLine(oldEngineer);//print the engineer
 
-        Engineer engineer = EngineerCreation(id);//create the new engineer
-        s_dalEngineer.Update(engineer);//update the engineer
+        s_dalEngineer!.Update(EngineerUpdate(oldEngineer));//update the engineer
     }
 
     /// <summary>
@@ -252,7 +260,7 @@ internal class Program
     {
 
         int id = GetId();
-        s_dalEngineer.Delete(id);//delete the engineer
+        s_dalEngineer!.Delete(id);//delete the engineer
     }
 
     /// <summary>
@@ -262,7 +270,7 @@ internal class Program
     {
         int id = GetId();
         Dependency dependency = DependencyCreation(id);//create the dependency
-        s_dalDependency.Create(dependency);//add the dependency to the data base
+        s_dalDependency!.Create(dependency);//add the dependency to the data base
 
     }
 
@@ -273,7 +281,7 @@ internal class Program
     {
         //get the id of the dependency
         int id = GetId();
-        Dependency? dependency = s_dalDependency.Read(id);
+        Dependency? dependency = s_dalDependency!.Read(id);
         Console.WriteLine(dependency);//print the dependency
     }
 
@@ -285,7 +293,7 @@ internal class Program
         Console.WriteLine("All of the dependencies:");
 
         //get all the dependencies
-        List<Dependency> dependencies = s_dalDependency.ReadAll();
+        List<Dependency> dependencies = s_dalDependency!.ReadAll();
         foreach (Dependency dependency in dependencies)
         {
             Console.WriteLine(dependency);//print any dependency of the dependencies
@@ -299,12 +307,16 @@ internal class Program
     {
         int id = GetId();
 
-        Dependency? oldDependency = s_dalDependency.Read(id);//find the index of the dependency with the same id
+        Dependency? oldDependency = s_dalDependency!.Read(id);//find the index of the dependency with the same id
+        if (oldDependency == null)// if the dependency is not exist
+        {
+            Console.WriteLine("The dependency is not exist");
+            return;
+        }
         Console.WriteLine("The old dependency:");
         Console.WriteLine(oldDependency);//print the dependency
 
-        Dependency dependency = DependencyCreation(id);//create the new dependency
-        s_dalDependency.Update(dependency);//update the dependency
+        s_dalDependency!.Update(DependencyUpdate(oldDependency));//update the dependency
     }
 
     /// <summary>
@@ -313,7 +325,7 @@ internal class Program
     private static void DeleteDependency()
     {
         int id = GetId();
-        s_dalDependency.Delete(id);//delete the dependency
+        s_dalDependency!.Delete(id);//delete the dependency
     }
 
     /// <summary>
@@ -457,6 +469,164 @@ internal class Program
         //create the new dependency
         Dependency dependency = new(
             id,
+            taskId,
+            dependOnTaskId
+        );
+        return dependency;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    /// <summary>
+    /// return a new task with the new values
+    /// </summary>
+    /// <param name="Oldtask">the old task to update</param>
+    /// <returns></returns>
+    private static Task TaskUpdate(Task Oldtask) {
+        // because we have nullable values we need to use temp variables to check if the input is valid
+        DateTime temp1;// to use for the nullable dates
+        TimeSpan temp2;// to use for the nullable time span
+        int temp3;
+
+        Console.WriteLine("Enter the values of the task:");
+
+        //get the new values
+        Console.Write("alias:");
+        string? alias = Console.ReadLine();// we use ! because we know that the input is not need to be null
+        if (string.IsNullOrEmpty(alias))
+            alias = Oldtask.Alias;
+
+        Console.Write("description:");
+        string? description = Console.ReadLine();
+        if (string.IsNullOrEmpty(description))
+            description = Oldtask.Description;
+
+        Console.Write("created at date:");
+        if(!DateTime.TryParse(Console.ReadLine()!, out DateTime createdAtDate))
+            createdAtDate = Oldtask.CreatedAtDate;
+
+        Console.Write("scheduled date:");
+        DateTime? scheduledDate = Oldtask.ScheduledDate;// we initialize the nullable to default 
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            scheduledDate = temp1;// we change the nullable to the input
+
+        Console.Write("start date:");
+        DateTime? startDate = Oldtask.StartDate;// we initialize the nullable to default
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            startDate = temp1;// we change the nullable to the input
+
+        Console.Write("required effort time:");
+        TimeSpan? requiredEffortTime = Oldtask.RequiredEffortTime;// we initialize the nullable to default
+        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))// if the input is valid
+            requiredEffortTime = temp2;// we change the nullable to the input
+
+        Console.Write("deadline date:");
+        DateTime? deadlineDate = Oldtask.DeadlineDate;// we initialize the nullable to default
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            deadlineDate = temp1;// we change the nullable to the input
+
+        Console.Write("complete date:");
+        DateTime? completeDate = Oldtask.CompleteDate;// we initialize the nullable to default
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
+            completeDate = temp1;// we change the nullable to the input
+
+        Console.Write("deliverables:");
+        string? deliverables = Console.ReadLine();
+        if(string.IsNullOrEmpty(deliverables))
+            deliverables = Oldtask.Deliverables;
+
+        Console.Write("remarks:");
+        string? remarks = Console.ReadLine();
+        if (string.IsNullOrEmpty(remarks))
+            remarks = Oldtask.Remarks;
+
+        Console.Write("engineer id:");
+        int? engineerId = Oldtask.EngineerId;// we initialize the nullable to default
+        if (int.TryParse(Console.ReadLine(), out temp3))// if the input is valid
+            engineerId = temp3;// we change the nullable to the input
+
+        Console.Write("copmlexity:");
+        EngineerExperience? copmlexity = Oldtask.Copmlexity;// we initialize the nullable to default
+        if (Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
+            copmlexity = experience;//if the input is valid we change the nullable to the input
+
+        //create the new task
+        Task task = new(
+            Oldtask.Id,// the old id
+            alias,
+            description,
+            createdAtDate,
+            false,// told us to put only null for now
+            true,
+            scheduledDate,
+            startDate,
+            requiredEffortTime,
+            deadlineDate,
+            completeDate,
+            deliverables,
+            remarks,
+            engineerId,
+            copmlexity
+        );
+        return task;
+    }
+
+    /// <summary>
+    /// return a new rngineer with the new values
+    /// </summary>
+    /// <param name="OldEngineer">the engineer that we update</param>
+    /// <returns></returns>
+    private static Engineer EngineerUpdate(Engineer OldEngineer)
+    {
+        //get the new values
+        Console.Write("cost:");
+        if(!double.TryParse(Console.ReadLine()!, out double cost))
+            cost = OldEngineer.Cost;
+
+        Console.Write("name:");
+        string name = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if(string.IsNullOrEmpty(name))
+            name = OldEngineer.Name;
+
+        Console.Write("email:");
+        string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if(string.IsNullOrEmpty(email))
+            email = OldEngineer.Email;
+
+        Console.Write("level:");
+        if(!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience level))
+            level = OldEngineer.Level;
+
+        //create the new engineer
+        Engineer engineer = new(
+            OldEngineer.Id,
+            cost,
+            name,
+            email,
+            level
+        );
+        return engineer;
+    }
+
+    private static Dependency DependencyUpdate(Dependency OldDependency)
+    {
+        Console.WriteLine("Enter the values of the dependency:");
+
+        //get the new values
+        Console.Write("task id:");
+        int? taskId =OldDependency.DependentTask;// we initialize the nullable to default
+        if (int.TryParse(Console.ReadLine(), out int dependent))// if the input is valid
+            taskId = dependent;// we change the nullable to the input
+
+        Console.Write("depend on task id:");
+        int? dependOnTaskId = OldDependency.DependentOnTask;// we initialize the nullable to default
+        if (int.TryParse(Console.ReadLine(), out int dependsOn))// if the input is valid
+            dependOnTaskId = dependsOn;// we change the nullable to the input
+
+
+        //create the new dependency
+        Dependency dependency = new(
+            OldDependency.Id,
             taskId,
             dependOnTaskId
         );
