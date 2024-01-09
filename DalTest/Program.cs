@@ -2,6 +2,7 @@
 using DalApi;
 using Dal;
 using DO;
+using System.Security.Cryptography;
 
 internal class Program
 {
@@ -9,6 +10,7 @@ internal class Program
     //private static IDependency? s_dalDependency = new DependencyImplementation();//stage 1
     //private static ITask? s_dalTask = new TaskImplementation();//stage 1
     //private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
+
     static readonly IDal s_dal = new DalList();
 
     /// <summary>
@@ -141,7 +143,7 @@ internal class Program
     {
         int id = GetId();
         Task task = TaskCreation(id);//create the task
-        s_dalTask!.Create(task);//add the task to the data base
+        s_dal!.Task.Create(task);//add the task to the data base
     }
 
     /// <summary>
@@ -151,7 +153,7 @@ internal class Program
     {
         int id = GetId();
 
-        Task? task = s_dalTask!.Read(id);//find the task with the id
+        Task? task = s_dal!.Task.Read(id);//find the task with the id
         Console.WriteLine(task);//print the task
     }
 
@@ -162,20 +164,20 @@ internal class Program
     {
         Console.WriteLine("All of the tasks:");
         //get all the tasks
-        List<Task> tasks = s_dalTask!.ReadAll();
+
+        IEnumerable<Task> tasks = s_dal!.Task.ReadAll();
         foreach (Task task in tasks)
         {
             Console.WriteLine(task);//print any task of the tasks
         }
     }
-
     /// <summary>
     /// update a task from the data base
     /// </summary>
     static void UpdateTask()
     {
         int id = GetId();
-        Task? oldTask = s_dalTask!.Read(id);//find the index of the task with the same id
+        Task? oldTask = s_dal!.Task.Read(id);//find the index of the task with the same id
         if(oldTask == null)// if the task is not exist
         {
             Console.WriteLine("The task is not exist");
@@ -185,7 +187,7 @@ internal class Program
         Console.WriteLine(oldTask);//print the task
 
         
-        s_dalTask.Update(TaskUpdate(oldTask));//update the task
+        s_dal!.Task.Update(TaskUpdate(oldTask));//update the task
     }
     
     /// <summary>
@@ -194,7 +196,7 @@ internal class Program
     static void DeleteTask()
     {
         int id = GetId();
-        s_dalTask!.Delete(id);//delete the task
+        s_dal!.Task.Delete(id);//delete the task
     }
 
     /// <summary>
@@ -204,7 +206,7 @@ internal class Program
     {
         int id = GetId();
         Engineer engineer = EngineerCreation(id);//create the engineer
-        s_dalEngineer!.Create(engineer);//add the engineer to the data base
+        s_dal!.Engineer.Create(engineer);//add the engineer to the data base
     }
 
     /// <summary>
@@ -216,7 +218,7 @@ internal class Program
 
         //get the id of the engineer
         int id = GetId();
-        Engineer? engineer = s_dalEngineer!.Read(id) ;
+        Engineer? engineer = s_dal!.Engineer.Read(id) ;
         Console.WriteLine(engineer);//print the engineer
     }
 
@@ -228,7 +230,7 @@ internal class Program
         Console.WriteLine("All of the engineers:");
 
         //get all the engineers
-        List<Engineer> engineers = s_dalEngineer!.ReadAll();
+        IEnumerable<Engineer> engineers = s_dal!.Engineer.ReadAll();
         foreach (Engineer engineer in engineers)
         {
             Console.WriteLine(engineer);//print any engineer of the engineers
@@ -242,7 +244,7 @@ internal class Program
     {
         int id = GetId();
 
-        Engineer? oldEngineer = s_dalEngineer!.Read(id);//find the index of the engineer with the same id
+        Engineer? oldEngineer = s_dal!.Engineer.Read(id);//find the index of the engineer with the same id
         if (oldEngineer == null)// if the engineer is not exist
         {
             Console.WriteLine("The engineer is not exist");
@@ -251,7 +253,7 @@ internal class Program
         Console.WriteLine("The old engineer:");
         Console.WriteLine(oldEngineer);//print the engineer
 
-        s_dalEngineer!.Update(EngineerUpdate(oldEngineer));//update the engineer
+        s_dal!.Engineer.Update(EngineerUpdate(oldEngineer));//update the engineer
     }
 
     /// <summary>
@@ -261,7 +263,7 @@ internal class Program
     {
 
         int id = GetId();
-        s_dalEngineer!.Delete(id);//delete the engineer
+        s_dal!.Engineer.Delete(id);//delete the engineer
     }
 
     /// <summary>
@@ -271,7 +273,7 @@ internal class Program
     {
         int id = GetId();
         Dependency dependency = DependencyCreation(id);//create the dependency
-        s_dalDependency!.Create(dependency);//add the dependency to the data base
+        s_dal!.Dependency.Create(dependency);//add the dependency to the data base
 
     }
 
@@ -294,7 +296,7 @@ internal class Program
         Console.WriteLine("All of the dependencies:");
 
         //get all the dependencies
-        List<Dependency> dependencies = s_dalDependency!.ReadAll();
+        IEnumerable<Dependency> dependencies = s_dal!.Dependency.ReadAll();
         foreach (Dependency dependency in dependencies)
         {
             Console.WriteLine(dependency);//print any dependency of the dependencies
@@ -308,7 +310,7 @@ internal class Program
     {
         int id = GetId();
 
-        Dependency? oldDependency = s_dalDependency!.Read(id);//find the index of the dependency with the same id
+        Dependency? oldDependency = s_dal!.Dependency.Read(id);//find the index of the dependency with the same id
         if (oldDependency == null)// if the dependency is not exist
         {
             Console.WriteLine("The dependency is not exist");
@@ -317,7 +319,7 @@ internal class Program
         Console.WriteLine("The old dependency:");
         Console.WriteLine(oldDependency);//print the dependency
 
-        s_dalDependency!.Update(DependencyUpdate(oldDependency));//update the dependency
+        s_dal!.Dependency.Update(DependencyUpdate(oldDependency));//update the dependency
     }
 
     /// <summary>
@@ -326,7 +328,7 @@ internal class Program
     private static void DeleteDependency()
     {
         int id = GetId();
-        s_dalDependency!.Delete(id);//delete the dependency
+        s_dal!.Dependency.Delete(id);//delete the dependency
     }
 
     /// <summary>
