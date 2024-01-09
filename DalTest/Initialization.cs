@@ -3,9 +3,11 @@ using DalApi;
 using DO;
 public static class Initialization
 {
-    private static ITask? s_dalTask;
-    private static IEngineer? s_dalEngineer;
-    private static IDependency? s_dalDependency;
+    //private static ITask? s_dalTask;
+    //private static IEngineer? s_dalEngineer;
+    //private static IDependency? s_dalDependency;
+
+    private static IDal? s_dal;
 
     private static readonly Random s_rand = new();
 
@@ -44,9 +46,19 @@ public static class Initialization
 
         foreach(var (alias, description) in aliasAndDescription)
         {
-            DateTime dateTime = DateTime.Now.AddDays(-s_rand.Next(60)-20);//random date from now to -80 days from -20 days
-            Task task = new(0, alias, description, dateTime);//create new task
-            s_dalTask!.Create(task);//add to data base
+            // random date from now to -80 days from -20 days
+            DateTime dateTime = DateTime.Now.AddDays(-1*s_rand.Next(60)-20);
+
+
+            // add to new task data base 
+
+            s_dal!.Task.Create(new
+            (
+                Id: 0,                      // Id will be update in the creation
+                Alias: alias,               // sod hashem lireav
+                Description: description,   // description given to this method
+                CreatedAtDate: dateTime
+             ));
         }
     }
 
@@ -66,7 +78,7 @@ public static class Initialization
             {
                 try {
                     id = s_rand.Next(ID, 2*ID + 1);//random id from 200000000 to 400000000
-                    findEngineer = s_dalEngineer!.Read(id); 
+                    findEngineer = s_dal!.Engineer.Read(id); 
                 }//try to read the engineer with the id
                 catch { findEngineer = null;}
             } while (findEngineer != null);//check if id already exist
@@ -77,7 +89,7 @@ public static class Initialization
 
             Engineer engineer = new(id, cost, fName + " " + lName, email, engineerExperience);//create new engineer
 
-            id = s_dalEngineer!.Create(engineer);//add to data base
+            id = s_dal!.Engineer.Create(engineer);//add to data base
             
         }
     }
@@ -103,7 +115,7 @@ public static class Initialization
         {
             //id equal 0 because the id is auto generated
             Dependency newDependency = new(0, Item1, Item2);//create new dependency
-            s_dalDependency!.Create(newDependency);//add to data base
+            s_dal!.Dependency.Create(newDependency);//add to data base
         }
     }
 
@@ -113,11 +125,13 @@ public static class Initialization
     /// <param name="dalTask">list of tasks</param>
     /// <param name="dalEngineer">list of engineerss</param>
     /// <param name="dalDependency">list of dependencies</param>
-    public static void DO(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
+    public static void DO(IDal dal)
     {
-        s_dalTask = dalTask?? throw new NullReferenceException("Dal cannot be null!");
-        s_dalEngineer = dalEngineer?? throw new NullReferenceException("Dal cannot be null!");
-        s_dalDependency = dalDependency?? throw new NullReferenceException("Dal cannot be null!");
+        //s_dalTask = dalTask?? throw new NullReferenceException("Dal cannot be null!");
+        //s_dalEngineer = dalEngineer?? throw new NullReferenceException("Dal cannot be null!");
+        //s_dalDependency = dalDependency?? throw new NullReferenceException("Dal cannot be null!");
+      
+        s_dal = dal ?? throw new NullReferenceException("DAL pbject can not be null");
 
         creatTask();
         creatEngineer();

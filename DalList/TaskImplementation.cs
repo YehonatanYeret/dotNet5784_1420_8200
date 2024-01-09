@@ -20,29 +20,28 @@ public class TaskImplementation : ITask
     }
 
     //return a copy of the list of tasks
-    public List<Task> ReadAll()
+    public IEnumerable<Task> ReadAll()
     {
-        //return the list of tasks but only with the active ones
+        IEnumerable<Task> tasks = DataSource.Tasks;
+        return from task in tasks
+               where task.isActive == true
+               select task;
 
-        List<Task>? tList = new List<Task>();//create a new list
-        foreach (Task? item in DataSource.Tasks)//for each task
-        {
-            if(item.isActive) tList.Add(item);//if the task is active add it to the list
-        }
-        return  (tList);//return a copy of the list of tasks
     }
 
     //update a task by removing the old one and adding the new one
     public void Update(Task item)
     {
-        Task? task =  DataSource.Tasks.Find(task => task.Id == item.Id && task.isActive);//find the index of the task with the same id
-        if (task==null)//if not found
-            throw new Exception($"Task with ID={item.Id} does not exist");//throw exception
+        //find the index of the task with the same id
+        Task? task = DataSource.Tasks.Find(task => task.Id == item.Id && task.isActive);
+        if (task == null)//if not found
+            throw new DO.DalNotExistException($"Task with ID={item.Id} does not exist");//throw exception
 
         //DataSource.Tasks[task.Id] = item;//update the task
         //can work but not how we have been asked for
 
-        DataSource.Tasks.Remove(task);//remove the task
+        //remove the task
+        DataSource.Tasks.RemoveAll(t => t?.Id == task.Id);
         DataSource.Tasks.Add(item);//add the new task
     }
 
@@ -50,10 +49,10 @@ public class TaskImplementation : ITask
     public void Delete(int id)
     {
         Task? task = DataSource.Tasks.Find(task => task.Id == id && task.isActive);//find the index of the task with the same id
-        if(task == null)//if not found
+        if (task == null)//if not found
             throw new Exception($"Task with ID={id} does not exist");//throw exception
 
-        foreach(var i in DataSource.Dependencies)//for each dependency
+        foreach (var i in DataSource.Dependencies)//for each dependency
         {
             if (i.DependentOnTask == id)//if the task is the one we want to delete
                 throw new Exception($"cannot delete the task with ID={id} because the task with the ID={i.DependentTask} depends on it");
