@@ -2,7 +2,7 @@
 using DalApi;
 using DO;
 
-public class EngineerImplementation : IEngineer
+internal class EngineerImplementation : IEngineer
 {
     //create a new engineer
     public int Create(Engineer item)
@@ -25,9 +25,11 @@ public class EngineerImplementation : IEngineer
     }
 
     //return a copy of the list of engineers
-    public List<Engineer> ReadAll()
+    public IEnumerable<Engineer> ReadAll()
     {
-        return new List<Engineer>(DataSource.Engineers);//return a copy of the list of engineers
+        IEnumerable<Engineer> engineers = DataSource.Engineers;
+        return from engineer in engineers
+               select engineer;
     }
 
     //update a engineer by removing the old one and adding the new one

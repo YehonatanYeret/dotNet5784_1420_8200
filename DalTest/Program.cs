@@ -6,9 +6,10 @@ using DO;
 internal class Program
 {
     //new implementation of IDal
-    private static IDependency? s_dalDependency = new DependencyImplementation();//stage 1
-    private static ITask? s_dalTask = new TaskImplementation();//stage 1
-    private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
+    //private static IDependency? s_dalDependency = new DependencyImplementation();//stage 1
+    //private static ITask? s_dalTask = new TaskImplementation();//stage 1
+    //private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
+    static readonly IDal s_dal = new DalList();
 
     /// <summary>
     /// show the menu and call the sub menu with the choice
@@ -647,7 +648,7 @@ internal class Program
     {
         try
         {
-            Initialization.DO(s_dalTask, s_dalEngineer, s_dalDependency);//initialize the data base
+            Initialization.DO(s_dal);//initialize the data base
 
             Console.WriteLine("!start of the program!\n");
             ShowMenu();//show the menu
