@@ -8,7 +8,7 @@ internal class EngineerImplementation : IEngineer
     public int Create(Engineer item)
     {
         Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == item.Id);
-        if(engineer != null)//if the engineer already exists
+        if (engineer != null)//if the engineer already exists
             throw new Exception($"Engineer with ID={item.Id} already exists");
 
         DataSource.Engineers.Add(item);//add the task to the list
@@ -39,10 +39,10 @@ internal class EngineerImplementation : IEngineer
         if (engineer == null)//if not found
             throw new Exception($"Engineer with ID={item.Id} does not exist");//throw exception
 
-        DataSource.Engineers.Remove(engineer);//remove the engineer
+        DataSource.Engineers.RemoveAll(temp => temp.Id == engineer.Id);//remove the engineer
         DataSource.Engineers.Add(item);//add the new engineer
     }
-    
+
     //we dont need to check if there is no tasks with the engineer id because we will check it in the logic layer
     public void Delete(int id)
     {
@@ -52,6 +52,6 @@ internal class EngineerImplementation : IEngineer
         if (engineer == null)//if not found
             throw new Exception($"Engineer with ID={id} does not exist");//throw exception
 
-        DataSource.Engineers.Remove(engineer);//remove the engineer
+        DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
     }
 }

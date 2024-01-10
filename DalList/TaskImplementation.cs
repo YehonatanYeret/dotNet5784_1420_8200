@@ -58,7 +58,7 @@ internal class TaskImplementation : ITask
                 throw new Exception($"cannot delete the task with ID={id} because the task with the ID={i.DependentTask} depends on it");
         }
         Task? t = task with { isActive = false };//create a new task with the same data but not active
-        DataSource.Tasks.Remove(task);//remove the task
+        DataSource.Tasks.RemoveAll(temp => temp.Id == id);//remove the task
         DataSource.Tasks.Add(t);//add the new task
     }
 }

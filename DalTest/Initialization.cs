@@ -11,8 +11,12 @@ public static class Initialization
 
     private static readonly Random s_rand = new();
 
-    const int COST = 10000;
-    const int ID = 200000000;
+    const int MINCOST = 10000;
+    const int MAXCOST = 60000;
+    const int MINID = 200000000;
+    const int MAXID = 400000000;
+    const int MINDAYSPAN = -80;
+    const int MAXDAYSPAN = -20;
 
     /// <summary>
     /// creat all the tasks
@@ -44,10 +48,10 @@ public static class Initialization
         ("Construction permits","the engineeer need to take control over the Construction permits")
         };
 
-        foreach(var (alias, description) in aliasAndDescription)
+        foreach (var (alias, description) in aliasAndDescription)
         {
             // random date from now to -80 days from -20 days
-            DateTime dateTime = DateTime.Now.AddDays(-1*s_rand.Next(60)-20);
+            DateTime dateTime = DateTime.Now.AddDays(s_rand.Next(MINDAYSPAN, MAXDAYSPAN + 1));
 
 
             // add to new task data base 
@@ -67,30 +71,36 @@ public static class Initialization
     /// </summary>
     private static void creatEngineer()
     {
-        (string, string)[] names = new (string, string)[] { ("Adam", "Chohen"), ("Alex", "Charcov"), ("Aaron", "Israeli"), ("Ben" ,"Baruch"), ("David", "Levi"), ("Asaf", "Bir") };
+        (string, string)[] names = new (string, string)[] { ("Adam", "Chohen"), ("Alex", "Charcov"), ("Aaron", "Israeli"), ("Ben", "Baruch"), ("David", "Levi"), ("Asaf", "Bir") };
         string[] emails = new string[] { "@gmail.com", "@hotmail.com", "@yahoo.com", "@walla.com", "@outlook.com" };
 
         foreach ((string fName, string lName) in names)
         {
-            int id=0;// add defaulte value
+            int id = 0;// add defaulte value
             Engineer? findEngineer;
             do
             {
-                try {
-                    id = s_rand.Next(ID, 2*ID + 1);//random id from 200000000 to 400000000
-                    findEngineer = s_dal!.Engineer.Read(id); 
+                try
+                {
+                    id = s_rand.Next(MINID, MAXID + 1);//random id from 200000000 to 400000000
+                    findEngineer = s_dal!.Engineer.Read(id);
                 }//try to read the engineer with the id
-                catch { findEngineer = null;}
+                catch { findEngineer = null; }
             } while (findEngineer != null);//check if id already exist
 
-            int cost = s_rand.Next(COST, 2*COST + 1);//random cost from 10000 to 20000
+            int cost = s_rand.Next(MINCOST, MAXCOST + 1);//random cost from 10000 to 20000
             string email = fName + emails[s_rand.Next(emails.Length)];//random email
             EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5);//random engineerExperience
 
-            Engineer engineer = new(id, cost, fName + " " + lName, email, engineerExperience);//create new engineer
 
-            id = s_dal!.Engineer.Create(engineer);//add to data base
-            
+            //create new engineer
+            s_dal!.Engineer.Create(new(
+            Id: id,
+            Cost: cost,
+            Name: fName + " " + lName,
+            Email: email,
+            Level: engineerExperience));//add to data base
+
         }
     }
     /// <summary>
@@ -114,8 +124,12 @@ public static class Initialization
         foreach ((int Item1, int Item2) in dependencies)
         {
             //id equal 0 because the id is auto generated
-            Dependency newDependency = new(0, Item1, Item2);//create new dependency
-            s_dal!.Dependency.Create(newDependency);//add to data base
+            s_dal!.Dependency.Create(new
+                (
+                    Id: 0,
+                    DependentTask: Item1,
+                    DependentOnTask: Item2
+                ));
         }
     }
 
@@ -130,7 +144,7 @@ public static class Initialization
         //s_dalTask = dalTask?? throw new NullReferenceException("Dal cannot be null!");
         //s_dalEngineer = dalEngineer?? throw new NullReferenceException("Dal cannot be null!");
         //s_dalDependency = dalDependency?? throw new NullReferenceException("Dal cannot be null!");
-      
+
         s_dal = dal ?? throw new NullReferenceException("DAL pbject can not be null");
 
         creatTask();

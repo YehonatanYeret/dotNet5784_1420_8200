@@ -284,7 +284,7 @@ internal class Program
     {
         //get the id of the dependency
         int id = GetId();
-        Dependency? dependency = s_dalDependency!.Read(id);
+        Dependency? dependency = s_dal!.Dependency.Read(id);
         Console.WriteLine(dependency);//print the dependency
     }
 
@@ -393,7 +393,7 @@ internal class Program
 
         Console.Write("copmlexity:");
         EngineerExperience? copmlexity = null;// we initialize the nullable to default
-        if (Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
+        if (Enum.TryParse(Console.ReadLine(), out EngineerExperience experience))
             copmlexity = experience;//if the input is valid we change the nullable to the input
 
         //create the new task
@@ -435,7 +435,7 @@ internal class Program
         string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
 
         Console.Write("level:");
-        Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience level);
+        Enum.TryParse(Console.ReadLine()!, out EngineerExperience level);
 
         //create the new engineer
         Engineer engineer = new(
@@ -550,7 +550,7 @@ internal class Program
 
         Console.Write("copmlexity:");
         EngineerExperience? copmlexity = Oldtask.Copmlexity;// we initialize the nullable to default
-        if (Enum.TryParse<EngineerExperience>(Console.ReadLine(), out EngineerExperience experience))
+        if (Enum.TryParse(Console.ReadLine(), out EngineerExperience experience))
             copmlexity = experience;//if the input is valid we change the nullable to the input
 
         //create the new task
@@ -597,7 +597,7 @@ internal class Program
             email = OldEngineer.Email;
 
         Console.Write("level:");
-        if(!Enum.TryParse<EngineerExperience>(Console.ReadLine()!, out EngineerExperience level))
+        if(!Enum.TryParse(Console.ReadLine()!, out EngineerExperience level))
             level = OldEngineer.Level;
 
         //create the new engineer

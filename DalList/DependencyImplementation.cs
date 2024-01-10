@@ -20,9 +20,11 @@ internal class DependencyImplementation : IDependency
     }
 
     //return a copy of the list of dependencies
-    public List<Dependency> ReadAll()
+    public IEnumerable<Dependency> ReadAll()
     {
-        return new List<Dependency>(DataSource.Dependencies);
+        IEnumerable<Dependency> dependencies = DataSource.Dependencies;
+        return from dependency in dependencies
+               select dependency;
     }
     
     //update a dependency by removing the old one and adding the new one
@@ -32,7 +34,7 @@ internal class DependencyImplementation : IDependency
         if (dependency == null)
             throw new Exception($"Dependency with ID={item.Id} does not exist");
 
-        DataSource.Dependencies.Remove(dependency);
+        DataSource.Dependencies.RemoveAll(temp=> temp.Id == dependency.Id);
         DataSource.Dependencies.Add(item);
     }
 
@@ -42,6 +44,6 @@ internal class DependencyImplementation : IDependency
         Dependency? dependency = DataSource.Dependencies.Find(dependency => dependency.Id == id);
         if (dependency == null)
             throw new Exception($"Dependency with ID={id} does not exist");
-        DataSource.Dependencies.Remove(dependency);
+        DataSource.Dependencies.RemoveAll(temp=> temp.Id == id);
     }
 }
