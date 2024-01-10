@@ -61,8 +61,4 @@ internal class TaskImplementation : ITask
         DataSource.Tasks.Add(t);//add the new task
     }
 
-    Task? ICrud<Task>.Read(Func<Task, bool> filter)
-    {
-        throw new NotImplementedException();
-    }
 }
