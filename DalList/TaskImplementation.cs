@@ -18,15 +18,19 @@ internal class TaskImplementation : ITask
     {
         return DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.isActive);//find the task with the id and if not found return null
     }
+    public Task? Read(Func<Task, bool> filter)
+    {
+        // find the task that matches the condition and if not found return null
+        return DataSource.Tasks.FirstOrDefault(filter);
+    }
 
     //return a copy of the list of tasks
-    public IEnumerable<Task> ReadAll()
+    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
     {
-        IEnumerable<Task> tasks = DataSource.Tasks;
-        return from task in tasks
-               where task.isActive == true
-               select task;
-
+        if(filter != null)
+            return DataSource.Tasks.Where(task => task.isActive && filter(task));//return a copy of the list of tasks
+        
+        return DataSource.Tasks.Where(task => task.isActive);//return a copy of the list of tasks
     }
 
     //update a task by removing the old one and adding the new one
@@ -55,5 +59,10 @@ internal class TaskImplementation : ITask
         Task? t = task with { isActive = false };//create a new task with the same data but not active
         DataSource.Tasks.RemoveAll(temp => temp.Id == id);//remove the task
         DataSource.Tasks.Add(t);//add the new task
+    }
+
+    Task? ICrud<Task>.Read(Func<Task, bool> filter)
+    {
+        throw new NotImplementedException();
     }
 }
