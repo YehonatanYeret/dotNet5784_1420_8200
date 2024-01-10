@@ -2,6 +2,9 @@
 using DalApi;
 using DO;
 
+/// <summary>
+/// implement the interface ITask
+/// </summary>
 internal class TaskImplementation : ITask
 {
     //create a new task

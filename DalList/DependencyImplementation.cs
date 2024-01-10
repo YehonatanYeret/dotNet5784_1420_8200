@@ -1,7 +1,10 @@
-﻿    namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 
+/// <summary>
+/// impement the intarface IDependency
+/// </summary>
 internal class DependencyImplementation : IDependency
 {
     //create a new dependency
