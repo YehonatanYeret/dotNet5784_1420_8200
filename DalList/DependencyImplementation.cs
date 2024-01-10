@@ -16,7 +16,7 @@ internal class DependencyImplementation : IDependency
     //read a dependency and return it. if not found return null
     public Dependency? Read(int id)
     {
-        return DataSource.Dependencies.Find(dependency => dependency.Id == id);
+        return DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
     }
 
     //return a copy of the list of dependencies
@@ -30,7 +30,7 @@ internal class DependencyImplementation : IDependency
     //update a dependency by removing the old one and adding the new one
     public void Update(Dependency item)
     {
-        Dependency? dependency = DataSource.Dependencies.Find(dependency => dependency.Id == item.Id);
+        Dependency? dependency = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == item.Id);
         if (dependency == null)
             throw new Exception($"Dependency with ID={item.Id} does not exist");
 
@@ -41,9 +41,10 @@ internal class DependencyImplementation : IDependency
     //delete a dependency. always throw an exception
     public void Delete(int id)
     {
-        Dependency? dependency = DataSource.Dependencies.Find(dependency => dependency.Id == id);
+        Dependency? dependency = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
         if (dependency == null)
             throw new Exception($"Dependency with ID={id} does not exist");
         DataSource.Dependencies.RemoveAll(temp=> temp.Id == id);
+     
     }
 }

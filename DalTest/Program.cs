@@ -650,7 +650,7 @@ internal class Program
     {
         try
         {
-            Initialization.DO(s_dal);//initialize the data base
+            Initialization.Do(s_dal);//initialize the data base
 
             Console.WriteLine("!start of the program!\n");
             ShowMenu();//show the menu

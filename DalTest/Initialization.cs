@@ -139,7 +139,7 @@ public static class Initialization
     /// <param name="dalTask">list of tasks</param>
     /// <param name="dalEngineer">list of engineerss</param>
     /// <param name="dalDependency">list of dependencies</param>
-    public static void DO(IDal dal)
+    public static void Do(IDal dal)
     {
         //s_dalTask = dalTask?? throw new NullReferenceException("Dal cannot be null!");
         //s_dalEngineer = dalEngineer?? throw new NullReferenceException("Dal cannot be null!");
