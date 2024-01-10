@@ -39,7 +39,7 @@ internal class TaskImplementation : ITask
         //find the index of the task with the same id
         Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == item.Id && task.isActive);
         if (task == null)//if not found
-            throw new DO.DalNotExistException($"Task with ID={item.Id} does not exist");//throw exception
+            throw new DalDoesNotExistException($"Task with ID={item.Id} does not exist");//throw exception
 
         //DataSource.Tasks[task.Id] = item;//update the task
         //can work but not how we have been asked for
@@ -54,7 +54,7 @@ internal class TaskImplementation : ITask
     {
         Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.isActive);//find the index of the task with the same id
         if (task == null)//if not found
-            throw new Exception($"Task with ID={id} does not exist");//throw exception
+            throw new DalDoesNotExistException($"Task with ID={id} does not exist");//throw exception
 
         Task? t = task with { isActive = false };//create a new task with the same data but not active
         DataSource.Tasks.RemoveAll(temp => temp.Id == id);//remove the task

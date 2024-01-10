@@ -7,328 +7,549 @@ using System.Security.Cryptography;
 internal class Program
 {
     //new implementation of IDal
-    //private static IDependency? s_dalDependency = new DependencyImplementation();//stage 1
-    //private static ITask? s_dalTask = new TaskImplementation();//stage 1
-    //private static IEngineer? s_dalEngineer = new EngineerImplementation();//stage 1
-
     static readonly IDal s_dal = new DalList();
 
     /// <summary>
-    /// show the menu and call the sub menu with the choice
+    /// Displays a menu to the user and navigates to submenus based on their choices.
     /// </summary>
+    /// <remarks>
+    /// This method presents a menu with options for the user to choose from, including options
+    /// to navigate to specific submenus or exit the program. The user's input is processed
+    /// using a switch statement, directing the program flow accordingly. The loop continues
+    /// until the user chooses to exit the program (entering 0).
+    /// </remarks>
+    /// <seealso cref="SubMenu(string)"/>
     static void ShowMenu()
     {
-        int choice;
+        int choice; // Declare a variable to store the user's choice
+
         do
         {
+            // Display the menu options to the user
             Console.WriteLine("Choose an option:\n" +
                 "0. Exit \n" +
-                "1. task \n" +
-                "2. engineer\n" +
-                "3. dependency");
+                "1. Task \n" +
+                "2. Engineer\n" +
+                "3. Dependency");
 
+            // Read the user's input and parse it to an integer, storing it in the 'choice' variable
             int.TryParse(Console.ReadLine(), out choice);
+
+            // Use a switch statement to handle different cases based on the user's choice
             switch (choice)
-            { 
-                case 0:// if we chose 0 we will exit the program
+            {
+                case 0:
+                    // If the user chose 0, exit the program
                     return;
-                case 1:// if we chose 1 we will go to the task menu
-                    SubMenu("Task"); ;
+                case 1:
+                    // If the user chose 1, go to the SubMenu with the argument "Task"
+                    SubMenu("Task");
                     break;
-                case 2:// if we chose 2 we will go to the engineer menu
+                case 2:
+                    // If the user chose 2, go to the SubMenu with the argument "Engineer"
                     SubMenu("Engineer");
                     break;
-                case 3:// if we chose 3 we will go to the dependency menu
+                case 3:
+                    // If the user chose 3, go to the SubMenu with the argument "Dependency"
                     SubMenu("Dependency");
                     break;
-                default:// if we chose any other number we will throw an exception
-                    Console.WriteLine("Invalid input");
-                    break;
-            }        
-        } while (choice != 0);
-    }
-
-    /// <summary>
-    /// print the sub menu and call the function that the user chose
-    /// </summary>
-    /// <param name="choice">the choice from the previuos menu</param>
-    static void SubMenu(string choice)
-    {
-        int subChoice;
-        do
-        {
-            Console.WriteLine("Choose an option:\n"+
-                "0. Back\n"+
-                "1. Create\n"+
-                "2. Read\n"+
-                "3. ReadAll\n"+
-                "4. Update\n"+
-                "5. Delete\n");
-        try
-        {
-            int.TryParse(Console.ReadLine(), out subChoice);
-
-            switch (choice, subChoice)
-            {
-                case ("Task", 1):// task create
-                    CreateTask();
-                    break;
-                case ("Task", 2):// task read
-                    ReadTask();
-                    break;
-                case ("Task", 3):
-                    ReadAllTask();// task read all
-                    break;
-                case ("Task", 4):
-                    UpdateTask();// task update
-                    break;
-                case ("Task", 5):
-                    DeleteTask();// task delete
-                    break;
-
-                case ("Engineer", 1):/// engineer create
-                    CreateEngineer();
-                    break;
-                case ("Engineer", 2):
-                    ReadEngineer();// engineer read
-                    break;
-                case ("Engineer", 3):
-                    ReadAllEngineer();// engineer read all
-                    break;
-                case ("Engineer", 4):
-                    UpdateEngineer();// engineer update
-                    break;
-                case ("Engineer", 5):
-                    DeleteEngineer();// engineer delete
-                    break;
-
-                case ("Dependency", 1):
-                    CreateDependency();// dependency create
-                    break;
-                case ("Dependency", 2):
-                    ReadDependency();// dependency read
-                    break;
-                case ("Dependency", 3):
-                    ReadAllDependency();// dependency read all
-                    break;
-                case ("Dependency", 4):
-                    UpdateDependency();// dependency update
-                    break;
-                case ("Dependency", 5):
-                    DeleteDependency();// dependency delete
-                    break;
-
-                case ("Task", 0):// if we chose 0 we will go back to the main menu
-                case ("Engineer", 0):
-                case ("Dependency", 0):
-                    break;
-
-                default:// if we chose any other number we will throw an exception
+                default:
+                    // If the user chose any other number, display an error message
                     Console.WriteLine("Invalid input");
                     break;
             }
-        }
-           catch (Exception ex)// catch all the exceptions
-           {
-                Console.WriteLine(ex.Message);// print the exception
-                subChoice = 10;// initialize the choice to 10 so we will not exit the program
-           }
+
+        } while (choice != 0); // Continue the loop as long as the user's choice is not 0
+    }
+
+    /// <summary>
+    /// Displays a submenu based on the provided choice and allows the user to perform actions within that submenu.
+    /// </summary>
+    /// <param name="choice">The main menu option that led to this submenu (e.g., "Task", "Engineer", "Dependency").</param>
+    /// <remarks>
+    /// This method presents a submenu with options specific to the main menu choice. Users can perform actions such as
+    /// creating, reading, updating, or deleting items based on the submenu context. The user's input is processed using
+    /// a switch statement, directing the program flow accordingly. The loop continues until the user chooses to go back to
+    /// the main menu (entering 0). Any exceptions thrown during submenu operations are caught, and an error message is displayed.
+    /// </remarks>
+    /// <seealso cref="CreateTask"/>
+    /// <seealso cref="ReadTask"/>
+    /// <seealso cref="ReadAllTask"/>
+    /// <seealso cref="UpdateTask"/>
+    /// <seealso cref="DeleteTask"/>
+    /// <seealso cref="CreateEngineer"/>
+    /// <seealso cref="ReadEngineer"/>
+    /// <seealso cref="ReadAllEngineer"/>
+    /// <seealso cref="UpdateEngineer"/>
+    /// <seealso cref="DeleteEngineer"/>
+    /// <seealso cref="CreateDependency"/>
+    /// <seealso cref="ReadDependency"/>
+    /// <seealso cref="ReadAllDependency"/>
+    /// <seealso cref="UpdateDependency"/>
+    /// <seealso cref="DeleteDependency"/>
+    static void SubMenu(string choice)
+    {
+        int subChoice;
+
+        do
+        {
+            // Display the submenu options to the user
+            Console.WriteLine("Choose an option:\n" +
+                "0. Back\n" +
+                "1. Create\n" +
+                "2. Read\n" +
+                "3. ReadAll\n" +
+                "4. Update\n" +
+                "5. Delete\n");
+
+            try
+            {
+                int.TryParse(Console.ReadLine(), out subChoice);
+
+                // Process user input based on the main menu choice and submenu option
+                switch (choice, subChoice)
+                {
+                    // Task submenu options
+                    case ("Task", 1):
+                        CreateTask();
+                        break;
+                    case ("Task", 2):
+                        ReadTask();
+                        break;
+                    case ("Task", 3):
+                        ReadAllTask();
+                        break;
+                    case ("Task", 4):
+                        UpdateTask();
+                        break;
+                    case ("Task", 5):
+                        DeleteTask();
+                        break;
+
+                    // Engineer submenu options
+                    case ("Engineer", 1):
+                        CreateEngineer();
+                        break;
+                    case ("Engineer", 2):
+                        ReadEngineer();
+                        break;
+                    case ("Engineer", 3):
+                        ReadAllEngineer();
+                        break;
+                    case ("Engineer", 4):
+                        UpdateEngineer();
+                        break;
+                    case ("Engineer", 5):
+                        DeleteEngineer();
+                        break;
+
+                    // Dependency submenu options
+                    case ("Dependency", 1):
+                        CreateDependency();
+                        break;
+                    case ("Dependency", 2):
+                        ReadDependency();
+                        break;
+                    case ("Dependency", 3):
+                        ReadAllDependency();
+                        break;
+                    case ("Dependency", 4):
+                        UpdateDependency();
+                        break;
+                    case ("Dependency", 5):
+                        DeleteDependency();
+                        break;
+
+                    // Going back to the main menu
+                    case ("Task", 0):
+                    case ("Engineer", 0):
+                    case ("Dependency", 0):
+                        break;
+
+                    // Handling invalid input
+                    default:
+                        Console.WriteLine("Invalid input");
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Catch and handle any exceptions that occur during submenu operations
+                Console.WriteLine(ex.Message);
+                subChoice = 10; // Set subChoice to a non-zero value to avoid exiting the program
+            }
 
         } while (subChoice != 0);
     }
+
     /// <summary>
-    /// create a new task and add it to the data base
+    /// Creates a new task, assigns it a unique identifier, and adds it to the database.
     /// </summary>
+    /// <remarks>
+    /// This method generates a unique identifier for the task using the <see cref="GetId"/> function,
+    /// creates a new task object through the <see cref="TaskCreation"/> function, and then adds the
+    /// task to the database using the data access layer. The task creation and database insertion
+    /// are performed sequentially within this method.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
+    /// <seealso cref="TaskCreation"/>
     static void CreateTask()
     {
+        // Obtain a unique identifier for the task
         int id = GetId();
-        Task task = TaskCreation(id);//create the task
-        s_dal!.Task.Create(task);//add the task to the data base
+
+        // Create a new task using the obtained identifier
+        Task task = TaskCreation(id);
+
+        // Add the created task to the database using the data access layer
+        s_dal!.Task.Create(task);
     }
 
     /// <summary>
-    /// read a task from the data base and print it
+    /// Reads and displays information about a specific task based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the task using the <see cref="GetId"/> function,
+    /// retrieves the corresponding task from the database using the data access layer, and then prints the task
+    /// information to the console. If the task is not found in the database, a null value is returned, and a message
+    /// indicating that the task was not found is displayed.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
     static void ReadTask()
     {
+        // Obtain an identifier for the task from the user
         int id = GetId();
 
-        Task? task = s_dal!.Task.Read(id);//find the task with the id
-        Console.WriteLine(task);//print the task
+        // Read the task from the database using the data access layer
+        Task? task = s_dal!.Task.Read(id);
+
+        // Print the task information to the console
+        Console.WriteLine(task);
     }
 
+
     /// <summary>
-    /// return all the tasks from the data base and print them
+    /// Reads and displays information about all tasks stored in the database.
     /// </summary>
+    /// <remarks>
+    /// This method retrieves all tasks from the database using the data access layer's <see cref="Dal.Task.ReadAll"/> method
+    /// and prints the information of each task to the console. If there are no tasks in the database, a message indicating
+    /// that there are no tasks is displayed.
+    /// </remarks>
     static void ReadAllTask()
     {
         Console.WriteLine("All of the tasks:");
-        //get all the tasks
 
-        IEnumerable<Task> tasks = s_dal!.Task.ReadAll();
-        foreach (Task task in tasks)
+        // Retrieve all tasks from the database using the data access layer
+        var tasks = s_dal!.Task.ReadAll();
+
+        //Iterate through the tasks and print their information to the console
+        foreach (var task in tasks)
         {
-            Console.WriteLine(task);//print any task of the tasks
+            Console.WriteLine(task);
         }
     }
+
     /// <summary>
-    /// update a task from the data base
+    /// Updates information for a specific task based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the task using the <see cref="GetId"/> function,
+    /// retrieves the corresponding task from the database using the data access layer, and displays the current
+    /// information of the task to the console. If the task is not found in the database, a message is displayed,
+    /// and the function exits. If the task exists, the <see cref="TaskUpdate"/> function is used to create a new
+    /// task with updated information, and the database is updated with the new task.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
+    /// <seealso cref="TaskUpdate"/>
     static void UpdateTask()
     {
+        // Obtain an identifier for the task from the user
         int id = GetId();
-        Task? oldTask = s_dal!.Task.Read(id);//find the index of the task with the same id
-        if(oldTask == null)// if the task is not exist
+
+        // Read the existing task from the database using the data access layer
+        Task? oldTask = s_dal!.Task.Read(id);
+
+        // Check if the task exists in the database
+        if (oldTask == null)
         {
             Console.WriteLine("The task is not exist");
             return;
         }
-        Console.WriteLine("The old task:");
-        Console.WriteLine(oldTask);//print the task
 
-        
-        s_dal!.Task.Update(TaskUpdate(oldTask));//update the task
+        // Display the current information of the task to the console
+        Console.WriteLine("The old task:");
+        Console.WriteLine(oldTask);
+
+        // Update the task in the database using the data access layer
+        s_dal!.Task.Update(TaskUpdate(oldTask));
     }
-    
+
     /// <summary>
-    /// delete a task from the data base
+    /// Deletes a specific task from the database based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the task using the <see cref="GetId"/> function
+    /// and deletes the corresponding task from the database using the data access layer. If the task is not found
+    /// in the database, no action is taken.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
     static void DeleteTask()
     {
+        // Obtain an identifier for the task from the user
         int id = GetId();
-        s_dal!.Task.Delete(id);//delete the task
+
+        // Delete the task from the database using the data access layer
+        s_dal!.Task.Delete(id);
     }
 
+
     /// <summary>
-    /// create a new engineer and add it to the data base
+    /// Creates a new engineer, assigns it a unique identifier, and adds it to the database.
     /// </summary>
+    /// <remarks>
+    /// This method generates a unique identifier for the engineer using the <see cref="GetId"/> function,
+    /// creates a new engineer object through the <see cref="EngineerCreation"/> function, and then adds
+    /// the engineer to the database using the data access layer. The engineer creation and database insertion
+    /// are performed sequentially within this method.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
+    /// <seealso cref="EngineerCreation"/>
     private static void CreateEngineer()
     {
+        // Obtain a unique identifier for the engineer
         int id = GetId();
-        Engineer engineer = EngineerCreation(id);//create the engineer
-        s_dal!.Engineer.Create(engineer);//add the engineer to the data base
+
+        // Create a new engineer using the obtained identifier
+        Engineer engineer = EngineerCreation(id);
+
+        // Add the created engineer to the database using the data access layer
+        s_dal!.Engineer.Create(engineer);
     }
 
+
     /// <summary>
-    /// read a engineer from the data base and print it
+    /// Reads and displays information about a specific engineer based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the engineer, retrieves the corresponding
+    /// engineer from the database using the data access layer, and then prints the engineer information to
+    /// the console. If the engineer is not found in the database, a null value is returned, and a message
+    /// indicating that the engineer was not found is displayed.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
     private static void ReadEngineer()
     {
         Console.WriteLine("Enter the id of the engineer:");
 
-        //get the id of the engineer
+        // Get the id of the engineer from the user
         int id = GetId();
-        Engineer? engineer = s_dal!.Engineer.Read(id) ;
-        Console.WriteLine(engineer);//print the engineer
+
+        // Read the engineer from the database using the data access layer
+        Engineer? engineer = s_dal!.Engineer.Read(id);
+
+        // Print the engineer information to the console
+        Console.WriteLine(engineer);
     }
 
     /// <summary>
-    /// return all the engineers from the data base and print them
+    /// Reads and displays information about all engineers stored in the database.
     /// </summary>
+    /// <remarks>
+    /// This method retrieves all engineers from the database using the data access layer's <see cref="Dal.Engineer.ReadAll"/> method
+    /// and prints the information of each engineer to the console. If there are no engineers in the database, a message indicating
+    /// that there are no engineers is displayed.
+    /// </remarks>
     private static void ReadAllEngineer()
     {
         Console.WriteLine("All of the engineers:");
 
-        //get all the engineers
-        IEnumerable<Engineer> engineers = s_dal!.Engineer.ReadAll();
-        foreach (Engineer engineer in engineers)
+        // Retrieve all engineers from the database using the data access layer
+        var engineers = s_dal!.Engineer.ReadAll();
+
+        // Iterate through the engineers and print their information to the console
+        foreach (var engineer in engineers)
         {
-            Console.WriteLine(engineer);//print any engineer of the engineers
+            Console.WriteLine(engineer);
         }
     }
-
     /// <summary>
-    /// update a engineer from the data base
+    /// Updates information for a specific engineer based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the engineer using the <see cref="GetId"/> function,
+    /// retrieves the corresponding engineer from the database using the data access layer, and displays the current
+    /// information of the engineer to the console. If the engineer is not found in the database, a message is displayed,
+    /// and the function exits. If the engineer exists, the <see cref="EngineerUpdate"/> function is used to create a new
+    /// engineer with updated information, and the database is updated with the new engineer.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
+    /// <seealso cref="EngineerUpdate"/>
     private static void UpdateEngineer()
     {
+        // Obtain an identifier for the engineer from the user
         int id = GetId();
 
-        Engineer? oldEngineer = s_dal!.Engineer.Read(id);//find the index of the engineer with the same id
-        if (oldEngineer == null)// if the engineer is not exist
+        // Read the existing engineer from the database using the data access layer
+        Engineer? oldEngineer = s_dal!.Engineer.Read(id);
+
+        // Check if the engineer exists in the database
+        if (oldEngineer == null)
         {
             Console.WriteLine("The engineer is not exist");
             return;
         }
+
+        // Display the current information of the engineer to the console
         Console.WriteLine("The old engineer:");
-        Console.WriteLine(oldEngineer);//print the engineer
+        Console.WriteLine(oldEngineer);
 
-        s_dal!.Engineer.Update(EngineerUpdate(oldEngineer));//update the engineer
+        // Update the engineer in the database using the data access layer
+        s_dal!.Engineer.Update(EngineerUpdate(oldEngineer));
     }
-
     /// <summary>
-    /// delete a engineer from the data base
+    /// Deletes a specific engineer from the database based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the engineer using the <see cref="GetId"/> function
+    /// and deletes the corresponding engineer from the database using the data access layer. If the engineer is not found
+    /// in the database, no action is taken.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
     private static void DeleteEngineer()
     {
-
+        // Obtain an identifier for the engineer from the user
         int id = GetId();
-        s_dal!.Engineer.Delete(id);//delete the engineer
+
+        // Delete the engineer from the database using the data access layer
+        s_dal!.Engineer.Delete(id);
     }
 
     /// <summary>
-    /// create a new dependency and add it to the data base
+    /// Creates a new dependency, assigns it a unique identifier, and adds it to the database.
     /// </summary>
+    /// <remarks>
+    /// This method generates a unique identifier for the dependency using the <see cref="GetId"/> function,
+    /// creates a new dependency object through the <see cref="DependencyCreation"/> function, and then adds
+    /// the dependency to the database using the data access layer. The dependency creation and database insertion
+    /// are performed sequentially within this method.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
+    /// <seealso cref="DependencyCreation"/>
     private static void CreateDependency()
     {
+        // Obtain a unique identifier for the dependency
         int id = GetId();
-        Dependency dependency = DependencyCreation(id);//create the dependency
-        s_dal!.Dependency.Create(dependency);//add the dependency to the data base
 
+        // Create a new dependency using the obtained identifier
+        Dependency dependency = DependencyCreation(id);
+
+        // Add the created dependency to the database using the data access layer
+        s_dal!.Dependency.Create(dependency);
     }
 
     /// <summary>
-    /// read a dependency from the data base and print it
+    /// Reads and displays information about a specific dependency based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the dependency, retrieves the corresponding
+    /// dependency from the database using the data access layer, and then prints the dependency information to
+    /// the console. If the dependency is not found in the database, a null value is returned, and a message
+    /// indicating that the dependency was not found is displayed.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
     private static void ReadDependency()
     {
-        //get the id of the dependency
+        // Get the id of the dependency from the user
         int id = GetId();
+
+        // Read the dependency from the database using the data access layer
         Dependency? dependency = s_dal!.Dependency.Read(id);
-        Console.WriteLine(dependency);//print the dependency
+
+        // Print the dependency information to the console
+        Console.WriteLine(dependency);
     }
 
     /// <summary>
-    /// return all the dependencies from the data base and print them
+    /// Reads and displays information about all dependencies stored in the database.
     /// </summary>
+    /// <remarks>
+    /// This method retrieves all dependencies from the database using the data access layer's <see cref="Dal.Dependency.ReadAll"/> method
+    /// and prints the information of each dependency to the console. If there are no dependencies in the database, a message indicating
+    /// that there are no dependencies is displayed.
+    /// </remarks>
     private static void ReadAllDependency()
     {
         Console.WriteLine("All of the dependencies:");
 
-        //get all the dependencies
-        IEnumerable<Dependency> dependencies = s_dal!.Dependency.ReadAll();
-        foreach (Dependency dependency in dependencies)
+        // Retrieve all dependencies from the database using the data access layer
+        var dependencies = s_dal!.Dependency.ReadAll();
+
+        // Iterate through the dependencies and print their information to the console
+        foreach (var dependency in dependencies)
         {
-            Console.WriteLine(dependency);//print any dependency of the dependencies
+            Console.WriteLine(dependency);
+        }
+
+        // Display a message if there are no dependencies in the database
+        if (!dependencies.Any())
+        {
+            Console.WriteLine("No dependencies found.");
         }
     }
 
     /// <summary>
-    /// update a dependency from the data base
+    /// Updates information for a specific dependency based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the dependency using the <see cref="GetId"/> function,
+    /// retrieves the corresponding dependency from the database using the data access layer, and displays the current
+    /// information of the dependency to the console. If the dependency is not found in the database, a message is displayed,
+    /// and the function exits. If the dependency exists, the <see cref="DependencyUpdate"/> function is used to create a new
+    /// dependency with updated information, and the database is updated with the new dependency.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
+    /// <seealso cref="DependencyUpdate"/>
     private static void UpdateDependency()
     {
+        // Obtain an identifier for the dependency from the user
         int id = GetId();
 
-        Dependency? oldDependency = s_dal!.Dependency.Read(id);//find the index of the dependency with the same id
-        if (oldDependency == null)// if the dependency is not exist
+        // Read the existing dependency from the database using the data access layer
+        Dependency? oldDependency = s_dal!.Dependency.Read(id);
+
+        // Check if the dependency exists in the database
+        if (oldDependency == null)
         {
             Console.WriteLine("The dependency is not exist");
             return;
         }
-        Console.WriteLine("The old dependency:");
-        Console.WriteLine(oldDependency);//print the dependency
 
-        s_dal!.Dependency.Update(DependencyUpdate(oldDependency));//update the dependency
+        // Display the current information of the dependency to the console
+        Console.WriteLine("The old dependency:");
+        Console.WriteLine(oldDependency);
+
+        // Update the dependency in the database using the data access layer
+        s_dal!.Dependency.Update(DependencyUpdate(oldDependency));
     }
 
+
     /// <summary>
-    /// delete a dependency from the data base
+    /// Deletes a specific dependency from the database based on the provided identifier.
     /// </summary>
+    /// <remarks>
+    /// This method prompts the user to enter an identifier for the dependency using the <see cref="GetId"/> function
+    /// and deletes the corresponding dependency from the database using the data access layer. If the dependency is not found
+    /// in the database, no action is taken.
+    /// </remarks>
+    /// <seealso cref="GetId"/>
     private static void DeleteDependency()
     {
+        // Obtain an identifier for the dependency from the user
         int id = GetId();
-        s_dal!.Dependency.Delete(id);//delete the dependency
+
+        // Delete the dependency from the database using the data access layer
+        s_dal!.Dependency.Delete(id);
     }
 
     /// <summary>

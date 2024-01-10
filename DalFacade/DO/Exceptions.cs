@@ -3,33 +3,19 @@
 namespace DO;
 
 [Serializable]
-public class DalNotExistException : Exception
+public class DalDoesNotExistException : Exception
 {
-     public DalNotExistException(string? message) : base(message)
-    {
-    }
-
-    public DalNotExistException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected DalNotExistException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
+    public DalDoesNotExistException(string? message) : base(message) { }
 }
 
 [Serializable]
-public class DalAllreadyExistException : Exception
+public class DalAlreadyExistsException : Exception
 {
-     public DalAllreadyExistException(string? message) : base(message)
-    {
-    }
+    public DalAlreadyExistsException(string? message) : base(message) { }
+}
 
-    public DalAllreadyExistException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected DalAllreadyExistException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
+[Serializable]
+public class DalDeletionImpossible : Exception
+{
+    public DalDeletionImpossible(string? message) : base(message) { }
 }
