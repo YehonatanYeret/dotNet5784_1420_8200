@@ -10,7 +10,7 @@ internal class EngineerImplementation : IEngineer
     {
         Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == item.Id);
         if (engineer != null)//if the engineer already exists
-            throw new Exception($"Engineer with ID={item.Id} already exists");
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
 
         DataSource.Engineers.Add(item);//add the task to the list
         return item.Id;//return the id
@@ -21,7 +21,7 @@ internal class EngineerImplementation : IEngineer
     {
         Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);//find the engineer with the id and if not found return null
         if (engineer == null)//if not found
-            throw new Exception($"Engineer with ID={id} does not exist");//throw exception
+            throw new DalDoesNotExistException($"Engineer with ID={id} does not exist");//throw exception
         return engineer;
     }
 
@@ -46,7 +46,7 @@ internal class EngineerImplementation : IEngineer
     {
         Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == item.Id);//find the index of the engineer with the same id
         if (engineer == null)//if not found
-            throw new Exception($"Engineer with ID={item.Id} does not exist");//throw exception
+            throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exist");//throw exception
 
         DataSource.Engineers.RemoveAll(temp => temp.Id == engineer.Id);//remove the engineer
         DataSource.Engineers.Add(item);//add the new engineer
@@ -59,7 +59,7 @@ internal class EngineerImplementation : IEngineer
 
         Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);//find the index of the engineer with the same id
         if (engineer == null)//if not found
-            throw new Exception($"Engineer with ID={id} does not exist");//throw exception
+            throw new DalDoesNotExistException($"Engineer with ID={id} does not exist");//throw exception
 
         DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
     }
