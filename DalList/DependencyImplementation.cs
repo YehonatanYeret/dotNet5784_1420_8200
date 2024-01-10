@@ -19,6 +19,11 @@ internal class DependencyImplementation : IDependency
         return DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);
     }
 
+    public Dependency? Read(Func<Dependency, bool> filter)
+    {
+        return DataSource.Dependencies.FirstOrDefault(filter);
+    }
+
     //return a copy of the list of dependencies
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null)
     {
@@ -49,4 +54,5 @@ internal class DependencyImplementation : IDependency
         DataSource.Dependencies.RemoveAll(temp=> temp.Id == id);
      
     }
+
 }

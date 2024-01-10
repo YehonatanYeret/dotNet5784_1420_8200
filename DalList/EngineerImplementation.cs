@@ -25,6 +25,12 @@ internal class EngineerImplementation : IEngineer
         return engineer;
     }
 
+    public Engineer? Read(Func<Engineer, bool> filter)
+    {
+        // return the first element that match the filter condition, else return null
+        return DataSource.Engineers.FirstOrDefault(filter); 
+    }
+
     //return a copy of the list of engineers
     public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null)
     {
@@ -57,4 +63,5 @@ internal class EngineerImplementation : IEngineer
 
         DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
     }
+
 }
