@@ -227,7 +227,6 @@ internal class Program
         Console.WriteLine(task);
     }
 
-
     /// <summary>
     /// Reads and displays information about all tasks stored in the database.
     /// </summary>
@@ -303,7 +302,6 @@ internal class Program
         s_dal!.Task.Delete(id);
     }
 
-
     /// <summary>
     /// Creates a new engineer, assigns it a unique identifier, and adds it to the database.
     /// </summary>
@@ -326,7 +324,6 @@ internal class Program
         // Add the created engineer to the database using the data access layer
         s_dal!.Engineer.Create(engineer);
     }
-
 
     /// <summary>
     /// Reads and displays information about a specific engineer based on the provided identifier.
@@ -373,6 +370,7 @@ internal class Program
             Console.WriteLine(engineer);
         }
     }
+
     /// <summary>
     /// Updates information for a specific engineer based on the provided identifier.
     /// </summary>
@@ -407,6 +405,7 @@ internal class Program
         // Update the engineer in the database using the data access layer
         s_dal!.Engineer.Update(EngineerUpdate(oldEngineer));
     }
+
     /// <summary>
     /// Deletes a specific engineer from the database based on the provided identifier.
     /// </summary>
@@ -533,7 +532,6 @@ internal class Program
         s_dal!.Dependency.Update(DependencyUpdate(oldDependency));
     }
 
-
     /// <summary>
     /// Deletes a specific dependency from the database based on the provided identifier.
     /// </summary>
@@ -553,53 +551,43 @@ internal class Program
     }
 
     /// <summary>
-    /// create a new task and return it
+    /// Creates a new task with the provided identifier and user-input values.
     /// </summary>
-    /// <param name="id">the id of the new Task</param>
-    /// <returns></returns>
+    /// <param name="id">The identifier for the new task.</param>
+    /// <returns>The newly created task with user-input values.</returns>
     private static Task TaskCreation(int id)
     {
-        // because we have nullable values we need to use temp variables to check if the input is valid
-        DateTime temp1;// to use for the nullable dates
-        TimeSpan temp2;// to use for the nullable time span
+        // Temporary variables to check if the input is valid for nullable values
+        DateTime temp1;
+        TimeSpan temp2;
         int temp3;
 
         Console.WriteLine("Enter the values of the task:");
 
-        //get the new values
+        // Get user input for various task properties
         Console.Write("alias:");
-        string alias = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        string alias = Console.ReadLine()!; // Non-nullable input
 
         Console.Write("description:");
-        string description = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        string description = Console.ReadLine()!; // Non-nullable input
 
         Console.Write("created at date:");
-        DateTime.TryParse(Console.ReadLine()!, out DateTime createdAtDate);
+        DateTime.TryParse(Console.ReadLine(), out DateTime createdAtDate);
 
         Console.Write("scheduled date:");
-        DateTime? scheduledDate = null;// we initialize the nullable to default 
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            scheduledDate = temp1;// we change the nullable to the input
+        DateTime? scheduledDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
 
         Console.Write("start date:");
-        DateTime? startDate = null;// we initialize the nullable to default
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            startDate = temp1;// we change the nullable to the input
+        DateTime? startDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
 
         Console.Write("required effort time:");
-        TimeSpan? requiredEffortTime = null;// we initialize the nullable to default
-        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))// if the input is valid
-            requiredEffortTime = temp2;// we change the nullable to the input
+        TimeSpan? requiredEffortTime = TimeSpan.TryParse(Console.ReadLine(), out temp2) ? temp2 : (TimeSpan?)null;
 
         Console.Write("deadline date:");
-        DateTime? deadlineDate = null;// we initialize the nullable to default
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            deadlineDate = temp1;// we change the nullable to the input
+        DateTime? deadlineDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
 
         Console.Write("complete date:");
-        DateTime? completeDate = null;// we initialize the nullable to default
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            completeDate = temp1;// we change the nullable to the input
+        DateTime? completeDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
 
         Console.Write("deliverables:");
         string? deliverables = Console.ReadLine();
@@ -608,23 +596,19 @@ internal class Program
         string? remarks = Console.ReadLine();
 
         Console.Write("engineer id:");
-        int? engineerId = null;// we initialize the nullable to default
-        if (int.TryParse(Console.ReadLine(), out temp3))// if the input is valid
-            engineerId = temp3;// we change the nullable to the input
+        int? engineerId = int.TryParse(Console.ReadLine(), out temp3) ? temp3 : (int?)null;
 
-        Console.Write("copmlexity:");
-        EngineerExperience? copmlexity = null;// we initialize the nullable to default
-        if (Enum.TryParse(Console.ReadLine(), out EngineerExperience experience))
-            copmlexity = experience;//if the input is valid we change the nullable to the input
+        Console.Write("complexity:");
+        EngineerExperience? complexity = Enum.TryParse(Console.ReadLine(), out EngineerExperience experience) ? experience : (EngineerExperience?)null;
 
-        //create the new task
+        // Create the new task
         Task task = new(
-            id,// we put 0 because the id is auto increment
+            id, // Provided identifier (0 for auto-increment)
             alias,
             description,
             createdAtDate,
-            false,// told us to put only null for now
-            true,
+            false, // Placeholder value, auto-incremented identifier will be used
+            true, // Placeholder value (default value for boolean property)
             scheduledDate,
             startDate,
             requiredEffortTime,
@@ -633,32 +617,32 @@ internal class Program
             deliverables,
             remarks,
             engineerId,
-            copmlexity
+            complexity
         );
         return task;
     }
 
     /// <summary>
-    /// create a new engineer and return it
+    /// Creates a new engineer with the provided identifier and user-input values.
     /// </summary>
-    /// <param name="id">the id of the new Engineer</param>
-    /// <returns></returns>
+    /// <param name="id">The identifier for the new engineer.</param>
+    /// <returns>The newly created engineer with user-input values.</returns>
     private static Engineer EngineerCreation(int id)
     {
-        //get the new values
+        // Get user input for various engineer properties
         Console.Write("cost:");
         double.TryParse(Console.ReadLine()!, out double cost);
 
         Console.Write("name:");
-        string name = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        string name = Console.ReadLine()!; // Non-nullable input
 
         Console.Write("email:");
-        string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        string email = Console.ReadLine()!; // Non-nullable input
 
         Console.Write("level:");
         Enum.TryParse(Console.ReadLine()!, out EngineerExperience level);
 
-        //create the new engineer
+        // Create the new engineer
         Engineer engineer = new(
             id,
             cost,
@@ -670,27 +654,22 @@ internal class Program
     }
 
     /// <summary>
-    /// create a new dependency
+    /// Creates a new dependency with the provided identifier and user-input values.
     /// </summary>
-    /// <param name="id"> the id of the dependency</param>
-    /// <returns></returns>
+    /// <param name="id">The identifier for the new dependency.</param>
+    /// <returns>The newly created dependency with user-input values.</returns>
     private static Dependency DependencyCreation(int id)
     {
         Console.WriteLine("Enter the values of the dependency:");
 
-        //get the new values
+        // Get user input for various dependency properties
         Console.Write("task id:");
-        int? taskId = null;// we initialize the nullable to default
-        if (int.TryParse(Console.ReadLine(), out int dependent))// if the input is valid
-            taskId = dependent;// we change the nullable to the input
+        int? taskId = int.TryParse(Console.ReadLine(), out int dependent) ? dependent : (int?)null;
 
         Console.Write("depend on task id:");
-        int? dependOnTaskId = null;// we initialize the nullable to default
-        if (int.TryParse(Console.ReadLine(), out int dependsOn))// if the input is valid
-            dependOnTaskId = dependsOn;// we change the nullable to the input
+        int? dependOnTaskId = int.TryParse(Console.ReadLine(), out int dependsOn) ? dependsOn : (int?)null;
 
-
-        //create the new dependency
+        // Create the new dependency
         Dependency dependency = new(
             id,
             taskId,
@@ -699,89 +678,89 @@ internal class Program
         return dependency;
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////
-
     /// <summary>
-    /// return a new task with the new values
+    /// Returns a new task with updated values based on the provided old task.
     /// </summary>
-    /// <param name="Oldtask">the old task to update</param>
-    /// <returns></returns>
-    private static Task TaskUpdate(Task Oldtask) {
-        // because we have nullable values we need to use temp variables to check if the input is valid
-        DateTime temp1;// to use for the nullable dates
-        TimeSpan temp2;// to use for the nullable time span
+    /// <param name="oldTask">The old task to update.</param>
+    /// <returns>The updated task with new values.</returns>
+    private static Task TaskUpdate(Task oldTask)
+    {
+        // Temporary variables to check if the input is valid for nullable values
+        DateTime temp1;
+        TimeSpan temp2;
         int temp3;
 
-        Console.WriteLine("Enter the values of the task:");
+        Console.WriteLine("Enter the updated values of the task:");
 
-        //get the new values
+        // Get the updated values from user input or use the old values if input is empty
         Console.Write("alias:");
-        string? alias = Console.ReadLine();// we use ! because we know that the input is not need to be null
+        string? alias = Console.ReadLine();
         if (string.IsNullOrEmpty(alias))
-            alias = Oldtask.Alias;
+            alias = oldTask.Alias;
 
         Console.Write("description:");
         string? description = Console.ReadLine();
         if (string.IsNullOrEmpty(description))
-            description = Oldtask.Description;
+            description = oldTask.Description;
 
         Console.Write("created at date:");
-        if(!DateTime.TryParse(Console.ReadLine()!, out DateTime createdAtDate))
-            createdAtDate = Oldtask.CreatedAtDate;
+        DateTime createdAtDate;
+        if (!DateTime.TryParse(Console.ReadLine(), out createdAtDate))
+            createdAtDate = oldTask.CreatedAtDate;
 
         Console.Write("scheduled date:");
-        DateTime? scheduledDate = Oldtask.ScheduledDate;// we initialize the nullable to default 
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            scheduledDate = temp1;// we change the nullable to the input
+        DateTime? scheduledDate = oldTask.ScheduledDate;
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))
+            scheduledDate = temp1;
 
         Console.Write("start date:");
-        DateTime? startDate = Oldtask.StartDate;// we initialize the nullable to default
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            startDate = temp1;// we change the nullable to the input
+        DateTime? startDate = oldTask.StartDate;
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))
+            startDate = temp1;
 
         Console.Write("required effort time:");
-        TimeSpan? requiredEffortTime = Oldtask.RequiredEffortTime;// we initialize the nullable to default
-        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))// if the input is valid
-            requiredEffortTime = temp2;// we change the nullable to the input
+        TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
+        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))
+            requiredEffortTime = temp2;
 
         Console.Write("deadline date:");
-        DateTime? deadlineDate = Oldtask.DeadlineDate;// we initialize the nullable to default
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            deadlineDate = temp1;// we change the nullable to the input
+        DateTime? deadlineDate = oldTask.DeadlineDate;
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))
+            deadlineDate = temp1;
 
         Console.Write("complete date:");
-        DateTime? completeDate = Oldtask.CompleteDate;// we initialize the nullable to default
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))// if the input is valid
-            completeDate = temp1;// we change the nullable to the input
+        DateTime? completeDate = oldTask.CompleteDate;
+        if (DateTime.TryParse(Console.ReadLine(), out temp1))
+            completeDate = temp1;
 
         Console.Write("deliverables:");
         string? deliverables = Console.ReadLine();
-        if(string.IsNullOrEmpty(deliverables))
-            deliverables = Oldtask.Deliverables;
+        if (string.IsNullOrEmpty(deliverables))
+            deliverables = oldTask.Deliverables;
 
         Console.Write("remarks:");
         string? remarks = Console.ReadLine();
         if (string.IsNullOrEmpty(remarks))
-            remarks = Oldtask.Remarks;
+            remarks = oldTask.Remarks;
 
         Console.Write("engineer id:");
-        int? engineerId = Oldtask.EngineerId;// we initialize the nullable to default
-        if (int.TryParse(Console.ReadLine(), out temp3))// if the input is valid
-            engineerId = temp3;// we change the nullable to the input
+        int? engineerId = oldTask.EngineerId;
+        if (int.TryParse(Console.ReadLine(), out temp3))
+            engineerId = temp3;
 
-        Console.Write("copmlexity:");
-        EngineerExperience? copmlexity = Oldtask.Copmlexity;// we initialize the nullable to default
+        Console.Write("complexity:");
+        EngineerExperience? complexity = oldTask.Complexity;
         if (Enum.TryParse(Console.ReadLine(), out EngineerExperience experience))
-            copmlexity = experience;//if the input is valid we change the nullable to the input
+            complexity = experience;
 
-        //create the new task
-        Task task = new(
-            Oldtask.Id,// the old id
+        // Create the new task with updated values
+        Task task = new Task(
+            oldTask.Id, // Keep the old id
             alias,
             description,
             createdAtDate,
-            false,// told us to put only null for now
-            true,
+            false, // Preserve the old IsDeleted value
+            true, // Placeholder value (default value for boolean property)
             scheduledDate,
             startDate,
             requiredEffortTime,
@@ -790,40 +769,42 @@ internal class Program
             deliverables,
             remarks,
             engineerId,
-            copmlexity
+            complexity
         );
         return task;
     }
 
     /// <summary>
-    /// return a new rngineer with the new values
+    /// Returns a new engineer with updated values based on the provided old engineer.
     /// </summary>
-    /// <param name="OldEngineer">the engineer that we update</param>
-    /// <returns></returns>
-    private static Engineer EngineerUpdate(Engineer OldEngineer)
+    /// <param name="oldEngineer">The engineer to update.</param>
+    /// <returns>The updated engineer with new values.</returns>
+    private static Engineer EngineerUpdate(Engineer oldEngineer)
     {
-        //get the new values
+        // Get the updated values from user input or use the old values if input is empty
         Console.Write("cost:");
-        if(!double.TryParse(Console.ReadLine()!, out double cost))
-            cost = OldEngineer.Cost;
+        double cost;
+        if (!double.TryParse(Console.ReadLine()!, out cost))
+            cost = oldEngineer.Cost;
 
         Console.Write("name:");
-        string name = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
-        if(string.IsNullOrEmpty(name))
-            name = OldEngineer.Name;
+        string name = Console.ReadLine()!; // Non-nullable input
+        if (string.IsNullOrEmpty(name))
+            name = oldEngineer.Name;
 
         Console.Write("email:");
-        string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
-        if(string.IsNullOrEmpty(email))
-            email = OldEngineer.Email;
+        string email = Console.ReadLine()!; // Non-nullable input
+        if (string.IsNullOrEmpty(email))
+            email = oldEngineer.Email;
 
         Console.Write("level:");
-        if(!Enum.TryParse(Console.ReadLine()!, out EngineerExperience level))
-            level = OldEngineer.Level;
+        EngineerExperience level;
+        if (!Enum.TryParse(Console.ReadLine()!, out level))
+            level = oldEngineer.Level;
 
-        //create the new engineer
-        Engineer engineer = new(
-            OldEngineer.Id,
+        // Create the new engineer with updated values
+        Engineer engineer = new Engineer(
+            oldEngineer.Id, // Keep the old id
             cost,
             name,
             email,
@@ -832,25 +813,29 @@ internal class Program
         return engineer;
     }
 
-    private static Dependency DependencyUpdate(Dependency OldDependency)
+    /// <summary>
+    /// Returns a new dependency with updated values based on the provided old dependency.
+    /// </summary>
+    /// <param name="oldDependency">The dependency to update.</param>
+    /// <returns>The updated dependency with new values.</returns>
+    private static Dependency DependencyUpdate(Dependency oldDependency)
     {
-        Console.WriteLine("Enter the values of the dependency:");
+        Console.WriteLine("Enter the updated values of the dependency:");
 
-        //get the new values
+        // Get the updated values from user input or use the old values if input is empty
         Console.Write("task id:");
-        int? taskId =OldDependency.DependentTask;// we initialize the nullable to default
-        if (int.TryParse(Console.ReadLine(), out int dependent))// if the input is valid
-            taskId = dependent;// we change the nullable to the input
+        int? taskId = oldDependency.DependentTask;
+        if (int.TryParse(Console.ReadLine(), out int dependent))
+            taskId = dependent;
 
         Console.Write("depend on task id:");
-        int? dependOnTaskId = OldDependency.DependentOnTask;// we initialize the nullable to default
-        if (int.TryParse(Console.ReadLine(), out int dependsOn))// if the input is valid
-            dependOnTaskId = dependsOn;// we change the nullable to the input
+        int? dependOnTaskId = oldDependency.DependentOnTask;
+        if (int.TryParse(Console.ReadLine(), out int dependsOn))
+            dependOnTaskId = dependsOn;
 
-
-        //create the new dependency
-        Dependency dependency = new(
-            OldDependency.Id,
+        // Create the new dependency with updated values
+        Dependency dependency = new Dependency(
+            oldDependency.Id, // Keep the old id
             taskId,
             dependOnTaskId
         );
@@ -858,29 +843,36 @@ internal class Program
     }
 
     /// <summary>
-    /// the function get an id from the user and return it, while checking if the input is valid
+    /// Retrieves an integer identifier from the user, ensuring the input is valid.
     /// </summary>
+    /// <returns>The user-provided integer identifier.</returns>
     private static int GetId()
     {
-        Console.Write("enter the id:");
+        Console.Write("Enter the id:");
         int.TryParse(Console.ReadLine()!, out int id);
         return id;
     }
 
+    /// <summary>
+    /// The entry point of the program.
+    /// Initializes the database and displays the main menu.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
     static void Main(string[] args)
     {
         try
         {
-            Initialization.Do(s_dal);//initialize the data base
+            Initialization.Do(s_dal); // Initialize the database
 
             Console.WriteLine("!start of the program!\n");
-            ShowMenu();//show the menu
+            ShowMenu(); // Display the main menu
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
-        Console.WriteLine("press any key to continue");
+
+        Console.WriteLine("Press any key to continue");
         Console.ReadKey();
     }
 }

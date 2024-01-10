@@ -1,19 +1,17 @@
 ﻿namespace DO;
 
-
 /// <summary>
-/// Dependency entitiy for the database. represents a milestone in the project with all the relevant data
+/// Represents a Dependency entity for the database, representing a milestone in the project with all the relevant data.
 /// </summary>
-/// <param name="Id">the Id of the Milestone</param>
-/// <param name="DependentTask">the Id of the Task that depend on this Mailestone</param>
-/// <param name="DependentOnTask">the Id of the last Task that our Task depend on </param>
+/// <param name="Id">The Id of the Dependency.</param>
+/// <param name="DependentTask">The Id of the Task that depends on this Dependency.</param>
+/// <param name="DependentOnTask">The Id of the last Task that our Task depends on.</param>
 public record Dependency
 (
-   int Id,
-   int? DependentTask = null,
-   int? DependentOnTask = null
+    int Id,
+    int? DependentTask = null,
+    int? DependentOnTask = null
 )
-{ 
-    public Dependency() : this(0) { }// empty ctor for Milestone
+{
+    public Dependency() : this(0) { }
 }
-
