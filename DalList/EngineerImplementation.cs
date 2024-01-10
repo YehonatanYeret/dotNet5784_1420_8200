@@ -1,13 +1,14 @@
 ﻿namespace Dal;
 using DalApi;
 using DO;
+using System.Linq;
 
 internal class EngineerImplementation : IEngineer
 {
     //create a new engineer
     public int Create(Engineer item)
     {
-        Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == item.Id);
+        Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == item.Id);
         if (engineer != null)//if the engineer already exists
             throw new Exception($"Engineer with ID={item.Id} already exists");
 
@@ -18,24 +19,26 @@ internal class EngineerImplementation : IEngineer
     //read a engineer and return it. if not found return null
     public Engineer? Read(int id)
     {
-        Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == id);//find the engineer with the id and if not found return null
+        Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);//find the engineer with the id and if not found return null
         if (engineer == null)//if not found
             throw new Exception($"Engineer with ID={id} does not exist");//throw exception
         return engineer;
     }
 
     //return a copy of the list of engineers
-    public IEnumerable<Engineer> ReadAll()
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null)
     {
-        IEnumerable<Engineer> engineers = DataSource.Engineers;
-        return from engineer in engineers
-               select engineer;
+        if (filter != null)
+        {
+            return DataSource.Engineers.Where(filter);
+        }
+        return DataSource.Engineers.Select(engineer => engineer);
     }
 
     //update a engineer by removing the old one and adding the new one
     public void Update(Engineer item)
     {
-        Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == item.Id);//find the index of the engineer with the same id
+        Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == item.Id);//find the index of the engineer with the same id
         if (engineer == null)//if not found
             throw new Exception($"Engineer with ID={item.Id} does not exist");//throw exception
 
@@ -48,7 +51,7 @@ internal class EngineerImplementation : IEngineer
     {
         //we dont need to check if there is no tasks with the engineer id because we will check it in the logic layer
 
-        Engineer? engineer = DataSource.Engineers.Find(engineer => engineer.Id == id);//find the index of the engineer with the same id
+        Engineer? engineer = DataSource.Engineers.FirstOrDefault(engineer => engineer.Id == id);//find the index of the engineer with the same id
         if (engineer == null)//if not found
             throw new Exception($"Engineer with ID={id} does not exist");//throw exception
 

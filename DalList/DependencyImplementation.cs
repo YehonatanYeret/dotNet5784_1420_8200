@@ -20,11 +20,13 @@ internal class DependencyImplementation : IDependency
     }
 
     //return a copy of the list of dependencies
-    public IEnumerable<Dependency> ReadAll()
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null)
     {
-        IEnumerable<Dependency> dependencies = DataSource.Dependencies;
-        return from dependency in dependencies
-               select dependency;
+        if (filter != null)
+        {
+            return DataSource.Dependencies.Where(filter);
+        }
+        return DataSource.Dependencies.Select(dependency=>dependency);
     }
     
     //update a dependency by removing the old one and adding the new one
