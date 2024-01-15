@@ -603,21 +603,21 @@ internal class Program
 
         // Create the new task
         Task task = new(
-            id, // Provided identifier (0 for auto-increment)
-            alias,
-            description,
-            createdAtDate,
-            false, // Placeholder value, auto-incremented identifier will be used
-            true, // Placeholder value (default value for boolean property)
-            scheduledDate,
-            startDate,
-            requiredEffortTime,
-            deadlineDate,
-            completeDate,
-            deliverables,
-            remarks,
-            engineerId,
-            complexity
+            Id:id, // Provided identifier (0 for auto-increment)
+            Alias: alias,
+            Description :description,
+            CreatedAtDate :createdAtDate,
+            IsMileStone:false, // Placeholder value, auto-incremented identifier will be used
+            isActive: true, // Placeholder value (default value for boolean property)
+            ScheduledDate :scheduledDate,
+            StartDate:startDate,
+            RequiredEffortTime:requiredEffortTime,
+            DeadlineDate :deadlineDate,
+            CompleteDate :completeDate,
+            Deliverables:deliverables,
+            Remarks:remarks,
+            EngineerId:engineerId,
+            Complexity:complexity
         );
         return task;
     }
@@ -644,11 +644,11 @@ internal class Program
 
         // Create the new engineer
         Engineer engineer = new(
-            id,
-            cost,
-            name,
-            email,
-            level
+            Id:id,
+            Cost:cost,
+            Name:name,
+            Email:email,
+            Level:level
         );
         return engineer;
     }
@@ -671,9 +671,9 @@ internal class Program
 
         // Create the new dependency
         Dependency dependency = new(
-            id,
-            taskId,
-            dependOnTaskId
+            Id:id,
+            DependentTask:taskId,
+            DependentOnTask:dependOnTaskId
         );
         return dependency;
     }
@@ -756,20 +756,20 @@ internal class Program
         // Create the new task with updated values
         Task task = new Task(
             oldTask.Id, // Keep the old id
-            alias,
-            description,
-            createdAtDate,
-            false, // Preserve the old IsDeleted value
-            true, // Placeholder value (default value for boolean property)
-            scheduledDate,
-            startDate,
-            requiredEffortTime,
-            deadlineDate,
-            completeDate,
-            deliverables,
-            remarks,
-            engineerId,
-            complexity
+            Alias: alias,
+            Description: description,
+            CreatedAtDate: createdAtDate,
+            IsMileStone: false, // Placeholder value, auto-incremented identifier will be used
+            isActive: true, // Placeholder value (default value for boolean property)
+            ScheduledDate: scheduledDate,
+            StartDate: startDate,
+            RequiredEffortTime: requiredEffortTime,
+            DeadlineDate: deadlineDate,
+            CompleteDate: completeDate,
+            Deliverables: deliverables,
+            Remarks: remarks,
+            EngineerId: engineerId,
+            Complexity: complexity
         );
         return task;
     }
@@ -805,10 +805,10 @@ internal class Program
         // Create the new engineer with updated values
         Engineer engineer = new Engineer(
             oldEngineer.Id, // Keep the old id
-            cost,
-            name,
-            email,
-            level
+            Cost:cost,
+            Name:name,
+            Email:email,
+            Level:level
         );
         return engineer;
     }
@@ -835,9 +835,9 @@ internal class Program
 
         // Create the new dependency with updated values
         Dependency dependency = new Dependency(
-            oldDependency.Id, // Keep the old id
-            taskId,
-            dependOnTaskId
+            Id:oldDependency.Id, // Keep the old id
+            DependentTask:taskId,
+            DependentOnTask:dependOnTaskId
         );
         return dependency;
     }
