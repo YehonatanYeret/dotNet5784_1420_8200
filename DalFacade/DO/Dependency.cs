@@ -13,5 +13,5 @@ public record Dependency
     int? DependentOnTask = null
 )
 {
-    public Dependency() : this(0) { }
+    public Dependency() : this(Id:0) { }
 }
