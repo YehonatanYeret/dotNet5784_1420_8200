@@ -37,7 +37,7 @@ public record Task
     EngineerExperience? Complexity = null
 )
 {
-    public Task() : this(Id: 0,Alias: "",Description: "",CreatedAtDate: DateTime.Now) { }
+    public Task() : this(Id: 0, Alias: "", Description: "", CreatedAtDate: DateTime.Now) { }
     public bool ShouldSerializeScheduledDate() { return ScheduledDate.HasValue; }
     public bool ShouldSerializeStartDate() { return StartDate.HasValue; }
     public bool ShouldSerializeRequiredEffortTime() { return RequiredEffortTime.HasValue; }
