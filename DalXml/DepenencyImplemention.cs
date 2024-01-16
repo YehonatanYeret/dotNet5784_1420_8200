@@ -21,13 +21,6 @@ internal class DepenencyImplemention : IDependency
     {
         XElement? root = XMLTools.LoadListFromXMLElement(s_dependency_xml);
 
-        // Check if a Dependency with the same ID already exists
-        XElement? dependency = root.Elements()
-            .FirstOrDefault(dep => (int?)dep.Element("Id") == item.Id);
-
-        if (dependency != null)
-            throw new DalAlreadyExistsException($"Dependency with ID={item.Id} already exists");
-
         // Create XML elements for the new Dependency
         XElement dep = new XElement("dependency");
 
@@ -74,7 +67,7 @@ internal class DepenencyImplemention : IDependency
         dependency.Remove();
 
         // Save the updated XML back to the file
-        root.Save(s_dependency_xml);
+        XMLTools.SaveListToXMLElement(root, s_dependency_xml);
     }
 
     /// <summary>
