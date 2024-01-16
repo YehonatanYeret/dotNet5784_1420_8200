@@ -643,7 +643,8 @@ internal class Program
         Enum.TryParse(Console.ReadLine()!, out EngineerExperience level);
 
         // Create the new engineer
-        Engineer engineer = new(
+        Engineer engineer = new
+        (
             Id:id,
             Cost:cost,
             Name:name,
@@ -670,7 +671,8 @@ internal class Program
         int? dependOnTaskId = int.TryParse(Console.ReadLine(), out int dependsOn) ? dependsOn : (int?)null;
 
         // Create the new dependency
-        Dependency dependency = new(
+        Dependency dependency = new
+        (
             Id:id,
             DependentTask:taskId,
             DependentOnTask:dependOnTaskId
@@ -874,5 +876,7 @@ internal class Program
 
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
+
+
     }
 }
