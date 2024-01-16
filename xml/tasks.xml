@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Task>
+    <Id>1</Id>
+    <Alias>digging</Alias>
+    <Description>the engineeer need to take control over the digging so we can start build</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.447291+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>2</Id>
+    <Alias>foundations</Alias>
+    <Description>the engineeer need to take control over the foundation proccess</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.5262732+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>3</Id>
+    <Alias>cement</Alias>
+    <Description>the engineeer need to take controll over the creation of the cement</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.5613784+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>4</Id>
+    <Alias>iron</Alias>
+    <Description>the engineeer need to take control over the iron for the structure</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.5790646+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>5</Id>
+    <Alias>brick</Alias>
+    <Description>the engineeer need to take control over the import of the bricks</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.5922408+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>6</Id>
+    <Alias>protective measures</Alias>
+    <Description>the engineeer need to take control over the buying of the protective measures</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.6060299+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <Alias>ladder</Alias>
+    <Description>the engineeer need to take control over buildig the ladder for the house</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.6234787+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>8</Id>
+    <Alias>cranes</Alias>
+    <Description>the engineeer need to take control moving the cranes</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.6400414+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <Alias>paint</Alias>
+    <Description>the engineeer need to take control over painting the house</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.6572701+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>10</Id>
+    <Alias>electricity</Alias>
+    <Description>the engineeer need to take control over the electric wires and the wiring</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.6768507+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>11</Id>
+    <Alias>plumbing</Alias>
+    <Description>the engineeer need to take control over the plumbing</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.6956127+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>12</Id>
+    <Alias>workers</Alias>
+    <Description>the engineeer need to take control over hirring workers</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.7152299+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>13</Id>
+    <Alias>plaster</Alias>
+    <Description>the engineeer need to take control over the plaster of the building</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.738079+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>14</Id>
+    <Alias>skull</Alias>
+    <Description>the engineeer need to take control over the skull of the building</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.7653645+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>15</Id>
+    <Alias>flooring</Alias>
+    <Description>the engineeer need to take control over the flooring</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.7882672+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>16</Id>
+    <Alias>windows and door</Alias>
+    <Description>the engineeer need to take control over the exits of the building</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.8133457+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>17</Id>
+    <Alias>roof</Alias>
+    <Description>the engineeer need to control the roof constraction</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.8372846+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Alias>Solar panels</Alias>
+    <Description>the engineeer need to take control over putting Solar panels</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.874294+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>19</Id>
+    <Alias>Air-Conditioner</Alias>
+    <Description>the engineeer need to take control the Air-Conditioning</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.9064668+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>20</Id>
+    <Alias>rail</Alias>
+    <Description>the engineeer need to take control over building the rails in the house</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.9295319+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>21</Id>
+    <Alias>architect</Alias>
+    <Description>the engineeer need to take control over the architection</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.9484539+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>22</Id>
+    <Alias>Construction permits</Alias>
+    <Description>the engineeer need to take control over the Construction permits</Description>
+    <CreatedAtDate>2024-01-16T18:17:53.995407+02:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+  <Task>
+    <Id>23</Id>
+    <Alias>sdf</Alias>
+    <Description>sdf</Description>
+    <CreatedAtDate>2012-12-12T00:00:00</CreatedAtDate>
+    <IsMileStone>false</IsMileStone>
+    <isActive>true</isActive>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <Deliverables />
+    <Remarks />
+    <EngineerId xsi:nil="true" />
+    <Complexity xsi:nil="true" />
+  </Task>
+</ArrayOfTask>

@@ -29,12 +29,23 @@ internal class DepenencyImplemention : IDependency
             throw new DalAlreadyExistsException($"Dependency with ID={item.Id} already exists");
 
         // Create XML elements for the new Dependency
-        XElement id = new XElement("id", item.Id);
+        XElement dep = new XElement("dependency");
+
+        XElement id = new XElement("Id", Config.NextDependencyId);
         XElement dependentTask = new XElement("dependentTask", item.DependentTask);
         XElement dependentOnTask = new XElement("dependentOnTask", item.DependentOnTask);
 
+        dep.Add(id);
+
+        // Add the new Dependency's properties to the XML if they are not null
+        if(item.DependentTask != null)
+            dep.Add(dependentTask);
+
+        if(item.DependentOnTask != null)
+            dep.Add(dependentOnTask);
+
         // Add the new Dependency to the XML
-        root.Add(new XElement("dependency", id, dependentTask, dependentOnTask));
+        root.Add(dep);
 
         // Save the updated XML back to the file
         XMLTools.SaveListToXMLElement(root, s_dependency_xml);
@@ -112,7 +123,8 @@ internal class DepenencyImplemention : IDependency
     /// <param name="item">The updated Dependency.</param>
     public void Update(Dependency item)
     {
-        XElement? dependency = (from dep in XMLTools.LoadListFromXMLElement(s_dependency_xml).Elements()
+        XElement root = XMLTools.LoadListFromXMLElement(s_dependency_xml);
+        XElement? dependency = (from dep in root.Elements()
                                 where (int?)dep.Element("Id") == item.Id
                                 select dep).FirstOrDefault();
 
@@ -125,13 +137,13 @@ internal class DepenencyImplemention : IDependency
         dependency.Element("dependentOnTask")!.Value = item.DependentOnTask.ToString()!;
 
         // Save the updated XML back to the file
-        dependency.Save(s_dependency_xml);
+        XMLTools.SaveListToXMLElement(root, s_dependency_xml);
     }
 
     // Helper method to convert XElement to Dependency
     Dependency GetDependency(XElement element) => new
     (
-    Id: element.ToIntNullable("Id") ?? throw new FormatException("can't convert id"),
+    Id: (int)element.Element("Id")!,
     DependentTask: (int?)element.Element("dependentTask"),
     DependentOnTask: (int?)element.Element("dependentOnTask")
     );

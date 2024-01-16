@@ -24,13 +24,9 @@ internal class TaskImplementation : ITask
         // Load existing tasks from XML
         List<Task> tasksList = XMLTools.LoadListFromXMLSerializer<Task>(s_task_xml);
 
-        // Check if a Task with the same ID already exists
-        if (tasksList.Any(task => task.Id == task.Id))
-            throw new DalAlreadyExistsException($"Task with ID={item.Id} already exists");
-
         // Generate the next available ID and add the Task to the list
         int nextId = Config.NextTaskId;
-        tasksList.Add(item with { Id = nextId, CreatedAtDate = DateTime.Now });
+        tasksList.Add(item with { Id = nextId });
 
         // Save the updated list back to XML
         XMLTools.SaveListToXMLSerializer(tasksList, s_task_xml);
@@ -108,7 +104,7 @@ internal class TaskImplementation : ITask
             throw new DalDoesNotExistException($"Task with ID={id} does not exist");
 
         // Remove the Task with the specified ID
-        tasksList.RemoveAll(task =>task.Id == id);
+        tasksList.RemoveAll(task => task.Id == id);
 
         // Save the updated list back to XML
         XMLTools.SaveListToXMLSerializer(tasksList, s_task_xml);

@@ -7,7 +7,9 @@ using System.Security.Cryptography;
 internal class Program
 {
     //new implementation of IDal
-    static readonly IDal s_dal = new DalList();
+
+    /*static readonly IDal s_dal = new DalList();*/
+    static readonly IDal s_dal = new DalXml();//Stage 3
 
     /// <summary>
     /// Displays a menu to the user and navigates to submenus based on their choices.
@@ -864,7 +866,7 @@ internal class Program
     {
         try
         {
-            Initialization.Do(s_dal); // Initialize the database
+            //Initialization.Do(s_dal);
 
             Console.WriteLine("!start of the program!\n");
             ShowMenu(); // Display the main menu
