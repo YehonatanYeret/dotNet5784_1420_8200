@@ -43,7 +43,7 @@ internal class DepenencyImplemention : IDependency
         // Save the updated XML back to the file
         XMLTools.SaveListToXMLElement(root, s_dependency_xml);
 
-        return item.Id;
+        return int.Parse(id.Value);
     }
 
     /// <summary>
