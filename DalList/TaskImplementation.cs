@@ -63,5 +63,6 @@ internal class TaskImplementation : ITask
         DataSource.Tasks.RemoveAll(temp => temp.Id == id);//remove the task
         DataSource.Tasks.Add(t);//add the new task
     }
-
+    //delete all tasks
+    public void DeleteAll() { DataSource.Tasks.Clear(); }
 }

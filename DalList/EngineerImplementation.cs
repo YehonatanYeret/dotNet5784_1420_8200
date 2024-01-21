@@ -67,4 +67,6 @@ internal class EngineerImplementation : IEngineer
         DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
     }
 
+    //delete all engineers
+    public void DeleteAll() { DataSource.Engineers.Clear(); }
 }

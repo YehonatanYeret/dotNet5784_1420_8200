@@ -38,6 +38,8 @@ public record Task
 )
 {
     public Task() : this(Id: 0, Alias: "", Description: "", CreatedAtDate: DateTime.Now) { }
+
+    // functions that indicate whether to serialize a property or not so the XML file will not contain empty tags:
     public bool ShouldSerializeScheduledDate() { return ScheduledDate.HasValue; }
     public bool ShouldSerializeStartDate() { return StartDate.HasValue; }
     public bool ShouldSerializeRequiredEffortTime() { return RequiredEffortTime.HasValue; }

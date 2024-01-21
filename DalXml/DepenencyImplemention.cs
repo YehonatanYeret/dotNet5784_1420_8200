@@ -47,30 +47,6 @@ internal class DepenencyImplemention : IDependency
     }
 
     /// <summary>
-    /// Deletes a Dependency from the XML storage based on its ID.
-    /// </summary>
-    /// <param name="id">The ID of the Dependency to delete.</param>
-    public void Delete(int id)
-    {
-        XElement? root = XMLTools.LoadListFromXMLElement(s_dependency_xml);
-
-        // Find the Dependency element with the specified ID
-        XElement? dependency = (from dep in root.Elements()
-                                where (int?)dep.Element("Id") == id
-                                select dep).FirstOrDefault();
-
-        // If the Dependency does not exist, throw an exception
-        if (dependency == null)
-            throw new DalDoesNotExistException($"Dependency with ID={id} does not exist");
-
-        // Remove the Dependency element
-        dependency.Remove();
-
-        // Save the updated XML back to the file
-        XMLTools.SaveListToXMLElement(root, s_dependency_xml);
-    }
-
-    /// <summary>
     /// Reads a Dependency from the XML storage based on its ID.
     /// </summary>
     /// <param name="id">The ID of the Dependency to retrieve.</param>
@@ -133,6 +109,50 @@ internal class DepenencyImplemention : IDependency
         XMLTools.SaveListToXMLElement(root, s_dependency_xml);
     }
 
+    /// <summary>
+    /// Deletes a Dependency from the XML storage based on its ID.
+    /// </summary>
+    /// <param name="id">The ID of the Dependency to delete.</param>
+    public void Delete(int id)
+    {
+        XElement? root = XMLTools.LoadListFromXMLElement(s_dependency_xml);
+
+        // Find the Dependency element with the specified ID
+        XElement? dependency = (from dep in root.Elements()
+                                where (int?)dep.Element("Id") == id
+                                select dep).FirstOrDefault();
+
+        // If the Dependency does not exist, throw an exception
+        if (dependency == null)
+            throw new DalDoesNotExistException($"Dependency with ID={id} does not exist");
+
+        // Remove the Dependency element
+        dependency.Remove();
+
+        // Save the updated XML back to the file
+        XMLTools.SaveListToXMLElement(root, s_dependency_xml);
+    }
+
+    /// <summary>
+    /// Deletes all Dependencies.
+    /// </summary>
+    public void DeleteAll()
+    {
+        XElement? root = XMLTools.LoadListFromXMLElement(s_dependency_xml);
+
+        IEnumerable<XElement?> dependencys = (from dep in root.Elements()
+                                                select dep);
+
+        // Remove all the dependencies
+        dependencys.Remove();
+
+        // Save the updated XML back to the file
+        XMLTools.SaveListToXMLElement(root, s_dependency_xml);
+
+        // Reset the next ID to the defualt value
+        XMLTools.ResetId("data-config", "NextDependencyId");
+    }
+
     // Helper method to convert XElement to Dependency
     Dependency GetDependency(XElement element) => new
     (
@@ -140,4 +160,5 @@ internal class DepenencyImplemention : IDependency
     DependentTask: (int?)element.Element("dependentTask"),
     DependentOnTask: (int?)element.Element("dependentOnTask")
     );
+
 }

@@ -149,6 +149,15 @@ public static class Initialization
     {
         s_dal = dal ?? throw new NullReferenceException("DAL object cannot be null");
 
+        //reset the database:
+
+        s_dal.Dependency.DeleteAll(); // Delete all dependencies
+
+        s_dal.Engineer.DeleteAll(); // Delete all engineers
+
+        s_dal.Task.DeleteAll(); // Delete all tasks
+
+
         // Create tasks, engineers, and dependencies
         CreateTasks();
         CreateEngineers();

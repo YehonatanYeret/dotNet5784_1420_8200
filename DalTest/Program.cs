@@ -868,7 +868,12 @@ internal class Program
         {
             //Initialization.Do(s_dal);
 
-            Console.WriteLine("!start of the program!\n");
+            Console.WriteLine("Would you like to create Initial data? (Y/N)");
+            string? ans = Console.ReadLine()?? throw new FormatException("Wrong input");
+
+            if (ans.ToUpper() == "Y")
+                Initialization.Do(s_dal);
+
             ShowMenu(); // Display the main menu
         }
         catch (Exception ex)
@@ -878,7 +883,5 @@ internal class Program
 
         Console.WriteLine("Press any key to continue");
         Console.ReadKey();
-
-
     }
 }

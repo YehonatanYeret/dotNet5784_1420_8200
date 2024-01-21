@@ -58,4 +58,6 @@ internal class DependencyImplementation : IDependency
      
     }
 
+    //delete all dependencies
+    public void DeleteAll(){ DataSource.Dependencies.Clear(); }
 }

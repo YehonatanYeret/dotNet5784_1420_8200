@@ -5,6 +5,7 @@ using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 /// <summary>
 /// Implementation of the <see cref="ITask"/> interface for handling Task operations.
@@ -108,5 +109,23 @@ internal class TaskImplementation : ITask
 
         // Save the updated list back to XML
         XMLTools.SaveListToXMLSerializer(tasksList, s_task_xml);
+    }
+
+
+    /// <summary>
+    /// Deletes all Tasks.
+    /// </summary>
+    public void DeleteAll()
+    {
+        List<Task> tasksList = XMLTools.LoadListFromXMLSerializer<Task>(s_task_xml);
+
+        // Remove all the tasks
+        tasksList.Clear();
+
+        // Save the updated list back to XML
+        XMLTools.SaveListToXMLSerializer(tasksList, s_task_xml);
+
+        // Reset the next ID to the default value
+        XMLTools.ResetId("data-config", "NextTaskId");
     }
 }

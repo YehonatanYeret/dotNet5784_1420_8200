@@ -100,4 +100,18 @@ internal class EngineerImplementation : IEngineer
 
         XMLTools.SaveListToXMLSerializer(engineersList, s_engineer_xml);
     }
+
+    /// <summary>
+    /// Deletes all Engineers.
+    /// </summary>
+    public void DeleteAll()
+    {
+        List<DO.Engineer> engineersList = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);
+
+        // remove all engineers
+        engineersList.Clear();
+
+        // save the updated list back to XML
+        XMLTools.SaveListToXMLSerializer(engineersList, s_engineer_xml);
+    }
 }
