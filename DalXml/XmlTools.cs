@@ -35,10 +35,19 @@ static class XMLTools
         return nextId;
     }
 
+    /// <summary>
+    /// addon function to reset id in xml config file
+    /// </summary>
+    /// <param name="data_config_xml">the name of the file to work with</param>
+    /// <param name="elemName">wich element to reset the config</param>
+    /// <param name="startFrom">the number of the id to start from</param>
     public static void ResetId(string data_config_xml, string elemName, int startFrom = 1)
     {
+        //load the xml file
         XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        //set the value of the element to the startFrom value
         root.Element(elemName)?.SetValue((startFrom).ToString());
+        //save the xml file
         XMLTools.SaveListToXMLElement(root, data_config_xml);
     }
     #endregion

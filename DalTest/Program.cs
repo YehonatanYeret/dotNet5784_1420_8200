@@ -2,7 +2,6 @@
 using DalApi;
 using Dal;
 using DO;
-using System.Security.Cryptography;
 
 internal class Program
 {
@@ -32,7 +31,8 @@ internal class Program
                 "0. Exit \n" +
                 "1. Task \n" +
                 "2. Engineer\n" +
-                "3. Dependency");
+                "3. Dependency\n" +
+                "4. Initialize");
 
             // Read the user's input and parse it to an integer, storing it in the 'choice' variable
             int.TryParse(Console.ReadLine(), out choice);
@@ -54,6 +54,14 @@ internal class Program
                 case 3:
                     // If the user chose 3, go to the SubMenu with the argument "Dependency"
                     SubMenu("Dependency");
+                    break;
+                case 4:
+                    // If the user chose 4, initialize the data if the user really wants to
+                    Console.WriteLine("Would you like to create Initial data? (Y/N)");
+                    string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+
+                    if (ans.ToUpper() == "Y")// if the user typed Y or y then create initial data and erase the old data
+                        Initialization.Do(s_dal);
                     break;
                 default:
                     // If the user chose any other number, display an error message
@@ -197,14 +205,11 @@ internal class Program
     /// <seealso cref="TaskCreation"/>
     static void CreateTask()
     {
-        // Obtain a unique identifier for the task
-        int id = GetId();
-
         // Create a new task using the obtained identifier
-        Task task = TaskCreation(id);
+        Task task = TaskCreateAndUpdate(new());
 
         // Add the created task to the database using the data access layer
-        s_dal!.Task.Create(task);
+        Console.WriteLine("the new id is: "+ s_dal!.Task.Create(task));
     }
 
     /// <summary>
@@ -225,7 +230,12 @@ internal class Program
         // Read the task from the database using the data access layer
         Task? task = s_dal!.Task.Read(id);
 
-        // Print the task information to the console
+        // Print the task information to the console if found
+        if (task == null)
+        {
+            Console.WriteLine("The task is not exist");
+            return;
+        }
         Console.WriteLine(task);
     }
 
@@ -279,11 +289,10 @@ internal class Program
         }
 
         // Display the current information of the task to the console
-        Console.WriteLine("The old task:");
-        Console.WriteLine(oldTask);
+        Console.WriteLine("The old task: \n" + oldTask);
 
         // Update the task in the database using the data access layer
-        s_dal!.Task.Update(TaskUpdate(oldTask));
+        s_dal!.Task.Update(TaskCreateAndUpdate(oldTask, id));
     }
 
     /// <summary>
@@ -321,10 +330,10 @@ internal class Program
         int id = GetId();
 
         // Create a new engineer using the obtained identifier
-        Engineer engineer = EngineerCreation(id);
+        Engineer engineer = EngineerCreateAndUpdate(new(), id);
 
         // Add the created engineer to the database using the data access layer
-        s_dal!.Engineer.Create(engineer);
+        Console.WriteLine("the new id is: " + s_dal!.Engineer.Create(engineer));
     }
 
     /// <summary>
@@ -339,13 +348,17 @@ internal class Program
     /// <seealso cref="GetId"/>
     private static void ReadEngineer()
     {
-        Console.WriteLine("Enter the id of the engineer:");
-
         // Get the id of the engineer from the user
         int id = GetId();
 
         // Read the engineer from the database using the data access layer
         Engineer? engineer = s_dal!.Engineer.Read(id);
+
+        if (engineer == null)
+        {
+            Console.WriteLine("The engineer is not exist");
+            return;
+        }
 
         // Print the engineer information to the console
         Console.WriteLine(engineer);
@@ -401,11 +414,10 @@ internal class Program
         }
 
         // Display the current information of the engineer to the console
-        Console.WriteLine("The old engineer:");
-        Console.WriteLine(oldEngineer);
+        Console.WriteLine("The old engineer:\n" + oldEngineer);
 
         // Update the engineer in the database using the data access layer
-        s_dal!.Engineer.Update(EngineerUpdate(oldEngineer));
+        s_dal!.Engineer.Update(EngineerCreateAndUpdate(oldEngineer, id));
     }
 
     /// <summary>
@@ -419,10 +431,8 @@ internal class Program
     /// <seealso cref="GetId"/>
     private static void DeleteEngineer()
     {
-        // Obtain an identifier for the engineer from the user
+        // Obtain an identifier for the engineer from the user and delete if found
         int id = GetId();
-
-        // Delete the engineer from the database using the data access layer
         s_dal!.Engineer.Delete(id);
     }
 
@@ -439,14 +449,11 @@ internal class Program
     /// <seealso cref="DependencyCreation"/>
     private static void CreateDependency()
     {
-        // Obtain a unique identifier for the dependency
-        int id = GetId();
-
-        // Create a new dependency using the obtained identifier
-        Dependency dependency = DependencyCreation(id);
+        // Create a new dependency using the obtained identifier and add defulte dependency to work with
+        Dependency dependency = DependencyCreatAndUpdate(new());
 
         // Add the created dependency to the database using the data access layer
-        s_dal!.Dependency.Create(dependency);
+        Console.WriteLine("te new id is: " + s_dal!.Dependency.Create(dependency));
     }
 
     /// <summary>
@@ -466,6 +473,12 @@ internal class Program
 
         // Read the dependency from the database using the data access layer
         Dependency? dependency = s_dal!.Dependency.Read(id);
+
+        if (dependency == null)
+        {
+            Console.WriteLine("The dependency is not exist");
+            return;
+        }
 
         // Print the dependency information to the console
         Console.WriteLine(dependency);
@@ -488,15 +501,11 @@ internal class Program
 
         // Iterate through the dependencies and print their information to the console
         foreach (var dependency in dependencies)
-        {
             Console.WriteLine(dependency);
-        }
 
         // Display a message if there are no dependencies in the database
         if (!dependencies.Any())
-        {
             Console.WriteLine("No dependencies found.");
-        }
     }
 
     /// <summary>
@@ -527,11 +536,10 @@ internal class Program
         }
 
         // Display the current information of the dependency to the console
-        Console.WriteLine("The old dependency:");
-        Console.WriteLine(oldDependency);
+        Console.WriteLine("The old dependency:\n" + oldDependency);
 
         // Update the dependency in the database using the data access layer
-        s_dal!.Dependency.Update(DependencyUpdate(oldDependency));
+        s_dal!.Dependency.Update(DependencyCreatAndUpdate(oldDependency, id));
     }
 
     /// <summary>
@@ -545,141 +553,9 @@ internal class Program
     /// <seealso cref="GetId"/>
     private static void DeleteDependency()
     {
-        // Obtain an identifier for the dependency from the user
+        // Obtain an identifier for the dependency from the user and delete the id if found
         int id = GetId();
-
-        // Delete the dependency from the database using the data access layer
         s_dal!.Dependency.Delete(id);
-    }
-
-    /// <summary>
-    /// Creates a new task with the provided identifier and user-input values.
-    /// </summary>
-    /// <param name="id">The identifier for the new task.</param>
-    /// <returns>The newly created task with user-input values.</returns>
-    private static Task TaskCreation(int id)
-    {
-        // Temporary variables to check if the input is valid for nullable values
-        DateTime temp1;
-        TimeSpan temp2;
-        int temp3;
-
-        Console.WriteLine("Enter the values of the task:");
-
-        // Get user input for various task properties
-        Console.Write("alias:");
-        string alias = Console.ReadLine()!; // Non-nullable input
-
-        Console.Write("description:");
-        string description = Console.ReadLine()!; // Non-nullable input
-
-        Console.Write("created at date:");
-        DateTime.TryParse(Console.ReadLine(), out DateTime createdAtDate);
-
-        Console.Write("scheduled date:");
-        DateTime? scheduledDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
-
-        Console.Write("start date:");
-        DateTime? startDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
-
-        Console.Write("required effort time:");
-        TimeSpan? requiredEffortTime = TimeSpan.TryParse(Console.ReadLine(), out temp2) ? temp2 : (TimeSpan?)null;
-
-        Console.Write("deadline date:");
-        DateTime? deadlineDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
-
-        Console.Write("complete date:");
-        DateTime? completeDate = DateTime.TryParse(Console.ReadLine(), out temp1) ? temp1 : (DateTime?)null;
-
-        Console.Write("deliverables:");
-        string? deliverables = Console.ReadLine();
-
-        Console.Write("remarks:");
-        string? remarks = Console.ReadLine();
-
-        Console.Write("engineer id:");
-        int? engineerId = int.TryParse(Console.ReadLine(), out temp3) ? temp3 : (int?)null;
-
-        Console.Write("complexity:");
-        EngineerExperience? complexity = Enum.TryParse(Console.ReadLine(), out EngineerExperience experience) ? experience : (EngineerExperience?)null;
-
-        // Create the new task
-        Task task = new(
-            Id:id, // Provided identifier (0 for auto-increment)
-            Alias: alias,
-            Description :description,
-            CreatedAtDate :createdAtDate,
-            IsMileStone:false, // Placeholder value, auto-incremented identifier will be used
-            isActive: true, // Placeholder value (default value for boolean property)
-            ScheduledDate :scheduledDate,
-            StartDate:startDate,
-            RequiredEffortTime:requiredEffortTime,
-            DeadlineDate :deadlineDate,
-            CompleteDate :completeDate,
-            Deliverables:deliverables,
-            Remarks:remarks,
-            EngineerId:engineerId,
-            Complexity:complexity
-        );
-        return task;
-    }
-
-    /// <summary>
-    /// Creates a new engineer with the provided identifier and user-input values.
-    /// </summary>
-    /// <param name="id">The identifier for the new engineer.</param>
-    /// <returns>The newly created engineer with user-input values.</returns>
-    private static Engineer EngineerCreation(int id)
-    {
-        // Get user input for various engineer properties
-        Console.Write("cost:");
-        double.TryParse(Console.ReadLine()!, out double cost);
-
-        Console.Write("name:");
-        string name = Console.ReadLine()!; // Non-nullable input
-
-        Console.Write("email:");
-        string email = Console.ReadLine()!; // Non-nullable input
-
-        Console.Write("level:");
-        Enum.TryParse(Console.ReadLine()!, out EngineerExperience level);
-
-        // Create the new engineer
-        Engineer engineer = new
-        (
-            Id:id,
-            Cost:cost,
-            Name:name,
-            Email:email,
-            Level:level
-        );
-        return engineer;
-    }
-
-    /// <summary>
-    /// Creates a new dependency with the provided identifier and user-input values.
-    /// </summary>
-    /// <param name="id">The identifier for the new dependency.</param>
-    /// <returns>The newly created dependency with user-input values.</returns>
-    private static Dependency DependencyCreation(int id)
-    {
-        Console.WriteLine("Enter the values of the dependency:");
-
-        // Get user input for various dependency properties
-        Console.Write("task id:");
-        int? taskId = int.TryParse(Console.ReadLine(), out int dependent) ? dependent : (int?)null;
-
-        Console.Write("depend on task id:");
-        int? dependOnTaskId = int.TryParse(Console.ReadLine(), out int dependsOn) ? dependsOn : (int?)null;
-
-        // Create the new dependency
-        Dependency dependency = new
-        (
-            Id:id,
-            DependentTask:taskId,
-            DependentOnTask:dependOnTaskId
-        );
-        return dependency;
     }
 
     /// <summary>
@@ -687,14 +563,14 @@ internal class Program
     /// </summary>
     /// <param name="oldTask">The old task to update.</param>
     /// <returns>The updated task with new values.</returns>
-    private static Task TaskUpdate(Task oldTask)
+    private static Task TaskCreateAndUpdate(Task oldTask, int id = 0)
     {
         // Temporary variables to check if the input is valid for nullable values
         DateTime temp1;
         TimeSpan temp2;
         int temp3;
 
-        Console.WriteLine("Enter the updated values of the task:");
+        Console.WriteLine("Enter the values of the task:");
 
         // Get the updated values from user input or use the old values if input is empty
         Console.Write("alias:");
@@ -759,7 +635,7 @@ internal class Program
 
         // Create the new task with updated values
         Task task = new Task(
-            oldTask.Id, // Keep the old id
+            oldTask.Id, // Keep the old id or Deafault value
             Alias: alias,
             Description: description,
             CreatedAtDate: createdAtDate,
@@ -783,8 +659,9 @@ internal class Program
     /// </summary>
     /// <param name="oldEngineer">The engineer to update.</param>
     /// <returns>The updated engineer with new values.</returns>
-    private static Engineer EngineerUpdate(Engineer oldEngineer)
+    private static Engineer EngineerCreateAndUpdate(Engineer oldEngineer, int id)
     {
+        Console.WriteLine("Enter the values of the enginner:");
         // Get the updated values from user input or use the old values if input is empty
         Console.Write("cost:");
         double cost;
@@ -808,11 +685,11 @@ internal class Program
 
         // Create the new engineer with updated values
         Engineer engineer = new Engineer(
-            oldEngineer.Id, // Keep the old id
-            Cost:cost,
-            Name:name,
-            Email:email,
-            Level:level
+            oldEngineer.Id, // Keep the old id or put 0 by defaulte
+            Cost: cost,
+            Name: name,
+            Email: email,
+            Level: level
         );
         return engineer;
     }
@@ -822,9 +699,9 @@ internal class Program
     /// </summary>
     /// <param name="oldDependency">The dependency to update.</param>
     /// <returns>The updated dependency with new values.</returns>
-    private static Dependency DependencyUpdate(Dependency oldDependency)
+    private static Dependency DependencyCreatAndUpdate(Dependency oldDependency, int id = 0)
     {
-        Console.WriteLine("Enter the updated values of the dependency:");
+        Console.WriteLine("Enter the values of the dependency:");
 
         // Get the updated values from user input or use the old values if input is empty
         Console.Write("task id:");
@@ -839,9 +716,9 @@ internal class Program
 
         // Create the new dependency with updated values
         Dependency dependency = new Dependency(
-            Id:oldDependency.Id, // Keep the old id
-            DependentTask:taskId,
-            DependentOnTask:dependOnTaskId
+            Id: oldDependency.Id, // Keep the old id or enter default values
+            DependentTask: taskId,
+            DependentOnTask: dependOnTaskId
         );
         return dependency;
     }
@@ -866,14 +743,6 @@ internal class Program
     {
         try
         {
-            //Initialization.Do(s_dal);
-
-            Console.WriteLine("Would you like to create Initial data? (Y/N)");
-            string? ans = Console.ReadLine()?? throw new FormatException("Wrong input");
-
-            if (ans.ToUpper() == "Y")
-                Initialization.Do(s_dal);
-
             ShowMenu(); // Display the main menu
         }
         catch (Exception ex)
