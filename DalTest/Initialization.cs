@@ -145,9 +145,9 @@ public static class Initialization
     /// Initializes the data by creating tasks, engineers, and dependencies and adding them to the database.
     /// </summary>
     /// <param name="dal">The data access layer to use for database operations.</param>
-    public static void Do(IDal dal)
+    public static void Do()
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL object cannot be null");
+        s_dal = Factory.Get ?? throw new NullReferenceException("DAL object cannot be null");
 
         //reset the database:
 

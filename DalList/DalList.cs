@@ -9,7 +9,7 @@ sealed internal class DalList : IDal
     private DalList() { }
 
     public static IDal Instance { get; } = new DalList();
-
+    //public static Lazy<IDal> Instance { get; } = new Lazy<IDal>(() => new DalList());
 
     /// <summary>
     /// Gets an instance of the <see cref="IEngineer"/> interface for accessing engineer-related data.

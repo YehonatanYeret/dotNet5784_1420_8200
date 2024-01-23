@@ -8,7 +8,7 @@ internal class Program
     //new implementation of IDal
 
     /*static readonly IDal s_dal = new DalList();*/
-    static readonly IDal s_dal = new DalXml();//Stage 3
+    static readonly IDal s_dal = Factory.Get;//Stage 3
 
     /// <summary>
     /// Displays a menu to the user and navigates to submenus based on their choices.
@@ -61,7 +61,7 @@ internal class Program
                     string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
                     if (ans.ToUpper() == "Y")// if the user typed Y or y then create initial data and erase the old data
-                        Initialization.Do(s_dal);
+                        Initialization.Do();
                     break;
                 default:
                     // If the user chose any other number, display an error message
