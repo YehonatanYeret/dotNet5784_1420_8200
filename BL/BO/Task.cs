@@ -40,7 +40,7 @@
         /// <summary>
         /// Gets or sets the calculated status of the task.
         /// </summary>
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
 
         /// <summary>
         /// Gets or sets the list of dependencies for the task.
@@ -48,7 +48,7 @@
         /// <remarks>
         /// Relevant only before the schedule is built.
         /// </remarks>
-        public List<TaskInList> Dependencies { get; set; }
+        public List<TaskInList>? Dependencies { get; set; }
 
         /// <summary>
         /// Gets or sets the calculated milestone for the task.
@@ -57,7 +57,7 @@
         /// Calculated when building the schedule and populated if there is a milestone in the dependency.
         /// Relevant only after the schedule is built.
         /// </remarks>
-        public MilestoneInTask Milestone { get; set; }
+        public MilestoneInTask? Milestone { get; set; }
 
         /// <summary>
         /// Gets or sets the required effort time for the task.
@@ -65,37 +65,37 @@
         /// <remarks>
         /// Represents how many men-days are needed for the task.
         /// </remarks>
-        public TimeSpan RequiredEffortTime { get; set; }
+        public TimeSpan? RequiredEffortTime { get; set; }
 
         /// <summary>
         /// Gets or sets the real start date of the task.
         /// </summary>
-        public DateTime StartDate { get; init; }
+        public DateTime? StartDate { get; init; }
 
         /// <summary>
         /// Gets or sets the planned start date of the task.
         /// </summary>
-        public DateTime ScheduledDate { get; set; }
+        public DateTime? ScheduledDate { get; set; }
 
         /// <summary>
         /// Gets or sets the calculated planned completion date of the task.
         /// </summary>
-        public DateTime ForecastDate { get; set; }
+        public DateTime? ForecastDate { get; set; }
 
         /// <summary>
         /// Gets or sets the latest complete date of the task.
         /// </summary>
-        public DateTime DeadlineDate { get; set; }
+        public DateTime? DeadlineDate { get; set; }
 
         /// <summary>
         /// Gets or sets the real completion date of the task.
         /// </summary>
-        public DateTime CompleteDate { get; init; }
+        public DateTime? CompleteDate { get; init; }
 
         /// <summary>
         /// Gets or sets the description of deliverables for milestone completion.
         /// </summary>
-        public string Deliverables { get; set; }
+        public string? Deliverables { get; set; }
 
         /// <summary>
         /// Gets or sets free remarks from project meetings.
@@ -108,7 +108,7 @@
         /// <remarks>
         /// References BO.EngineerInTask.Id.
         /// </remarks>
-        public EngineerInTask Engineer { get; set; }
+        public EngineerInTask? Engineer { get; set; }
 
         /// <summary>
         /// Gets or sets the minimum experience required for an engineer to be assigned to the task.

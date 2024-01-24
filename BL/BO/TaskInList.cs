@@ -35,6 +35,6 @@
         /// <remarks>
         /// The status is calculated.
         /// </remarks>
-        public Status Status { get; set; }
+        public Status? Status { get; set; }
     }
 }
