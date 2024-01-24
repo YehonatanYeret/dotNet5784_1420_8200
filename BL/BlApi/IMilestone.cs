@@ -7,5 +7,5 @@ public interface IMilestone
 {
     //public void Create(BO.Milestone milestone);
     public BO.Milestone Read(int id);
-    public BO.Milestone Rea(int id);
+    public BO.Milestone Update(int id);
 }
