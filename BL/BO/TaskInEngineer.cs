@@ -1,7 +1,24 @@
-﻿namespace BO;
-
-public class TaskInEngineer
+﻿namespace BO
 {
-    public int Id { get; init; } // Primary Key, References BO.Task.Id
-    public string Alias { get; set; } // Not Null
+    /// <summary>
+    /// Represents a task associated with an engineer.
+    /// </summary>
+    public class TaskInEngineer
+    {
+        /// <summary>
+        /// Gets or initializes the unique identifier for the task.
+        /// </summary>
+        /// <remarks>
+        /// This property serves as the primary key and references BO.Task.Id.
+        /// </remarks>
+        public int Id { get; init; }
+
+        /// <summary>
+        /// Gets or sets the alias of the task.
+        /// </summary>
+        /// <remarks>
+        /// The alias cannot be null.
+        /// </remarks>
+        public string Alias { get; set; }
+    }
 }
