@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="BlImplementation\" />
+    <Folder Include="DalApi\" />
   </ItemGroup>
 
 </Project>
