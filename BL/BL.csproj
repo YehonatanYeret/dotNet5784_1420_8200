@@ -13,13 +13,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
-    <ProjectReference Include="..\DalList\DalList.csproj" />
-    <ProjectReference Include="..\DalXml\DalXml.csproj" />
+    <Compile Remove="DalApi\**" />
+    <EmbeddedResource Remove="DalApi\**" />
+    <None Remove="DalApi\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DalApi\" />
+    <ProjectReference Include="..\DalFacade\DalFacade.csproj" />
+    <ProjectReference Include="..\DalList\DalList.csproj" />
+    <ProjectReference Include="..\DalXml\DalXml.csproj" />
   </ItemGroup>
 
 </Project>
