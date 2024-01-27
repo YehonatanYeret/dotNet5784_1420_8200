@@ -52,6 +52,7 @@
 
         /// <summary>
         /// Gets or sets the calculated milestone for the task.
+        /// bonus
         /// </summary>
         /// <remarks>
         /// Calculated when building the schedule and populated if there is a milestone in the dependency.
@@ -84,6 +85,7 @@
 
         /// <summary>
         /// Gets or sets the latest complete date of the task.
+        /// bonus
         /// </summary>
         public DateTime? DeadlineDate { get; set; }
 
@@ -91,6 +93,7 @@
         /// Gets or sets the real completion date of the task.
         /// </summary>
         public DateTime? CompleteDate { get; init; }
+
 
         /// <summary>
         /// Gets or sets the description of deliverables for milestone completion.
@@ -100,7 +103,7 @@
         /// <summary>
         /// Gets or sets free remarks from project meetings.
         /// </summary>
-        public string Remarks { get; set; }
+        public string? Remarks { get; set; }
 
         /// <summary>
         /// Gets or sets the reference to the engineer associated with the task.
@@ -113,6 +116,6 @@
         /// <summary>
         /// Gets or sets the minimum experience required for an engineer to be assigned to the task.
         /// </summary>
-        public EngineerExperience Copmlexity { get; set; }
+        public EngineerExperience? Copmlexity { get; set; }
     }
 }

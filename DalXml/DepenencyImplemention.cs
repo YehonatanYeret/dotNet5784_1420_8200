@@ -102,9 +102,15 @@ internal class DepenencyImplemention : IDependency
             throw new DalDoesNotExistException($"Dependency with ID={item.Id} does not exist");
 
         // Update the Dependency's properties in the XML
-        dependency.Element("dependentTask")!.Value = item.DependentTask.ToString()!;
-        dependency.Element("dependentOnTask")!.Value = item.DependentOnTask.ToString()!;
+        if (dependency.Element("dependentTask") != null)
+            dependency.Element("dependentTask")!.Value = item.DependentTask.ToString()!;
+        else
+            dependency.Add(new XElement("dependentTask", item.DependentTask.ToString()!));
 
+        if (dependency.Element("dependentOnTask") != null)
+            dependency.Element("dependentOnTask")!.Value = item.DependentOnTask.ToString()!;
+        else
+            dependency.Add(new XElement("dependentOnTask", item.DependentOnTask.ToString()!));
         // Save the updated XML back to the file
         XMLTools.SaveListToXMLElement(root, s_dependency_xml);
     }

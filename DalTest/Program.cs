@@ -1,6 +1,4 @@
 ﻿namespace DalTest;
-using DalApi;
-using Dal;
 using DO;
 
 internal class Program
@@ -8,7 +6,7 @@ internal class Program
     //new implementation of IDal
 
     /*static readonly IDal s_dal = new DalList();*/
-    static readonly IDal s_dal = Factory.Get;//Stage 3
+    static readonly DalApi.IDal s_dal = DalApi.Factory.Get;//Stage 3
 
     /// <summary>
     /// Displays a menu to the user and navigates to submenus based on their choices.
@@ -292,7 +290,7 @@ internal class Program
         Console.WriteLine("The old task: \n" + oldTask);
 
         // Update the task in the database using the data access layer
-        s_dal!.Task.Update(TaskCreateAndUpdate(oldTask, id));
+        s_dal!.Task.Update(TaskCreateAndUpdate(oldTask));
     }
 
     /// <summary>
@@ -539,7 +537,7 @@ internal class Program
         Console.WriteLine("The old dependency:\n" + oldDependency);
 
         // Update the dependency in the database using the data access layer
-        s_dal!.Dependency.Update(DependencyCreatAndUpdate(oldDependency, id));
+        s_dal!.Dependency.Update(DependencyCreatAndUpdate(oldDependency));
     }
 
     /// <summary>
@@ -563,12 +561,12 @@ internal class Program
     /// </summary>
     /// <param name="oldTask">The old task to update.</param>
     /// <returns>The updated task with new values.</returns>
-    private static Task TaskCreateAndUpdate(Task oldTask, int id = 0)
+    private static Task TaskCreateAndUpdate(Task oldTask)
     {
         // Temporary variables to check if the input is valid for nullable values
-        DateTime temp1;
-        TimeSpan temp2;
-        int temp3;
+        //DateTime temp1;
+        //TimeSpan temp2;
+        //int temp3;
 
         Console.WriteLine("Enter the values of the task:");
 
@@ -584,13 +582,12 @@ internal class Program
             description = oldTask.Description;
 
         Console.Write("created at date:");
-        DateTime createdAtDate;
-        if (!DateTime.TryParse(Console.ReadLine(), out createdAtDate))
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime createdAtDate))
             createdAtDate = oldTask.CreatedAtDate;
 
         Console.Write("scheduled date:");
         DateTime? scheduledDate = oldTask.ScheduledDate;
-        if (DateTime.TryParse(Console.ReadLine(), out temp1))
+        if (DateTime.TryParse(Console.ReadLine(), out DateTime temp1))
             scheduledDate = temp1;
 
         Console.Write("start date:");
@@ -600,7 +597,7 @@ internal class Program
 
         Console.Write("required effort time:");
         TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
-        if (TimeSpan.TryParse(Console.ReadLine(), out temp2))
+        if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
             requiredEffortTime = temp2;
 
         Console.Write("deadline date:");
@@ -625,7 +622,7 @@ internal class Program
 
         Console.Write("engineer id:");
         int? engineerId = oldTask.EngineerId;
-        if (int.TryParse(Console.ReadLine(), out temp3))
+        if (int.TryParse(Console.ReadLine(), out int temp3))
             engineerId = temp3;
 
         Console.Write("complexity:");
@@ -634,7 +631,7 @@ internal class Program
             complexity = experience;
 
         // Create the new task with updated values
-        Task task = new Task(
+        Task task = new(
             oldTask.Id, // Keep the old id or Deafault value
             Alias: alias,
             Description: description,
@@ -664,8 +661,7 @@ internal class Program
         Console.WriteLine("Enter the values of the enginner:");
         // Get the updated values from user input or use the old values if input is empty
         Console.Write("cost:");
-        double cost;
-        if (!double.TryParse(Console.ReadLine()!, out cost))
+        if (!double.TryParse(Console.ReadLine()!, out double cost))
             cost = oldEngineer.Cost;
 
         Console.Write("name:");
@@ -679,13 +675,12 @@ internal class Program
             email = oldEngineer.Email;
 
         Console.Write("level:");
-        EngineerExperience level;
-        if (!Enum.TryParse(Console.ReadLine()!, out level))
+        if (!Enum.TryParse(Console.ReadLine()!, out EngineerExperience level))
             level = oldEngineer.Level;
 
         // Create the new engineer with updated values
-        Engineer engineer = new Engineer(
-            oldEngineer.Id, // Keep the old id or put 0 by defaulte
+        Engineer engineer = new(
+            id, // Keep the old id or put 0 by defaulte
             Cost: cost,
             Name: name,
             Email: email,
@@ -699,7 +694,7 @@ internal class Program
     /// </summary>
     /// <param name="oldDependency">The dependency to update.</param>
     /// <returns>The updated dependency with new values.</returns>
-    private static Dependency DependencyCreatAndUpdate(Dependency oldDependency, int id = 0)
+    private static Dependency DependencyCreatAndUpdate(Dependency oldDependency)
     {
         Console.WriteLine("Enter the values of the dependency:");
 
@@ -715,7 +710,7 @@ internal class Program
             dependOnTaskId = dependsOn;
 
         // Create the new dependency with updated values
-        Dependency dependency = new Dependency(
+        Dependency dependency = new(
             Id: oldDependency.Id, // Keep the old id or enter default values
             DependentTask: taskId,
             DependentOnTask: dependOnTaskId
