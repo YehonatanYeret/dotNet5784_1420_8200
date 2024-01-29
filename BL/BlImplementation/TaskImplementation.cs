@@ -1,39 +1,58 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
 
 internal class TaskImplementation : ITask
 {
-    private DalApi.IDal _dal = DalApi.Factory.Get;
+    private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
     public void Create(BO.Task task)
     {
-        if(task.Id<0)
-            throw new Exception("id must be positive");//nedd to change to BO exception
-        if(string.IsNullOrEmpty(task.Alias))
-            throw new Exception("alias must not be empty");//nedd to change to BO exception
-        //add all dependencies to the database
-        //add the task to the database
+        if (task.Id < 0)
+            throw new BLValueIsNotCorrectException("id must be positive");//nedd to change to BO exception
+        if (string.IsNullOrEmpty(task.Alias))
+            throw new BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
+        task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
+        _dal.Task.Create(new DO.Task()
+        {
+            Id = task.Id,
+            Alias = task.Alias,
+            Description = task.Description,
+            CreatedAtDate = task.CreatedAtDate,
+            IsMileStone = task.Milestone is not null,
+            ScheduledDate = task.ScheduledDate,
+            StartDate = task.StartDate,
+            RequiredEffortTime = task.RequiredEffortTime,
+            DeadlineDate = task.DeadlineDate,
+            CompleteDate = task.CompleteDate,
+            Deliverables = task.Deliverables,
+            Remarks = task.Remarks,
+            EngineerId = task.Engineer?.Id,
+            Complexity = (DO.EngineerExperience?)task.Copmlexity,
+        });
     }
 
     public BO.Task Read(int id)
     {
-        DO.Task? task = _dal.Task.Read(id);
-        if (task == null)
-            throw new Exception($"no task with id {id}");//nedd to change to BO exception 
+        DO.Task task = _dal.Task.Read(id) ?? throw new BLDoesNotExistException($"No task found with ID {id}");
         return CreateTask(task);
     }
 
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
-        if(filter != null)
+        if (filter != null)
             return _dal.Task.ReadAll().Select(task => CreateTask(task!)).Where(filter);
 
-        return  _dal.Task.ReadAll().Select(task=>CreateTask(task!));
+        return _dal.Task.ReadAll().Select(task => CreateTask(task!));
     }
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        DO.Task task = _dal.Task.Read(id) ?? throw new BLDoesNotExistException($"No task found with ID {id}");
+        DO.Dependency dependency = _dal.Dependency.ReadAll(dep => dep.DependentOnTask == id).FirstOrDefault() ??
+            throw new BLDeletionImpossible($"cannot delete Task with ID {id}");
+        //the task is found so we dont need to rap it with try catch
+        _dal.Task.Delete(id);
     }
 
     public void Update(BO.Task task)
@@ -80,7 +99,7 @@ internal class TaskImplementation : ITask
         };
     }
 
-    private BO.Status CalculateStatus(DO.Task task)
+    static BO.Status CalculateStatus(DO.Task task)
     {
         if (task.ScheduledDate is null) return BO.Status.Unscheduled;
         if (task.IsMileStone) return BO.Status.InJeopardy;

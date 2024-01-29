@@ -67,7 +67,7 @@ internal class TaskImplementation : ITask
         List<Task> tasksList = XMLTools.LoadListFromXMLSerializer<Task>(s_task_xml);
 
         if (filter != null)
-            return tasksList.Where(task => filter(task) && task.isActive);
+            return tasksList.Where(task => filter(task) && task.IsActive);
 
         return tasksList.Select(task => task);
     }

@@ -25,7 +25,7 @@ public record Task
     string Description,
     DateTime CreatedAtDate,
     bool IsMileStone = false,
-    bool isActive = true,
+    bool IsActive = true,
     DateTime? ScheduledDate = null,
     DateTime? StartDate = null,
     TimeSpan? RequiredEffortTime = null,

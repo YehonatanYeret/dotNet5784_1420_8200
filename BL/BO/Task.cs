@@ -71,7 +71,7 @@
         /// <summary>
         /// Gets or sets the real start date of the task.
         /// </summary>
-        public DateTime? StartDate { get; init; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         /// Gets or sets the planned start date of the task.
@@ -92,7 +92,7 @@
         /// <summary>
         /// Gets or sets the real completion date of the task.
         /// </summary>
-        public DateTime? CompleteDate { get; init; }
+        public DateTime? CompleteDate { get; set; }
 
 
         /// <summary>

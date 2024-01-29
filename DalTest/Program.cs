@@ -33,7 +33,7 @@ internal class Program
                 "4. Initialize");
 
             // Read the user's input and parse it to an integer, storing it in the 'choice' variable
-            int.TryParse(Console.ReadLine(), out choice);
+            choice= int.Parse(Console.ReadLine()!);
 
             // Use a switch statement to handle different cases based on the user's choice
             switch (choice)
@@ -112,7 +112,7 @@ internal class Program
 
             try
             {
-                int.TryParse(Console.ReadLine(), out subChoice);
+                subChoice = int.Parse(Console.ReadLine()!); // Read the user's input and parse it to an integer
 
                 // Process user input based on the main menu choice and submenu option
                 switch (choice, subChoice)
@@ -637,7 +637,7 @@ internal class Program
             Description: description,
             CreatedAtDate: createdAtDate,
             IsMileStone: false, // Placeholder value, auto-incremented identifier will be used
-            isActive: true, // Placeholder value (default value for boolean property)
+            IsActive: true, // Placeholder value (default value for boolean property)
             ScheduledDate: scheduledDate,
             StartDate: startDate,
             RequiredEffortTime: requiredEffortTime,
@@ -725,7 +725,7 @@ internal class Program
     private static int GetId()
     {
         Console.Write("Enter the id:");
-        int.TryParse(Console.ReadLine()!, out int id);
+        int id = int.Parse(Console.ReadLine()!);
         return id;
     }
 

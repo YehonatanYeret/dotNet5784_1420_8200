@@ -19,7 +19,7 @@ internal class TaskImplementation : ITask
     //read a task and return it. if not found return null
     public Task? Read(int id)
     {
-        return DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.isActive);//find the task with the id and if not found return null
+        return DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.IsActive);//find the task with the id and if not found return null
     }
     public Task? Read(Func<Task, bool> filter)
     {
@@ -31,16 +31,16 @@ internal class TaskImplementation : ITask
     public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
     {
         if(filter != null)
-            return DataSource.Tasks.Where(task => task.isActive && filter(task));//return a copy of the list of tasks
+            return DataSource.Tasks.Where(task => task.IsActive && filter(task));//return a copy of the list of tasks
         
-        return DataSource.Tasks.Where(task => task.isActive);//return a copy of the list of tasks
+        return DataSource.Tasks.Where(task => task.IsActive);//return a copy of the list of tasks
     }
 
     //update a task by removing the old one and adding the new one
     public void Update(Task item)
     {
         //find the index of the task with the same id
-        Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == item.Id && task.isActive);
+        Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == item.Id && task.IsActive);
         if (task == null)//if not found
             throw new DalDoesNotExistException($"Task with ID={item.Id} does not exist");//throw exception
 
@@ -55,11 +55,11 @@ internal class TaskImplementation : ITask
     //we dont need to check if there is no tasks with the task id because we will check it in the logic layer
     public void Delete(int id)
     {
-        Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.isActive);//find the index of the task with the same id
+        Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.IsActive);//find the index of the task with the same id
         if (task == null)//if not found
             throw new DalDoesNotExistException($"Task with ID={id} does not exist");//throw exception
 
-        Task? t = task with { isActive = false };//create a new task with the same data but not active
+        Task? t = task with { IsActive = false };//create a new task with the same data but not active
         DataSource.Tasks.RemoveAll(temp => temp.Id == id);//remove the task
         DataSource.Tasks.Add(t);//add the new task
     }
