@@ -235,5 +235,7 @@ internal class TaskImplementation : BlApi.ITask
         // Check if the new scheduled date is before the complete date of any dependent task
         if (tasks.Any(task => time < task.CompleteDate))
             throw new BO.BLValueIsNotCorrectException("Cannot update scheduled date of task to be before the complete date of its dependencies");
+    
+        
     }
 }

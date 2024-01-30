@@ -36,5 +36,7 @@
         /// The status is calculated.
         /// </remarks>
         public Status? Status { get; set; }
+
+        public override string ToString() => this.ToStringProperty();
     }
 }

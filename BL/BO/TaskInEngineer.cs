@@ -20,5 +20,7 @@
         /// The alias cannot be null.
         /// </remarks>
         public string Alias { get; set; }
+
+        public override string ToString() => this.ToStringProperty();
     }
 }
