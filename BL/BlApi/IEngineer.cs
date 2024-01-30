@@ -35,6 +35,6 @@ public interface IEngineer
     /// <summary>
     /// Deletes an existing engineer.
     /// </summary>
-    /// <param name="engineer">The engineer object to delete.</param>
-    public void Delete(BO.Engineer engineer);
+    /// <param name="id">The id of the engineer that need to delete.</param>
+    public void Delete(int id);
 }

@@ -141,7 +141,7 @@ internal class TaskImplementation : BlApi.ITask
             Id = id,
             Description = task.Description,
             Alias = task.Alias,
-            Status = CalculateStatus(task)
+            Status = BO.Tools.CalculateStatus(task)
         };
     }
 
@@ -168,14 +168,7 @@ internal class TaskImplementation : BlApi.ITask
         };
     }
 
-    // Helper method to calculate the status of a task
-    static BO.Status CalculateStatus(DO.Task task)
-    {
-        if (task.ScheduledDate is null) return BO.Status.Unscheduled;
-        if (task.IsMileStone) return BO.Status.InJeopardy;
-        if (task.CompleteDate < DateTime.Now) return BO.Status.Done;
-        return BO.Status.OnTrack;
-    }
+
 
     // Helper method to convert a data object (DO.Task) into a business object (BO.Task)
     private BO.Task CreateTask(DO.Task task)
@@ -187,7 +180,7 @@ internal class TaskImplementation : BlApi.ITask
             Description = task.Description,
             Alias = task.Alias,
             CreatedAtDate = task.CreatedAtDate,
-            Status = CalculateStatus(task),
+            Status = BO.Tools.CalculateStatus(task),
             Dependencies = GetAllDependencies(task.Id),
             //Milestone = task.Milestone,
             RequiredEffortTime = task.RequiredEffortTime,

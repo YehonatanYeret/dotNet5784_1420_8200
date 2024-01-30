@@ -31,4 +31,13 @@ static class Tools
         return result;
 
     }
+
+    // Helper method to calculate the status of a task
+    internal static BO.Status CalculateStatus(DO.Task task)
+    {
+        if (task.ScheduledDate is null) return BO.Status.Unscheduled;
+        if (task.IsMileStone) return BO.Status.InJeopardy;
+        if (task.CompleteDate < DateTime.Now) return BO.Status.Done;
+        return BO.Status.OnTrack;
+    }
 }
