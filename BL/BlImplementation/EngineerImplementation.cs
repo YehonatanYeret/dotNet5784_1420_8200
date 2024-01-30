@@ -32,7 +32,7 @@ internal class EngineerImplementation : IEngineer
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BLAlreadyExistsException($"Engineer with ID {engineer.Id} already exists", ex);
+            throw new BO.BLAlreadyExistsException(ex.Message, ex);
         }
 
     }
@@ -62,7 +62,7 @@ internal class EngineerImplementation : IEngineer
                                        Alias = t.Alias
                                    }).FirstOrDefault();
 
-
+        //create the BO.Engineer object 
         BO.Engineer? boEngineer = new BO.Engineer()
         {
             Id = id,
@@ -82,10 +82,10 @@ internal class EngineerImplementation : IEngineer
     /// <param name="filter">An optional filter function to apply to the engineers.</param>
     /// <returns>An IEnumerable of engineers that satisfy the provided filter.</returns>
     /// 
-    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null) 
+    public IEnumerable<BO.Engineer> ReadAll(Func<BO.Engineer, bool>? filter = null)
     {
         //if there is no filter, return all the engineers
-        if(filter is null)
+        if (filter is null)
             filter = (e) => true;
 
         //get all the engineers that return true with filter from the dal
@@ -144,28 +144,56 @@ internal class EngineerImplementation : IEngineer
         // If the engineer does not exist, throw a BLDoesNotExistException.
         catch (DO.DalDoesNotExistException ex)
         {
-            throw new BO.BLDoesNotExistException($"Engineer with ID {engineer.Id} does not exist", ex);
+            throw new BO.BLDoesNotExistException(ex.Message, ex);
         }
     }
 
     /// <summary>
     /// Deletes an existing engineer.
     /// </summary>
-    /// <param name="engineer">The engineer object to delete.</param>
-    public void Delete(BO.Engineer engineer) { }
-
-
-    void checkEngineer(BO.Engineer engineer)
+    /// <param name="id">The id of the engineer that need to delete.</param>
+    public void Delete(int id)
     {
+        //check if the engineer has tasks that on track or done
+        IEnumerable<DO.Task?> tasks = from task in _dal.Task.ReadAll(task => task.EngineerId == id)
+                                      let stat = BO.Tools.CalculateStatus(task!)
+                                      where stat == BO.Status.OnTrack || stat == BO.Status.Done
+                                      select task;
+
+
+        // If the engineer has tasks that are on track or done, throw a BLDeletionImpossible.
+        if (tasks.Any())
+            throw new BO.BLDeletionImpossible($"cannot delete Engineer with ID {id}");
+
+        try
+        {
+            _dal.Engineer.Delete(id);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BLDoesNotExistException(ex.Message, ex);
+        }
+    }
+
+    /// <summary>
+    /// check if the values of the engineer is correct
+    /// </summary>
+    /// <param name="engineer">the engineer that need to check</param>
+    private void checkEngineer(BO.Engineer engineer)
+    {
+        //check if the id is not negative
         if (engineer.Id < 0)
             throw new BO.BLValueIsNotCorrectException($"Engineer ID cannot be negative: {engineer.Id}");
 
+        //check if the name is not empty
         if (string.IsNullOrEmpty(engineer.Name))
             throw new BO.BLValueIsNotCorrectException($"Engineer name cannot be empty: {engineer.Name}");
 
+        //check if the cost is not negative
         if (engineer.Cost < 0)
             throw new BO.BLValueIsNotCorrectException($"Engineer cost cannot be negative: {engineer.Cost}");
 
+        //check if the email is valid
         string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
 
         if (!Regex.IsMatch(engineer.Email, regex, RegexOptions.IgnoreCase))

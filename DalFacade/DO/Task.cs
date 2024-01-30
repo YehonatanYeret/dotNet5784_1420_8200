@@ -8,7 +8,7 @@
 /// <param name="Description">Task description</param>
 /// <param name="CreatedAtDate">Time when the task has been created</param>
 /// <param name="IsMileStone">Indicates whether the task is a milestone</param>
-/// <param name="isActive">Indicates if the task is active</param>
+/// <param name="IsActive">Indicates if the task is active</param>
 /// <param name="ScheduledDate">Planned start date</param>
 /// <param name="StartDate">Real start date</param>
 /// <param name="RequiredEffortTime">How many days needed for the task</param>
