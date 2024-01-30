@@ -212,20 +212,28 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
     }
 
+    /// <summary>
+    /// Checks if it's valid to update the scheduled date of a task based on its dependencies and completion dates.
+    /// </summary>
+    /// <param name="id">The ID of the task being updated.</param>
+    /// <param name="time">The new scheduled date to be checked.</param>
     private void CheckForUpdate(int id, DateTime? time)
     {
+        // If the scheduled date is not provided, no need to perform checks
         if (time is null)
             return;
 
+        // Retrieve all dependent tasks for the given task ID
         IEnumerable<DO.Task>? tasks = from temp in _dal.Dependency.ReadAll(dep => dep.DependentTask == id)
                                       where temp.DependentOnTask is not null
                                       select _dal.Task.Read((int)temp.DependentOnTask!);
 
+        // Check if any dependent task has an unscheduled date
         if (tasks.Any(task => task.ScheduledDate is null))
-            throw new BO.BLValueIsNotCorrectException("cannot update scheduled date of task with unscheduled dependencies");
+            throw new BO.BLValueIsNotCorrectException("Cannot update scheduled date of task with unscheduled dependencies");
 
+        // Check if the new scheduled date is before the complete date of any dependent task
         if (tasks.Any(task => time < task.CompleteDate))
-            throw new BO.BLValueIsNotCorrectException("cannot update scheduled date of task to be before the complete date of its dependencies");
-
+            throw new BO.BLValueIsNotCorrectException("Cannot update scheduled date of task to be before the complete date of its dependencies");
     }
 }

@@ -1,17 +1,25 @@
 ﻿namespace Dal;
 using DalApi;
-using System.Diagnostics;
 
 sealed internal class DalXml : IDal
 {
     private DalXml() { }
 
-    public static IDal Instance { get; } = new DalXml();
-    //public static Lazy<IDal> Instance { get; } = new Lazy<IDal>(()=>new DalXml());
+    private static readonly Lazy<DalXml> lazy = new Lazy<DalXml>(() => new DalXml());
+    public static DalXml Instance {  get { return lazy.Value; } }
 
-    public IEngineer Engineer =>  new EngineerImplementation();
+    /// <summary>
+    /// Gets an instance of the <see cref="IEngineer"/> interface for accessing engineer-related data.
+    /// </summary>
+    public IEngineer Engineer => new EngineerImplementation();
 
+    /// <summary>
+    /// Gets an instance of the <see cref="ITask"/> interface for accessing task-related data.
+    /// </summary>
     public ITask Task => new TaskImplementation();
 
+    /// <summary>
+    /// Gets an instance of the <see cref="IDependency"/> interface for accessing dependency-related data.
+    /// </summary>
     public IDependency Dependency => new DepenencyImplemention();
 }
