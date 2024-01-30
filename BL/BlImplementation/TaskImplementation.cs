@@ -1,20 +1,22 @@
 ﻿namespace BlImplementation;
-using BlApi;
-using BO;
 
-internal class TaskImplementation : ITask
+internal class TaskImplementation : BlApi.ITask
 {
+    // Data Access Layer instance
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
 
+    /// <summary>
+    /// Creates a new task in the system.
+    /// </summary>
     public void Create(BO.Task task)
     {
-        if (task.Id < 0)
-            throw new BLValueIsNotCorrectException("id must be positive");//nedd to change to BO exception
-        if (string.IsNullOrEmpty(task.Alias))
-            throw new BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
+        CheckTask(task);
+        // Create dependencies if they exist
         task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
+        // Create the task in the data access layer
         _dal.Task.Create(new DO.Task()
         {
+            // Map properties from business object to data object
             Id = task.Id,
             Alias = task.Alias,
             Description = task.Description,
@@ -32,12 +34,18 @@ internal class TaskImplementation : ITask
         });
     }
 
+    /// <summary>
+    /// Retrieves a task by its ID.
+    /// </summary>
     public BO.Task Read(int id)
     {
-        DO.Task task = _dal.Task.Read(id) ?? throw new BLDoesNotExistException($"No task found with ID {id}");
+        DO.Task task = _dal.Task.Read(id) ?? throw new BO.BLDoesNotExistException($"No task found with ID {id}");
         return CreateTask(task);
     }
 
+    /// <summary>
+    /// Retrieves all tasks based on an optional filter.
+    /// </summary>
     public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
     {
         if (filter != null)
@@ -46,26 +54,85 @@ internal class TaskImplementation : ITask
         return _dal.Task.ReadAll().Select(task => CreateTask(task!));
     }
 
-    public void Delete(int id)
-    {
-        DO.Task task = _dal.Task.Read(id) ?? throw new BLDoesNotExistException($"No task found with ID {id}");
-        DO.Dependency dependency = _dal.Dependency.ReadAll(dep => dep.DependentOnTask == id).FirstOrDefault() ??
-            throw new BLDeletionImpossible($"cannot delete Task with ID {id}");
-        //the task is found so we dont need to rap it with try catch
-        _dal.Task.Delete(id);
-    }
-
+    /// <summary>
+    /// Updates an existing task in the system.
+    /// </summary>
     public void Update(BO.Task task)
     {
-        throw new NotImplementedException();
+        // Check if the update is valid
+        CheckForUpdate(task.Id, task.StartDate);
+        try
+        {
+            // Perform the task update
+            _dal.Task.Update(new DO.Task()
+            {
+                // Map properties from business object to data object
+                Description = task.Description,
+                Alias = task.Alias,
+                CreatedAtDate = task.CreatedAtDate,
+                IsMileStone = task.Milestone is not null,
+                ScheduledDate = task.ScheduledDate,
+                StartDate = task.StartDate,
+                RequiredEffortTime = task.RequiredEffortTime,
+                DeadlineDate = task.DeadlineDate,
+                CompleteDate = task.CompleteDate,
+                Deliverables = task.Deliverables,
+                Remarks = task.Remarks,
+                EngineerId = task.Engineer?.Id,
+                Complexity = (DO.EngineerExperience?)task.Copmlexity,
+            });
+
+            // Update dependencies
+            foreach (DO.Dependency? item in _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id))
+                _dal.Dependency.Delete(item!.Id);
+
+            // Recreate dependencies if they exist
+            task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BLDoesNotExistException(ex.Message, ex);
+        }
     }
 
+    /// <summary>
+    /// Updates the scheduled date of a task.
+    /// </summary>
     public void UpdateScheduledDate(int id, DateTime time)
     {
-        throw new NotImplementedException();
+        DO.Task? taskToUpdate = _dal.Task.Read(id);
+        if (taskToUpdate is null)
+            throw new BO.BLDoesNotExistException($"No task found with ID {id}");
+
+        // Check if the update is valid
+        CheckForUpdate(id, time);
+
+        // Update the scheduled date
+        taskToUpdate = taskToUpdate with { ScheduledDate = time };
+        _dal.Task.Update(taskToUpdate);
     }
 
+    /// <summary>
+    /// Deletes a task by its ID.
+    /// </summary>
+    public void Delete(int id)
+    {
+        // Check if the task has dependencies before deletion
+        if (_dal.Dependency.ReadAll(dep => dep.DependentOnTask == id).FirstOrDefault() is not null)
+            throw new BO.BLDeletionImpossible($"cannot delete Task with ID {id}");
 
+        try
+        {
+            // Attempt to delete the task
+            _dal.Task.Delete(id);
+        }
+        catch (DO.DalDoesNotExistException ex)
+        {
+            throw new BO.BLDoesNotExistException(ex.Message, ex);
+        }
+    }
+
+    // Helper method to convert a task ID into a TaskInList object
     private BO.TaskInList ConvertToTaskInList(int id)
     {
         DO.Task task = _dal.Task.Read(id)!;
@@ -78,15 +145,17 @@ internal class TaskImplementation : ITask
         };
     }
 
+    // Helper method to retrieve all dependencies for a task ID
     private List<BO.TaskInList> GetAllDependencies(int id)
     {
-        //read all needed dependencies and convert all dependencies to BO.taskinlist
+        // Read all needed dependencies and convert them to BO.TaskInList
         IEnumerable<BO.TaskInList> dependenciesInList = from dep in _dal.Dependency.ReadAll(dep => dep.DependentOnTask == id)
                                                         where dep.DependentTask is not null
                                                         select ConvertToTaskInList((int)dep.DependentTask!);
         return dependenciesInList.ToList();
     }
 
+    // Helper method to convert an engineer ID into an EngineerInTask object
     private BO.EngineerInTask? ConvertToEngineerInTask(int? id)
     {
         if (id is null) return null;
@@ -99,15 +168,16 @@ internal class TaskImplementation : ITask
         };
     }
 
+    // Helper method to calculate the status of a task
     static BO.Status CalculateStatus(DO.Task task)
     {
         if (task.ScheduledDate is null) return BO.Status.Unscheduled;
         if (task.IsMileStone) return BO.Status.InJeopardy;
         if (task.CompleteDate < DateTime.Now) return BO.Status.Done;
-        if (task.StartDate < DateTime.Now) return BO.Status.OnTrack;
-        return BO.Status.Unscheduled;
+        return BO.Status.OnTrack;
     }
 
+    // Helper method to convert a data object (DO.Task) into a business object (BO.Task)
     private BO.Task CreateTask(DO.Task task)
     {
         //convert the task to BO.task and return it
@@ -132,5 +202,30 @@ internal class TaskImplementation : ITask
             Engineer = ConvertToEngineerInTask(task.EngineerId),
             Copmlexity = (BO.EngineerExperience?)task.Complexity,
         };
+    }
+
+    private static void CheckTask(BO.Task task)
+    {
+        if (task.Id < 0)
+            throw new BO.BLValueIsNotCorrectException("id must be positive");//nedd to change to BO exception
+        if (string.IsNullOrEmpty(task.Alias))
+            throw new BO.BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
+    }
+
+    private void CheckForUpdate(int id, DateTime? time)
+    {
+        if (time is null)
+            return;
+
+        IEnumerable<DO.Task>? tasks = from temp in _dal.Dependency.ReadAll(dep => dep.DependentTask == id)
+                                      where temp.DependentOnTask is not null
+                                      select _dal.Task.Read((int)temp.DependentOnTask!);
+
+        if (tasks.Any(task => task.ScheduledDate is null))
+            throw new BO.BLValueIsNotCorrectException("cannot update scheduled date of task with unscheduled dependencies");
+
+        if (tasks.Any(task => time < task.CompleteDate))
+            throw new BO.BLValueIsNotCorrectException("cannot update scheduled date of task to be before the complete date of its dependencies");
+
     }
 }
