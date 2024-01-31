@@ -636,7 +636,6 @@ internal class Program
             Alias: alias,
             Description: description,
             CreatedAtDate: createdAtDate,
-            IsMileStone: false, // Placeholder value, auto-incremented identifier will be used
             IsActive: true, // Placeholder value (default value for boolean property)
             ScheduledDate: scheduledDate,
             StartDate: startDate,

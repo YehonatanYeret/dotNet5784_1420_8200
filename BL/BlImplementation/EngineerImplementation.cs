@@ -156,7 +156,7 @@ internal class EngineerImplementation : IEngineer
     {
         //check if the engineer has tasks that on track or done
         IEnumerable<DO.Task?> tasks = from task in _dal.Task.ReadAll(task => task.EngineerId == id)
-                                      let stat = BO.Tools.CalculateStatus(task!)
+                                      let stat = TaskImplementation.CalculateStatus(task!)
                                       where stat == BO.Status.OnTrack || stat == BO.Status.Done
                                       select task;
 

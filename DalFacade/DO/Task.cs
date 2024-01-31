@@ -7,7 +7,6 @@
 /// <param name="Alias">An alias for each task</param>
 /// <param name="Description">Task description</param>
 /// <param name="CreatedAtDate">Time when the task has been created</param>
-/// <param name="IsMileStone">Indicates whether the task is a milestone</param>
 /// <param name="IsActive">Indicates if the task is active</param>
 /// <param name="ScheduledDate">Planned start date</param>
 /// <param name="StartDate">Real start date</param>
@@ -24,7 +23,6 @@ public record Task
     string Alias,
     string Description,
     DateTime CreatedAtDate,
-    bool IsMileStone = false,
     bool IsActive = true,
     DateTime? ScheduledDate = null,
     DateTime? StartDate = null,
