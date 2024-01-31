@@ -14,9 +14,4 @@ public interface IBl
     /// Gets an instance of the ITask interface for accessing task-related functionalities.
     /// </summary>
     public ITask Task { get; }
-
-    /// <summary>
-    /// Gets an instance of the IMilestone interface for accessing milestone-related functionalities.
-    /// </summary>
-    public IMilestone Milestone { get; }
 }

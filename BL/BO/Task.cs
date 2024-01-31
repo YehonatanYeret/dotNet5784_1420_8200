@@ -51,16 +51,6 @@
         public List<TaskInList>? Dependencies { get; set; }
 
         /// <summary>
-        /// Gets or sets the calculated milestone for the task.
-        /// bonus
-        /// </summary>
-        /// <remarks>
-        /// Calculated when building the schedule and populated if there is a milestone in the dependency.
-        /// Relevant only after the schedule is built.
-        /// </remarks>
-        public MilestoneInTask? Milestone { get; set; }
-
-        /// <summary>
         /// Gets or sets the required effort time for the task.
         /// </summary>
         /// <remarks>

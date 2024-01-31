@@ -21,7 +21,6 @@ internal class TaskImplementation : BlApi.ITask
             Alias = task.Alias,
             Description = task.Description,
             CreatedAtDate = task.CreatedAtDate,
-            IsMileStone = task.Milestone is not null,
             ScheduledDate = task.ScheduledDate,
             StartDate = task.StartDate,
             RequiredEffortTime = task.RequiredEffortTime,
@@ -59,8 +58,13 @@ internal class TaskImplementation : BlApi.ITask
     /// </summary>
     public void Update(BO.Task task)
     {
-        // Check if the update is valid
-        CheckForUpdate(task.Id, task.StartDate);
+        // Check if the task values are valid
+        CheckTask(task);
+
+        // Check if there is a circular dependency
+        if (ThereIsCirculerDependency(task))
+            throw new BO.BLValueIsNotCorrectException($"here is circuler dependency in the task with ID {task.Id}");
+
         try
         {
             // Perform the task update
@@ -70,8 +74,7 @@ internal class TaskImplementation : BlApi.ITask
                 Description = task.Description,
                 Alias = task.Alias,
                 CreatedAtDate = task.CreatedAtDate,
-                IsMileStone = task.Milestone is not null,
-                ScheduledDate = task.ScheduledDate,
+                ScheduledDate = _dal.Task.Read(task.Id)!.ScheduledDate,
                 StartDate = task.StartDate,
                 RequiredEffortTime = task.RequiredEffortTime,
                 DeadlineDate = task.DeadlineDate,
@@ -82,7 +85,7 @@ internal class TaskImplementation : BlApi.ITask
                 Complexity = (DO.EngineerExperience?)task.Copmlexity,
             });
 
-            // Update dependencies
+            // delete the old dependencies
             foreach (DO.Dependency? item in _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id))
                 _dal.Dependency.Delete(item!.Id);
 
@@ -105,7 +108,7 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLDoesNotExistException($"No task found with ID {id}");
 
         // Check if the update is valid
-        CheckForUpdate(id, time);
+        CheckForDate(id, time);
 
         // Update the scheduled date
         taskToUpdate = taskToUpdate with { ScheduledDate = time };
@@ -141,7 +144,7 @@ internal class TaskImplementation : BlApi.ITask
             Id = id,
             Description = task.Description,
             Alias = task.Alias,
-            Status = BO.Tools.CalculateStatus(task)
+            Status = CalculateStatus(task)
         };
     }
 
@@ -168,8 +171,6 @@ internal class TaskImplementation : BlApi.ITask
         };
     }
 
-
-
     // Helper method to convert a data object (DO.Task) into a business object (BO.Task)
     private BO.Task CreateTask(DO.Task task)
     {
@@ -180,9 +181,8 @@ internal class TaskImplementation : BlApi.ITask
             Description = task.Description,
             Alias = task.Alias,
             CreatedAtDate = task.CreatedAtDate,
-            Status = BO.Tools.CalculateStatus(task),
+            Status = CalculateStatus(task),
             Dependencies = GetAllDependencies(task.Id),
-            //Milestone = task.Milestone,
             RequiredEffortTime = task.RequiredEffortTime,
             StartDate = task.StartDate,
             ScheduledDate = task.ScheduledDate,
@@ -210,7 +210,7 @@ internal class TaskImplementation : BlApi.ITask
     /// </summary>
     /// <param name="id">The ID of the task being updated.</param>
     /// <param name="time">The new scheduled date to be checked.</param>
-    private void CheckForUpdate(int id, DateTime? time)
+    private void CheckForDate(int id, DateTime? time)
     {
         // If the scheduled date is not provided, no need to perform checks
         if (time is null)
@@ -228,7 +228,68 @@ internal class TaskImplementation : BlApi.ITask
         // Check if the new scheduled date is before the complete date of any dependent task
         if (tasks.Any(task => time < task.CompleteDate))
             throw new BO.BLValueIsNotCorrectException("Cannot update scheduled date of task to be before the complete date of its dependencies");
-    
-        
+    }
+
+    /// <summary>
+    /// Calculate the status of a task based on its scheduled date, complete date, and milestone status.
+    /// </summary>
+    /// <param name="task">The task that we calaulate the steatus for</param>
+    /// <returns>the status of the task</returns>
+    internal static BO.Status CalculateStatus(DO.Task task)
+    {
+        if (task.ScheduledDate is null) return BO.Status.Unscheduled;
+        if (task.CompleteDate < DateTime.Now) return BO.Status.Done;
+        return BO.Status.OnTrack;
+    }
+
+    /// <summary>
+    /// Checks if there is a circular dependency between tasks.
+    /// </summary>
+    /// <param name="task"> The task we wand to check if he has circuler dependency</param>
+    /// <returns> Returns true if there is circuler dependency and else returns false</returns>
+    internal bool ThereIsCirculerDependency(BO.Task task)
+    {
+        //iterate over all the dependencies of the task and check if there is circuler dependency
+        foreach (var item in task.Dependencies!)
+        {
+            //if there is circuler dependency return true
+            if (ThereIsCircularDependency(item.Id, task.Id))
+                return true;      
+        }
+        //after iterating over all the dependencies and there is no circuler dependency return false
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if there is a circular dependency between tasks.
+    /// </summary>
+    /// <param name="taskId">The ID of the task that the current task depends on.</param>
+    /// <param name="id">The ID of the current task being checked for circular dependencies.</param>
+    /// <returns>True if a circular dependency exists, otherwise false.</returns>
+    private bool ThereIsCircularDependency(int? taskId, int id)
+    {
+        // Base case: If the task ID is the same as the current task ID, there is a circular dependency.
+        if (taskId == id)
+            return true;
+
+        // Base case: If the task ID is null, there is no circular dependency.
+        if (taskId == null)
+            return false;
+
+        // Retrieve dependencies for the current task.
+        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(dep => dep.DependentTask == id)!;
+
+        // Check for circular dependencies in each dependency.
+        foreach (var item in dependencies)
+        {
+            // Recursive call to check for circular dependencies in the dependent task.
+            if (ThereIsCircularDependency(item.DependentOnTask, id))
+            {
+                return true;
+            }
+        }
+
+        // No circular dependency found for the current task.
+        return false;
     }
 }
