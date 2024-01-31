@@ -6,7 +6,7 @@ static class Tools
     public static string ToStringProperty<T>(this T obj, int indent = 0)
     {
         if (obj == null)
-            return string.Empty;
+            return "Not Set";
 
         Type type = obj.GetType();
         if (type.IsPrimitive || type.IsValueType || type == typeof(string))
