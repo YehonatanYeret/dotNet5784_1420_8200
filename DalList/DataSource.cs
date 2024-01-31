@@ -19,6 +19,9 @@ internal static class DataSource
         internal const int StartDependencyId = 1;
         private static int nextDependencyId = StartDependencyId;
         internal static int NextDependencyId { get => nextDependencyId++; }
+
+        //the start date of the project
+        internal static DateTime? StartDate;
     }
 
     //create a lists of the data
