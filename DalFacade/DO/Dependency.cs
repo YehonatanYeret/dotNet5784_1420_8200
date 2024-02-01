@@ -9,9 +9,9 @@
 public record Dependency
 (
     int Id,
-    int? DependentTask = null,
-    int? DependentOnTask = null
+    int DependentTask,
+    int DependentOnTask
 )
 {
-    public Dependency() : this(Id:0) { }
+    public Dependency() : this(Id: 0, DependentTask: 0, DependentOnTask: 0) { }
 }

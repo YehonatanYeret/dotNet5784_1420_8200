@@ -10,6 +10,7 @@ internal class EngineerImplementation : IEngineer
     /// Creates a new engineer.
     /// </summary>
     /// <param name="engineer">The engineer object to create.</param>
+    /// <returns>The ID of the newly created engineer.</returns>
     public int Create(BO.Engineer engineer)
     {
         //check if the values is correct
@@ -34,7 +35,6 @@ internal class EngineerImplementation : IEngineer
         {
             throw new BO.BLAlreadyExistsException(ex.Message, ex);
         }
-
     }
 
     /// <summary>

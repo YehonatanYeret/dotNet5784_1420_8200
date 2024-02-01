@@ -28,14 +28,7 @@ internal class DepenencyImplemention : IDependency
         XElement dependentTask = new XElement("dependentTask", item.DependentTask);
         XElement dependentOnTask = new XElement("dependentOnTask", item.DependentOnTask);
 
-        dep.Add(id);
-
-        // Add the new Dependency's properties to the XML if they are not null
-        if(item.DependentTask != null)
-            dep.Add(dependentTask);
-
-        if(item.DependentOnTask != null)
-            dep.Add(dependentOnTask);
+        dep.Add(id, dependentTask, dependentOnTask);
 
         // Add the new Dependency to the XML
         root.Add(dep);
@@ -163,8 +156,8 @@ internal class DepenencyImplemention : IDependency
     Dependency GetDependency(XElement element) => new
     (
     Id: (int)element.Element("Id")!,
-    DependentTask: (int?)element.Element("dependentTask"),
-    DependentOnTask: (int?)element.Element("dependentOnTask")
+    DependentTask: (int)element.Element("dependentTask")!,
+    DependentOnTask: (int)element.Element("dependentOnTask")!
     );
 
 }

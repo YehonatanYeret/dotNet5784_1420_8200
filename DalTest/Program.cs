@@ -699,12 +699,12 @@ internal class Program
 
         // Get the updated values from user input or use the old values if input is empty
         Console.Write("task id:");
-        int? taskId = oldDependency.DependentTask;
+        int taskId = oldDependency.DependentTask;
         if (int.TryParse(Console.ReadLine(), out int dependent))
             taskId = dependent;
 
         Console.Write("depend on task id:");
-        int? dependOnTaskId = oldDependency.DependentOnTask;
+        int dependOnTaskId = oldDependency.DependentOnTask;
         if (int.TryParse(Console.ReadLine(), out int dependsOn))
             dependOnTaskId = dependsOn;
 
