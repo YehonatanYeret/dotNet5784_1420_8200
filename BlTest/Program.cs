@@ -120,8 +120,7 @@ internal class Program
             else
                 s_bl.Task.UpdateScheduledDate(item.Id, closest);
         }
-        //update the start date of the project in the config file
-        Dal.Config.StartDate = startProject;
+        s_bl.StartProject = startProject;
     }
     static void Main(string[] args)
     {
@@ -131,6 +130,6 @@ internal class Program
         if (ans.ToUpper() == "Y")// if the user typed Y or y then create initial data and erase the old data
             Initialization.Do();
 
-        while (ShowMenu() != 0) ;
+        while (ShowMenu() != 0) { }
     }
 }

@@ -17,7 +17,7 @@ public interface IEngineer
     /// </summary>
     /// <param name="id">The ID of the engineer to retrieve.</param>
     /// <returns>The engineer with the specified ID.</returns>
-    public BO.Engineer? Read(int id);
+    public BO.Engineer Read(int id);
 
     /// <summary>
     /// Retrieves all engineers based on an optional filter.
@@ -37,4 +37,8 @@ public interface IEngineer
     /// </summary>
     /// <param name="id">The id of the engineer that need to delete.</param>
     public void Delete(int id);
+
+    public void SetTaskToEngineer(int engineerId, int taskId);
+
+    public void RemoveTaskFromEngineer(int engineerId);
 }

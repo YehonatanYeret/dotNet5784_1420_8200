@@ -62,7 +62,7 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="filter">An optional filter function to apply.</param>
     /// <returns>A collection of Tasks that match the filter, or all Tasks if no filter is specified.</returns>
-    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null)
     {
         List<Task> tasksList = XMLTools.LoadListFromXMLSerializer<Task>(s_task_xml);
 

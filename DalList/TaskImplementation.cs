@@ -28,7 +28,7 @@ internal class TaskImplementation : ITask
     }
 
     //return a copy of the list of tasks
-    public IEnumerable<Task?> ReadAll(Func<Task, bool>? filter = null)
+    public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null)
     {
         if(filter != null)
             return DataSource.Tasks.Where(task => task.IsActive && filter(task));//return a copy of the list of tasks

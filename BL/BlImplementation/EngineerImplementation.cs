@@ -42,7 +42,7 @@ internal class EngineerImplementation : IEngineer
     /// </summary>
     /// <param name="id">The ID of the engineer to retrieve.</param>
     /// <returns>The engineer with the specified ID.</returns>
-    public BO.Engineer? Read(int id)
+    public BO.Engineer Read(int id)
     {
 
         DO.Engineer? engineer = _dal.Engineer.Read(id);
@@ -198,5 +198,38 @@ internal class EngineerImplementation : IEngineer
 
         if (!Regex.IsMatch(engineer.Email, regex, RegexOptions.IgnoreCase))
             throw new BO.BLValueIsNotCorrectException($"Engineer email is not valid: {engineer.Email}");
+    }
+
+    public void SetTaskToEngineer(int engineerId, int taskId)
+    {
+        //check if the engineer and the task exist
+        DO.Engineer? engineer = _dal.Engineer.Read(engineerId) ??
+            throw new BO.BLDoesNotExistException($"Engineer with ID {engineerId} does not exist");
+
+        DO.Task? task = _dal.Task.Read(taskId) ??
+            throw new BO.BLDoesNotExistException($"Task with ID {taskId} does not exist");
+
+        //check if the engineer already work on a task
+        if (_dal.Task.ReadAll(task => task.EngineerId == engineerId && task.StartDate > DateTime.Now) is not null)
+            throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");
+
+        //check if the engineer level is lower or equal then the task level
+        if (task.Complexity is not null && engineer.Level <= task.Complexity)
+            throw new BO.BLValueIsNotCorrectException($"Engineer level cannot be lower than the task level: {engineer.Level}");
+
+        //update the task with the engineer id
+        _dal.Task.Update(task with { EngineerId = engineerId });
+    }
+
+    public void RemoveTaskFromEngineer(int engineerId)
+    {
+        //check if the engineer exist 
+        DO.Engineer? engineer = _dal.Engineer.Read(engineerId) ??
+              throw new BO.BLDoesNotExistException($"Engineer with ID {engineerId} does not exist");
+
+        //check if the engineer work on a task and remove the task
+        var task = _dal.Task.Read(task => task.EngineerId == engineerId && task.StartDate > DateTime.Now);
+        if(task is not null)
+            _dal.Task.Update(task with { EngineerId = null });
     }
 }

@@ -237,9 +237,14 @@ internal class TaskImplementation : BlApi.ITask
     /// <returns>the status of the task</returns>
     internal static BO.Status CalculateStatus(DO.Task task)
     {
+        //check if the task has scheduled date
         if (task.ScheduledDate is null) return BO.Status.Unscheduled;
-        if (task.CompleteDate < DateTime.Now) return BO.Status.Done;
-        return BO.Status.OnTrack;
+        //chelk if the task not started yet
+        else if (task.StartDate is null) return BO.Status.Scheduled;
+        //check if the task not completed yet
+        else if (task.CompleteDate is null) return BO.Status.OnTrack;
+        //the task has started and completed
+        else return BO.Status.Done;
     }
 
     /// <summary>

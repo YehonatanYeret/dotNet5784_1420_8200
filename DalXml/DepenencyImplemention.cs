@@ -76,7 +76,7 @@ internal class DepenencyImplemention : IDependency
     /// </summary>
     /// <param name="filter">An optional filter function to apply.</param>
     /// <returns>A collection of Dependencies that match the filter, or all Dependencies if no filter is specified.</returns>
-    public IEnumerable<Dependency?> ReadAll(Func<Dependency, bool>? filter = null)
+    public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null)
     {
         var elements = XMLTools.LoadListFromXMLElement(s_dependency_xml).Elements();
 

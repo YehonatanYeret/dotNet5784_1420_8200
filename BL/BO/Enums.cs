@@ -11,3 +11,5 @@ public enum EngineerExperience { Beginner, AdvancedBeginner, Intermediate, Advan
 /// The status of the task.
 /// </summary>
 public enum Status { Unscheduled, Scheduled, OnTrack, InJeopardy, Done }
+
+public enum ProjectStatus { NotStarted, InProgress, Done }

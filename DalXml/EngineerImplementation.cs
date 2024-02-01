@@ -58,7 +58,7 @@ internal class EngineerImplementation : IEngineer
     /// </summary>
     /// <param name="filter">Optional filter function to apply.</param>
     /// <returns>A collection of Engineers that satisfy the filter, or all Engineers if no filter is provided.</returns>
-    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
+    public IEnumerable<Engineer> ReadAll(Func<Engineer, bool>? filter = null)
     {
         List<DO.Engineer> engineersList = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);
 
