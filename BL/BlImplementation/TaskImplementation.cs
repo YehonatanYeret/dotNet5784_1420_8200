@@ -252,8 +252,6 @@ internal class TaskImplementation : BlApi.ITask
     /// <param name="task">The task that we chack</param>
     private static void CheckTask(BO.Task task)
     {
-        if (task.Id < 0)
-            throw new BO.BLValueIsNotCorrectException("id must be positive");//nedd to change to BO exception
         if (string.IsNullOrEmpty(task.Alias))
             throw new BO.BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
     }
