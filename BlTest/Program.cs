@@ -8,6 +8,7 @@ enum CHOISE
     EXIT,
     TASK,
     ENGINEER,
+    START
 }
 enum SUBCHOISE
 {
@@ -35,7 +36,8 @@ internal class Program
             Console.WriteLine("Choose an option:\n" +
                 "0. Exit \n" +
                 "1. Task \n" +
-                "2. Engineer\n");
+                "2. Engineer\n" +
+                "3. Start the project\n");
 
             // Read the user's input and parse it to an integer, storing it in the 'choice' variable
             CHOISE choice = (CHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
@@ -45,11 +47,15 @@ internal class Program
             {
                 // If the user chose 0, exit the program
                 CHOISE.EXIT => (int)CHOISE.EXIT,
+
                 // If the user chose 1, go to the SubMenu with the argument "Task"
                 CHOISE.TASK => SubMenuForTask(),
 
                 // If the user chose 2, go to the SubMenu with the argument "Engineer"
                 CHOISE.ENGINEER => SubMenuForEngineer(),
+
+                // If the user chose 3, go to the SubMenu with the argument "Start"
+                CHOISE.START => UpdateAllDates(),
 
                 _ => throw new Exception("Invalid input")
             };
@@ -57,7 +63,7 @@ internal class Program
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return 1;
+            return 4;
         }
     }
 
@@ -83,12 +89,12 @@ internal class Program
         return subChoice switch
         {
             // Task submenu options
-            SUBCHOISE.BACK  => 0,
-            SUBCHOISE.CREATE  => CreateEngineer(),
-            SUBCHOISE.READ  => ReadEngineer(),
+            SUBCHOISE.BACK => 0,
+            SUBCHOISE.CREATE => CreateEngineer(),
+            SUBCHOISE.READ => ReadEngineer(),
             SUBCHOISE.READALL => ReadAllEngineer(),
-            SUBCHOISE.UPDATE  => UpdateEngineer(),
-            SUBCHOISE.DELETE  => DeleteEngineer(),
+            SUBCHOISE.UPDATE => UpdateEngineer(),
+            SUBCHOISE.DELETE => DeleteEngineer(),
             _ => throw new Exception("Invalid input")
         };
     }
@@ -117,10 +123,10 @@ internal class Program
             // Task submenu options
             SUBCHOISE.BACK => 0,
             SUBCHOISE.CREATE => CreateTask(),
-            SUBCHOISE.READ   => ReadTask(),
+            SUBCHOISE.READ => ReadTask(),
             SUBCHOISE.READALL => ReadAllTask(),
-            SUBCHOISE.UPDATE  => UpdateTask(),
-            SUBCHOISE.DELETE  => DeleteTask(),
+            SUBCHOISE.UPDATE => UpdateTask(),
+            SUBCHOISE.DELETE => DeleteTask(),
             _ => throw new Exception("Invalid input")
         };
     }
@@ -128,25 +134,60 @@ internal class Program
     /// <summary>
     /// Update all the dates of the tasks
     /// </summary>
-    static void UpdateAllDates()
+    static int UpdateAllDates()
     {
-        Console.WriteLine("What is the desired date to start the project");
-        if(!DateTime.TryParse(Console.ReadLine(), out DateTime startProject))
-            throw new FormatException("Wrong input");
-        foreach (var item in s_bl.Task.ReadAll())
+        try
         {
-            DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
-            Console.WriteLine($"Do you want to set a forther date then {closest}?");
-            if (Console.ReadLine()!.ToUpper() == "Y")
+            Console.WriteLine("What is the desired date to start the project");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime startProject))
+                throw new FormatException("Wrong input");
+            while(s_bl!.Task.ReadAll(task => task.ScheduledDate == null).Any()) 
             {
-                Console.WriteLine("What is the desired date to start the task");
-                if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask<closest)
-                    throw new FormatException("Wrong input");
+                foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
+                {
+                    if(item.Id == 12)
+                        Console.WriteLine(  "HI");
+                    //var item = s_bl.Task.ReadAll(task => task.ScheduledDate == null).First();
+                    try
+                    {
+                        DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
+                        Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
+                        if (Console.ReadLine()!.ToUpper() == "Y")
+                        {
+                            Console.WriteLine("What is the desired date to start the task");
+                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask < closest)
+                                throw new FormatException("Wrong input");
+                            s_bl.Task.UpdateScheduledDate(item.Id, startTask);
+
+                        }
+                        else
+                            s_bl.Task.UpdateScheduledDate(item.Id, closest);
+
+                        Console.WriteLine("What is the required time to finish the task");
+                        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan required))
+                            throw new FormatException("Wrong input");
+
+                        Console.WriteLine("What is the deadline for the task");
+                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
+                            throw new FormatException("Wrong input");
+
+                        s_bl.Task.updateDates(item.Id, required, deadline);
+
+                        Console.WriteLine(s_bl.Task.Read(item.Id));
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                    }
+                }
             }
-            else
-                s_bl.Task.UpdateScheduledDate(item.Id, closest);
+            //s_bl.StartProject = startProject;
         }
-        s_bl.StartProject = startProject;
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        return 3;
     }
 
     /// <summary>
@@ -494,15 +535,16 @@ internal class Program
             complexity = experience;
 
         // Create the new task with updated values
-        BO.Task task = new BO.Task {
+        BO.Task task = new BO.Task
+        {
             Id = oldTask.Id, // Keep the old id or Deafault value
-            Alias= alias,
-            Description= description,
-            CreatedAtDate= DateTime.Now, // The current time
-            RequiredEffortTime= requiredEffortTime,
-            Deliverables= deliverables,
-            Remarks= remarks,
-            Complexity= complexity
+            Alias = alias,
+            Description = description,
+            CreatedAtDate = DateTime.Now, // The current time
+            RequiredEffortTime = requiredEffortTime,
+            Deliverables = deliverables,
+            Remarks = remarks,
+            Complexity = complexity
         };
         return task;
     }
@@ -528,7 +570,7 @@ internal class Program
             if (ans.ToUpper() == "Y")// if the user typed Y or y then create initial data and erase the old data
                 Initialization.Do();
 
-            while (ShowMenu() != 0) { }
+            while (ShowMenu() is not (0 or 3)) ;
         }
         catch (Exception e)
         {

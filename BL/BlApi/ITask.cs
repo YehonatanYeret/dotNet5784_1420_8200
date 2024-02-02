@@ -12,4 +12,5 @@ public interface ITask
     public void UpdateScheduledDate(int id, DateTime time);
     public void Delete(int id);
     public DateTime CalculateClosestStartDate(int id, DateTime startProject);
+    public void updateDates(int id, TimeSpan? required, DateTime? deadlineDate);
 }

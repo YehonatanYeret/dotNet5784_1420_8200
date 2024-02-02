@@ -4,200 +4,157 @@
     <Id>1</Id>
     <Alias>digging</Alias>
     <Description>the engineeer need to take control over the digging so we can start build</Description>
-    <CreatedAtDate>2023-11-22T17:07:27.2237664+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-07T14:19:48.4436321+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>2</Id>
     <Alias>foundations</Alias>
     <Description>the engineeer need to take control over the foundation proccess</Description>
-    <CreatedAtDate>2023-12-15T17:07:27.2509125+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-02T14:19:48.4493241+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>3</Id>
     <Alias>cement</Alias>
     <Description>the engineeer need to take controll over the creation of the cement</Description>
-    <CreatedAtDate>2024-01-02T17:07:27.2710081+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-30T14:19:48.4592737+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>4</Id>
     <Alias>iron</Alias>
     <Description>the engineeer need to take control over the iron for the structure</Description>
-    <CreatedAtDate>2023-12-29T17:07:27.2922771+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-04T14:19:48.4806097+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>5</Id>
     <Alias>brick</Alias>
     <Description>the engineeer need to take control over the import of the bricks</Description>
-    <CreatedAtDate>2023-12-29T17:07:27.3107788+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-05T14:19:48.495011+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>6</Id>
     <Alias>protective measures</Alias>
     <Description>the engineeer need to take control over the buying of the protective measures</Description>
-    <CreatedAtDate>2023-12-14T17:07:27.3290072+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-07T14:19:48.5040778+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>7</Id>
     <Alias>ladder</Alias>
     <Description>the engineeer need to take control over buildig the ladder for the house</Description>
-    <CreatedAtDate>2023-11-24T17:07:27.3536119+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-25T14:19:48.5127843+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>8</Id>
     <Alias>cranes</Alias>
     <Description>the engineeer need to take control moving the cranes</Description>
-    <CreatedAtDate>2023-12-16T17:07:27.4111896+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-19T14:19:48.5216168+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>9</Id>
     <Alias>paint</Alias>
     <Description>the engineeer need to take control over painting the house</Description>
-    <CreatedAtDate>2023-11-03T17:07:27.4332807+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-11-25T14:19:48.5373968+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>10</Id>
     <Alias>electricity</Alias>
     <Description>the engineeer need to take control over the electric wires and the wiring</Description>
-    <CreatedAtDate>2023-12-25T17:07:27.453487+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-04T14:19:48.5495679+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>11</Id>
     <Alias>plumbing</Alias>
     <Description>the engineeer need to take control over the plumbing</Description>
-    <CreatedAtDate>2023-11-06T17:07:27.4712433+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-07T14:19:48.5592891+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>12</Id>
     <Alias>workers</Alias>
     <Description>the engineeer need to take control over hirring workers</Description>
-    <CreatedAtDate>2023-12-31T17:07:27.4857929+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-11-20T14:19:48.57338+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>13</Id>
     <Alias>plaster</Alias>
     <Description>the engineeer need to take control over the plaster of the building</Description>
-    <CreatedAtDate>2023-11-29T17:07:27.5047039+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-13T14:19:48.5902808+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>14</Id>
     <Alias>skull</Alias>
     <Description>the engineeer need to take control over the skull of the building</Description>
-    <CreatedAtDate>2023-12-02T17:07:27.527607+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-06T14:19:48.6049637+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>15</Id>
     <Alias>flooring</Alias>
     <Description>the engineeer need to take control over the flooring</Description>
-    <CreatedAtDate>2023-11-21T17:07:27.5442327+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-22T14:19:48.6190064+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>16</Id>
     <Alias>windows and door</Alias>
     <Description>the engineeer need to take control over the exits of the building</Description>
-    <CreatedAtDate>2023-12-27T17:07:27.5678805+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-13T14:19:48.6339348+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>17</Id>
     <Alias>roof</Alias>
     <Description>the engineeer need to control the roof constraction</Description>
-    <CreatedAtDate>2023-12-16T17:07:27.5887389+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-04T14:19:48.6435967+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>18</Id>
     <Alias>Solar panels</Alias>
     <Description>the engineeer need to take control over putting Solar panels</Description>
-    <CreatedAtDate>2023-12-12T17:07:27.60874+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-01T14:19:48.6532758+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>19</Id>
     <Alias>Air-Conditioner</Alias>
     <Description>the engineeer need to take control the Air-Conditioning</Description>
-    <CreatedAtDate>2023-12-23T17:07:27.6256083+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-11-24T14:19:48.666783+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>20</Id>
     <Alias>rail</Alias>
     <Description>the engineeer need to take control over building the rails in the house</Description>
-    <CreatedAtDate>2023-12-18T17:07:27.643644+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
-  </Task>
-  <Task>
-    <Id>21</Id>
-    <Alias>architect</Alias>
-    <Description>the engineeer need to take control over the architection</Description>
-    <CreatedAtDate>2023-12-19T17:07:27.6611818+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2024-01-09T14:19:48.6771352+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>22</Id>
     <Alias>Construction permits</Alias>
     <Description>the engineeer need to take control over the Construction permits</Description>
-    <CreatedAtDate>2023-12-25T17:07:27.6789614+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <CreatedAtDate>2023-12-08T14:19:48.708802+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
-    <Id>23</Id>
-    <Alias>asd</Alias>
-    <Description>eerf</Description>
-    <CreatedAtDate>2024-01-22T17:28:39.6258216+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
-  </Task>
-  <Task>
-    <Id>24</Id>
-    <Alias />
-    <Description />
-    <CreatedAtDate>2024-01-22T18:30:40.9907977+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
-  </Task>
-  <Task>
-    <Id>25</Id>
-    <Alias />
-    <Description />
-    <CreatedAtDate>2024-01-22T18:32:26.3887203+02:00</CreatedAtDate>
-    <IsMileStone>false</IsMileStone>
-    <isActive>true</isActive>
+    <Id>21</Id>
+    <Alias>architect</Alias>
+    <Description>the engineeer need to take control over the architection</Description>
+    <CreatedAtDate>2023-12-13T14:19:48.69181+02:00</CreatedAtDate>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2012-12-12T00:00:00</ScheduledDate>
+    <RequiredEffortTime>PT13H12M32S</RequiredEffortTime>
+    <DeadlineDate>2012-12-17T00:00:00</DeadlineDate>
   </Task>
 </ArrayOfTask>

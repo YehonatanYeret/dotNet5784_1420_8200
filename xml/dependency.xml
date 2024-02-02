@@ -205,9 +205,4 @@
     <dependentTask>22</dependentTask>
     <dependentOnTask>21</dependentOnTask>
   </dependency>
-  <dependency>
-    <Id>42</Id>
-    <dependentTask>12</dependentTask>
-    <dependentOnTask>16</dependentOnTask>
-  </dependency>
 </ArrayOfdependency>

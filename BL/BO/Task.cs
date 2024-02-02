@@ -56,7 +56,10 @@
         /// <remarks>
         /// Represents how many men-days are needed for the task.
         /// </remarks>
-        public TimeSpan? RequiredEffortTime { get; set; }
+        public TimeSpan? RequiredEffortTime
+        {
+            get; set;
+        }
 
         /// <summary>
         /// Gets or sets the real start date of the task.
@@ -71,7 +74,16 @@
         /// <summary>
         /// Gets or sets the calculated planned completion date of the task.
         /// </summary>
-        public DateTime? ForecastDate { get; set; }
+        public DateTime? ForecastDate
+        {
+            get 
+            {
+                if (ScheduledDate > StartDate + RequiredEffortTime)
+                    return ScheduledDate;
+                else
+                    return StartDate + RequiredEffortTime;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the latest complete date of the task.
