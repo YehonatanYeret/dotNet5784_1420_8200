@@ -95,10 +95,10 @@ internal class TaskImplementation : BlApi.ITask
 
             // delete the old dependencies
             foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentOnTask == task.Id)!)
-                _dal.Dependency.Delete(item!.Id);
+                _dal.Dependency.Delete(item.Id);
 
             // Recreate dependencies if they exist
-            task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
+            task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, dep.Id, task.Id)));
         }
         catch (DO.DalDoesNotExistException ex)
         {

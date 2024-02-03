@@ -1,29 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfdependency>
   <dependency>
-    <Id>1</Id>
-    <dependentTask>1</dependentTask>
-    <dependentOnTask>2</dependentOnTask>
-  </dependency>
-  <dependency>
-    <Id>2</Id>
-    <dependentTask>1</dependentTask>
-    <dependentOnTask>3</dependentOnTask>
-  </dependency>
-  <dependency>
-    <Id>3</Id>
-    <dependentTask>1</dependentTask>
-    <dependentOnTask>4</dependentOnTask>
-  </dependency>
-  <dependency>
     <Id>4</Id>
     <dependentTask>1</dependentTask>
     <dependentOnTask>5</dependentOnTask>
-  </dependency>
-  <dependency>
-    <Id>5</Id>
-    <dependentTask>2</dependentTask>
-    <dependentOnTask>3</dependentOnTask>
   </dependency>
   <dependency>
     <Id>6</Id>
@@ -62,8 +42,8 @@
   </dependency>
   <dependency>
     <Id>13</Id>
-    <dependentTask>7</dependentTask>
-    <dependentOnTask>4</dependentOnTask>
+    <dependentTask>4</dependentTask>
+    <dependentOnTask>7</dependentOnTask>
   </dependency>
   <dependency>
     <Id>14</Id>
@@ -204,5 +184,25 @@
     <Id>41</Id>
     <dependentTask>39</dependentTask>
     <dependentOnTask>41</dependentOnTask>
+  </dependency>
+  <dependency>
+    <Id>42</Id>
+    <dependentTask>1</dependentTask>
+    <dependentOnTask>2</dependentOnTask>
+  </dependency>
+  <dependency>
+    <Id>43</Id>
+    <dependentTask>1</dependentTask>
+    <dependentOnTask>3</dependentOnTask>
+  </dependency>
+  <dependency>
+    <Id>44</Id>
+    <dependentTask>2</dependentTask>
+    <dependentOnTask>3</dependentOnTask>
+  </dependency>
+  <dependency>
+    <Id>45</Id>
+    <dependentTask>1</dependentTask>
+    <dependentOnTask>4</dependentOnTask>
   </dependency>
 </ArrayOfdependency>
