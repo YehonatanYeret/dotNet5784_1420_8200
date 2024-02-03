@@ -1,5 +1,6 @@
 ﻿namespace BlTest;
 
+using BlApi;
 using DalApi;
 using DalTest;
 
@@ -180,7 +181,7 @@ internal class Program
                     Console.WriteLine(e.Message);
                 }
             }
-            //s_bl.StartProject = startProject;
+            s_bl.Clock.SetStartProject(startProject);
         }
         catch (Exception e)
         {
@@ -213,7 +214,7 @@ internal class Program
 
         return 1;
     }
-
+    //-------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Reads and displays information about a specific engineer based on the provided identifier.
@@ -321,7 +322,7 @@ internal class Program
 
         return 5;
     }
-
+    //-------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Creates a new task, assigns it a unique identifier, and adds it to the database.
@@ -452,7 +453,7 @@ internal class Program
 
         return 5;
     }
-
+    //-------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Returns a new engineer with updated values based on the provided old engineer.
@@ -547,7 +548,7 @@ internal class Program
         };
         return task;
     }
-
+    //-------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Retrieves an integer identifier from the user, ensuring the input is valid.

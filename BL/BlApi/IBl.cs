@@ -15,34 +15,5 @@ public interface IBl
     /// </summary>
     public ITask Task { get; }
 
-    public BO.ProjectStatus GetProjectStatus()
-    {
-        if(StartProject == null)
-            return BO.ProjectStatus.NotStarted;
-        if (EndProject == null)
-            return BO.ProjectStatus.InProgress;
-        return BO.ProjectStatus.Done;
-    }
-
-    public DateTime? StartProject
-    {
-        get=>StartProject;
-        set
-        {
-            if (GetProjectStatus() != BO.ProjectStatus.NotStarted)
-                throw new InvalidOperationException("Project already started");
-            StartProject = value;
-        } 
-    }
-
-    public DateTime? EndProject
-    {
-        get => EndProject;
-        set
-        {
-            if (GetProjectStatus() == BO.ProjectStatus.Done)
-                throw new InvalidOperationException("Project already ended");
-            EndProject = value;
-        }
-    }
+    public IClock Clock { get; }
 }

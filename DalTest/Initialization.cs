@@ -168,6 +168,8 @@ public static class Initialization
 
         s_dal.Task.DeleteAll(); // Delete all tasks
 
+        s_dal.Clock.resetTimeLine(); // Reset the timeline
+
 
         // Create tasks, engineers, and dependencies
         CreateTasks();

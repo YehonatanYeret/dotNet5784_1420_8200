@@ -25,5 +25,7 @@ sealed internal class DalList : IDal
     /// Gets an instance of the <see cref="IDependency"/> interface for accessing dependency-related data.
     /// </summary>
     public IDependency Dependency => new DependencyImplementation();
+
+    public IClock Clock => new ClockImplementation();
 }
 
