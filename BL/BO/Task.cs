@@ -78,10 +78,11 @@
         {
             get 
             {
-                if (ScheduledDate > StartDate + RequiredEffortTime)
-                    return ScheduledDate;
-                else
+                if (ScheduledDate < StartDate )
                     return StartDate + RequiredEffortTime;
+
+                else
+                    return ScheduledDate + RequiredEffortTime; 
             }
         }
 

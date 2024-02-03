@@ -1,4 +1,6 @@
-﻿namespace BlImplementation;
+﻿using DO;
+
+namespace BlImplementation;
 
 internal class TaskImplementation : BlApi.ITask
 {
@@ -92,7 +94,7 @@ internal class TaskImplementation : BlApi.ITask
             });
 
             // delete the old dependencies
-            foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id)!)
+            foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentOnTask == task.Id)!)
                 _dal.Dependency.Delete(item!.Id);
 
             // Recreate dependencies if they exist
@@ -129,14 +131,12 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLDoesNotExistException(ex.Message, ex);
         }
     }
+
     public void UpdateScheduledDate(int id, DateTime time)
     {
         DO.Task? taskToUpdate = _dal.Task.Read(id);
         if (taskToUpdate is null)
             throw new BO.BLDoesNotExistException($"No task found with ID {id}");
-
-        // Check if the update is valid
-        CheckForDate(id, time);
 
         // Update the scheduled date
         taskToUpdate = taskToUpdate with { ScheduledDate = time };
@@ -167,28 +167,25 @@ internal class TaskImplementation : BlApi.ITask
     /// <returns>The calculated date</returns>
     public DateTime CalculateClosestStartDate(int id, DateTime startProject)
     {
-        // Read all dependencies for the given task ID
-        IEnumerable<DO.Dependency>? dependencies = _dal.Dependency.ReadAll(dep => dep.DependentTask == id);
-
-        if (dependencies is null)
-            return startProject;
+        // Read all dependencies for the given task ID when the task with the ID is the needy task
+        IEnumerable<DO.Dependency> dependencies = from dep in _dal.Dependency.ReadAll()
+                                                  where dep.DependentOnTask == id
+                                                  select dep;
 
         // If there are no dependencies, return the project start date
         if (!dependencies.Any())
             return startProject;
 
         // Read all tasks that the given task is dependent on
-        IEnumerable<DO.Task>? tasks = from temp in dependencies select _dal.Task.Read((int)temp.DependentOnTask!);
+        IEnumerable<DO.Task> tasks = from dep in dependencies 
+                                     select _dal.Task.Read((int)dep.DependentTask!);
 
         // If there are unscheduled dependencies, throw an exception
         if (tasks.Any(task => task.ScheduledDate is null))
             throw new BO.BLValueIsNotCorrectException($"Task with ID {id} has unscheduled dependencies");
 
         // Order dependencies by their forecastDate date, descending
-        dependencies.OrderByDescending(dep => Read(dep.DependentOnTask).ForecastDate);
-
-        // Return the forecast date of the first dependency (the one with the latest forecast date)
-        BO.Task t = Read(dependencies.First().DependentOnTask);
+        BO.Task t = CreateTask(tasks.OrderByDescending(task=> CreateTask(task).ForecastDate).First());
 
         return (DateTime)t.ForecastDate!;
     }
@@ -203,7 +200,7 @@ internal class TaskImplementation : BlApi.ITask
         DO.Task task = _dal.Task.Read(id)!;
         return new BO.TaskInList()
         {
-            Id = id,
+            Id = task.Id,
             Description = task.Description,
             Alias = task.Alias,
             Status = CalculateStatus(task)
@@ -218,8 +215,9 @@ internal class TaskImplementation : BlApi.ITask
     private List<BO.TaskInList> GetAllDependencies(int id)
     {
         // Read all needed dependencies and convert them to BO.TaskInList
-        IEnumerable<BO.TaskInList> dependenciesInList = from dep in _dal.Dependency.ReadAll(dep => dep.DependentOnTask == id)
-                                                        select ConvertToTaskInList((int)dep.DependentTask!);
+        IEnumerable<BO.TaskInList> dependenciesInList = from dep in _dal.Dependency.ReadAll()
+                                                        where dep.DependentOnTask == id
+                                                        select ConvertToTaskInList(dep.DependentTask);
         return dependenciesInList.ToList();
     }
 
@@ -258,7 +256,7 @@ internal class TaskImplementation : BlApi.ITask
             Dependencies = GetAllDependencies(task.Id),
             RequiredEffortTime = task.RequiredEffortTime,
             StartDate = task.StartDate,
-            ScheduledDate = task.ScheduledDate, 
+            ScheduledDate = task.ScheduledDate,
             DeadlineDate = task.DeadlineDate,
             CompleteDate = task.CompleteDate,
             Deliverables = task.Deliverables,
@@ -276,30 +274,6 @@ internal class TaskImplementation : BlApi.ITask
     {
         if (string.IsNullOrEmpty(task.Alias))
             throw new BO.BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
-    }
-
-    /// <summary>
-    /// Checks if it's valid to update the scheduled date of a task based on its dependencies and completion dates.
-    /// </summary>
-    /// <param name="id">The ID of the task being updated.</param>
-    /// <param name="time">The new scheduled date to be checked.</param>
-    private void CheckForDate(int id, DateTime? time)
-    {
-        // If the scheduled date is not provided, no need to perform checks
-        if (time is null)
-            return;
-
-        // Retrieve all dependent tasks for the given task ID
-        IEnumerable<DO.Task>? tasks = from temp in _dal.Dependency.ReadAll(dep => dep.DependentTask == id)
-                                      select _dal.Task.Read((int)temp.DependentOnTask!);
-
-        // Check if any dependent task has an unscheduled date
-        if (tasks.Any(task => task.ScheduledDate is null))
-            throw new BO.BLValueIsNotCorrectException("Cannot update scheduled date of task with unscheduled dependencies");
-
-        // Check if the new scheduled date is before the complete date of any dependent task
-        if (tasks.Any(task => time < task.CompleteDate))
-            throw new BO.BLValueIsNotCorrectException("Cannot update scheduled date of task to be before the complete date of its dependencies");
     }
 
     /// <summary>

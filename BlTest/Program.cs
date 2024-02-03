@@ -141,22 +141,21 @@ internal class Program
             Console.WriteLine("What is the desired date to start the project");
             if (!DateTime.TryParse(Console.ReadLine(), out DateTime startProject))
                 throw new FormatException("Wrong input");
-            while(s_bl!.Task.ReadAll(task => task.ScheduledDate == null).Any()) 
+
+            while (s_bl!.Task.ReadAll(task => task.ScheduledDate is null).Any())
             {
-                foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
+                try
                 {
-                    if(item.Id == 12)
-                        Console.WriteLine(  "HI");
-                    //var item = s_bl.Task.ReadAll(task => task.ScheduledDate == null).First();
-                    try
+                    foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
                     {
+
                         DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
                         Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
                         if (Console.ReadLine()!.ToUpper() == "Y")
                         {
                             Console.WriteLine("What is the desired date to start the task");
                             if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask < closest)
-                                throw new FormatException("Wrong input");
+                                throw new FormatException("cannot set a closer date");
                             s_bl.Task.UpdateScheduledDate(item.Id, startTask);
 
                         }
@@ -175,10 +174,10 @@ internal class Program
 
                         Console.WriteLine(s_bl.Task.Read(item.Id));
                     }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
                 }
             }
             //s_bl.StartProject = startProject;
@@ -565,7 +564,7 @@ internal class Program
         try
         {
             Console.WriteLine("Would you like to create Initial data? (Y/N)");
-            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+            string ans = Console.ReadLine()!; // never work?? throw new FormatException("Wrong input");
 
             if (ans.ToUpper() == "Y")// if the user typed Y or y then create initial data and erase the old data
                 Initialization.Do();
