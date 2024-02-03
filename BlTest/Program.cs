@@ -1,7 +1,5 @@
 ﻿namespace BlTest;
 
-using BlApi;
-using DalApi;
 using DalTest;
 
 enum CHOISE
@@ -9,7 +7,7 @@ enum CHOISE
     EXIT,
     TASK,
     ENGINEER,
-    START
+    DEPENDENCY
 }
 enum SUBCHOISE
 {
@@ -21,9 +19,22 @@ enum SUBCHOISE
     DELETE
 }
 
+enum EXECUTION_STAGE
+{
+    EXIT,
+    ENGINEER,
+    TASK_UPDATES,
+    TASK_READ,
+    TASK_READALL,
+    DEPENDENCIES_READ,
+    DEPENDENCIES_READALL
+}
+
 internal class Program
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    private static readonly Random s_rand = new(); // Random number generator
 
     /// <summary>
     /// Display the main menu options to the user
@@ -35,10 +46,10 @@ internal class Program
         {
             // Display the menu options to the user
             Console.WriteLine("Choose an option:\n" +
-                "0. Exit \n" +
+                "0. Exit the planning stage\n" +
                 "1. Task \n" +
                 "2. Engineer\n" +
-                "3. Start the project\n");
+                "3. Dependency\n");
 
             // Read the user's input and parse it to an integer, storing it in the 'choice' variable
             CHOISE choice = (CHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
@@ -55,8 +66,8 @@ internal class Program
                 // If the user chose 2, go to the SubMenu with the argument "Engineer"
                 CHOISE.ENGINEER => SubMenuForEngineer(),
 
-                // If the user chose 3, go to the SubMenu with the argument "Start"
-                CHOISE.START => UpdateAllDates(),
+                // If the user chose 3, go to the SubMenu with the argument "Dependency"
+                CHOISE.DEPENDENCY => SubMenuForDependency(),
 
                 _ => throw new Exception("Invalid input")
             };
@@ -126,16 +137,42 @@ internal class Program
             SUBCHOISE.CREATE => CreateTask(),
             SUBCHOISE.READ => ReadTask(),
             SUBCHOISE.READALL => ReadAllTask(),
-            SUBCHOISE.UPDATE => UpdateTask(),
+            SUBCHOISE.UPDATE => UpdateTask(true),
             SUBCHOISE.DELETE => DeleteTask(),
             _ => throw new Exception("Invalid input")
         };
     }
 
+    static int SubMenuForDependency()
+    {
+        // Display the submenu options to the user
+        Console.WriteLine("Choose an option:\n" +
+            "0. Back\n" +
+            "1. Create\n" +
+            "2. Read\n" +
+            "3. ReadAll\n");
+
+        // Read the user's input and parse it to an integer, storing it in the 'subChoice' variable
+        SUBCHOISE subChoice = (SUBCHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
+
+        // Process user input based on the main menu choice and submenu option
+        return subChoice switch
+        {
+            // Task submenu options
+            SUBCHOISE.BACK => 0,
+            SUBCHOISE.CREATE => CreateDependency(),
+            SUBCHOISE.READ => ReadDependeny(),
+            SUBCHOISE.READALL => ReadAllDependeny(),
+            _ => throw new Exception("Invalid input")
+        };
+    }
+
+    //-------------------------------------------------------------------------------------------
+
     /// <summary>
     /// Update all the dates of the tasks
     /// </summary>
-    static int UpdateAllDates()
+    static void UpdateAllDates()
     {
         try
         {
@@ -145,40 +182,35 @@ internal class Program
 
             while (s_bl!.Task.ReadAll(task => task.ScheduledDate is null).Any())
             {
-                try
+                foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
                 {
-                    foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
+
+                    DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
+                    Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
+                    if (Console.ReadLine()!.ToUpper() == "Y")
                     {
+                        Console.WriteLine("What is the desired date to start the task");
+                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask < closest)
+                            throw new FormatException("cannot set a closer date");
+                        s_bl.Task.UpdateScheduledDate(item.Id, startTask);
 
-                        DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
-                        Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
-                        if (Console.ReadLine()!.ToUpper() == "Y")
-                        {
-                            Console.WriteLine("What is the desired date to start the task");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask < closest)
-                                throw new FormatException("cannot set a closer date");
-                            s_bl.Task.UpdateScheduledDate(item.Id, startTask);
-
-                        }
-                        else
-                            s_bl.Task.UpdateScheduledDate(item.Id, closest);
-
-                        Console.WriteLine("What is the required time to finish the task");
-                        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan required))
-                            throw new FormatException("Wrong input");
-
-                        Console.WriteLine("What is the deadline for the task");
-                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
-                            throw new FormatException("Wrong input");
-
-                        s_bl.Task.updateDates(item.Id, required, deadline);
-
-                        Console.WriteLine(s_bl.Task.Read(item.Id));
                     }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
+                    else
+                        s_bl.Task.UpdateScheduledDate(item.Id, closest);
+
+                    Console.WriteLine("What is the required time to finish the task");
+                    
+                    if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan required))
+                        required = TimeSpan.FromHours(s_rand.Next(1, 100));
+
+                    Console.WriteLine("What is the deadline for the task");
+                    // if the user typed a wrong input then the deadline will be the closest date + the required time + 1 day
+                    if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
+                        deadline = closest + required + TimeSpan.FromDays(1);
+
+                    s_bl.Task.updateDates(item.Id, required, deadline);
+
+                    Console.WriteLine(s_bl.Task.Read(item.Id));
                 }
             }
             s_bl.Clock.SetStartProject(startProject);
@@ -187,8 +219,65 @@ internal class Program
         {
             Console.WriteLine(e.Message);
         }
-        return 3;
     }
+
+    //-------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Display the main menu options to the user of the execution stage
+    /// </summary>
+    /// <returns>the user's choice</returns>
+    static int ExecuteStage()
+    {
+        try
+        {
+            Console.WriteLine("choose an option:\n" +
+                "0. Exit the execution stage\n" +
+                "1. Create, Read, Update or Delete Engineer\n" +
+                "2. Updates details of Tasks\n" +
+                "3. Read Tasks\n" +
+                "4. Read All Tasks\n" +
+                "5. Read Dependencies of a Task\n" +
+                "6. Read All Dependencies\n");
+
+            // Read the user's input and parse it to an integer, storing it in the 'choice' variable
+            EXECUTION_STAGE choice = (EXECUTION_STAGE)Enum.Parse(typeof(EXECUTION_STAGE), Console.ReadLine()!);
+
+            // Use a switch statement to handle different cases based on the user's choice
+            return choice switch
+            {
+                // If the user chose 0, exit the program
+                EXECUTION_STAGE.EXIT => (int)EXECUTION_STAGE.EXIT,
+
+                // If the user chose 1, go to the SubMenu with the argument "Engineer"
+                EXECUTION_STAGE.ENGINEER => SubMenuForEngineer(),
+
+                // If the user chose 2, go to update the details of the tasks without changing the required effort time
+                EXECUTION_STAGE.TASK_UPDATES => UpdateTask(false),
+
+                // If the user chose 3, go Read the details of a specific task
+                EXECUTION_STAGE.TASK_READ => ReadTask(),
+
+                // If the user chose 4, go Read the details of all tasks
+                EXECUTION_STAGE.TASK_READALL => ReadAllTask(),
+
+                // If the user chose 5, go Read the dependencies of a specific task
+                EXECUTION_STAGE.DEPENDENCIES_READ => ReadDependeny(),
+
+                // If the user chose 6, go Read the dependencies of all tasks
+                EXECUTION_STAGE.DEPENDENCIES_READALL => ReadAllDependeny(),
+
+                _ => throw new Exception("Invalid input")
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return 7;
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Creates a new engineer, assigns it a unique identifier, and adds it to the database.
@@ -214,7 +303,7 @@ internal class Program
 
         return 1;
     }
-    //-------------------------------------------------------------------------------------------
+
 
     /// <summary>
     /// Reads and displays information about a specific engineer based on the provided identifier.
@@ -338,7 +427,7 @@ internal class Program
     private static int CreateTask()
     {
         // Create a new task using the obtained identifier
-        BO.Task task = TaskCreateAndUpdate(new());
+        BO.Task task = TaskCreateAndUpdate(new(), true);
 
         // Add the created task to the database using the data access layer
         Console.WriteLine("the new id is: " + s_bl!.Task.Create(task));
@@ -408,9 +497,10 @@ internal class Program
     /// and the function exits. If the task exists, the <see cref="TaskUpdate"/> function is used to create a new
     /// task with updated information, and the database is updated with the new task.
     /// </remarks>
+    /// <param name="canChangeRequired">A boolean value indicating whether the required effort time can be changed.</param>
     /// <seealso cref="GetId"/>
     /// <seealso cref="TaskUpdate"/>
-    private static int UpdateTask()
+    private static int UpdateTask(bool canChangeRequired)
     {
         // Obtain an identifier for the task from the user
         int id = GetId();
@@ -429,7 +519,7 @@ internal class Program
         Console.WriteLine("The old task: \n" + oldTask);
 
         // Update the task in the database using the data access layer
-        s_bl!.Task.Update(TaskCreateAndUpdate(oldTask));
+        s_bl!.Task.Update(TaskCreateAndUpdate(oldTask, canChangeRequired));
 
         return 4;
     }
@@ -453,6 +543,78 @@ internal class Program
 
         return 5;
     }
+
+    //-------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Creates a new dependency for a specific task based on the provided identifier.
+    /// </summary>
+    private static int CreateDependency()
+    {
+        Console.WriteLine("Enter the id of the task that you want to add a dependency to");
+        int id = int.Parse(Console.ReadLine()!);
+
+        Console.WriteLine("Enter the id of the task that you want to add as a dependency");
+        int dependencyId = int.Parse(Console.ReadLine()!);
+
+        BO.Task task = s_bl.Task.Read(id);
+
+        task.Dependencies = task.Dependencies!.Append(new BO.TaskInList
+        {
+            Id = dependencyId,
+            Alias = s_bl.Task.Read(dependencyId).Alias,
+            Description = s_bl.Task.Read(dependencyId).Description
+        }).ToList();
+
+        s_bl.Task.Update(task);
+
+        return 1;
+    }
+
+    /// <summary>
+    ///  Reads and displays information about the dependencies of a specific task based on the provided identifier.
+    /// </summary>
+    private static int ReadDependeny()
+    {
+        Console.WriteLine("Enter the id of the task that you want to read its dependencies");
+        int id = GetId();
+
+        BO.Task task = s_bl.Task.Read(id);
+
+        if (task.Dependencies is null)
+        {
+            Console.WriteLine("The task has no dependencies");
+            return 2;
+        }
+
+        foreach (var item in task.Dependencies)
+        {
+            Console.WriteLine(item);
+        }
+
+        return 2;
+    }
+
+    /// <summary>
+    ///  Reads and displays information about all dependencies stored in the database.
+    /// </summary>
+    private static int ReadAllDependeny()
+    {
+        Console.WriteLine("All of the dependencies:");
+
+        var tasks = s_bl.Task.ReadAll(task => task.Dependencies is not null);
+
+        foreach (var task in tasks)
+        {
+            Console.WriteLine($"The dependencies of the task {task.Id} are:");
+            foreach (var item in task.Dependencies!)
+            {
+                Console.WriteLine(item);
+            }
+        }
+        return 3;
+    }
+
     //-------------------------------------------------------------------------------------------
 
     /// <summary>
@@ -499,7 +661,7 @@ internal class Program
     /// </summary>
     /// <param name="oldTask">The old task to update.</param>
     /// <returns>The updated task with new values.</returns>
-    private static BO.Task TaskCreateAndUpdate(BO.Task oldTask)
+    private static BO.Task TaskCreateAndUpdate(BO.Task oldTask, bool canChangeRequired)
     {
         Console.WriteLine("Enter the values of the task:");
 
@@ -514,10 +676,15 @@ internal class Program
         if (string.IsNullOrEmpty(description))
             description = oldTask.Description;
 
-        Console.Write("required effort time:");
+        // Get the updated values from user input or use the old values if input is empty
+        // or if the program is in the execution stage
         TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
-        if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
-            requiredEffortTime = temp2;
+        if (canChangeRequired)
+        {
+            Console.Write("required effort time:");
+            if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
+                requiredEffortTime = temp2;
+        }
 
         Console.Write("deliverables:");
         string? deliverables = Console.ReadLine();
@@ -564,13 +731,25 @@ internal class Program
     {
         try
         {
+            Console.WriteLine("Welcome to the project management system!");
+
             Console.WriteLine("Would you like to create Initial data? (Y/N)");
-            string ans = Console.ReadLine()!; // never work?? throw new FormatException("Wrong input");
+            string ans = Console.ReadLine()!;
 
             if (ans.ToUpper() == "Y")// if the user typed Y or y then create initial data and erase the old data
                 Initialization.Do();
 
-            while (ShowMenu() is not (0 or 3)) ;
+            // Display the main menu options to the user of the planning stage
+            Console.WriteLine("The planning stage:");
+            while (ShowMenu() is not (0 or 4)) ;
+
+            // Display the options to the user of the update stage
+            Console.WriteLine("The update stage:");
+            UpdateAllDates();
+
+            // Display the main menu options to the user of the execution stage
+            Console.WriteLine("The execution stage:");
+            while (ExecuteStage() is not (0 or 6)) ;
         }
         catch (Exception e)
         {

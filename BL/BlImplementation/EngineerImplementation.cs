@@ -27,9 +27,8 @@ internal class EngineerImplementation : IEngineer
         );
 
         try
-        {
-            int id = _dal.Engineer.Create(doEngineer);
-            return id;
+        { 
+            return _dal.Engineer.Create(doEngineer);
         }
         catch (DO.DalAlreadyExistsException ex)
         {
@@ -56,6 +55,7 @@ internal class EngineerImplementation : IEngineer
         //get the task of the engineer if exist
         BO.TaskInEngineer? task = (from t in _dal.Task.ReadAll()
                                    where t.EngineerId == id
+                                   && TaskImplementation.CalculateStatus(t) == BO.Status.OnTrack
                                    select new BO.TaskInEngineer
                                    {
                                        Id = t.Id,
