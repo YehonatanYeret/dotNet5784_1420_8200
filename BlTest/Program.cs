@@ -28,7 +28,9 @@ enum EXECUTION_STAGE
     TASK_READ,
     TASK_READALL,
     DEPENDENCIES_READ,
-    DEPENDENCIES_READALL
+    DEPENDENCIES_READALL,
+    TASK_SETENGINEER,
+    TASK_CHANGE_STATUS
 }
 
 internal class Program
@@ -80,7 +82,7 @@ internal class Program
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return 4;
+            return (int)CHOISE.EXIT;
         }
     }
 
@@ -253,7 +255,9 @@ internal class Program
                 "3. Read Tasks\n" +
                 "4. Read All Tasks\n" +
                 "5. Read Dependencies of a Task\n" +
-                "6. Read All Dependencies\n");
+                "6. Read All Dependencies\n" +
+                "7. Set an Engineer to a Task\n" +
+                "8. Change status of Task\n");
 
             // Read the user's input and parse it to an integer, storing it in the 'choice' variable
             EXECUTION_STAGE choice = (EXECUTION_STAGE)Enum.Parse(typeof(EXECUTION_STAGE), Console.ReadLine()!);
@@ -282,13 +286,19 @@ internal class Program
                 // If the user chose 6, go Read the dependencies of all tasks
                 EXECUTION_STAGE.DEPENDENCIES_READALL => ReadAllDependeny(),
 
+                // If the user chose 7, go Set an Engineer to a Task
+                EXECUTION_STAGE.TASK_SETENGINEER => SetEngineerToTask(),
+
+                // If the user chose 8, go Change status of Task
+                EXECUTION_STAGE.TASK_CHANGE_STATUS => changeStatusOfTask(),
+
                 _ => throw new Exception("Invalid input")
             };
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return 7;
+            return 9;
         }
     }
 
@@ -632,6 +642,41 @@ internal class Program
     //-------------------------------------------------------------------------------------------
 
     /// <summary>
+    ///  Set an engineer to a task
+    /// </summary>
+    static int SetEngineerToTask()
+    {
+        Console.WriteLine("Enter the id of the task that you want to set an engineer to");
+        int id = GetId();
+
+        Console.WriteLine("Enter the id of the engineer that you want to set to the task");
+        int engineerId = GetId();
+
+        s_bl.Engineer.SetTaskToEngineer(id, engineerId);
+
+        return 7;
+    }
+
+    /// <summary>
+    ///  Change the status of a specific task based on the provided identifier.
+    /// </summary>
+    static int changeStatusOfTask()
+    {
+        Console.WriteLine("Enter the id of the task that you want to change its status");
+        int id = GetId();
+
+        Console.WriteLine("Enter the new status of the task");
+        if (!Enum.TryParse(Console.ReadLine()!, out BO.Status status))
+            throw new FormatException("Wrong input");
+
+        s_bl.Task.ChangeStatusOfTask(id, status);
+
+        return 8;
+    }
+
+    //-------------------------------------------------------------------------------------------
+
+    /// <summary>
     /// Returns a new engineer with updated values based on the provided old engineer.
     /// </summary>
     /// <param name="oldEngineer">The engineer to update.</param>
@@ -757,15 +802,15 @@ internal class Program
             if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
             {
                 Console.WriteLine("The planning stage:");
-                while (ShowMenu() is not (0 or 4));
+                while (ShowMenu() is not 0);
             }
             if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.InProgress)
             {
                 // Display the main menu options to the user of the execution stage
                 Console.WriteLine("The execution stage:");
-                while (ExecuteStage() is not (0 or 6)) ;
+                while (ExecuteStage() is not 0) ;
             }
-        }
+        }   
         catch (Exception e)
         {
             Console.WriteLine(e.Message);

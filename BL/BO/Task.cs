@@ -40,7 +40,7 @@
         /// <summary>
         /// Gets or sets the calculated status of the task.
         /// </summary>
-        public Status? Status { get; set; }
+        public Status Status { get; set; }
 
         /// <summary>
         /// Gets or sets the list of dependencies for the task.

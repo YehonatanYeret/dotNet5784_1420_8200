@@ -157,6 +157,24 @@ internal class TaskImplementation : BlApi.ITask
         Update(taskToUpdate);
     }
 
+    public void ChangeStatusOfTask(int id, BO.Status status)
+    {
+        BO.Task? taskToUpdate = Read(id);
+        if (taskToUpdate is null)
+            throw new BO.BLDoesNotExistException($"No task found with ID {id}");
+
+        if ((int)status <= (int)taskToUpdate.Status)
+            throw new BO.BLValueIsNotCorrectException("The status cannot be lower than the current status");
+
+        if (status == BO.Status.Done)
+            taskToUpdate.CompleteDate = DateTime.Now;
+
+        if(status == BO.Status.OnTrack)
+            taskToUpdate.StartDate = DateTime.Now;
+
+       Update(taskToUpdate);
+    }
+
     /// <summary>
     /// Calculates the closest start date for a task based on its dependencies and the project start date.
     /// </summary>
@@ -289,50 +307,5 @@ internal class TaskImplementation : BlApi.ITask
         else if (task.CompleteDate is null) return BO.Status.OnTrack;
         //the task has started and completed
         else return BO.Status.Done;
-    }
-
-    /// <summary>
-    /// Checks if there is a circular dependency between tasks.
-    /// </summary>
-    /// <param name="task"> The task we wand to check if he has circuler dependency</param>
-    /// <returns> Returns true if there is circuler dependency and else returns false</returns>
-    internal bool ThereIsCirculerDependency(BO.Task task)
-    {
-        //iterate over all the dependencies of the task and check if there is circuler dependency
-        foreach (var item in task.Dependencies!)
-        {
-            //if there is circuler dependency return true
-            if (ThereIsCircularDependency(item.Id, task.Id))
-                return true;
-        }
-        //after iterating over all the dependencies and there is no circuler dependency return false
-        return false;
-    }
-
-    /// <summary>
-    /// Checks if there is a circular dependency between tasks.
-    /// </summary>
-    /// <param name="taskId">The ID of the task that the current task depends on.</param>
-    /// <param name="id">The ID of the current task being checked for circular dependencies.</param>
-    /// <returns>True if a circular dependency exists, otherwise false.</returns>
-    private bool ThereIsCircularDependency(int taskId, int id)
-    {
-        // Base case: If the task ID is the same as the current task ID, there is a circular dependency.
-        if (taskId == id)
-            return true;
-
-        // Retrieve dependencies for the current task.
-        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll().Where(dep => dep.DependentTask == id)!.ToList();
-
-        // Check for circular dependencies in each dependency.
-        foreach (var item in dependencies)
-        {
-            // Recursive call to check for circular dependencies in the dependent task.
-            if (ThereIsCircularDependency(item.DependentOnTask, id))
-                return true;     
-        }
-
-        // No circular dependency found for the current task.
-        return false;
     }
 }
