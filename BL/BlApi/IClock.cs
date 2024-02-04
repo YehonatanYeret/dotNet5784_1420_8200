@@ -10,10 +10,10 @@ public interface IClock
 
     public  BO.ProjectStatus GetProjectStatus()
     {
-        if(GetStartProject() < DateTime.Now)
-            return BO.ProjectStatus.NotStarted;
         if (GetEndProject() < DateTime.Now)
+            return BO.ProjectStatus.Done;
+        if(GetStartProject() < DateTime.Now)
             return BO.ProjectStatus.InProgress;
-        return BO.ProjectStatus.Done;
+        return BO.ProjectStatus.NotStarted;
     }
 }

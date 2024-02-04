@@ -210,7 +210,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLDoesNotExistException($"Task with ID {taskId} does not exist");
 
         //check if the engineer already work on a task
-        if (_dal.Task.ReadAll(task => task.EngineerId == engineerId && task.StartDate > DateTime.Now) is not null)
+        if (TaskImplementation.CalculateStatus(task) == BO.Status.OnTrack && _dal.Task.ReadAll(tsk => tsk.EngineerId == engineerId && TaskImplementation.CalculateStatus(task) is BO.Status.OnTrack).Any())
             throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");
 
         //check if the engineer level is lower or equal then the task level

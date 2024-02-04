@@ -7,7 +7,8 @@ enum CHOISE
     EXIT,
     TASK,
     ENGINEER,
-    DEPENDENCY
+    DEPENDENCY,
+    SETDATES
 }
 enum SUBCHOISE
 {
@@ -49,7 +50,8 @@ internal class Program
                 "0. Exit the planning stage\n" +
                 "1. Task \n" +
                 "2. Engineer\n" +
-                "3. Dependency\n");
+                "3. Dependency\n" +
+                "4. Set the date off the tasks");
 
             // Read the user's input and parse it to an integer, storing it in the 'choice' variable
             CHOISE choice = (CHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
@@ -68,6 +70,9 @@ internal class Program
 
                 // If the user chose 3, go to the SubMenu with the argument "Dependency"
                 CHOISE.DEPENDENCY => SubMenuForDependency(),
+
+                // If the user chose 4, set the dates of the tasks and start the project
+                CHOISE.SETDATES => UpdateAllDates(),
 
                 _ => throw new Exception("Invalid input")
             };
@@ -137,7 +142,7 @@ internal class Program
             SUBCHOISE.CREATE => CreateTask(),
             SUBCHOISE.READ => ReadTask(),
             SUBCHOISE.READALL => ReadAllTask(),
-            SUBCHOISE.UPDATE => UpdateTask(true),
+            SUBCHOISE.UPDATE => UpdateTask(),
             SUBCHOISE.DELETE => DeleteTask(),
             _ => throw new Exception("Invalid input")
         };
@@ -172,7 +177,7 @@ internal class Program
     /// <summary>
     /// Update all the dates of the tasks
     /// </summary>
-    static void UpdateAllDates()
+    static int UpdateAllDates()
     {
         try
         {
@@ -228,6 +233,7 @@ internal class Program
         {
             Console.WriteLine(e.Message);
         }
+        return 4;
     }
 
     //-------------------------------------------------------------------------------------------
@@ -262,7 +268,7 @@ internal class Program
                 EXECUTION_STAGE.ENGINEER => SubMenuForEngineer(),
 
                 // If the user chose 2, go to update the details of the tasks without changing the required effort time
-                EXECUTION_STAGE.TASK_UPDATES => UpdateTask(false),
+                EXECUTION_STAGE.TASK_UPDATES => UpdateTask(),
 
                 // If the user chose 3, go Read the details of a specific task
                 EXECUTION_STAGE.TASK_READ => ReadTask(),
@@ -436,7 +442,7 @@ internal class Program
     private static int CreateTask()
     {
         // Create a new task using the obtained identifier
-        BO.Task task = TaskCreateAndUpdate(new(), true);
+        BO.Task task = TaskCreateAndUpdate(new());
 
         // Add the created task to the database using the data access layer
         Console.WriteLine("the new id is: " + s_bl!.Task.Create(task));
@@ -506,10 +512,9 @@ internal class Program
     /// and the function exits. If the task exists, the <see cref="TaskUpdate"/> function is used to create a new
     /// task with updated information, and the database is updated with the new task.
     /// </remarks>
-    /// <param name="canChangeRequired">A boolean value indicating whether the required effort time can be changed.</param>
     /// <seealso cref="GetId"/>
     /// <seealso cref="TaskUpdate"/>
-    private static int UpdateTask(bool canChangeRequired)
+    private static int UpdateTask()
     {
         // Obtain an identifier for the task from the user
         int id = GetId();
@@ -528,7 +533,7 @@ internal class Program
         Console.WriteLine("The old task: \n" + oldTask);
 
         // Update the task in the database using the data access layer
-        s_bl!.Task.Update(TaskCreateAndUpdate(oldTask, canChangeRequired));
+        s_bl!.Task.Update(TaskCreateAndUpdate(oldTask));
 
         return 4;
     }
@@ -670,7 +675,7 @@ internal class Program
     /// </summary>
     /// <param name="oldTask">The old task to update.</param>
     /// <returns>The updated task with new values.</returns>
-    private static BO.Task TaskCreateAndUpdate(BO.Task oldTask, bool canChangeRequired)
+    private static BO.Task TaskCreateAndUpdate(BO.Task oldTask)
     {
         Console.WriteLine("Enter the values of the task:");
 
@@ -688,7 +693,7 @@ internal class Program
         // Get the updated values from user input or use the old values if input is empty
         // or if the program is in the execution stage
         TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
-        if (canChangeRequired)
+        if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
         {
             Console.Write("required effort time:");
             if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
@@ -749,16 +754,17 @@ internal class Program
                 Initialization.Do();
 
             // Display the main menu options to the user of the planning stage
-            Console.WriteLine("The planning stage:");
-            while (ShowMenu() is not (0 or 4)) ;
-
-            // Display the options to the user of the update stage
-            Console.WriteLine("The update stage:");
-            UpdateAllDates();
-
-            // Display the main menu options to the user of the execution stage
-            Console.WriteLine("The execution stage:");
-            while (ExecuteStage() is not (0 or 6)) ;
+            if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
+            {
+                Console.WriteLine("The planning stage:");
+                while (ShowMenu() is not (0 or 4));
+            }
+            if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.InProgress)
+            {
+                // Display the main menu options to the user of the execution stage
+                Console.WriteLine("The execution stage:");
+                while (ExecuteStage() is not (0 or 6)) ;
+            }
         }
         catch (Exception e)
         {
