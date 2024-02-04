@@ -67,8 +67,8 @@ internal class TaskImplementation : BlApi.ITask
         CheckTask(task);
 
         // Check if there is a circular dependency
-        //  if (ThereIsCirculerDependency(task))
-        //  throw new BO.BLValueIsNotCorrectException($"here is circuler dependency in the task with ID {task.Id}");
+        //if (ThereIsCirculerDependency(task))
+        //throw new BO.BLValueIsNotCorrectException($"here is circuler dependency in the task with ID {task.Id}");
 
         try
         {
@@ -92,11 +92,11 @@ internal class TaskImplementation : BlApi.ITask
             });
 
             // delete the old dependencies
-            foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentOnTask == task.Id)!)
+            foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id)!)
                 _dal.Dependency.Delete(item.Id);
 
             // Recreate dependencies if they exist
-            task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, dep.Id, task.Id)));
+            task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
         }
         catch (DO.DalDoesNotExistException ex)
         {
@@ -167,7 +167,7 @@ internal class TaskImplementation : BlApi.ITask
     {
         // Read all dependencies for the given task ID when the task with the ID is the needy task
         IEnumerable<DO.Dependency> dependencies = from dep in _dal.Dependency.ReadAll()
-                                                  where dep.DependentOnTask == id
+                                                  where dep.DependentTask == id
                                                   select dep;
 
         // If there are no dependencies, return the project start date
@@ -176,7 +176,7 @@ internal class TaskImplementation : BlApi.ITask
 
         // Read all tasks that the given task is dependent on
         IEnumerable<DO.Task> tasks = from dep in dependencies 
-                                     select _dal.Task.Read((int)dep.DependentTask!);
+                                     select _dal.Task.Read((int)dep.DependentOnTask!);
 
         // If there are unscheduled dependencies, throw an exception
         if (tasks.Any(task => task.ScheduledDate is null))
@@ -214,8 +214,8 @@ internal class TaskImplementation : BlApi.ITask
     {
         // Read all needed dependencies and convert them to BO.TaskInList
         IEnumerable<BO.TaskInList> dependenciesInList = from dep in _dal.Dependency.ReadAll()
-                                                        where dep.DependentOnTask == id
-                                                        select ConvertToTaskInList(dep.DependentTask);
+                                                        where dep.DependentTask == id
+                                                        select ConvertToTaskInList(dep.DependentOnTask);
         return dependenciesInList.ToList();
     }
 
@@ -315,27 +315,21 @@ internal class TaskImplementation : BlApi.ITask
     /// <param name="taskId">The ID of the task that the current task depends on.</param>
     /// <param name="id">The ID of the current task being checked for circular dependencies.</param>
     /// <returns>True if a circular dependency exists, otherwise false.</returns>
-    private bool ThereIsCircularDependency(int? taskId, int id)
+    private bool ThereIsCircularDependency(int taskId, int id)
     {
         // Base case: If the task ID is the same as the current task ID, there is a circular dependency.
         if (taskId == id)
             return true;
 
-        // Base case: If the task ID is null, there is no circular dependency.
-        if (taskId == null)
-            return false;
-
         // Retrieve dependencies for the current task.
-        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll(dep => dep.DependentTask == id)!;
+        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll().Where(dep => dep.DependentTask == id)!.ToList();
 
         // Check for circular dependencies in each dependency.
         foreach (var item in dependencies)
         {
             // Recursive call to check for circular dependencies in the dependent task.
             if (ThereIsCircularDependency(item.DependentOnTask, id))
-            {
-                return true;
-            }
+                return true;     
         }
 
         // No circular dependency found for the current task.

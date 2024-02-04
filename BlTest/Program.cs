@@ -184,33 +184,42 @@ internal class Program
             {
                 foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
                 {
-
-                    DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
-                    Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
-                    if (Console.ReadLine()!.ToUpper() == "Y")
+                    try
                     {
-                        Console.WriteLine("What is the desired date to start the task");
-                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask < closest)
-                            throw new FormatException("cannot set a closer date");
-                        s_bl.Task.UpdateScheduledDate(item.Id, startTask);
+                        DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
 
+                        Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
+                        if (Console.ReadLine()!.ToUpper() == "Y")
+                        {
+                            Console.WriteLine("What is the desired date to start the task");
+                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime startTask) || startTask < closest)
+                                throw new FormatException("cannot set a closer date");
+                            s_bl.Task.UpdateScheduledDate(item.Id, startTask);
+
+                        }
+                        else
+                            s_bl.Task.UpdateScheduledDate(item.Id, closest);
+
+
+                        Console.WriteLine("What is the required time to finish the task");
+
+                        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan required))
+                            required = TimeSpan.FromHours(s_rand.Next(1, 100));
+
+                        Console.WriteLine("What is the deadline for the task");
+                        // if the user typed a wrong input then the deadline will be the closest date + the required time + 1 day
+                        if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
+                            deadline = closest + required + TimeSpan.FromDays(1);
+
+                        s_bl.Task.updateDates(item.Id, required, deadline);
+
+                        Console.WriteLine(s_bl.Task.Read(item.Id));
                     }
-                    else
-                        s_bl.Task.UpdateScheduledDate(item.Id, closest);
-
-                    Console.WriteLine("What is the required time to finish the task");
-                    
-                    if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan required))
-                        required = TimeSpan.FromHours(s_rand.Next(1, 100));
-
-                    Console.WriteLine("What is the deadline for the task");
-                    // if the user typed a wrong input then the deadline will be the closest date + the required time + 1 day
-                    if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
-                        deadline = closest + required + TimeSpan.FromDays(1);
-
-                    s_bl.Task.updateDates(item.Id, required, deadline);
-
-                    Console.WriteLine(s_bl.Task.Read(item.Id));
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message + "so first satrt his dependencies");
+                        continue;
+                    }
                 }
             }
             s_bl.Clock.SetStartProject(startProject);
@@ -554,7 +563,7 @@ internal class Program
         Console.WriteLine("Enter the id of the task that you want to add a dependency to");
         int id = int.Parse(Console.ReadLine()!);
 
-        Console.WriteLine("Enter the id of the task that you want to add as a dependency");
+        Console.WriteLine($"Enter the id of the task that you want task {id} to depend on");
         int dependencyId = int.Parse(Console.ReadLine()!);
 
         BO.Task task = s_bl.Task.Read(id);
