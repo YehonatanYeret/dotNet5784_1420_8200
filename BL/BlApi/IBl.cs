@@ -15,5 +15,8 @@ public interface IBl
     /// </summary>
     public ITask Task { get; }
 
+    /// <summary>
+    /// Gets an instance of the IClock interface for accessing clock-related functionalities.
+    /// </summary>
     public IClock Clock { get; }
 }

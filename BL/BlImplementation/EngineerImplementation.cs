@@ -1,6 +1,5 @@
 ﻿namespace BlImplementation;
 using BlApi;
-using System.Text.RegularExpressions;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -194,12 +193,15 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLValueIsNotCorrectException($"Engineer cost cannot be negative: {engineer.Cost}");
 
         //check if the email is valid
-        string regex = @"^[^@\s]+@[^@\s]+\.(com|net|org|gov)$";
-
-        if (!Regex.IsMatch(engineer.Email, regex, RegexOptions.IgnoreCase))
+        if(!new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(engineer.Email))
             throw new BO.BLValueIsNotCorrectException($"Engineer email is not valid: {engineer.Email}");
     }
 
+    /// <summary>
+    /// set the task to the engineer
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <param name="taskId">the id of the task</param>
     public void SetTaskToEngineer(int engineerId, int taskId)
     {
         //check if the engineer and the task exist
@@ -221,6 +223,11 @@ internal class EngineerImplementation : IEngineer
         _dal.Task.Update(task with { EngineerId = engineerId });
     }
 
+    /// <summary>
+    /// remove the task from the engineer
+    /// </summary>
+    /// <param name="engineerId"></param>
+    /// <exception cref="BO.BLDoesNotExistException"></exception>
     public void RemoveTaskFromEngineer(int engineerId)
     {
         //check if the engineer exist 

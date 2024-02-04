@@ -38,7 +38,16 @@ public interface IEngineer
     /// <param name="id">The id of the engineer that need to delete.</param>
     public void Delete(int id);
 
+    /// <summary>
+    /// Get all tasks of a specific engineer
+    /// </summary>
+    /// <param name="engineerId">The id of the engineer</param>
+    /// <param name="taskId">The id of the task</param>
     public void SetTaskToEngineer(int engineerId, int taskId);
 
+    /// <summary>
+    /// Remove task from engineer
+    /// </summary>
+    /// <param name="engineerId">The id of the engineer</param>
     public void RemoveTaskFromEngineer(int engineerId);
 }

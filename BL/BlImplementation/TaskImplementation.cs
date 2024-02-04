@@ -66,10 +66,6 @@ internal class TaskImplementation : BlApi.ITask
         // Check if the task values are valid
         CheckTask(task);
 
-        // Check if there is a circular dependency
-        //if (ThereIsCirculerDependency(task))
-        //throw new BO.BLValueIsNotCorrectException($"here is circuler dependency in the task with ID {task.Id}");
-
         try
         {
             // Perform the task update
@@ -130,6 +126,11 @@ internal class TaskImplementation : BlApi.ITask
         }
     }
 
+    /// <summary>
+    ///  Updates the scheduled date of a task.
+    /// </summary>
+    /// <param name="id">The ID of the task to be updated</param>
+    /// <param name="time"> The new scheduled date for the task.</param>
     public void UpdateScheduledDate(int id, DateTime time)
     {
         DO.Task? taskToUpdate = _dal.Task.Read(id);
@@ -141,38 +142,70 @@ internal class TaskImplementation : BlApi.ITask
         _dal.Task.Update(taskToUpdate);
     }
 
-    public void updateDates(int id, TimeSpan? required, DateTime? deadlineDate)
+    /// <summary>
+    ///  Updates the dates of a task, including the deadline date if provided.
+    /// </summary>
+    /// <param name="id">The ID of the task to be updated</param>
+    /// <param name="deadlineDate">The new deadline date for the task (nullable).</param>
+    public void UpdateDates(int id, DateTime? deadlineDate)
     {
         BO.Task? taskToUpdate = Read(id);
+
+        // Check if the task exists
         if (taskToUpdate is null)
             throw new BO.BLDoesNotExistException($"No task found with ID {id}");
 
-        if (required is not null && deadlineDate is not null && required > deadlineDate - taskToUpdate.ScheduledDate)
+        // Check if the deadline date is valid
+        if (deadlineDate is not null && taskToUpdate.RequiredEffortTime > deadlineDate - taskToUpdate.ScheduledDate)
             throw new BO.BLValueIsNotCorrectException("The required effort time is greater than the time between the scheduled date and the deadline date");
 
-        // Update the dates
-        taskToUpdate.RequiredEffortTime = required;
+        // Update the date
         taskToUpdate.DeadlineDate = deadlineDate;
 
         Update(taskToUpdate);
     }
 
-    public void ChangeStatusOfTask(int id, BO.Status status)
+    /// <summary>
+    /// Change the status of the task
+    /// </summary>
+    /// <param name="id">The ID of the task to be updated</param>
+    /// <returns>The new status of the task.</returns>
+    public BO.Status ChangeStatusOfTask(int id)
     {
         BO.Task? taskToUpdate = Read(id);
+
+        // Check if the task exists
         if (taskToUpdate is null)
             throw new BO.BLDoesNotExistException($"No task found with ID {id}");
 
-        if ((int)status <= (int)taskToUpdate.Status)
-            throw new BO.BLValueIsNotCorrectException("The status cannot be lower than the current status");
+        // Check if the task has an engineer
+        if (taskToUpdate.Status == BO.Status.Scheduled && taskToUpdate.Engineer is null)
+            throw new BO.BLValueIsNotCorrectException("The task has no Engineer");
 
-        if (status == BO.Status.Done)
-            taskToUpdate.CompleteDate = DateTime.Now;
+        // Check if the engineer already has a task on track
+        if (ReadAll(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Any())
+            throw new BO.BLValueIsNotCorrectException($"The engineer with ID {taskToUpdate.Engineer!.Id} has a task on track");
 
-        if(status == BO.Status.OnTrack)
+        // Check if the task is unscheduled
+        if (taskToUpdate.Status == BO.Status.Unscheduled)
+            throw new BO.BLValueIsNotCorrectException("The task is unscheduled");
+
+        // Check if the task is already done
+        if (taskToUpdate.Status == BO.Status.Done)
+            throw new BO.BLValueIsNotCorrectException("The task is already done");
+
+        // Update the status of the task
+        if (taskToUpdate.Status == BO.Status.Scheduled)
             taskToUpdate.StartDate = DateTime.Now;
 
-       Update(taskToUpdate);
+        // Update the complete date if the task is done
+        if (taskToUpdate.Status == BO.Status.OnTrack)
+            taskToUpdate.CompleteDate = DateTime.Now;
+
+        Update(taskToUpdate);
+
+        // Return the new status of the task
+        return ++taskToUpdate.Status;
     }
 
     /// <summary>
@@ -193,7 +226,7 @@ internal class TaskImplementation : BlApi.ITask
             return startProject;
 
         // Read all tasks that the given task is dependent on
-        IEnumerable<DO.Task> tasks = from dep in dependencies 
+        IEnumerable<DO.Task> tasks = from dep in dependencies
                                      select _dal.Task.Read((int)dep.DependentOnTask!);
 
         // If there are unscheduled dependencies, throw an exception
@@ -201,7 +234,7 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLValueIsNotCorrectException($"Task with ID {id} has unscheduled dependencies");
 
         // Order dependencies by their forecastDate date, descending
-        BO.Task t = CreateTask(tasks.OrderByDescending(task=> CreateTask(task).ForecastDate).First());
+        BO.Task t = CreateTask(tasks.OrderByDescending(task => CreateTask(task).ForecastDate).First());
 
         return (DateTime)t.ForecastDate!;
     }
@@ -214,6 +247,8 @@ internal class TaskImplementation : BlApi.ITask
     private BO.TaskInList ConvertToTaskInList(int id)
     {
         DO.Task task = _dal.Task.Read(id)!;
+
+        // Convert the task to a TaskInList object
         return new BO.TaskInList()
         {
             Id = task.Id,

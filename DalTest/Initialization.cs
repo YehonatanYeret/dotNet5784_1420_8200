@@ -56,7 +56,8 @@ public static class Initialization
             Id = 0,                      // Id will be updated in the creation
             Alias = alias,               // Task alias
             Description = description,   // Task description
-            CreatedAtDate = dateTime      // Creation date
+            CreatedAtDate = dateTime,    // Creation date
+            RequiredEffortTime = TimeSpan.FromDays(s_rand.Next(1, 10)) // Random effort time from 1 to 10 days
         });
         }
     }

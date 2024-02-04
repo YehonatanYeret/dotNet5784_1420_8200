@@ -56,7 +56,7 @@
         /// <remarks>
         /// Represents how many men-days are needed for the task.
         /// </remarks>
-        public TimeSpan? RequiredEffortTime
+        public TimeSpan RequiredEffortTime
         {
             get; set;
         }

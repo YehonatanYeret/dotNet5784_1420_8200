@@ -596,9 +596,8 @@ internal class Program
             startDate = temp1;
 
         Console.Write("required effort time:");
-        TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
-        if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
-            requiredEffortTime = temp2;
+        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan requiredEffortTime))
+            requiredEffortTime = oldTask.RequiredEffortTime;
 
         Console.Write("deadline date:");
         DateTime? deadlineDate = oldTask.DeadlineDate;

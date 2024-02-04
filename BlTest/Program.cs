@@ -207,18 +207,12 @@ internal class Program
                         else
                             s_bl.Task.UpdateScheduledDate(item.Id, closest);
 
-
-                        Console.WriteLine("What is the required time to finish the task");
-
-                        if (!TimeSpan.TryParse(Console.ReadLine(), out TimeSpan required))
-                            required = TimeSpan.FromHours(s_rand.Next(1, 100));
-
                         Console.WriteLine("What is the deadline for the task");
                         // if the user typed a wrong input then the deadline will be the closest date + the required time + 1 day
                         if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
-                            deadline = closest + required + TimeSpan.FromDays(1);
+                            deadline = closest + s_bl.Task.Read(item.Id).RequiredEffortTime + TimeSpan.FromDays(1);
 
-                        s_bl.Task.updateDates(item.Id, required, deadline);
+                        s_bl.Task.UpdateDates(item.Id, deadline);
 
                         Console.WriteLine(s_bl.Task.Read(item.Id));
                     }
@@ -583,6 +577,7 @@ internal class Program
 
         BO.Task task = s_bl.Task.Read(id);
 
+        // Create a new dependency for the task in the database
         task.Dependencies = task.Dependencies!.Append(new BO.TaskInList
         {
             Id = dependencyId,
@@ -590,6 +585,7 @@ internal class Program
             Description = s_bl.Task.Read(dependencyId).Description
         }).ToList();
 
+        // Update the task with the new dependency
         s_bl.Task.Update(task);
 
         return 1;
@@ -601,17 +597,19 @@ internal class Program
     private static int ReadDependeny()
     {
         Console.WriteLine("Enter the id of the task that you want to read its dependencies");
-        int id = GetId();
+        int id = int.Parse(Console.ReadLine()!);
 
         BO.Task task = s_bl.Task.Read(id);
 
-        if (task.Dependencies is null)
+        // Print the task information to the console
+        if (!task.Dependencies!.Any())
         {
             Console.WriteLine("The task has no dependencies");
             return 2;
         }
 
-        foreach (var item in task.Dependencies)
+        // Print the dependencies of the task to the console
+        foreach (var item in task.Dependencies!)
         {
             Console.WriteLine(item);
         }
@@ -626,15 +624,21 @@ internal class Program
     {
         Console.WriteLine("All of the dependencies:");
 
-        var tasks = s_bl.Task.ReadAll(task => task.Dependencies is not null);
+        IEnumerable<BO.Task>? tasks = s_bl.Task.ReadAll(task => task.Dependencies is not null).OrderBy(task => task.Id);
 
+        // Iterate through the tasks and print their information to the console
         foreach (var task in tasks)
         {
-            Console.WriteLine($"The dependencies of the task {task.Id} are:");
+            // Print the task information to the console
+            if(!task.Dependencies!.Any())
+                Console.WriteLine($"Task {task.Id} has no dependencies.");
+            else
+                Console.WriteLine($"The dependencies of the task {task.Id} are:");
+
+            // Print the dependencies of the task to the console
             foreach (var item in task.Dependencies!)
-            {
                 Console.WriteLine(item);
-            }
+            
         }
         return 3;
     }
@@ -647,10 +651,10 @@ internal class Program
     static int SetEngineerToTask()
     {
         Console.WriteLine("Enter the id of the task that you want to set an engineer to");
-        int id = GetId();
+        int id = int.Parse(Console.ReadLine()!);
 
         Console.WriteLine("Enter the id of the engineer that you want to set to the task");
-        int engineerId = GetId();
+        int engineerId = int.Parse(Console.ReadLine()!);
 
         s_bl.Engineer.SetTaskToEngineer(id, engineerId);
 
@@ -663,13 +667,10 @@ internal class Program
     static int changeStatusOfTask()
     {
         Console.WriteLine("Enter the id of the task that you want to change its status");
-        int id = GetId();
+        int id = int.Parse(Console.ReadLine()!);
 
-        Console.WriteLine("Enter the new status of the task");
-        if (!Enum.TryParse(Console.ReadLine()!, out BO.Status status))
-            throw new FormatException("Wrong input");
-
-        s_bl.Task.ChangeStatusOfTask(id, status);
+        // Change the status of the task in the database and print the new status
+        Console.WriteLine("The new status of the task is: " + s_bl.Task.ChangeStatusOfTask(id));
 
         return 8;
     }
@@ -737,7 +738,7 @@ internal class Program
 
         // Get the updated values from user input or use the old values if input is empty
         // or if the program is in the execution stage
-        TimeSpan? requiredEffortTime = oldTask.RequiredEffortTime;
+        TimeSpan requiredEffortTime = oldTask.RequiredEffortTime;
         if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
         {
             Console.Write("required effort time:");
