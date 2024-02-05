@@ -21,29 +21,55 @@ public static class Initialization
     {
         // Alias and description pairs for tasks
         (string, string)[] aliasAndDescription = new (string, string)[] {
+        //("digging", "the engineeer need to take control over the digging so we can start build"),
+        //("foundations","the engineeer need to take control over the foundation proccess"),
+        //("cement","the engineeer need to take controll over the creation of the cement"),
+        //("iron","the engineeer need to take control over the iron for the structure"),
+        //("brick","the engineeer need to take control over the import of the bricks"),
+        //("protective measures","the engineeer need to take control over the buying of the protective measures"),
+        //("ladder","the engineeer need to take control over buildig the ladder for the house"),
+        //("cranes","the engineeer need to take control moving the cranes"),
+        //("paint","the engineeer need to take control over painting the house"),
+        //("electricity","the engineeer need to take control over the electric wires and the wiring"),
+        //("plumbing","the engineeer need to take control over the plumbing"),
+        //("workers","the engineeer need to take control over hirring workers"),
+        //("plaster","the engineeer need to take control over the plaster of the building"),
+        //("skull","the engineeer need to take control over the skull of the building"),
+        //("flooring","the engineeer need to take control over the flooring"),
+        //("windows and door","the engineeer need to take control over the exits of the building"),
+        //("roof","the engineeer need to control the roof constraction"),
+        //("Solar panels","the engineeer need to take control over putting Solar panels"),
+        //("Air-Conditioner","the engineeer need to take control the Air-Conditioning"),
+        //("rail","the engineeer need to take control over building the rails in the house"),
+        //("architect","the engineeer need to take control over the architection"),
+        //("Construction permits","the engineeer need to take control over the Construction permits")
+        //};
+
+        //21,22,4,5,8,12,6,3,7,1, 2, 14,17,18,11,10,13,9, 15,16,19,20
+        ("architect", "the engineeer need to take control over the architection"),
+        ("Construction permits", "the engineeer need to take control over the Construction permits"),
+        ("iron", "the engineeer need to take control over the iron for the structure"),
+        ("brick", "the engineeer need to take control over the import of the bricks"),
+        ("cranes", "the engineeer need to take control moving the cranes"),
+        ("workers", "the engineeer need to take control over hirring workers"),
+        ("protective measures", "the engineeer need to take control over the buying of the protective measures"),
+        ("cement", "the engineeer need to take controll over the creation of the cement"),
+        ("ladder", "the engineeer need to take control over buildig the ladder for the house"),
         ("digging", "the engineeer need to take control over the digging so we can start build"),
-        ("foundations","the engineeer need to take control over the foundation proccess"),
-        ("cement","the engineeer need to take controll over the creation of the cement"),
-        ("iron","the engineeer need to take control over the iron for the structure"),
-        ("brick","the engineeer need to take control over the import of the bricks"),
-        ("protective measures","the engineeer need to take control over the buying of the protective measures"),
-        ("ladder","the engineeer need to take control over buildig the ladder for the house"),
-        ("cranes","the engineeer need to take control moving the cranes"),
-        ("paint","the engineeer need to take control over painting the house"),
-        ("electricity","the engineeer need to take control over the electric wires and the wiring"),
-        ("plumbing","the engineeer need to take control over the plumbing"),
-        ("workers","the engineeer need to take control over hirring workers"),
-        ("plaster","the engineeer need to take control over the plaster of the building"),
-        ("skull","the engineeer need to take control over the skull of the building"),
-        ("flooring","the engineeer need to take control over the flooring"),
-        ("windows and door","the engineeer need to take control over the exits of the building"),
-        ("roof","the engineeer need to control the roof constraction"),
-        ("Solar panels","the engineeer need to take control over putting Solar panels"),
-        ("Air-Conditioner","the engineeer need to take control the Air-Conditioning"),
-        ("rail","the engineeer need to take control over building the rails in the house"),
-        ("architect","the engineeer need to take control over the architection"),
-        ("Construction permits","the engineeer need to take control over the Construction permits")
+        ("foundations", "the engineeer need to take control over the foundation proccess"),
+        ("skull", "the engineeer need to take control over the skull of the building"),
+        ("roof", "the engineeer need to control the roof constraction"),
+        ("Solar panels", "the engineeer need to take control over putting Solar panels"),
+        ("plumbing", "the engineeer need to take control over the plumbing"),
+        ("electricity", "the engineeer need to take control over the electric wires and the wiring"),
+        ("plaster", "the engineeer need to take control over the plaster of the building"),
+        ("paint", "the engineeer need to take control over painting the house"),
+        ("flooring", "the engineeer need to take control over the flooring"),
+        ("windows and door", "the engineeer need to take control over the exits of the building"),
+        ("Air-Conditioner", "the engineeer need to take control the Air-Conditioning"),
+        ("rail", "the engineeer need to take control over building the rails in the house"),
         };
+         
 
         foreach (var (alias, description) in aliasAndDescription)
         {
@@ -118,29 +144,26 @@ public static class Initialization
     {
         // Array of dependencies where the first number is the id of the task, and the second is the id of the task it depends on
         (int, int)[] dependencies = new (int, int)[] {
-            (1, 22), (1, 6), (1, 8), (1, 12),
-            (2, 1), (2, 3), (2, 4), (2, 5),
-            (3, 12), (4, 22), (5, 22), (6, 12),
-            (7, 4), (8, 22), (9, 13), (10, 14),
-            (11, 14), (11, 22), (12, 21), (13, 14),
-            (13, 3), (13, 10), (13, 7), (14, 2),
-            (14, 5), (15, 13), (15, 3), (15, 9),
-            (16, 14), (16, 5), (16, 7), (17, 14),
-            (17, 5), (17, 7), (18, 17), (19, 14),
-            (19, 10), (19, 11), (20, 17), (20, 4), (22, 21)
-
-           //(1, 2), (1, 3), (1, 4), (1, 5),
-           //(2, 3), (2, 5), (2, 7), (2, 8),
-           //(3, 12), (3, 22), (5, 22), (6, 12),
-           //(4, 7), (8, 22), (9, 13), (10, 14),
-           //(11, 14), (11, 22), (12, 21), (13, 14),
-           //(13, 17), (13, 18), (13, 19), (14, 20),
-           //(14, 25), (15, 17), (15, 30), (15, 29),
-           //(16, 18), (16, 20), (16, 27), (20, 30),
-           //(22, 35), (23, 27), (25, 30), (29, 30),
-           //(32, 35), (33, 37), (34, 40), (35, 41), (39, 41)
-    };
-
+            //(1, 22), (1, 6), (1, 8), (1, 12),
+            //(2, 1), (2, 3), (2, 4), (2, 5),
+            //(3, 12), (4, 22), (5, 22), (6, 12),
+            //(7, 4), (8, 22), (9, 13), (10, 14),
+            //(11, 14), (11, 22), (12, 21), (13, 14),
+            //(13, 3), (13, 10), (13, 7), (14, 2),
+            //(14, 5), (15, 13), (15, 3), (15, 9),
+            //(16, 14), (16, 5), (16, 7), (17, 14),
+            //(17, 5), (17, 7), (18, 17), (19, 14),
+            //(19, 10), (19, 11), (20, 17), (20, 4), (22, 21)
+    //};
+        //21,22,4,5,8,12,6,3,7,1, 2, 14,17,18,11,10,13,9, 15,16,19,20
+        ( 10, 2), (10, 7), (10, 5), (10, 6), (11, 10), (11, 8),
+        (11, 3), (11, 4), (8, 6), (3, 2), (4, 2), (7, 6),
+        (9, 3), (5, 2), (18, 17), (16, 12), (15, 12), (15, 2),
+        (6, 1), (17, 12), (17, 8), (17, 16), (17, 9), (12, 11),
+        (12, 4), (19, 17), (19, 8), (19, 18), (20, 12), (20, 4),
+        (20, 9), (13, 12), (13, 4), (13, 9), (14, 13), (21, 12),
+        (21, 16), (21, 15), (22, 13), (22, 3), (2, 1)
+        };
         foreach ((int dependentTask, int dependentOnTask) in dependencies)
         {
             // Create a new dependency and add it to the database

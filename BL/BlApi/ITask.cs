@@ -58,7 +58,7 @@ public interface ITask
     /// </summary>
     /// <param name="id">The ID of the task to be updated.</param>
     /// <param name="deadlineDate">The new deadline date for the task (nullable).</param>
-    public void UpdateDates(int id, DateTime? deadlineDate);
+    public void UpdateDeadLineDate(int id, DateTime? deadlineDate);
 
     /// <summary>
     /// Changes the status of a task.
