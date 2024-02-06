@@ -1,11 +1,25 @@
-﻿namespace BlImplementation;
-using BlApi;
-
-internal class Bl : IBl
+﻿namespace BlImplementation
 {
-    public IEngineer Engineer => new EngineerImplementation();
+    using BlApi;
 
-    public ITask Task => new TaskImplementation();
+    /// <summary>
+    /// Implementation of the business logic interface (IBl).
+    /// </summary>
+    internal class Bl : IBl
+    {
+        /// <summary>
+        /// Gets an instance of the Engineer interface.
+        /// </summary>
+        public IEngineer Engineer => new EngineerImplementation();
 
-    public IClock Clock => new ClockImplementation();
+        /// <summary>
+        /// Gets an instance of the Task interface.
+        /// </summary>
+        public ITask Task => new TaskImplementation();
+
+        /// <summary>
+        /// Gets an instance of the Clock interface.
+        /// </summary>
+        public IClock Clock => new ClockImplementation();
+    }
 }
