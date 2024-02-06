@@ -211,6 +211,9 @@ internal class EngineerImplementation : IEngineer
         DO.Task? task = _dal.Task.Read(taskId) ??
             throw new BO.BLDoesNotExistException($"Task with ID {taskId} does not exist");
 
+        if(task.EngineerId is not null)
+            throw new BO.BLAlreadyExistsException($"Task with ID {taskId} already have an engineer");
+
         //check if the engineer already work on a task
         if (TaskImplementation.CalculateStatus(task) == BO.Status.OnTrack && _dal.Task.ReadAll(tsk => tsk.EngineerId == engineerId && TaskImplementation.CalculateStatus(task) is BO.Status.OnTrack).Any())
             throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");

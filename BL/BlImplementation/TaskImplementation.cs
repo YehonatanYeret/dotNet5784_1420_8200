@@ -138,8 +138,7 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLDoesNotExistException($"No task found with ID {id}");
 
         // Update the scheduled date
-        taskToUpdate = taskToUpdate with { ScheduledDate = time };
-        _dal.Task.Update(taskToUpdate);
+        _dal.Task.Update(taskToUpdate with { ScheduledDate = time });
     }
 
     /// <summary>
@@ -147,7 +146,7 @@ internal class TaskImplementation : BlApi.ITask
     /// </summary>
     /// <param name="id">The ID of the task to be updated</param>
     /// <param name="deadlineDate">The new deadline date for the task (nullable).</param>
-    public void UpdateDates(int id, DateTime? deadlineDate)
+    public void UpdateDeadLineDate(int id, DateTime? deadlineDate)
     {
         BO.Task? taskToUpdate = Read(id);
 
@@ -182,8 +181,8 @@ internal class TaskImplementation : BlApi.ITask
         if (taskToUpdate.Status == BO.Status.Scheduled && taskToUpdate.Engineer is null)
             throw new BO.BLValueIsNotCorrectException("The task has no Engineer");
 
-        // Check if the engineer already has a task on track
-        if (ReadAll(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Any())
+        // Check if the engineer already has a task on track except the task that we want to update
+        if (ReadAll(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Count() > 1)
             throw new BO.BLValueIsNotCorrectException($"The engineer with ID {taskToUpdate.Engineer!.Id} has a task on track");
 
         // Check if the task is unscheduled
@@ -325,6 +324,10 @@ internal class TaskImplementation : BlApi.ITask
     {
         if (string.IsNullOrEmpty(task.Alias))
             throw new BO.BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
+        if (string.IsNullOrEmpty(task.Description))
+            throw new BO.BLValueIsNotCorrectException("description must not be empty");//nedd to change to BO exception
+        if (task.RequiredEffortTime < TimeSpan.Zero)
+            throw new BO.BLValueIsNotCorrectException("required effort time must not be negative");//nedd to change to BO exception
     }
 
     /// <summary>

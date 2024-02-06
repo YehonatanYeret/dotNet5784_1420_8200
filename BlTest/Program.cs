@@ -1,5 +1,6 @@
 ﻿namespace BlTest;
 
+using BO;
 using DalTest;
 
 enum CHOISE
@@ -105,17 +106,25 @@ internal class Program
         SUBCHOISE subChoice = (SUBCHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
 
         // Process user input based on the main menu choice and submenu option
-        return subChoice switch
+        try
         {
-            // Task submenu options
-            SUBCHOISE.BACK => 0,
-            SUBCHOISE.CREATE => CreateEngineer(),
-            SUBCHOISE.READ => ReadEngineer(),
-            SUBCHOISE.READALL => ReadAllEngineer(),
-            SUBCHOISE.UPDATE => UpdateEngineer(),
-            SUBCHOISE.DELETE => DeleteEngineer(),
-            _ => throw new Exception("Invalid input")
-        };
+            return subChoice switch
+            {
+                // Task submenu options
+                SUBCHOISE.BACK => (int)subChoice,
+                SUBCHOISE.CREATE => CreateEngineer(),
+                SUBCHOISE.READ => ReadEngineer(),
+                SUBCHOISE.READALL => ReadAllEngineer(),
+                SUBCHOISE.UPDATE => UpdateEngineer(),
+                SUBCHOISE.DELETE => DeleteEngineer(),
+                _ => throw new Exception("Invalid input")
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return 2;
+        }
     }
 
     /// <summary>
@@ -132,22 +141,29 @@ internal class Program
             "3. ReadAll\n" +
             "4. Update\n" +
             "5. Delete\n");
-
-        // Read the user's input and parse it to an integer, storing it in the 'subChoice' variable
-        SUBCHOISE subChoice = (SUBCHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
-
-        // Process user input based on the main menu choice and submenu option
-        return subChoice switch
+        try
         {
-            // Task submenu options
-            SUBCHOISE.BACK => 0,
-            SUBCHOISE.CREATE => CreateTask(),
-            SUBCHOISE.READ => ReadTask(),
-            SUBCHOISE.READALL => ReadAllTask(),
-            SUBCHOISE.UPDATE => UpdateTask(),
-            SUBCHOISE.DELETE => DeleteTask(),
-            _ => throw new Exception("Invalid input")
-        };
+            // Read the user's input and parse it to an integer, storing it in the 'subChoice' variable
+            SUBCHOISE subChoice = (SUBCHOISE)Enum.Parse(typeof(CHOISE), Console.ReadLine()!);
+
+            // Process user input based on the main menu choice and submenu option
+            return subChoice switch
+            {
+                // Task submenu options
+                SUBCHOISE.BACK => (int)subChoice,
+                SUBCHOISE.CREATE => CreateTask(),
+                SUBCHOISE.READ => ReadTask(),
+                SUBCHOISE.READALL => ReadAllTask(),
+                SUBCHOISE.UPDATE => UpdateTask(),
+                SUBCHOISE.DELETE => DeleteTask(),
+                _ => throw new Exception("Invalid input")
+            };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return 1;
+        }
     }
 
     static int SubMenuForDependency()
@@ -166,7 +182,7 @@ internal class Program
         return subChoice switch
         {
             // Task submenu options
-            SUBCHOISE.BACK => 0,
+            SUBCHOISE.BACK => (int)subChoice,
             SUBCHOISE.CREATE => CreateDependency(),
             SUBCHOISE.READ => ReadDependeny(),
             SUBCHOISE.READALL => ReadAllDependeny(),
@@ -193,8 +209,10 @@ internal class Program
                 {
                     try
                     {
+                        // calculate the closest date based on the startDate of the program and the depndencies 
                         DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
 
+                        // if the user want to set a date that is closer then the closest date then the closest date will be the new date
                         Console.WriteLine($"Do you want to set a forther date then {closest} to the task {item.Id}? (Y/N)");
                         if (Console.ReadLine()!.ToUpper() == "Y")
                         {
@@ -208,11 +226,12 @@ internal class Program
                             s_bl.Task.UpdateScheduledDate(item.Id, closest);
 
                         Console.WriteLine("What is the deadline for the task");
-                        // if the user typed a wrong input then the deadline will be the closest date + the required time + 1 day
+                        // if the user typed a wrong input/enter then the deadline will be the closest date + the required time + 1 day
                         if (!DateTime.TryParse(Console.ReadLine(), out DateTime deadline))
                             deadline = closest + s_bl.Task.Read(item.Id).RequiredEffortTime + TimeSpan.FromDays(1);
 
-                        s_bl.Task.UpdateDates(item.Id, deadline);
+                        // update the deadline of the task
+                        s_bl.Task.UpdateDeadLineDate(item.Id, deadline);
 
                         Console.WriteLine(s_bl.Task.Read(item.Id));
                     }
@@ -308,18 +327,41 @@ internal class Program
     /// are performed sequentially within this method.
     /// </remarks>
     /// <seealso cref="GetId"/>
-    /// <seealso cref="EngineerCreation"/>
+    /// <seealso cref="EngineerCreateAndUpdate"/>
     private static int CreateEngineer()
     {
         // Obtain a unique identifier for the engineer
         int id = GetId();
+        //get the new values
+        Console.Write("cost:");
+        if (!double.TryParse(Console.ReadLine()!, out double cost))// if the input is not valid
+            throw new BO.BLValueIsNotCorrectException("cannot convert cost");// throw an exception
 
-        // Create a new engineer using the obtained identifier
-        BO.Engineer engineer = EngineerCreateAndUpdate(new(), id);
+        Console.Write("name:");
+        string name = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+
+        Console.Write("email:");
+        string email = Console.ReadLine()!;// we use ! because we know that the input is not need to be null
+        if (string.IsNullOrWhiteSpace(email))
+            throw new ArgumentNullException();// if the input is still null or empty or only spaces
+
+        Console.Write("level:");
+        // if the input is not valid or not in the enum we will throw an exception
+        if (!Enum.TryParse<BO.EngineerExperience>(Console.ReadLine()!, out BO.EngineerExperience level))
+            throw new ArgumentException("Invalid input");
+
+        //create the new engineer
+        BO.Engineer engineer = new()
+        {
+            Id = id,
+            Cost = cost,
+            Name = name,
+            Email = email,
+            Level = level
+        };
 
         // Add the created engineer to the database using the data access layer
         Console.WriteLine("the new id is: " + s_bl!.Engineer.Create(engineer));
-
         return 1;
     }
 
@@ -343,10 +385,7 @@ internal class Program
         BO.Engineer? engineer = s_bl!.Engineer.Read(id);
 
         if (engineer == null)
-        {
-            Console.WriteLine("The engineer is not exist");
-            return 2;
-        }
+            throw new BO.BLDoesNotExistException("The engineer is not exist");
 
         // Print the engineer information to the console
         Console.WriteLine(engineer);
@@ -399,16 +438,42 @@ internal class Program
 
         // Check if the engineer exists in the database
         if (oldEngineer == null)
-        {
-            Console.WriteLine("The engineer is not exist");
-            return 4;
-        }
+            throw new BO.BLDoesNotExistException("The engineer is not exist");
 
         // Display the current information of the engineer to the console
         Console.WriteLine("The old engineer:\n" + oldEngineer);
 
+        Console.WriteLine("Enter the values of the enginner:");
+        // Get the updated values from user input or use the old values if input is empty
+        Console.Write("cost:");
+        if (!double.TryParse(Console.ReadLine()!, out double cost))
+            cost = oldEngineer.Cost;
+
+        Console.Write("name:");
+        string name = Console.ReadLine()!; // Non-nullable input
+        if (string.IsNullOrEmpty(name))
+            name = oldEngineer.Name;
+
+        Console.Write("email:");
+        string email = Console.ReadLine()!; // Non-nullable input
+        if (string.IsNullOrEmpty(email))
+            email = oldEngineer.Email;
+
+        Console.Write("level:");
+        if (!Enum.TryParse(Console.ReadLine()!, out BO.EngineerExperience level))
+            level = oldEngineer.Level;
+
+        // Create the new engineer with updated values
+        BO.Engineer engineer = new BO.Engineer
+        {
+            Id = id, // Keep the old id or put 0 by defaulte
+            Cost = cost,
+            Name = name,
+            Email = email,
+            Level = level
+        };
         // Update the engineer in the database using the data access layer
-        s_bl!.Engineer.Update(EngineerCreateAndUpdate(oldEngineer, id));
+        s_bl!.Engineer.Update(engineer);
 
         return 4;
     }
@@ -445,8 +510,44 @@ internal class Program
     /// <seealso cref="TaskCreation"/>
     private static int CreateTask()
     {
-        // Create a new task using the obtained identifier
-        BO.Task task = TaskCreateAndUpdate(new());
+        Console.WriteLine("Enter the values of the task:");
+
+        // Get the updated values from user input or use the old values if input is empty
+        Console.Write("alias:");
+        string alias = Console.ReadLine()!;
+
+        Console.Write("description:");
+        string description = Console.ReadLine()!;
+
+        // Get the updated values from user input or use the old values if input is empty
+        // or if the program is in the execution stage
+        Console.Write("required effort time:");
+        TimeSpan requiredEffortTime = TimeSpan.Parse(Console.ReadLine()!);
+
+        Console.Write("deliverables:");
+        string? deliverables = Console.ReadLine();
+
+        Console.Write("remarks:");
+        string? remarks = Console.ReadLine();
+
+        Console.Write("complexity:");
+        BO.EngineerExperience? complexity = null;
+        if(Enum.TryParse(Console.ReadLine(), out BO.EngineerExperience tempComplexity))
+            complexity = tempComplexity;
+
+
+        // Create the new task with updated values
+        BO.Task task = new BO.Task
+        {
+            Id = 0, // Keep the old id or Deafault value
+            Alias = alias,
+            Description = description,
+            CreatedAtDate = DateTime.Now, // The current time
+            RequiredEffortTime = requiredEffortTime,
+            Deliverables = deliverables,
+            Remarks = remarks,
+            Complexity = complexity
+        };
 
         // Add the created task to the database using the data access layer
         Console.WriteLine("the new id is: " + s_bl!.Task.Create(task));
@@ -474,10 +575,8 @@ internal class Program
 
         // Print the task information to the console if found
         if (task == null)
-        {
-            Console.WriteLine("The task is not exist");
-            return 2;
-        }
+            throw new BO.BLDoesNotExistException("The task is not exist");
+
         Console.WriteLine(task);
 
         return 2;
@@ -528,16 +627,63 @@ internal class Program
 
         // Check if the task exists in the database
         if (oldTask == null)
-        {
-            Console.WriteLine("The task is not exist");
-            return 4;
-        }
+            throw new BO.BLDoesNotExistException("The task is not exist");
 
         // Display the current information of the task to the console
         Console.WriteLine("The old task: \n" + oldTask);
 
+        Console.WriteLine("Enter new values of the task:");
+
+        // Get the updated values from user input or use the old values if input is empty
+        Console.Write("alias:");
+        string? alias = Console.ReadLine();
+        if (string.IsNullOrEmpty(alias))
+            alias = oldTask.Alias;
+
+        Console.Write("description:");
+        string? description = Console.ReadLine();
+        if (string.IsNullOrEmpty(description))
+            description = oldTask.Description;
+
+        // Get the updated values from user input or use the old values if input is empty
+        // or if the program is in the execution stage
+        TimeSpan requiredEffortTime = oldTask.RequiredEffortTime;
+        if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
+        {
+            Console.Write("required effort time:");
+            if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
+                requiredEffortTime = temp2;
+        }
+
+        Console.Write("deliverables:");
+        string? deliverables = Console.ReadLine();
+        if (string.IsNullOrEmpty(deliverables))
+            deliverables = oldTask.Deliverables;
+
+        Console.Write("remarks:");
+        string? remarks = Console.ReadLine();
+        if (string.IsNullOrEmpty(remarks))
+            remarks = oldTask.Remarks;
+
+        Console.Write("complexity:");
+        BO.EngineerExperience? complexity = oldTask.Complexity;
+        if (Enum.TryParse(Console.ReadLine(), out BO.EngineerExperience experience))
+            complexity = experience;
+
+        // Create the new task with updated values
+        BO.Task task = new BO.Task
+        {
+            Id = oldTask.Id, // Keep the old id or Deafault value
+            Alias = alias,
+            Description = description,
+            CreatedAtDate = DateTime.Now, // The current time
+            RequiredEffortTime = requiredEffortTime,
+            Deliverables = deliverables,
+            Remarks = remarks,
+            Complexity = complexity
+        };
         // Update the task in the database using the data access layer
-        s_bl!.Task.Update(TaskCreateAndUpdate(oldTask));
+        s_bl!.Task.Update(task);
 
         return 4;
     }
@@ -630,7 +776,7 @@ internal class Program
         foreach (var task in tasks)
         {
             // Print the task information to the console
-            if(!task.Dependencies!.Any())
+            if (!task.Dependencies!.Any())
                 Console.WriteLine($"Task {task.Id} has no dependencies.");
             else
                 Console.WriteLine($"The dependencies of the task {task.Id} are:");
@@ -638,7 +784,7 @@ internal class Program
             // Print the dependencies of the task to the console
             foreach (var item in task.Dependencies!)
                 Console.WriteLine(item);
-            
+
         }
         return 3;
     }
@@ -656,7 +802,7 @@ internal class Program
         Console.WriteLine("Enter the id of the engineer that you want to set to the task");
         int engineerId = int.Parse(Console.ReadLine()!);
 
-        s_bl.Engineer.SetTaskToEngineer(id, engineerId);
+        s_bl.Engineer.SetTaskToEngineer(engineerId, id);
 
         return 7;
     }
@@ -677,105 +823,7 @@ internal class Program
 
     //-------------------------------------------------------------------------------------------
 
-    /// <summary>
-    /// Returns a new engineer with updated values based on the provided old engineer.
-    /// </summary>
-    /// <param name="oldEngineer">The engineer to update.</param>
-    /// <returns>The updated engineer with new values.</returns>
-    private static BO.Engineer EngineerCreateAndUpdate(BO.Engineer oldEngineer, int id)
-    {
-        Console.WriteLine("Enter the values of the enginner:");
-        // Get the updated values from user input or use the old values if input is empty
-        Console.Write("cost:");
-        if (!double.TryParse(Console.ReadLine()!, out double cost))
-            cost = oldEngineer.Cost;
 
-        Console.Write("name:");
-        string name = Console.ReadLine()!; // Non-nullable input
-        if (string.IsNullOrEmpty(name))
-            name = oldEngineer.Name;
-
-        Console.Write("email:");
-        string email = Console.ReadLine()!; // Non-nullable input
-        if (string.IsNullOrEmpty(email))
-            email = oldEngineer.Email;
-
-        Console.Write("level:");
-        if (!Enum.TryParse(Console.ReadLine()!, out BO.EngineerExperience level))
-            level = oldEngineer.Level;
-
-        // Create the new engineer with updated values
-        BO.Engineer engineer = new BO.Engineer
-        {
-            Id = id, // Keep the old id or put 0 by defaulte
-            Cost = cost,
-            Name = name,
-            Email = email,
-            Level = level
-        };
-        return engineer;
-    }
-
-    /// <summary>
-    /// Returns a new task with updated values based on the provided old task.
-    /// </summary>
-    /// <param name="oldTask">The old task to update.</param>
-    /// <returns>The updated task with new values.</returns>
-    private static BO.Task TaskCreateAndUpdate(BO.Task oldTask)
-    {
-        Console.WriteLine("Enter the values of the task:");
-
-        // Get the updated values from user input or use the old values if input is empty
-        Console.Write("alias:");
-        string? alias = Console.ReadLine();
-        if (string.IsNullOrEmpty(alias))
-            alias = oldTask.Alias;
-
-        Console.Write("description:");
-        string? description = Console.ReadLine();
-        if (string.IsNullOrEmpty(description))
-            description = oldTask.Description;
-
-        // Get the updated values from user input or use the old values if input is empty
-        // or if the program is in the execution stage
-        TimeSpan requiredEffortTime = oldTask.RequiredEffortTime;
-        if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
-        {
-            Console.Write("required effort time:");
-            if (TimeSpan.TryParse(Console.ReadLine(), out TimeSpan temp2))
-                requiredEffortTime = temp2;
-        }
-
-        Console.Write("deliverables:");
-        string? deliverables = Console.ReadLine();
-        if (string.IsNullOrEmpty(deliverables))
-            deliverables = oldTask.Deliverables;
-
-        Console.Write("remarks:");
-        string? remarks = Console.ReadLine();
-        if (string.IsNullOrEmpty(remarks))
-            remarks = oldTask.Remarks;
-
-        Console.Write("complexity:");
-        BO.EngineerExperience? complexity = oldTask.Complexity;
-        if (Enum.TryParse(Console.ReadLine(), out BO.EngineerExperience experience))
-            complexity = experience;
-
-        // Create the new task with updated values
-        BO.Task task = new BO.Task
-        {
-            Id = oldTask.Id, // Keep the old id or Deafault value
-            Alias = alias,
-            Description = description,
-            CreatedAtDate = DateTime.Now, // The current time
-            RequiredEffortTime = requiredEffortTime,
-            Deliverables = deliverables,
-            Remarks = remarks,
-            Complexity = complexity
-        };
-        return task;
-    }
-    //-------------------------------------------------------------------------------------------
 
     /// <summary>
     /// Retrieves an integer identifier from the user, ensuring the input is valid.
@@ -784,7 +832,8 @@ internal class Program
     private static int GetId()
     {
         Console.Write("Enter the id:");
-        int id = int.Parse(Console.ReadLine()!);
+        if (!int.TryParse(Console.ReadLine()!, out int id))
+            throw new BO.BLValueIsNotCorrectException("Invalid input");
         return id;
     }
     static void Main(string[] args)
@@ -803,7 +852,7 @@ internal class Program
             if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.NotStarted)
             {
                 Console.WriteLine("The planning stage:");
-                while (ShowMenu() is not 0);
+                while (ShowMenu() is not 0 and not 4) ;
             }
             if (s_bl.Clock.GetProjectStatus() is BO.ProjectStatus.InProgress)
             {
@@ -811,7 +860,7 @@ internal class Program
                 Console.WriteLine("The execution stage:");
                 while (ExecuteStage() is not 0) ;
             }
-        }   
+        }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
