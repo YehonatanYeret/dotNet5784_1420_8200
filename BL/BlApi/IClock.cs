@@ -35,6 +35,13 @@
         /// Gets the status of the project based on the current date and project dates.
         /// </summary>
         /// <returns>A ProjectStatus enum value indicating the project status.</returns>
-        public BO.ProjectStatus GetProjectStatus();
+        public BO.ProjectStatus GetProjectStatus()
+        {
+            if (GetEndProject() < DateTime.Now)
+                return BO.ProjectStatus.Done;
+            if (GetStartProject() < DateTime.Now)
+                return BO.ProjectStatus.InProgress;
+            return BO.ProjectStatus.NotStarted;
+        }
     }
 }
