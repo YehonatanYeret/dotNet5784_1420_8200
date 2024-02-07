@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
         mc:Ignorable="d"
-        Title="TaskListWindow" Height="640" Width="800">
+        Title="TaskListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--Extrnal Grid-->
     <Grid>
         <Grid.RowDefinitions>
@@ -22,18 +23,21 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Column="0" Content="Label" HorizontalAlignment="Stretch"  VerticalAlignment="Center"/>
-            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      ItemsSource="{Binding Source={StaticResource TaskStatusCollectionKey}}"
+                      SelectedValue="{Binding Status, Mode=TwoWay}" SelectionChanged="ComboBox_StatusFilterChanged"/>
         </Grid>
 
-        <ListView Grid.Row="1">
+        <ListView Grid.Row="1" ItemsSource="{Binding TaskList}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
+
         </ListView>
 
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+            <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
 
     </Grid>
 </Window>

@@ -24,7 +24,9 @@ public interface ITask
     /// </summary>
     /// <param name="filter">An optional filter function to apply on tasks.</param>
     /// <returns>A collection of tasks that match the specified filter.</returns>
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null);
+    public IEnumerable<BO.Task> ReadAllTask(Func<BO.Task, bool>? filter = null);
+
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null);
 
     /// <summary>
     /// Updates an existing task.

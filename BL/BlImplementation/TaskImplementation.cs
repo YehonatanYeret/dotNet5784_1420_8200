@@ -1,4 +1,6 @@
-﻿namespace BlImplementation;
+﻿using BO;
+
+namespace BlImplementation;
 
 internal class TaskImplementation : BlApi.ITask
 {
@@ -49,7 +51,7 @@ internal class TaskImplementation : BlApi.ITask
     /// <summary>
     /// Retrieves all tasks based on an optional filter.
     /// </summary>
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool>? filter = null)
+    public IEnumerable<BO.Task> ReadAllTask(Func<BO.Task, bool>? filter = null)
     {
         if (filter != null)
             return _dal.Task.ReadAll()!.Select(task => CreateTask(task!)).Where(filter);
@@ -182,7 +184,7 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLValueIsNotCorrectException("The task has no Engineer");
 
         // Check if the engineer already has a task on track except the task that we want to update
-        if (ReadAll(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Count() > 1)
+        if (ReadAllTask(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Count() > 1)
             throw new BO.BLValueIsNotCorrectException($"The engineer with ID {taskToUpdate.Engineer!.Id} has a task on track");
 
         // Check if the task is unscheduled
@@ -345,5 +347,13 @@ internal class TaskImplementation : BlApi.ITask
         else if (task.CompleteDate is null) return BO.Status.OnTrack;
         //the task has started and completed
         else return BO.Status.Done;
+    }
+
+    public IEnumerable<TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null)
+    {
+        if (filter != null)
+            return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id)).Where(filter);
+
+        return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id));
     }
 }

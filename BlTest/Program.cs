@@ -203,9 +203,9 @@ internal class Program
             if (!DateTime.TryParse(Console.ReadLine(), out DateTime startProject))
                 throw new FormatException("Wrong input");
 
-            while (s_bl!.Task.ReadAll(task => task.ScheduledDate is null).Any())
+            while (s_bl!.Task.ReadAllTask(task => task.ScheduledDate is null).Any())
             {
-                foreach (var item in s_bl.Task.ReadAll(task => task.ScheduledDate == null))
+                foreach (var item in s_bl.Task.ReadAllTask(task => task.ScheduledDate == null))
                 {
                     try
                     {
@@ -770,7 +770,7 @@ internal class Program
     {
         Console.WriteLine("All of the dependencies:");
 
-        IEnumerable<BO.Task>? tasks = s_bl.Task.ReadAll(task => task.Dependencies is not null).OrderBy(task => task.Id);
+        IEnumerable<BO.Task>? tasks = s_bl.Task.ReadAllTask(task => task.Dependencies is not null).OrderBy(task => task.Id);
 
         // Iterate through the tasks and print their information to the console
         foreach (var task in tasks)
