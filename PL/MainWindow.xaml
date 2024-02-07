@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Handle Engineers" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button Content="Handle Tasks" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
-        <Button Content="Initialize DataBase" HorizontalAlignment="Left" Margin="235,206,0,0" VerticalAlignment="Top"/>
+        <Button Content="Handle Engineers" HorizontalAlignment="Left" VerticalAlignment="Top" Click="EngineerList_click"/>
+        <Button Content="Handle Tasks" HorizontalAlignment="Left"  VerticalAlignment="Top" Click="TaskList_click" Margin="213,10,0,0"/>
+        <Button Content="Initialize DataBase" HorizontalAlignment="Left" Margin="371,292,0,0" VerticalAlignment="Top" Click="Initialization_click"/>
+        
 
     </Grid>
 </Window>
