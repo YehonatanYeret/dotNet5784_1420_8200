@@ -1,27 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿namespace PL.Engineer;
 
-namespace PL.Engineer
+using System.Windows;
+
+/// <summary>
+/// Interaction logic for EngineerWindow.xaml
+/// </summary>
+public partial class EngineerWindow : Window
 {
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
     /// <summary>
-    /// Interaction logic for EngineerWindow.xaml
+    /// Dependency Property for Engineer
     /// </summary>
-    public partial class EngineerWindow : Window
+    public BO.Engineer CurrentEngineer
     {
-        public EngineerWindow()
-        {
-            InitializeComponent();
-        }
+        get { return (BO.Engineer)GetValue(EngineerProperty); }
+        set { SetValue(EngineerProperty, value); }
+    }
+
+    public static readonly DependencyProperty EngineerProperty =
+        DependencyProperty.Register("Engineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+
+    public EngineerWindow(int id = 0)
+    {
+        InitializeComponent();
+
+        CurrentEngineer = (id == 0) ? new BO.Engineer() : s_bl.Engineer.Read(id);
     }
 }

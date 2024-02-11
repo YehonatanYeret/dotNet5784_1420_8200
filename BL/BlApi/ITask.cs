@@ -26,6 +26,11 @@ public interface ITask
     /// <returns>A collection of tasks that match the specified filter.</returns>
     public IEnumerable<BO.Task> ReadAllTask(Func<BO.Task, bool>? filter = null);
 
+    /// <summary>
+    /// Retrieves all tasks based on an optional filter.
+    /// </summary>
+    /// <param name="filter">An optional filter function to apply on tasks.</param>
+    /// <returns>A collection of TaskInList that match the specified filter.</returns>
     public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null);
 
     /// <summary>

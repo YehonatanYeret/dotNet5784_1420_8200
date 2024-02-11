@@ -5,9 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="800">
-
+        Title="EngineerWindow" Height="450" Width="300"
+        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
     <Grid>
         
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="ID:" HorizontalAlignment="Left" Grid.Row = "0" Grid.Column="0"/>
+            <TextBox Grid.Row="0" Grid.Column="1"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row = "1" Grid.Column="0"/>
+            <TextBox Grid.Row="1" Grid.Column="1"/>
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row = "2" Grid.Column="0"/>
+            <TextBox  Grid.Row="2" Grid.Column="1"/>
+            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row = "3" Grid.Column="0"/>
+            <ComboBox Grid.Row="2" Grid.Column="1"/>
+            <Label Content="Salary:" HorizontalAlignment="Left" Grid.Row = "4" Grid.Column="0"/>
+            <TextBox Grid.Row="4" Grid.Column="1"/>
+            <Label Content="Task:" HorizontalAlignment="Left" Grid.Row = "5" Grid.Column="0"/>
+            <TextBox  Grid.Row="5" Grid.Column="1"/>
+        </Grid>
+        
+        <Button Grid.Row="1" Content="udhcush"/>
     </Grid>
 </Window>

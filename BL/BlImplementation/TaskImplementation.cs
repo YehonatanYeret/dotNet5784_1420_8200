@@ -1,6 +1,4 @@
-﻿using BO;
-
-namespace BlImplementation;
+﻿namespace BlImplementation;
 
 internal class TaskImplementation : BlApi.ITask
 {
@@ -57,6 +55,14 @@ internal class TaskImplementation : BlApi.ITask
             return _dal.Task.ReadAll()!.Select(task => CreateTask(task!)).Where(filter);
 
         return _dal.Task.ReadAll()!.Select(task => CreateTask(task!));
+    }
+    
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null)
+    {
+        if (filter != null)
+            return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id)).Where(filter);
+
+        return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id));
     }
 
     /// <summary>
@@ -347,13 +353,5 @@ internal class TaskImplementation : BlApi.ITask
         else if (task.CompleteDate is null) return BO.Status.OnTrack;
         //the task has started and completed
         else return BO.Status.Done;
-    }
-
-    public IEnumerable<TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null)
-    {
-        if (filter != null)
-            return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id)).Where(filter);
-
-        return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id));
     }
 }
