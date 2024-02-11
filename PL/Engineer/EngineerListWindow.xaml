@@ -28,7 +28,8 @@
                       SelectedValue="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
         </Grid>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}">
+        <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" 
+                  MouseDoubleClick="UpdateListView_DoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -36,7 +37,7 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick"/>
 
     </Grid>
 </Window>
