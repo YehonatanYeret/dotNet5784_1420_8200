@@ -33,10 +33,10 @@
             }
             else// if the object is not a collection
             {
-                result += $"{new string(' ', indent)}{{\n";
+                result += $"{new string(' ', indent)}\n";
                 foreach (PropertyInfo property in obj.GetType().GetProperties())
                     result += new string(' ', indent + 1) + property.Name + ": " + property.GetValue(obj).ToStringProperty(indent + 1) + '\n';
-                result += new string(' ', indent) + "}\n";
+                result += new string(' ', indent) + "\n";
             }
             return result;
         }
