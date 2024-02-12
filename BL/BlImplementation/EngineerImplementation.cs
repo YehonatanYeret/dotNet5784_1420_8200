@@ -194,7 +194,7 @@ internal class EngineerImplementation : IEngineer
 
         //check if the level is none
         if (engineer.Level == BO.EngineerExperience.None)
-            throw new BO.BLValueIsNotCorrectException("Canxnot set none to level of engineer");
+            throw new BO.BLValueIsNotCorrectException("Cannot set none to level of engineer");
         //check if the email is valid
         var mail = new System.ComponentModel.DataAnnotations.EmailAddressAttribute();
         if ( engineer.Email is null || !mail.IsValid(engineer.Email))
