@@ -25,7 +25,7 @@
             <Label Grid.Column="0" HorizontalAlignment="Stretch" Content="Selected level for engineer:" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}"
-                      SelectedValue="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
+                      SelectedItem="{Binding SelectedExperience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
         </Grid>
 
         <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" 
