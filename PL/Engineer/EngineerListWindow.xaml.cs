@@ -37,22 +37,22 @@ public partial class EngineerListWindow : Window
 
     private void Expirience_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-        UPdateListView();
+        UpdateListView();
     }
 
     private void AddBtn_OnClick(object sender, RoutedEventArgs e)
     {
         new Engineer.EngineerWindow().ShowDialog();
-        UPdateListView();
+        UpdateListView();
 
     }
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
         BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
         new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
-        UPdateListView();
+        UpdateListView();
     }
-    void UPdateListView()
+    void UpdateListView()
     {
         EngineerList = (experience == BO.EngineerExperience.None) ?
             s_bl?.Engineer.ReadAll()!.OrderBy(item=> item.Name)! :

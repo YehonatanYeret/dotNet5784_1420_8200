@@ -8,13 +8,6 @@
     <Level>AdvancedBeginner</Level>
   </Engineer>
   <Engineer>
-    <Id>272859047</Id>
-    <Cost>50191</Cost>
-    <Name>Asaf Bil</Name>
-    <Email>Asaf@outlook.com</Email>
-    <Level>Intermediate</Level>
-  </Engineer>
-  <Engineer>
     <Id>270046041</Id>
     <Cost>39630</Cost>
     <Name>Aaron Israeli</Name>
@@ -53,6 +46,21 @@
     <Id>7654</Id>
     <Cost>6</Cost>
     <Name>juhygr</Name>
+    <Email />
     <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>1234</Id>
+    <Cost>1000</Cost>
+    <Name>maor</Name>
+    <Email />
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>272859047</Id>
+    <Cost>50191</Cost>
+    <Name>Asaf Bi</Name>
+    <Email>Asaf@outlook.com</Email>
+    <Level>Intermediate</Level>
   </Engineer>
 </ArrayOfEngineer>

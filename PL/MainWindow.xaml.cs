@@ -13,11 +13,6 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private void TaskList_click(object sender, RoutedEventArgs e)
-    {
-        new Task.TaskListWindow().Show();
-    }
-
     private void EngineerList_click(object sender, RoutedEventArgs e)
     {
         new Engineer.EngineerListWindow().Show();
