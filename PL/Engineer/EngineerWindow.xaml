@@ -7,8 +7,17 @@
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="300"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
-    
+
+
     <Grid>
+
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#bec4c2" Offset="0" />
+                <GradientStop Color="#e1e6e4" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
