@@ -66,15 +66,15 @@ public partial class EngineerListWindow : Window
         new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
         UpdateListView();
     }
-}
 
-/// <summary>
-/// Updates the ListView based on the selected experience level
-/// </summary>
-void UpdateListView()
-{
-    EngineerList = (experience == BO.EngineerExperience.None) ?
-        s_bl?.Engineer.ReadAll()!.OrderBy(item => item.Name)! :
-        s_bl?.Engineer.ReadAll(item => item.Level == experience)!.OrderBy(item => item.Name)!;
-}
+
+    /// <summary>
+    /// Updates the ListView based on the selected experience level
+    /// </summary>
+    void UpdateListView()
+    {
+        EngineerList = (experience == BO.EngineerExperience.None) ?
+            s_bl?.Engineer.ReadAll()!.OrderBy(item => item.Name)! :
+            s_bl?.Engineer.ReadAll(item => item.Level == experience)!.OrderBy(item => item.Name)!;
     }
+}
