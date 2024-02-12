@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="300"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
+    
     <Grid>
 
         <Grid.RowDefinitions>
@@ -14,7 +15,7 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="20, 20">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -26,31 +27,29 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-            <Label Content="ID:" HorizontalAlignment="Left" Grid.Row = "0" Grid.Column="0"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"/>
+            <Label Content="ID:" HorizontalAlignment="Left" Grid.Row = "0" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
 
-            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row = "1" Grid.Column="0"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=True}"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row = "1" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
-            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row = "2" Grid.Column="0"/>
-            <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=True}"/>
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row = "2" Grid.Column="0" Margin="10"/>
+            <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
-            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row = "3" Grid.Column="0"/>
+            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row = "3" Grid.Column="0" Margin="10"/>
             <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                 SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
-                ValidatesOnExceptions=true}"/>
+                ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
 
-            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row = "4" Grid.Column="0"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}"/>
+            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row = "4" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
-            <!--<Label Content="Task:" HorizontalAlignment="Left" Grid.Row = "5" Grid.Column="0"/>
-            <TextBox  Grid.Row="5" Grid.Column="1"/>-->
         </Grid>
 
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddUpdate_Click"/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddUpdate_Click" Margin="30 ,10"/>
     </Grid>
 </Window>

@@ -7,10 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button Content="Handle Engineers" HorizontalAlignment="Left" Click="EngineerList_click" Margin="10,306,0,53" Height="75" Width="100" Panel.ZIndex="2"/>
-        <Button Content="Initialize DataBase" HorizontalAlignment="Right" Margin="0,306,518,53" Click="Initialization_click" Height="75" Width="100" Panel.ZIndex="2"/>
-        <Image HorizontalAlignment="Left"  VerticalAlignment="Top" Width="800" Height="450" Source="/mainWindow.jpg" Panel.ZIndex="0"/>
-        <Rectangle Height="350" Width="300" HorizontalAlignment="Left" VerticalAlignment="Center"  Panel.ZIndex="1" Fill="#A9A57C"></Rectangle>
-        <TextBlock Panel.ZIndex="12" Height="100" Margin="10,61,454,273" FontFamily="Vladimir Script" FontSize="28" FontWeight="Bold" FontStyle="Italic" ><Run Text="Projects"/><LineBreak/><Run Text="    Managment"/><LineBreak/><Run/></TextBlock>
+        <Grid.Background>
+            <ImageBrush ImageSource="/mainWindow.jpg" Opacity="0.3" />
+        </Grid.Background>
+
+        <Grid Height="350" Width="300" HorizontalAlignment="Left" VerticalAlignment="Center" Background="#A9A57C">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Margin="20, 0" Grid.Row="1" Content="Handle Engineers" HorizontalAlignment="Left" Click="EngineerList_click" Height="75" Width="100"/>
+            <Button Margin="20, 0" Grid.Row="1" Content="Initialize DataBase" HorizontalAlignment="Right"  Click="Initialization_click" Height="75" Width="100"/>
+            <TextBlock HorizontalAlignment="Center" Grid.Row="0" Height="100" FontFamily="Vladimir Script" FontSize="28" FontWeight="Bold" FontStyle="Italic" ><Run Text="Projects"/><LineBreak/><Run Text="    Managment"/><LineBreak/><Run/></TextBlock>
+        </Grid>
     </Grid>
 </Window>
