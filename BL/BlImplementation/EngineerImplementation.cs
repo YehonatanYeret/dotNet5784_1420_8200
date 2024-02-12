@@ -193,7 +193,8 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLValueIsNotCorrectException($"Engineer cost cannot be negative: {engineer.Cost}");
 
         //check if the email is valid
-        if(!new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(engineer.Email))
+        var mail = new System.ComponentModel.DataAnnotations.EmailAddressAttribute();
+        if ( engineer.Email is null || !mail.IsValid(engineer.Email))
             throw new BO.BLValueIsNotCorrectException($"Engineer email is not valid: {engineer.Email}");
     }
 

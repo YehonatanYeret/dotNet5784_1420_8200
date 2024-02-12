@@ -11,8 +11,8 @@
             <ImageBrush ImageSource="/mainWindow.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <TextBlock Panel.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="119" FontFamily="Impact" FontSize="46" FontWeight="Bold" FontStyle="Italic" Margin="0,31,0,0" Width="323"><Run Text="Project "/><LineBreak/><Run Text="   Managment"/></TextBlock>
-        <Grid Width="280" Height="150" Panel.ZIndex="1" VerticalAlignment="Bottom" Margin="250,0,0,0" >
+        <TextBlock Panel.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="119" FontFamily="Impact" FontSize="46" FontWeight="Bold" FontStyle="Italic" Margin="0,31,0,0" Width="324"><Run Text="Project "/><LineBreak/><Run Text="   Managment"/></TextBlock>
+        <Grid Height="150" Panel.ZIndex="1" VerticalAlignment="Bottom" Margin="385,0,135,0">
             <Button Content="Handle Engineers" Click="EngineerList_click"  Height="75" Width="130" HorizontalAlignment="Left"/>
             <Button Content="Initialize DataBase" Click="Initialization_click" Height="75" Width="130" HorizontalAlignment="Right"/>
         </Grid>

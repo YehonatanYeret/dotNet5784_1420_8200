@@ -8,7 +8,7 @@
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--Extrnal Grid-->
-    <Grid>
+    <Grid Background="#FF9ABECA">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -18,11 +18,11 @@
         <!--Internal, Upper Grid-->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" HorizontalAlignment="Stretch"  VerticalAlignment="Center" Content="Selected level for engineer:"/>
+            <Label Grid.Column="0" HorizontalAlignment="Stretch" Content="Selected level for engineer:" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                       ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}"
                       SelectedValue="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
@@ -30,6 +30,12 @@
 
         <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" 
                   MouseDoubleClick="UpdateListView_DoubleClick">
+            <ListView.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFC9C9C9" Offset="0"/>
+                    <GradientStop Color="#FFA0DCE8" Offset="1"/>
+                </LinearGradientBrush>
+            </ListView.Background>
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

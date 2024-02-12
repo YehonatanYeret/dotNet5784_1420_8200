@@ -49,13 +49,20 @@ public partial class EngineerListWindow : Window
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
         BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-        new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
-        UpdateListView();
+        try
+        {
+            new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
+            UpdateListView();
+
+        }
+        catch
+        {
+        }
     }
     void UpdateListView()
     {
         EngineerList = (experience == BO.EngineerExperience.None) ?
-            s_bl?.Engineer.ReadAll()!.OrderBy(item=> item.Name)! :
+            s_bl?.Engineer.ReadAll()!.OrderBy(item => item.Name)! :
             s_bl?.Engineer.ReadAll(item => item.Level == experience)!.OrderBy(item => item.Name)!;
     }
 }
