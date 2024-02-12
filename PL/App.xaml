@@ -1,13 +1,24 @@
-﻿<Application x:Class="PL.App"
+﻿<!-- App.xaml -->
+
+<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
+
+    <!-- Application Resources -->
     <Application.Resources>
+
+        <!-- Resource for Engineer Collection -->
         <local:EngineerCollection x:Key="EngineerCollectionKey" />
+
+        <!-- Resource for Converting Engineer ID to Content for Buttons -->
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
+
+        <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
         <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
+        <!-- Style for Buttons -->
         <Style TargetType="Button">
             <Setter Property="Background" Value="#A9A57C"/>
             <Setter Property="Foreground" Value="#374016"/>
@@ -41,6 +52,7 @@
             </Style.Triggers>
         </Style>
 
+        <!-- Style for ComboBoxes -->
         <Style TargetType="ComboBox">
             <Setter Property="FontSize" Value="11"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -51,6 +63,7 @@
             <Setter Property="FontStretch" Value="Normal"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
 
+            <!-- ItemTemplate for ComboBox items -->
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
