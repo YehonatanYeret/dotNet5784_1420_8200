@@ -8,7 +8,7 @@
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
         <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
-        <Style TargetType="Button">
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#A9A57C"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="1"/>
@@ -38,44 +38,6 @@
                     <Setter Property="Background" Value="#6D6346"/>
                 </Trigger>
             </Style.Triggers>
-        </Style>
-
-        <Style TargetType="Label">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontFamily" Value="Consolas"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-
-        <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Padding" Value="10"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#A9A57C"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="Black"/>
-        </Style>
-
-        <Style TargetType="ComboBox">
-            <Setter Property="FontSize" Value="11"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Padding" Value="6"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#A9A57C"/>
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontStretch" Value="Normal"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-
-            <Setter Property="ItemTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" Foreground="Black"/>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
         </Style>
 
     </Application.Resources>
