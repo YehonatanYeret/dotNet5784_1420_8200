@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <!--Extrnal Grid-->
+    <!-- External Grid -->
     <Grid Background="#FF9ABECA">
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
@@ -15,7 +15,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--Internal, Upper Grid-->
+        <!-- Internal, Upper Grid -->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -28,6 +28,7 @@
                       SelectedItem="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
         </Grid>
 
+        <!-- ListView to display EngineerList -->
         <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" 
                   MouseDoubleClick="UpdateListView_DoubleClick">
             <ListView.Background>
@@ -36,14 +37,16 @@
                     <GradientStop Color="#FFA0DCE8" Offset="1"/>
                 </LinearGradientBrush>
             </ListView.Background>
+            <!-- Define the ListView View -->
             <ListView.View>
                 <GridView>
+                    <!-- Define the columns of the GridView -->
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
 
+        <!-- Button to add a new engineer -->
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick"/>
-
     </Grid>
 </Window>
