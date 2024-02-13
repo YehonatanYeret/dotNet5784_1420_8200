@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PL.Engineer;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,26 +12,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL.Messeges
 {
     /// <summary>
-    /// Interaction logic for IdInput.xaml
+    /// Interaction logic for EnterIdMessege.xaml
     /// </summary>
-    public partial class IdInput : UserControl
+    public partial class EnterIdMessege : Window
     {
-        public IdInput()
+        public string? AnswerId { get; set; }
+
+        public EnterIdMessege()
         {
             InitializeComponent();
-            this.DataContext = this;
         }
 
-
-        public string Title { get; set; }
-
-        public int MaxLength { get; set; }
-
+        private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DialogResult = true;
+        }
     }
 }

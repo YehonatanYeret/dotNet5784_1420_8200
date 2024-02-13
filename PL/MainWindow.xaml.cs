@@ -7,6 +7,9 @@ namespace PL;
 /// </summary>
 public partial class MainWindow : Window
 {
+    // Get the business logic instance
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
     /// <summary>
     /// Constructor for the MainWindow class.
     /// Initializes the main window and its components.
@@ -32,11 +35,6 @@ public partial class MainWindow : Window
     //    }
     //}
 
-    private void Button_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
         new Manager.ManagerWindow().Show();
@@ -44,6 +42,22 @@ public partial class MainWindow : Window
 
     private void Button_Click_2(object sender, RoutedEventArgs e)
     {
-        new Engineer.ShowEngineer().Show();
+        var dialogBox = new Messeges.EnterIdMessege();
+        if (dialogBox.ShowDialog() == true)
+        {
+            try
+            {
+                if (!int.TryParse(dialogBox.AnswerId, out int id))
+                    throw new BO.BLValueIsNotCorrectException("You didn't entered proper Id");
+                BO.Engineer engineer = s_bl.Engineer.Read(id);
+                 new Engineer.ShowEngineer(engineer).Show();
+            }
+            catch
+            {
+                MessageBox.Show("You didnt enterd a proper id", "Unknown error occurred",
+    MessageBoxButton.OK,
+    MessageBoxImage.Error);
+            }
+        }
     }
 }

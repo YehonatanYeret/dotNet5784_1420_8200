@@ -36,8 +36,9 @@
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1" Margin="40">
-
-                <Button Content="Reset data" Grid.Column="0" Margin="30" Height="40" Width="150"/>
+                
+                <Button Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
+                <Button Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
 
             </Grid>
 

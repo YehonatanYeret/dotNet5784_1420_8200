@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
+        DataContext="{Binding Engineer, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
         Title="ShowEngineer" Height="450" Width="300">
     <Grid>
 
@@ -24,16 +25,13 @@
         </Grid.RowDefinitions>
 
         <Grid>
-            <Label Content="{}">
-            </Label>
-            <TextBlock />
+            <TextBlock Text="{Binding Name}"/>
         </Grid>
         <!-- Sub-Grid for Engineer Details -->
         <Grid Grid.Row="1" Margin="20, 20">
 
             <!-- Define Rows -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -50,26 +48,23 @@
 
             <!-- Engineer ID -->
             <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
-
-            <!-- Engineer Name -->
-            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Id}"/>
 
             <!-- Engineer Email -->
-            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Email}"/>
 
             <!-- Engineer Level -->
-            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Level}"/>
             <!-- Engineer Cost -->
-            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Cost}"/>
             
             <Label Content="Task:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="5" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
-            <Button Grid.Row="5" Grid.Column="1" Content="Set task" Height="30"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Task}"
+                       IsEnabled="{Binding Task, Converter={StaticResource ConvertTaskToBooleanKey}}"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="Set task" Height="30"/>
         </Grid>
         <Button  Height="30" Grid.RowSpan="3" VerticalAlignment="Bottom" Margin="30 ,10" Content="Update Engineer" Click="Button_Click"/>
     </Grid>

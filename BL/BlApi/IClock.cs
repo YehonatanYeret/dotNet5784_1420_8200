@@ -31,6 +31,8 @@
         /// <returns>A nullable DateTime representing the end project date.</returns>
         public DateTime? GetEndProject();
 
+        public void Reset();
+
         /// <summary>
         /// Gets the status of the project based on the current date and project dates.
         /// </summary>
