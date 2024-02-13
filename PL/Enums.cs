@@ -18,3 +18,16 @@ internal class EngineerCollection : IEnumerable
     /// <returns>An enumerator for EngineerExperience values.</returns>
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
+
+internal class TaskCollection : IEnumerable
+{
+    // Collection of EngineerExperience values
+    static readonly IEnumerable<BO.Status> s_enums =
+        (Enum.GetValues(typeof(BO.Status)) as IEnumerable<BO.Status>)!;
+
+    /// <summary>
+    /// Returns an enumerator that iterates through the Status values.
+    /// </summary>
+    /// <returns>An enumerator for Status values.</returns>
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+}

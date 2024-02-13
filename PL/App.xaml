@@ -12,6 +12,9 @@
         <!-- Resource for Engineer Collection -->
         <local:EngineerCollection x:Key="EngineerCollectionKey" />
 
+        <!-- Resource for Task Collection -->
+        <local:TaskCollection x:Key="TaskCollectionKey" />
+
         <!-- Resource for Converting Engineer ID to Content for Buttons -->
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
 

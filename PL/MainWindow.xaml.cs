@@ -39,7 +39,7 @@ public partial class MainWindow : Window
 
     private void Button_Click_1(object sender, RoutedEventArgs e)
     {
-        //new Manager.ManagerWindow().Show();
+        new Manager.ManagerWindow().Show();
     }
 
     private void Button_Click_2(object sender, RoutedEventArgs e)
