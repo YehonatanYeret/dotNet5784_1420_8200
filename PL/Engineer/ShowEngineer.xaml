@@ -1,0 +1,76 @@
+﻿<Window x:Class="PL.Engineer.ShowEngineer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Engineer"
+        mc:Ignorable="d"
+        Title="ShowEngineer" Height="450" Width="300">
+    <Grid>
+
+        <!-- Set the background gradient -->
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#bec4c2" Offset="0" />
+                <GradientStop Color="#e1e6e4" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Define Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Label Content="{}">
+            </Label>
+            <TextBlock />
+        </Grid>
+        <!-- Sub-Grid for Engineer Details -->
+        <Grid Grid.Row="1" Margin="20, 20">
+
+            <!-- Define Rows -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <!--<RowDefinition Height="*"/>-->
+            </Grid.RowDefinitions>
+
+            <!-- Define Columns -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Engineer ID -->
+            <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+
+            <!-- Engineer Name -->
+            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+
+            <!-- Engineer Email -->
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+
+            <!-- Engineer Level -->
+            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            <!-- Engineer Cost -->
+            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            
+            <Label Content="Task:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" Margin="2,10" TextAlignment="Center"/>
+            <Button Grid.Row="5" Grid.Column="1" Content="Set task" Height="30"/>
+        </Grid>
+        <Button  Height="30" Grid.RowSpan="3" VerticalAlignment="Bottom" Margin="30 ,10" Content="Update Engineer" Click="Button_Click"/>
+    </Grid>
+</Window>

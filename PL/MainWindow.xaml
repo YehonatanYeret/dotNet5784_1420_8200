@@ -29,9 +29,11 @@
         <!-- Grid containing buttons -->
         <Grid Panel.ZIndex="1" VerticalAlignment="Bottom" Margin="400,0,20,90">
             <!-- Button for handling engineers -->
-            <Button Height="50" Width="165" Content="Handle Engineers" Click="EngineerList_click" HorizontalAlignment="Left"/>
+            <!--<Button Height="50" Width="165" Content="Handle Engineers" Click="EngineerList_click" HorizontalAlignment="Left"/>-->
+            <Button Height="50" Width="165" Content="Engineer" HorizontalAlignment="Left" Click="Button_Click_2"/>
             <!-- Button for initializing the database -->
-            <Button Height="50" Width="165" Content="Initialize DataBase" Click="Initialization_click" HorizontalAlignment="Right"/>
+            <!--<Button Height="50" Width="165" Content="Initialize DataBase" Click="Initialization_click" HorizontalAlignment="Right"/>-->
+            <Button Height="50" Width="165" Content="Manager"  HorizontalAlignment="Right" Click="Button_Click_1"/>
         </Grid>
     </Grid>
 </Window>
