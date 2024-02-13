@@ -74,4 +74,6 @@ public interface ITask
     /// <param name="status">The new status for the task.</param>
     /// <returns>The new status of the task.</returns>
     public BO.Status ChangeStatusOfTask(int id);
+
+    public void Reset();
 }

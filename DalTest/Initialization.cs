@@ -123,7 +123,7 @@ public static class Initialization
 
             int cost = s_rand.Next(MINCOST, MAXCOST + 1); // Random cost from 10000 to 20000
             string email = fName + emails[s_rand.Next(emails.Length)]; // Random email
-            EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5); // Random engineer experience
+            EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5)+1; // Random engineer experience
 
             // Create new engineer and add to the database
             s_dal!.Engineer.Create(new Engineer

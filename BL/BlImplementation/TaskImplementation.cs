@@ -354,4 +354,10 @@ internal class TaskImplementation : BlApi.ITask
         //the task has started and completed
         else return BO.Status.Done;
     }
+
+    public void Reset()
+    {
+        _dal.Task.DeleteAll();
+        _dal.Dependency.DeleteAll();
+    }
 }

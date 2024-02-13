@@ -50,4 +50,6 @@ public interface IEngineer
     /// </summary>
     /// <param name="engineerId">The id of the engineer</param>
     public void RemoveTaskFromEngineer(int engineerId);
+
+    public void Reset();
 }

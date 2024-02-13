@@ -246,4 +246,6 @@ internal class EngineerImplementation : IEngineer
         if(task is not null)
             _dal.Task.Update(task with { EngineerId = null });
     }
+
+    public void Reset()=> _dal.Engineer.DeleteAll();
 }

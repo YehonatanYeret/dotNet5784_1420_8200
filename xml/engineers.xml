@@ -1,52 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Engineer>
-    <Id>216562040</Id>
-    <Cost>10013</Cost>
+    <Id>269992482</Id>
+    <Cost>56071</Cost>
     <Name>Adam Chohen</Name>
-    <Email>Adam@walla.com</Email>
-    <Level>AdvancedBeginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>205228783</Id>
-    <Cost>13005</Cost>
-    <Name>Alex Charcov</Name>
-    <Email>Alex@outlook.com</Email>
-    <Level>Expert</Level>
-  </Engineer>
-  <Engineer>
-    <Id>202606626</Id>
-    <Cost>30265</Cost>
-    <Name>Aaron Israeli</Name>
-    <Email>Aaron@yahoo.com</Email>
-    <Level>Beginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>352641731</Id>
-    <Cost>16115</Cost>
-    <Name>Ben Baruch</Name>
-    <Email>Ben@outlook.com</Email>
-    <Level>Beginner</Level>
-  </Engineer>
-  <Engineer>
-    <Id>334935877</Id>
-    <Cost>25039</Cost>
-    <Name>David Levi</Name>
-    <Email>David@hotmail.com</Email>
-    <Level>Expert</Level>
-  </Engineer>
-  <Engineer>
-    <Id>267038464</Id>
-    <Cost>43605</Cost>
-    <Name>Asaf Bir</Name>
-    <Email>Asaf@outlook.com</Email>
+    <Email>Adam@outlook.com</Email>
     <Level>Advanced</Level>
   </Engineer>
   <Engineer>
-    <Id>12</Id>
-    <Cost>2</Cost>
-    <Name>asdfas</Name>
-    <Email>ffff@ gtjgf</Email>
-    <Level>AdvancedBeginner</Level>
+    <Id>315286193</Id>
+    <Cost>16767</Cost>
+    <Name>Alex Charcov</Name>
+    <Email>Alex@walla.com</Email>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>240677133</Id>
+    <Cost>45184</Cost>
+    <Name>Aaron Israeli</Name>
+    <Email>Aaron@gmail.com</Email>
+    <Level>Advanced</Level>
+  </Engineer>
+  <Engineer>
+    <Id>273139274</Id>
+    <Cost>57453</Cost>
+    <Name>Ben Baruch</Name>
+    <Email>Ben@outlook.com</Email>
+    <Level>Expert</Level>
+  </Engineer>
+  <Engineer>
+    <Id>307018353</Id>
+    <Cost>41639</Cost>
+    <Name>David Levi</Name>
+    <Email>David@outlook.com</Email>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>300723029</Id>
+    <Cost>58411</Cost>
+    <Name>Asaf Bir</Name>
+    <Email>Asaf@gmail.com</Email>
+    <Level>Expert</Level>
   </Engineer>
 </ArrayOfEngineer>
