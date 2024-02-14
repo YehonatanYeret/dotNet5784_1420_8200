@@ -19,4 +19,16 @@ public interface IBl
     /// Gets an instance of the IClock interface for accessing clock-related functionalities.
     /// </summary>
     public IClock Clock { get; }
+
+    /// <summary>
+    /// initialize the db
+    /// </summary>
+    public void InitializeDB();
+
+    /// <summary>
+    /// delete all the db
+    /// </summary>
+    public void ResetDB();
+
+
 }

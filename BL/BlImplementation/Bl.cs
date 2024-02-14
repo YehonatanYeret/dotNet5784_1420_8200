@@ -21,5 +21,15 @@
         /// Gets an instance of the Clock interface.
         /// </summary>
         public IClock Clock => new ClockImplementation();
+
+        /// <summary>
+        /// initialize the  db
+        /// </summary>
+        public void InitializeDB() => DalTest.Initialization.Do();
+
+        /// <summary>
+        /// delete all the db
+        /// </summary>
+        public void ResetDB()=>DalTest.Initialization.Reset();
     }
 }

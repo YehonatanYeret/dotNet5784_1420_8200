@@ -29,9 +29,7 @@ public partial class ManagerWindow : Window
     {
         if (MessageBoxResult.Yes == MessageBox.Show("Do you want to reset all the data?", "Initialization", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
         {
-            s_bl.Engineer.Reset();
-            s_bl.Task.Reset();
-            s_bl.Clock.Reset();
+            s_bl.ResetDB();
         }
 
     }
@@ -40,7 +38,7 @@ public partial class ManagerWindow : Window
     {
         if (MessageBoxResult.Yes == MessageBox.Show("Do you want to initialization the data?", "Initialization", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
         {
-            DalTest.Initialization.Do();
+            s_bl.InitializeDB();
         }
     }
 }

@@ -185,19 +185,20 @@ public static class Initialization
         s_dal = Factory.Get ?? throw new NullReferenceException("DAL object cannot be null");
 
         //reset the database:
-
-        s_dal.Dependency.DeleteAll(); // Delete all dependencies
-
-        s_dal.Engineer.DeleteAll(); // Delete all engineers
-
-        s_dal.Task.DeleteAll(); // Delete all tasks
-
-        s_dal.Clock.resetTimeLine(); // Reset the timeline
-
+        Reset();
 
         // Create tasks, engineers, and dependencies
         CreateTasks();
         CreateEngineers();
         CreateDependencies();
+    }    
+    public static void Reset()
+    {
+        s_dal = Factory.Get ?? throw new NullReferenceException("DAL object cannot be null");
+
+        s_dal.Dependency.DeleteAll(); // Delete all dependencies
+        s_dal.Engineer.DeleteAll(); // Delete all engineers
+        s_dal.Task.DeleteAll(); // Delete all tasks
+        s_dal.Clock.resetTimeLine(); // Reset the timeline
     }
 }
