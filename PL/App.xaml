@@ -83,5 +83,29 @@
             </Setter>
         </Style>
 
+
+        <Style TargetType="GridViewColumnHeader" >
+            <Setter Property="Background" Value="#FF9ABECA"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+
+        <Style TargetType="ListViewItem" >
+
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#374016"/>
+            <Setter Property="BorderThickness" Value="0 0 0 1"/>
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="0,2,0,2" />
+            <Setter Property="FontWeight" Value="DemiBold"/>
+
+            <Style.Triggers >
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="#F5F5F5"/>
+                </Trigger>
+            </Style.Triggers>
+
+        </Style>
+        
     </Application.Resources>
 </Application>

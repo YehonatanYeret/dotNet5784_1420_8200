@@ -12,8 +12,7 @@ internal class TaskImplementation : BlApi.ITask
     public int Create(BO.Task task)
     {
         CheckTask(task);
-        // Create dependencies if they exist
-        task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
+
         // Create the task in the data access layer
         int id = _dal.Task.Create(new DO.Task()
         {
@@ -32,6 +31,8 @@ internal class TaskImplementation : BlApi.ITask
             EngineerId = task.Engineer?.Id,
             Complexity = (DO.EngineerExperience?)task.Complexity,
         });
+        // Create dependencies if they exist
+        task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, id, dep.Id)));
         return id;
     }
 

@@ -25,20 +25,58 @@
             <Label Grid.Column="0" Content="Selected level for engineer:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
             <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
                       ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}"
-                      SelectedItem="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
+                      SelectedItem="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"
+                      />
         </Grid>
 
         <!-- ListView to display EngineerList -->
         <ListView Grid.Row="1" ItemsSource="{Binding EngineerList}" 
-                  MouseDoubleClick="UpdateListView_DoubleClick">
-            <ListView.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFC9C9C9" Offset="0"/>
-                    <GradientStop Color="#FFA0DCE8" Offset="1"/>
-                </LinearGradientBrush>
-            </ListView.Background>
-            <!-- Define the ListView View -->
+                  MouseDoubleClick="UpdateListView_DoubleClick" Background="#66FFFFFF">
 
+            <ListView.View>
+                <GridView >
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Email}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Level" DisplayMemberBinding="{Binding Level}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Level}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Cost" DisplayMemberBinding="{Binding Cost}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Cost}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
         </ListView>
 
         <!-- Button to add a new engineer -->

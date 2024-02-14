@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <Grid>
-            <TextBlock Text="{Binding Name}"/>
+            <TextBlock Text="{Binding Name, Mode=TwoWay}"/>
         </Grid>
         <!-- Sub-Grid for Engineer Details -->
         <Grid Grid.Row="1" Margin="20, 20">
@@ -48,21 +48,21 @@
 
             <!-- Engineer ID -->
             <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Id}"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Id, Mode=TwoWay}"/>
 
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Email}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Email, Mode=TwoWay}"/>
 
             <!-- Engineer Level -->
             <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Level}"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Level, Mode=TwoWay}"/>
             <!-- Engineer Cost -->
             <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="3" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Cost}"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Cost, Mode=TwoWay}"/>
             
             <Label Content="Task:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Task}"
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text=""
                        IsEnabled="{Binding Task, Converter={StaticResource ConvertTaskToBooleanKey}}"/>
             <Button Grid.Row="4" Grid.Column="1" Content="Set task" Height="30"/>
         </Grid>

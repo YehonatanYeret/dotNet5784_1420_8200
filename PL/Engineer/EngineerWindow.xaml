@@ -9,6 +9,7 @@
          xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="450" Width="300"
+        ResizeMode="NoResize"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
 
     <!-- Main Grid -->

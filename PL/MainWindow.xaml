@@ -12,7 +12,8 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        MaxHeight="450" MaxWidth="800">
+        MaxHeight="450" MaxWidth="800"
+        ResizeMode="NoResize">
 
     <Grid>
         <!-- Set the background image -->

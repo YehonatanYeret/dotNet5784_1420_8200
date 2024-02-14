@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Messeges"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
         Title="EnterIdMessege" Height="100" Width="200">
     <Grid>

@@ -63,8 +63,11 @@ public partial class TaskListWindow : Window
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
         BO.TaskInList? taskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
-        new Task.TaskWindow(taskInList!.Id).ShowDialog();
-        UpdateListView();
+        if (taskInList != null)
+        {
+            new Task.TaskWindow(taskInList!.Id).ShowDialog();
+            UpdateListView();
+        }
     }
 
 

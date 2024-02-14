@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL.Engineer
@@ -43,7 +44,11 @@ namespace PL.Engineer
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            //stupid code that can be better
             new Engineer.EngineerWindow(Engineer.Id).ShowDialog();
+            Engineer = s_bl.Engineer.Read(Engineer.Id);
+            new Engineer.ShowEngineer(Engineer).Show();
+            Close();
         }
     }
 }

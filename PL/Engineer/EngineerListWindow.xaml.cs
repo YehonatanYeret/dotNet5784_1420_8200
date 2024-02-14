@@ -63,8 +63,11 @@ public partial class EngineerListWindow : Window
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
         BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-        new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
-        UpdateListView();
+        if (EngineerInList != null)
+        {
+            new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
+            UpdateListView();
+        }
     }
 
 

@@ -32,13 +32,41 @@
         <!-- ListView to display EngineerList -->
         <ListView Grid.Row="1" ItemsSource="{Binding TaskList}" 
                   MouseDoubleClick="UpdateListView_DoubleClick">
-            <ListView.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFC9C9C9" Offset="0"/>
-                    <GradientStop Color="#FFA0DCE8" Offset="1"/>
-                </LinearGradientBrush>
-            </ListView.Background>
-            <!-- Define the ListView View -->
+            <ListView.View>
+                <GridView >
+                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
+                    <GridViewColumn.CellTemplate >
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Id}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Description}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Alias}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+
+                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}">
+                    <GridViewColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Status}"/>
+                        </DataTemplate>
+                    </GridViewColumn.CellTemplate>
+                </GridViewColumn>
+            </GridView>
+            </ListView.View>
 
         </ListView>
 
