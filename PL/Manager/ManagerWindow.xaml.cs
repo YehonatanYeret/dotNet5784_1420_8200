@@ -41,4 +41,9 @@ public partial class ManagerWindow : Window
             s_bl.InitializeDB();
         }
     }
+
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        new GantWindow().Show();
+    }
 }

@@ -31,7 +31,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Content="Gant" Grid.Column="0" Margin="30" Height="40"/>
+                <Button Content="Gant" Grid.Column="0" Margin="30" Height="40" Click="Button_Click"/>
                 
 
             </Grid>

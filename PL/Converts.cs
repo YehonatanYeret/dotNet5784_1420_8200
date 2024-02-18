@@ -2,6 +2,7 @@
 
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 /// <summary>
@@ -78,6 +79,38 @@ internal class ConvertTaskToBoolean : IValueConverter
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return (value is not null)? "visible" : "hidden";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// conver
+/// </summary>
+internal class ConvertEffortTimeToWidth : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return ((TimeSpan)value).TotalMinutes/100;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// conver
+/// </summary>
+internal class ConvertStartDateToMargin : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return new Thickness((((DateTime)value)-(DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalMinutes /100, 0, 0, 0);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -11,101 +11,107 @@
         <ResourceDictionary>
 
             <!-- Resource for Engineer Collection -->
-        <local:EngineerCollection x:Key="EngineerCollectionKey" />
+            <local:EngineerCollection x:Key="EngineerCollectionKey" />
 
-        <!-- Resource for Task Collection -->
-        <local:TaskCollection x:Key="TaskCollectionKey" />
+            <!-- Resource for Task Collection -->
+            <local:TaskCollection x:Key="TaskCollectionKey" />
 
-        <!-- Resource for Converting Engineer ID to Content for Buttons -->
-        <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
+            <!-- Resource for Converting Engineer ID to Content for Buttons -->
+            <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
 
-        <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
-        <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
+            <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
+            <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
-        <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
-        <local:ConvertTaskToBoolean x:Key="ConvertTaskToBooleanKey"/>
+            <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
+            <local:ConvertTaskToBoolean x:Key="ConvertTaskToBooleanKey"/>
 
-        <!--Style for Buttons-->
-        <Style TargetType="Button">
-            <Setter Property="Background" Value="#A9A57C"/>
-            <Setter Property="Foreground" Value="#374016"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#A9A57C"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
+            <!-- Resource for Converting effortTime in task to number for the Gant -->
+            <local:ConvertEffortTimeToWidth x:Key="ConvertEffortTimeToWidthKey"/> 
+            
+            <!-- Resource for Converting effortTime in task to number for the Gant -->
+            <local:ConvertStartDateToMargin x:Key="ConvertStartDateToMarginKey"/>
+
+            <!--Style for Buttons-->
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="#A9A57C"/>
+                <Setter Property="Foreground" Value="#374016"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#A9A57C"/>
+                <Setter Property="Padding" Value="3"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center"
+                                <ContentPresenter HorizontalAlignment="Center"
                                               VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#877E58"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#6D6346"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#877E58"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#6D6346"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
 
-        <!--Style for ComboBoxes-->
-        <Style TargetType="ComboBox">
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="Padding" Value="6"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#A9A57C"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontStretch" Value="Normal"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <!--Style for ComboBoxes-->
+            <Style TargetType="ComboBox">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Padding" Value="6"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="BorderBrush" Value="#A9A57C"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontStretch" Value="Normal"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
 
-            <!--ItemTemplate for ComboBox items-->
-            <Setter Property="ItemTemplate">
-                <Setter.Value>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding}" Foreground="#374016"/>
-                    </DataTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-        <Style TargetType="GridViewColumnHeader" >
-            <Setter Property="Background" Value="#FF9ABECA"/>
-            <Setter Property="Foreground" Value="White"/>
-        </Style>
+                <!--ItemTemplate for ComboBox items-->
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" Foreground="#374016"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
 
-        <Style TargetType="ListViewItem" >
+            <Style TargetType="GridViewColumnHeader" >
+                <Setter Property="Background" Value="#FF9ABECA"/>
+                <Setter Property="Foreground" Value="White"/>
+            </Style>
 
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#374016"/>
-            <Setter Property="BorderThickness" Value="0 0 0 1"/>
-            <Setter Property="Height" Value="30" />
-            <Setter Property="Margin" Value="0,2,0,2" />
-            <Setter Property="FontWeight" Value="DemiBold"/>
 
-            <Style.Triggers >
-                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                    <Setter Property="Background" Value="#F5F5F5"/>
-                </Trigger>
-            </Style.Triggers>
+            <Style TargetType="ListViewItem" >
 
-        </Style>
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="#374016"/>
+                <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                <Setter Property="Height" Value="30" />
+                <Setter Property="Margin" Value="0,2,0,2" />
+                <Setter Property="FontWeight" Value="DemiBold"/>
+
+                <Style.Triggers >
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter Property="Background" Value="#F5F5F5"/>
+                    </Trigger>
+                </Style.Triggers>
+
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

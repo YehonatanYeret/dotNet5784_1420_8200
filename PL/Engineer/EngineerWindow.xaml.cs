@@ -45,9 +45,19 @@ public partial class EngineerWindow : Window
         {
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
+            {
                 s_bl.Engineer.Create(CurrentEngineer);
+                MessageBox.Show("the the engineer created successfully", "operation succeed",
+    MessageBoxButton.OK,
+    MessageBoxImage.Information);
+            }
             else
+            {
                 s_bl.Engineer.Update(CurrentEngineer);
+                MessageBox.Show("the the engineer updated successfully", "operation succeed",
+    MessageBoxButton.OK,
+    MessageBoxImage.Information);
+            }
 
             // Close the window after successful operation
             Close();
