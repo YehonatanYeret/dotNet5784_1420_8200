@@ -247,5 +247,8 @@ internal class EngineerImplementation : IEngineer
             _dal.Task.Update(task with { EngineerId = null });
     }
 
+    /// <summary>
+    /// delete all the engineers
+    /// </summary>
     public void Reset()=> _dal.Engineer.DeleteAll();
 }

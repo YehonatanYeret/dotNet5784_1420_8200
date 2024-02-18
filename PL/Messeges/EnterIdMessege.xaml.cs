@@ -1,36 +1,21 @@
-﻿using PL.Engineer;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace PL.Messeges;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
-namespace PL.Messeges
+/// <summary>
+/// Interaction logic for EnterIdMessege.xaml
+/// </summary>
+public partial class EnterIdMessege : Window
 {
-    /// <summary>
-    /// Interaction logic for EnterIdMessege.xaml
-    /// </summary>
-    public partial class EnterIdMessege : Window
+    public string? AnswerId { get; set; }
+
+    public EnterIdMessege()
     {
-        public string? AnswerId { get; set; }
+        InitializeComponent();
+    }
 
-        public EnterIdMessege()
-        {
-            InitializeComponent();
-        }
-
-        private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            DialogResult = true;
-        }
+    private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        DialogResult = true;
     }
 }

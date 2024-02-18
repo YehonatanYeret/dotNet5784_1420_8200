@@ -356,6 +356,9 @@ internal class TaskImplementation : BlApi.ITask
         else return BO.Status.Done;
     }
 
+    /// <summary>
+    /// delete all the tasks and dependencies
+    /// </summary>
     public void Reset()
     {
         _dal.Task.DeleteAll();
