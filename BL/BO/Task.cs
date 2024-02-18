@@ -14,20 +14,20 @@
         public int Id { get; init; }
 
         /// <summary>
-        /// Gets or sets the description of the task.
-        /// </summary>
-        /// <remarks>
-        /// The description cannot be null.
-        /// </remarks>
-        public string Description { get; set; }
-
-        /// <summary>
         /// Gets or sets the alias of the task.
         /// </summary>
         /// <remarks>
         /// The alias cannot be null.
         /// </remarks>
         public string Alias { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description of the task.
+        /// </summary>
+        /// <remarks>
+        /// The description cannot be null.
+        /// </remarks>
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the date when the task was added to the system.

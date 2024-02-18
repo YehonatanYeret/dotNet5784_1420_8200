@@ -31,6 +31,9 @@
         /// <returns>A nullable DateTime representing the end project date.</returns>
         public DateTime? GetEndProject();
 
+        /// <summary>
+        /// Resets the project timeline.
+        /// </summary>
         public void Reset();
 
         /// <summary>

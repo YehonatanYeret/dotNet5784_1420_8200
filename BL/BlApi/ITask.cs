@@ -75,5 +75,8 @@ public interface ITask
     /// <returns>The new status of the task.</returns>
     public BO.Status ChangeStatusOfTask(int id);
 
+    /// <summary>
+    /// Reset the task and the dependencies
+    /// </summary>
     public void Reset();
 }

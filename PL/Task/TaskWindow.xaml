@@ -4,9 +4,142 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
+         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="TaskWindow" Height="450" Width="800">
-    <Grid>
-        
+        Title="TaskWindow" Height="450" Width="600"
+        ResizeMode="NoResize"
+        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
+
+    <!-- Main Grid -->
+    <Grid >
+
+        <!-- Set the background gradient -->
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#bec4c2" Offset="0" />
+                <GradientStop Color="#e1e6e4" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Define Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <!-- Sub-Grid for Engineer Details -->
+        <Grid Grid.Row="0" Margin="20, 20">
+
+            <!-- Define Columns -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="20, 0">
+                <!-- Define Rows -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <!--<RowDefinition Height="*"/>-->
+                </Grid.RowDefinitions>
+
+                <!-- Define Columns -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Engineer ID -->
+                <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
+
+                <!-- Engineer Name -->
+                <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+                <!-- Engineer Email -->
+                <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+                <!-- Engineer Level -->
+                <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
+                SelectedValue="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
+                ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
+
+                <Label Content="Status:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
+                SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, 
+                ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
+
+                <!-- Engineer Cost -->
+                <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+
+            </Grid>
+
+            <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
+
+            <Grid Grid.Column="2" Margin="20, 0">
+                <!-- Define Rows -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <!--<RowDefinition Height="*"/>-->
+                </Grid.RowDefinitions>
+
+                <!-- Define Columns -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Engineer ID -->
+                <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
+
+                <!-- Engineer Name -->
+                <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+                <!-- Engineer Email -->
+                <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+                <!-- Engineer Level -->
+                <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
+                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
+                ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
+
+                <!-- Engineer Cost -->
+                <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            
+            
+                
+            </Grid>
+
+        </Grid>
+
+        <!-- Button for Adding or Updating Engineer -->
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddUpdate_Click" Margin="30 ,10"/>
     </Grid>
 </Window>
+
+

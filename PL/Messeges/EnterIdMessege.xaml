@@ -7,16 +7,16 @@
         mc:Ignorable="d"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Self}}"
-        Title="EnterIdMessege" Height="100" Width="200">
+        Title="EnterIdMessege" Height="150" Width="200">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Enter engineer Id to show:" Grid.Row="0" />
-        <TextBox Text="{Binding AnswerId}" Grid.Row="1"/>
-        <Button Content="OK" Click="OKButton_Click" Grid.Row="2"/>
+        <TextBlock Text="Enter engineer Id to show:" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Cambria Math" FontSize="13" HorizontalAlignment="Center"/>
+        <TextBox Text="{Binding AnswerId}" Grid.Row="1" Background="{x:Null}" TextAlignment="Center" VerticalAlignment="Center" Width="180" Height="23" />
+        <Button Content="OK" IsDefault="True" Click="OKButton_Click" Grid.Row="2" Width="150" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 
 </Window>
