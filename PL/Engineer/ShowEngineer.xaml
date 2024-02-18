@@ -25,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <Grid>
-            <TextBlock Text="{Binding Name, Mode=TwoWay}"/>
+            <TextBlock Text="{Binding Name, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
         <!-- Sub-Grid for Engineer Details -->
         <Grid Grid.Row="1" Margin="20, 20">
@@ -63,8 +63,9 @@
             
             <Label Content="Task:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
             <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text=""
-                       IsEnabled="{Binding Task, Converter={StaticResource ConvertTaskToBooleanKey}}"/>
-            <Button Grid.Row="4" Grid.Column="1" Content="Set task" Height="30"/>
+                       Visibility="{Binding Task, Converter={StaticResource ConvertTaskToBooleanKey}}"/>
+            <Button Grid.Row="4" Grid.Column="1" Content="Set task" Height="30"
+                    Visibility="Hidden"/>
         </Grid>
         <Button  Height="30" Grid.RowSpan="3" VerticalAlignment="Bottom" Margin="30 ,10" Content="Update Engineer" Click="Button_Click"/>
     </Grid>

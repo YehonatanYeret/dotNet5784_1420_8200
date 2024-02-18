@@ -77,7 +77,7 @@ internal class ConvertTaskToBoolean : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value is not null;
+        return (value is not null)? "visible" : "hidden";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

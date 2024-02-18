@@ -8,9 +8,9 @@
 
     <!-- Application Resources -->
     <Application.Resources>
+        <ResourceDictionary>
 
-
-        <!-- Resource for Engineer Collection -->
+            <!-- Resource for Engineer Collection -->
         <local:EngineerCollection x:Key="EngineerCollectionKey" />
 
         <!-- Resource for Task Collection -->
@@ -21,11 +21,11 @@
 
         <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
         <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
-        
+
         <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
         <local:ConvertTaskToBoolean x:Key="ConvertTaskToBooleanKey"/>
 
-        <!--Style for Buttons--> 
+        <!--Style for Buttons-->
         <Style TargetType="Button">
             <Setter Property="Background" Value="#A9A57C"/>
             <Setter Property="Foreground" Value="#374016"/>
@@ -59,7 +59,7 @@
             </Style.Triggers>
         </Style>
 
-         <!--Style for ComboBoxes--> 
+        <!--Style for ComboBoxes-->
         <Style TargetType="ComboBox">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontWeight" Value="Bold"/>
@@ -73,7 +73,7 @@
             <Setter Property="FontStretch" Value="Normal"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
 
-             <!--ItemTemplate for ComboBox items--> 
+            <!--ItemTemplate for ComboBox items-->
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>
@@ -106,6 +106,6 @@
             </Style.Triggers>
 
         </Style>
-        
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

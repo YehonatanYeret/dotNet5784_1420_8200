@@ -42,23 +42,23 @@
                     </GridViewColumn.CellTemplate>
                 </GridViewColumn>
 
-                <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap" Text="{Binding Description}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                    <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Alias}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Description}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
-                <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap" Text="{Binding Alias}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
-
-                <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}">
+                    <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}">
                     <GridViewColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock TextWrapping="Wrap" Text="{Binding Status}"/>
