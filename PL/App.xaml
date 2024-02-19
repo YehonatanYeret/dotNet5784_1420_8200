@@ -27,7 +27,7 @@
             <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
             <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
-            <local:ConvertTaskToBoolean x:Key="ConvertTaskToBooleanKey"/>
+            <local:ConvertEngineerIdToVisible x:Key="ConvertEngineerIdToVisibleKey"/>
 
             <!-- Resource for Converting effortTime in task to number for the Gant -->
             <local:ConvertEffortTimeToWidth x:Key="ConvertEffortTimeToWidthKey"/> 

@@ -81,4 +81,33 @@ public partial class EngineerWindow : Window
                 MessageBoxImage.Error);
         }
     }
+    private void btnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (MessageBox.Show("Are you sure you want to delete this engineer?", "Delete Engineer", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                s_bl.Engineer.Delete(CurrentEngineer.Id);
+                MessageBox.Show("Engineer Deleted successfully", "Delete Engineer",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
+        catch (BO.BLDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error occurred while deletion",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Unknown error occurred",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        finally
+        {
+            Close();
+        }
+    }
 }

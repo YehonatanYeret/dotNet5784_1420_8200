@@ -14,7 +14,7 @@ public partial class EnterIdMessege : Window
         InitializeComponent();
     }
 
-    private void OKButton_Click(object sender, System.Windows.RoutedEventArgs e)
+    private void OKButton_Click(object sender, RoutedEventArgs e)
     {
         DialogResult = true;
     }
