@@ -62,8 +62,7 @@
             <TextBlock Grid.Row="3" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text="{Binding Cost, Mode=TwoWay}"/>
 
             <Label Content="Task:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center" Text=""
-                       Visibility="{Binding Task, Converter={StaticResource ConvertTaskToBooleanKey}}">abc</TextBlock>
+            <TextBlock Grid.Row="4" Grid.Column="1" Margin="2,10" TextAlignment="Center" ></TextBlock>
             <Button Grid.Row="4" Grid.Column="1" Content="Set task" Height="30"
                     Visibility="Hidden"/>
         </Grid>

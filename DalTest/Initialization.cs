@@ -83,7 +83,7 @@ public static class Initialization
             Alias = alias,               // Task alias
             Description = description,   // Task description
             CreatedAtDate = dateTime,    // Creation date
-            RequiredEffortTime = TimeSpan.FromDays(s_rand.Next(1, 10)) // Random effort time from 1 to 10 days
+            RequiredEffortTime = TimeSpan.FromDays(s_rand.Next(10, 60)) // Random effort time from 1 to 10 days
         });
         }
     }

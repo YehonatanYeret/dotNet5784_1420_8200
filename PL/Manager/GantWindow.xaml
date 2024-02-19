@@ -6,38 +6,52 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="GantWindow" Height="450" Width="800">
-    <Grid>
-        <ItemsControl ItemsSource="{Binding GantData}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Vertical"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Alias}"  Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
-                         Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"
-                                   Background="LightBlue"
-                                   FontWeight="SemiBold"
-                                   FontFamily="ariel"
-                                   TextAlignment="Center">
-                            <TextBlock.Style>
-                                <Style>
-                                    <Setter Property="TextBlock.TextDecorations" Value="None"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="TextBlock.IsMouseOver" Value="True">
-                                            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
+        Title="GantWindow" Height="450" Width="800"
+        SizeToContent="Height">
+    <Grid Margin="15">
+        <Border BorderBrush="Black" BorderThickness="2">
 
-                        </TextBlock>
-                    </StackPanel>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            <ItemsControl ItemsSource="{Binding GantData}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="150"/>
+                                    <ColumnDefinition Width="3"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
+                                   FontFamily="ariel" Grid.Column="0" 
+                                       TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3"
+                                           >
+                                    <TextBlock.Background>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="LightCyan" Offset="0" />
+                                            <GradientStop Color="LightBlue" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </TextBlock.Background>
+                                </TextBlock>
+
+                                <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
+                                <Grid Background="LightGray" Grid.Column="2" Margin="0,1">
+                                    <Rectangle Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
+                                   Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"
+                                   Stroke="Black"
+                                   Fill="LightBlue"
+                                   >
+                                    </Rectangle>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
     </Grid>
 </Window>

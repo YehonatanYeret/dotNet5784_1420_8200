@@ -25,6 +25,8 @@ public partial class TaskWindow : Window
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
+
+
     /// <summary>
     /// Constructor for EngineerWindow
     /// </summary>

@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="mainWindow.jpg" />
+    <Resource Include="Images\mainWindow.jpg" />
   </ItemGroup>
 
 </Project>
