@@ -78,7 +78,7 @@
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="{Binding id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"/>
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddUpdate_Click" Margin="20 ,7"/>
