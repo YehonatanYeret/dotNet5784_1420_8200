@@ -1,6 +1,5 @@
 ﻿namespace PL;
 
-using DalApi;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -73,13 +72,13 @@ internal class ConvertIdToBoolean : IValueConverter
 
 
 /// <summary>
-/// Converts an engineer ID to a boolean value (true if ID is 0, false otherwise).
+/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
 /// </summary>
-internal class ConvertTaskToBoolean : IValueConverter
+internal class ConvertEngineerIdToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (value is not null) ? "visible" : "hidden";
+        return (int)value == 0 ? "visible" : "hidden";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
