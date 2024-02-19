@@ -13,13 +13,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
         MaxHeight="450" MaxWidth="800"
+        Background="{StaticResource backgroundImage}"
         ResizeMode="NoResize">
+
 
     <Grid>
         <!-- Set the background image -->
-        <Grid.Background>
-            <ImageBrush ImageSource="./mainWindow.jpg" Stretch="UniformToFill"/>
-        </Grid.Background>
 
         <!-- TextBlock displaying project name -->
         <TextBlock Panel.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="119" FontFamily="Impact" FontSize="46" FontWeight="Bold" FontStyle="Italic" Margin="0,31,0,0" Width="323">

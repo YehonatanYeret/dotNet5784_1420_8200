@@ -98,49 +98,7 @@
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
             <Grid Grid.Column="2" Margin="20, 0">
-                <!-- Define Rows -->
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <!--<RowDefinition Height="*"/>-->
-                </Grid.RowDefinitions>
 
-                <!-- Define Columns -->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="3*"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Engineer ID -->
-                <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
-
-                <!-- Engineer Name -->
-                <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
-
-                <!-- Engineer Email -->
-                <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
-
-                <!-- Engineer Level -->
-                <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
-                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
-                ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
-
-                <!-- Engineer Cost -->
-                <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
-            
-            
-                
             </Grid>
 
         </Grid>

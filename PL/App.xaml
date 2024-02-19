@@ -10,6 +10,10 @@
     <Application.Resources>
         <ResourceDictionary>
 
+            <!--Resource for background-->
+            <ImageSource x:Key="imgSource">Images/mainWindow.jpg</ImageSource>
+            <ImageBrush x:Key="backgroundImage" ImageSource="{DynamicResource imgSource}" ></ImageBrush>
+
             <!-- Resource for Engineer Collection -->
             <local:EngineerCollection x:Key="EngineerCollectionKey" />
 
@@ -124,7 +128,7 @@
                 <Setter Property="Foreground" Value="#374016"/>
                 <Setter Property="Padding" Value="3"/>
             </Style>
-            
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

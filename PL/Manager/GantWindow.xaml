@@ -17,24 +17,13 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Alias}"  Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
+                        <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
+                                   FontFamily="ariel"/>
+                        <Rectangle Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
                          Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"
-                                   Background="LightBlue"
-                                   FontWeight="SemiBold"
-                                   FontFamily="ariel"
-                                   TextAlignment="Center">
-                            <TextBlock.Style>
-                                <Style>
-                                    <Setter Property="TextBlock.TextDecorations" Value="None"/>
-                                    <Style.Triggers>
-                                        <Trigger Property="TextBlock.IsMouseOver" Value="True">
-                                            <Setter Property="TextBlock.TextDecorations" Value="Underline" />
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-
-                        </TextBlock>
+                                   Stroke="AliceBlue"
+                                   Fill="LightBlue">
+                        </Rectangle>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
