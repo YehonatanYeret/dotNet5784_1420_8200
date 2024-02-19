@@ -28,7 +28,15 @@
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
                                    FontFamily="ariel" Grid.Column="0" 
-                                       TextWrapping="WrapWithOverflow" Background="LightCoral" TextAlignment="Center" Padding="3"/>
+                                       TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3"
+                                           >
+                                    <TextBlock.Background>
+                                        <LinearGradientBrush>
+                                            <GradientStop Color="LightCyan" Offset="0" />
+                                            <GradientStop Color="LightBlue" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </TextBlock.Background>
+                                </TextBlock>
 
                                 <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
                                 <Grid Background="LightGray" Grid.Column="2" Margin="0,1">

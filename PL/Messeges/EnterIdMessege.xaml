@@ -14,8 +14,8 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Enter engineer Id to show:" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Cambria Math" FontSize="13" HorizontalAlignment="Center"/>
-        <TextBox Text="{Binding AnswerId}" Grid.Row="1" Background="{x:Null}" TextAlignment="Center" VerticalAlignment="Center" Width="180" Height="23" />
+        <TextBlock Text="{Binding Question}" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Cambria Math" FontSize="13" HorizontalAlignment="Center"/>
+        <TextBox Text="{Binding Answer}" Grid.Row="1" Background="{x:Null}" TextAlignment="Center" VerticalAlignment="Center" Width="180" Height="23" />
         <Button Content="OK" IsDefault="True" Click="OKButton_Click" Grid.Row="2" Width="150" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 

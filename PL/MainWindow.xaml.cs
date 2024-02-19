@@ -26,12 +26,12 @@ public partial class MainWindow : Window
 
     private void Button_Click_2(object sender, RoutedEventArgs e)
     {
-        var dialogBox = new Messeges.EnterIdMessege();
+        var dialogBox = new Messeges.EnterIdMessege("Enter engineer Id to show:");
         if (dialogBox.ShowDialog() == true)
         {
             try
             {
-                if (!int.TryParse(dialogBox.AnswerId, out int id))
+                if (!int.TryParse(dialogBox.Answer, out int id))
                     throw new BO.BLValueIsNotCorrectException("You didn't entered proper Id");
                 BO.Engineer engineer = s_bl.Engineer.Read(id);
                  new Engineer.ShowEngineer(engineer.Id).Show();

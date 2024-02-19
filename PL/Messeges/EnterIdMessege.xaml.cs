@@ -7,10 +7,12 @@ using System.Windows;
 /// </summary>
 public partial class EnterIdMessege : Window
 {
-    public string? AnswerId { get; set; }
+    public string? Answer { get; set; }
+    public string Question { get; set; }
 
-    public EnterIdMessege()
+    public EnterIdMessege(string text)
     {
+        Question = text;
         InitializeComponent();
     }
 

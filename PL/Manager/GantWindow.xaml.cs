@@ -40,7 +40,7 @@ namespace PL.Manager
         public GantWindow()
         {
             InitializeComponent();
-            GantData = BlApi.Factory.Get().Task.ReadAllTask();
+            GantData = BlApi.Factory.Get().Task.ReadAllTask().OrderBy(task=> task.ScheduledDate);
         }
 
     }
