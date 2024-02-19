@@ -19,9 +19,12 @@ internal class EngineerCollection : IEnumerable
     public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
 }
 
+/// <summary>
+/// Represents a collection of Status values.
+/// </summary>
 internal class TaskCollection : IEnumerable
 {
-    // Collection of EngineerExperience values
+    // Collection of Status values
     static readonly IEnumerable<BO.Status> s_enums =
         (Enum.GetValues(typeof(BO.Status)) as IEnumerable<BO.Status>)!;
 

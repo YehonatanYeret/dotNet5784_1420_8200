@@ -251,4 +251,18 @@ internal class EngineerImplementation : IEngineer
     /// delete all the engineers
     /// </summary>
     public void Reset()=> _dal.Engineer.DeleteAll();
+
+    /// <summary>
+    /// get the engineer that work on the task
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <returns>the engineer that work on the task convert to EngineerInTask</returns>
+    public BO.EngineerInTask GetEngineerInTask(int engineerId)
+    {
+        return new BO.EngineerInTask
+        {
+            Id = engineerId,
+            Name = _dal.Engineer.Read(engineerId)!.Name
+        };
+    }
 }

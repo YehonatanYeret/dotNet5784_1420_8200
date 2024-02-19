@@ -48,15 +48,15 @@ public partial class EngineerWindow : Window
             {
                 s_bl.Engineer.Create(CurrentEngineer);
                 MessageBox.Show("the the engineer created successfully", "operation succeed",
-    MessageBoxButton.OK,
-    MessageBoxImage.Information);
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             else
             {
                 s_bl.Engineer.Update(CurrentEngineer);
                 MessageBox.Show("the the engineer updated successfully", "operation succeed",
-    MessageBoxButton.OK,
-    MessageBoxImage.Information);
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
 
             // Close the window after successful operation

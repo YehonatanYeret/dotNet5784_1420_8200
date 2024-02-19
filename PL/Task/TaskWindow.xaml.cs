@@ -71,4 +71,16 @@ public partial class TaskWindow : Window
                 MessageBoxImage.Error);
         }
     }
+
+    private void EngeineerInTaskButton_Click(object sender, RoutedEventArgs e)
+    {
+        if(CurrentTask.Engineer == null)
+        {
+            new Engineer.EngineerListWindow(CurrentTask.Id).ShowDialog();
+        }
+        else
+        {
+            new Engineer.ShowEngineer(CurrentTask.Engineer.Id).ShowDialog();
+        }
+    }
 }

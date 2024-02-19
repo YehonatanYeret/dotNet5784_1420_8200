@@ -1,5 +1,6 @@
 ﻿namespace PL.Engineer;
 
+using BlApi;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,12 +33,18 @@ public partial class EngineerListWindow : Window
     public BO.EngineerExperience experience { get; set; } = BO.EngineerExperience.None;
 
     /// <summary>
+    /// if the window is for choosing an engineer
+    /// </summary>
+    public int ChooseEngineer { get; set; }
+
+    /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
-    public EngineerListWindow()
+    public EngineerListWindow(int taskId = 0)
     {
         InitializeComponent();
         EngineerList = s_bl.Engineer.ReadAll()!;
+        ChooseEngineer = taskId;
     }
 
     /// <summary>
@@ -53,8 +60,8 @@ public partial class EngineerListWindow : Window
     /// </summary>
     private void AddBtn_OnClick(object sender, RoutedEventArgs e)
     {
-        new Engineer.EngineerWindow().ShowDialog();
-        UpdateListView();
+            new Engineer.EngineerWindow().ShowDialog();
+            UpdateListView();   
     }
 
     /// <summary>
@@ -62,11 +69,22 @@ public partial class EngineerListWindow : Window
     /// </summary>
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
-        BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-        if (EngineerInList != null)
+        if (ChooseEngineer == 0)
         {
-            new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
-            UpdateListView();
+            BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+            if (EngineerInList != null)
+            {
+                new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
+                UpdateListView();
+            }
+        }
+        else
+        {
+            BO.Task task = s_bl.Task.Read(ChooseEngineer);
+            BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+            task.Engineer = Factory.Get().Engineer.GetEngineerInTask(EngineerInList!.Id);
+            s_bl.Task.Update(task);
+            Close();
         }
     }
 

@@ -1,4 +1,6 @@
-﻿namespace BlApi;
+﻿using BO;
+
+namespace BlApi;
 
 /// <summary>
 /// Represents the interface for managing engineer-related functionalities.
@@ -50,6 +52,13 @@ public interface IEngineer
     /// </summary>
     /// <param name="engineerId">The id of the engineer</param>
     public void RemoveTaskFromEngineer(int engineerId);
+
+    /// <summary>
+    /// get the engineer that work on the task
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <returns>the engineer that work on the task convert to EngineerInTask</returns>
+    public EngineerInTask GetEngineerInTask(int engineerId);
 
     /// <summary>
     ///  reset the engineer

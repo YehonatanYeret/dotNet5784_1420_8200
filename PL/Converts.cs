@@ -1,5 +1,6 @@
 ﻿namespace PL;
 
+using DalApi;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -43,31 +44,31 @@ internal class ConvertIdToContent : IValueConverter
 /// </summary>
 internal class ConvertIdToBoolean : IValueConverter
 {
-/// <summary>
-/// Converts the engineer ID to a boolean value.
-/// </summary>
-/// <param name="value">The engineer ID.</param>
-/// <param name="targetType">The type of the target property (not used).</param>
-/// <param name="parameter">An optional parameter (not used).</param>
-/// <param name="culture">The culture to use in the converter (not used).</param>
-/// <returns>True if the ID is 0, otherwise false.</returns>
-public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-{
-    return (int)value == 0;
-}
+    /// <summary>
+    /// Converts the engineer ID to a boolean value.
+    /// </summary>
+    /// <param name="value">The engineer ID.</param>
+    /// <param name="targetType">The type of the target property (not used).</param>
+    /// <param name="parameter">An optional parameter (not used).</param>
+    /// <param name="culture">The culture to use in the converter (not used).</param>
+    /// <returns>True if the ID is 0, otherwise false.</returns>
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0;
+    }
 
-/// <summary>
-/// Not implemented for one-way conversion.
-/// </summary>
-/// <param name="value">The value to convert back.</param>
-/// <param name="targetType">The type of the target property (not used).</param>
-/// <param name="parameter">An optional parameter (not used).</param>
-/// <param name="culture">The culture to use in the converter (not used).</param>
-/// <returns>NotImplementedException is thrown.</returns>
-public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-{
-    throw new NotImplementedException();
-}
+    /// <summary>
+    /// Not implemented for one-way conversion.
+    /// </summary>
+    /// <param name="value">The value to convert back.</param>
+    /// <param name="targetType">The type of the target property (not used).</param>
+    /// <param name="parameter">An optional parameter (not used).</param>
+    /// <param name="culture">The culture to use in the converter (not used).</param>
+    /// <returns>NotImplementedException is thrown.</returns>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
@@ -78,7 +79,7 @@ internal class ConvertTaskToBoolean : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (value is not null)? "visible" : "hidden";
+        return (value is not null) ? "visible" : "hidden";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -88,13 +89,13 @@ internal class ConvertTaskToBoolean : IValueConverter
 }
 
 /// <summary>
-/// conver
+/// convert the effort time to width
 /// </summary>
 internal class ConvertEffortTimeToWidth : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return ((TimeSpan)value).TotalMinutes/100;
+        return ((TimeSpan)value).TotalMinutes / 100;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -104,15 +105,50 @@ internal class ConvertEffortTimeToWidth : IValueConverter
 }
 
 /// <summary>
-/// conver
+/// convert the start date to margin
 /// </summary>
 internal class ConvertStartDateToMargin : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return new Thickness((((DateTime)value)-(DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalMinutes /100, 0, 0, 0);
+        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalMinutes / 100, 0, 0, 0);
     }
 
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+
+/// <summary>
+/// convert the engineer id to engineer name
+/// </summary>
+internal class ConvertEngineerToEngineerName : IValueConverter
+{
+    /// <summary>
+    /// Convert the engineer id to engineer name
+    /// </summary>
+    /// <param name="value">The engineer id</param>
+    /// <param name="targetType">The type of the target property (not used)</param>
+    /// <param name="parameter">An optional parameter (not used)</param>
+    /// <param name="culture">The culture to use in the converter (not used)</param>
+    /// <returns>The name of the engineer</returns>
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        
+        return value is null ? "Choose Engineer" : BlApi.Factory.Get().Engineer.Read((value as BO.EngineerInTask)!.Id).Name;
+    }
+
+
+    /// <summary>
+    /// Not implemented for one-way conversion.
+    /// </summary>
+    /// <param name="value">The engineer id</param>
+    /// <param name="targetType">The type of the target property (not used)</param>
+    /// <param name="parameter">An optional parameter (not used)</param>
+    /// <param name="culture">The culture to use in the converter (not used)</param>
+    /// <returns>NotImplementedException is thrown</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();

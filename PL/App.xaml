@@ -31,6 +31,9 @@
             <!-- Resource for Converting effortTime in task to number for the Gant -->
             <local:ConvertStartDateToMargin x:Key="ConvertStartDateToMarginKey"/>
 
+            <!-- Resource for Converting engineer to engineer name -->
+            <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>
+
             <!--Style for Buttons-->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#A9A57C"/>
