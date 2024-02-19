@@ -92,13 +92,13 @@
                 </Setter>
             </Style>
 
-
+            <!--Style for listview header-->
             <Style TargetType="GridViewColumnHeader" >
                 <Setter Property="Background" Value="#FF9ABECA"/>
                 <Setter Property="Foreground" Value="White"/>
             </Style>
 
-
+            <!--Style for ListView-->
             <Style TargetType="ListViewItem" >
 
                 <Setter Property="Background" Value="White"/>
@@ -115,6 +115,16 @@
                 </Style.Triggers>
 
             </Style>
+            
+            <!--Style for labels-->
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="Foreground" Value="#374016"/>
+                <Setter Property="Padding" Value="3"/>
+            </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

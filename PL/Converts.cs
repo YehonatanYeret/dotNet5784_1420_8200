@@ -111,6 +111,8 @@ internal class ConvertStartDateToMargin : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        if(value is null)
+            return new Thickness(0, 0, 0, 0);
         return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalMinutes / 100, 0, 0, 0);
     }
 

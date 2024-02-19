@@ -39,4 +39,15 @@ public partial class ShowEngineer : Window
         new Engineer.ShowEngineer(Engineer.Id).Show();
         Close();
     }
+
+    //func to delete the engineer
+    private void Button_Click_1(object sender, RoutedEventArgs e)
+    {
+        if(MessageBox.Show("Are you sure you want to delete this engineer?", "Delete Engineer", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+        {
+            s_bl.Engineer.Delete(Engineer.Id);
+            MessageBox.Show("Engineer Deleted successfully", "Delete Engineer", MessageBoxButton.OK, MessageBoxImage.Information);
+            Close();
+        }
+    }
 }

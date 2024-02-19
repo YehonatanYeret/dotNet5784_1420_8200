@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Engineer>
-    <Id>372875320</Id>
-    <Cost>32446</Cost>
+    <Id>311302944</Id>
+    <Cost>27001</Cost>
     <Name>Adam Chohen</Name>
-    <Email>Adam@gmail.com</Email>
-    <Level>Intermediate</Level>
+    <Email>Adam@hotmail.com</Email>
+    <Level>AdvancedBeginner</Level>
   </Engineer>
   <Engineer>
-    <Id>311935728</Id>
-    <Cost>32953</Cost>
+    <Id>393030806</Id>
+    <Cost>52220</Cost>
     <Name>Alex Charcov</Name>
-    <Email>Alex@walla.com</Email>
-    <Level>Intermediate</Level>
-  </Engineer>
-  <Engineer>
-    <Id>286169153</Id>
-    <Cost>52032</Cost>
-    <Name>Aaron Israeli</Name>
-    <Email>Aaron@hotmail.com</Email>
-    <Level>Expert</Level>
-  </Engineer>
-  <Engineer>
-    <Id>224780672</Id>
-    <Cost>50520</Cost>
-    <Name>Ben Baruch</Name>
-    <Email>Ben@walla.com</Email>
-    <Level>Intermediate</Level>
-  </Engineer>
-  <Engineer>
-    <Id>220120824</Id>
-    <Cost>44149</Cost>
-    <Name>David Levi</Name>
-    <Email>David@hotmail.com</Email>
-    <Level>Expert</Level>
-  </Engineer>
-  <Engineer>
-    <Id>366355559</Id>
-    <Cost>37024</Cost>
-    <Name>Asaf Bir22</Name>
-    <Email>Asaf@gmail.com</Email>
+    <Email>Alex@gmail.com</Email>
     <Level>Advanced</Level>
+  </Engineer>
+  <Engineer>
+    <Id>318493159</Id>
+    <Cost>49915</Cost>
+    <Name>Aaron Israeli</Name>
+    <Email>Aaron@gmail.com</Email>
+    <Level>Advanced</Level>
+  </Engineer>
+  <Engineer>
+    <Id>323831775</Id>
+    <Cost>10721</Cost>
+    <Name>Ben Baruch</Name>
+    <Email>Ben@hotmail.com</Email>
+    <Level>Advanced</Level>
+  </Engineer>
+  <Engineer>
+    <Id>348144205</Id>
+    <Cost>36630</Cost>
+    <Name>David Levi</Name>
+    <Email>David@walla.com</Email>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>252201102</Id>
+    <Cost>57421</Cost>
+    <Name>Asaf Bir</Name>
+    <Email>Asaf@yahoo.com</Email>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>1</Id>
+    <Cost>123</Cost>
+    <Name>temp</Name>
+    <Email>temp@gmail.com</Email>
+    <Level>Beginner</Level>
   </Engineer>
 </ArrayOfEngineer>
