@@ -1,0 +1,23 @@
+﻿<Window x:Class="PL.Engineer.EngineerShowWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Engineer"
+        mc:Ignorable="d"
+        Title="EngineerShowWindow" Height="450" Width="300"
+        DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}">
+    <Grid>
+        <Label Content="{Binding EngineerName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bookman Old Style" FontSize="24">
+            <Label.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF7B762A" Offset="1"/>
+                </LinearGradientBrush>
+            </Label.Foreground>
+        </Label>
+        
+        <!--the task-->
+        <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->
+    </Grid>
+</Window>

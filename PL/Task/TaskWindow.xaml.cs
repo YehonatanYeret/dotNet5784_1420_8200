@@ -82,7 +82,7 @@ public partial class TaskWindow : Window
         }
         else
         {
-            new Engineer.ShowEngineer(CurrentTask.Engineer.Id).ShowDialog();
+            new Engineer.EngineerShowWindow(CurrentTask.Engineer.Id).ShowDialog();
         }
     }
 }

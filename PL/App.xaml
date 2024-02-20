@@ -17,6 +17,8 @@
             <!-- Resource for Engineer Collection -->
             <local:EngineerCollection x:Key="EngineerCollectionKey" />
 
+            <local:ConvertIdToColumn x:Key="ConvertIdToColumnKey" />
+
             <!-- Resource for Task Collection -->
             <local:TaskCollection x:Key="TaskCollectionKey" />
 
