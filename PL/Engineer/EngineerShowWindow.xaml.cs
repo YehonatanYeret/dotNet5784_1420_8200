@@ -1,5 +1,6 @@
 ﻿namespace PL.Engineer;
 
+using PL.Task;
 using System.Windows;
 
 /// <summary>
@@ -9,22 +10,38 @@ public partial class EngineerShowWindow : Window
 {
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    public string? EngineerName
+    public BO.Engineer CurrentEngineer
     {
-        get { return (string?)GetValue(EngineerNameProperty); }
-        set { SetValue(EngineerNameProperty, value); }
+        get { return (BO.Engineer)GetValue(EngineerProperty); }
+        set { SetValue(EngineerProperty, value); }
     }
 
-    public static readonly DependencyProperty EngineerNameProperty =
-        DependencyProperty.Register("EngineerName", typeof(string), typeof(EngineerShowWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty EngineerProperty =
+        DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerShowWindow), new PropertyMetadata(null));
+
+    public BO.TaskInList? Task { get; set; }
 
     public EngineerShowWindow(int id)
     {
-        var engineer = s_bl.Engineer.Read(id);
+        CurrentEngineer = s_bl.Engineer.Read(id);
 
-        // Check if the engineer or engineer's name is null
-        EngineerName = engineer?.Name;
-
+        if (CurrentEngineer.Task != null)
+            Task = s_bl.Task.ConvertToTaskInList(CurrentEngineer.Task.Id);
+        else
+            Task = new BO.TaskInList() { Id = 0};
         InitializeComponent();
+    }
+
+    private void ChooseTaskBtn_Click(object sender, RoutedEventArgs e)
+    {
+        TaskListWindow taskListWindow = new TaskListWindow();
+        taskListWindow.Owner = this;
+        if(taskListWindow.setupWindow(CurrentEngineer!.Id))
+            taskListWindow.Show();
+    }
+
+    private void FinishTaskBtn_Click(object sender, RoutedEventArgs e)
+    {
+        s_bl.Task.ChangeStatusOfTask(Task!.Id);
     }
 }

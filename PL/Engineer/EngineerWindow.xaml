@@ -18,7 +18,7 @@
         <!-- Set the background gradient -->
         <Grid.Background>
             <LinearGradientBrush>
-                <GradientStop Color="#bec4c2" Offset="0" />
+                <GradientStop Color="#7a7a76" Offset="0" />
                 <GradientStop Color="#e1e6e4" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>

@@ -28,6 +28,8 @@
             <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
             <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
+            <local:ConvertEngineerIdToCollapsed x:Key="ConvertEngineerIdToCollapsedKey"/>
+
             <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
             <local:ConvertEngineerIdToVisible x:Key="ConvertEngineerIdToVisibleKey"/>
 
@@ -39,6 +41,9 @@
 
             <!-- Resource for Converting engineer to engineer name -->
             <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>
+
+            <local:ConvertWindowOwnerToVisible x:Key="ConvertWindowOwnerToVisible"/>
+
 
             <!--Style for Buttons-->
             <Style TargetType="Button">

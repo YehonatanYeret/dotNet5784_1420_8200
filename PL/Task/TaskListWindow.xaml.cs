@@ -1,5 +1,6 @@
 ﻿namespace PL.Task;
 
+using PL.Engineer;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -31,13 +32,41 @@ public partial class TaskListWindow : Window
     /// </summary>
     public BO.Status status { get; set; } = BO.Status.None;
 
+    public BO.Engineer? currentEngineer { get; set; }
+
     /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
     public TaskListWindow()
     {
+
         InitializeComponent();
-        TaskList = s_bl.Task.ReadAll()!;
+
+    }
+
+    public bool setupWindow(int id = 0)
+    {
+        if (this.Owner != null && this.Owner.Title == "EngineerShowWindow")
+        {
+            TaskList = (from t in s_bl.Task.ReadAllTask(task => task.Engineer != null && task.Engineer.Id == id && task.Status == BO.Status.Scheduled)
+                        select (BlApi.Factory.Get().Task.ConvertToTaskInList(t.Id))).OrderBy(item => item.Id);
+
+            if (!TaskList.Any())
+            {
+                MessageBox.Show("there are no task that you can choose", "feild in choose task to engineer",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return false;
+            }
+
+            currentEngineer = s_bl.Engineer.Read(id);
+            status = BO.Status.Scheduled;
+        }
+        else
+        {
+            TaskList = s_bl.Task.ReadAll().OrderBy(item => item.Id);
+        }
+        return true;
     }
 
     /// <summary>
@@ -65,8 +94,21 @@ public partial class TaskListWindow : Window
         BO.TaskInList? taskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
         if (taskInList != null)
         {
-            new Task.TaskWindow(taskInList!.Id).ShowDialog();
-            UpdateListView();
+
+            if (this.Owner.Title == "ManagerWindow")
+            {
+
+                new Task.TaskWindow(taskInList!.Id).ShowDialog();
+                UpdateListView();
+            }
+
+            if (this.Owner.Title == "EngineerShowWindow")
+            {
+                currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
+                s_bl.Engineer.Update(currentEngineer);
+                s_bl.Task.ChangeStatusOfTask(taskInList.Id);
+                Close();
+            }
         }
     }
 

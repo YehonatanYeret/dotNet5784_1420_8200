@@ -7,16 +7,81 @@
         mc:Ignorable="d"
         Title="EngineerShowWindow" Height="450" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}">
+    
     <Grid>
-        <Label Content="{Binding EngineerName}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bookman Old Style" FontSize="24">
-            <Label.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                    <GradientStop Color="#FF7B762A" Offset="1"/>
-                </LinearGradientBrush>
-            </Label.Foreground>
-        </Label>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#7a7a76" Offset="0" />
+                <GradientStop Color="#e1e6e4" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="{Binding CurrentEngineer.Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bookman Old Style" FontSize="24"/>
         
+        
+        <TextBlock Text="You don't work on any task &#xA;Select a task to work on:" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"
+                   Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToCollapsedKey}}" FontWeight="Bold" Grid.Row="2"/>
+
+        <Button Content="Select task" Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40"
+                     Grid.Row="3" Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToCollapsedKey}}"/>
+        
+
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="15"  Grid.Row="1" Grid.RowSpan="4" Margin="7" ClipToBounds="True" Background="#919190" Padding="7" 
+                Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToVisibleKey}}">
+            
+            <Grid>
+                <!-- Set the background gradient -->
+
+                <!-- Define Rows -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="*"/>
+                    <!--<RowDefinition Height="*"/>-->
+                </Grid.RowDefinitions>
+
+                <!-- Define Columns -->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Label Content="The engineer works on task:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+
+                <!-- Engineer ID -->
+                <Label Content="ID:  " HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding Task.Id}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
+
+                <!-- Engineer Name -->
+                <Label Content="Alias:  " HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding Task.Alias}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
+
+                <!-- Engineer Email -->
+                <Label Content="Description:  " HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
+                <TextBlock Text="{Binding Task.Description}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+
+                <Label Content="Status:  " HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding Task.Status}" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" FontSize="12"/>
+
+
+            </Grid>
+        </Border>
+
+        <Button Grid.Row="5" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" 
+                Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToVisibleKey}}"/>
+
         <!--the task-->
         <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->
     </Grid>

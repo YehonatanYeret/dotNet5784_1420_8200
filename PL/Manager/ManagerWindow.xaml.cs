@@ -1,5 +1,6 @@
 ﻿namespace PL.Manager;
 
+using PL.Task;
 using System.Windows;
 
 /// <summary>
@@ -22,7 +23,10 @@ public partial class ManagerWindow : Window
 
     private void TaskButton_Click(object sender, RoutedEventArgs e)
     {
-        new Task.TaskListWindow().Show();
+        TaskListWindow taskListWindow = new TaskListWindow();
+        taskListWindow.Owner = this;
+        taskListWindow.setupWindow();
+        taskListWindow.Show();
     }
 
     private void ResetDataBtn_Click(object sender, RoutedEventArgs e)

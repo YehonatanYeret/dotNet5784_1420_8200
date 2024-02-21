@@ -119,6 +119,38 @@ internal class ConvertEngineerIdToVisible : IValueConverter
 }
 
 /// <summary>
+/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
+/// </summary>
+internal class ConvertEngineerIdToCollapsed : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0 ? "Vissible" : "Collapsed";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
+/// </summary>
+internal class ConvertWindowOwnerToVisible : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (string)value != "EngineerShowWindow" ? "Vissible" : "Collapsed";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
 /// convert the effort time to width
 /// </summary>
 internal class ConvertEffortTimeToWidth : IValueConverter

@@ -76,6 +76,13 @@ public interface ITask
     public BO.Status ChangeStatusOfTask(int id);
 
     /// <summary>
+    /// Updates the engineer of a task.
+    /// </summary>
+    /// <param name="id">The ID of the task to be updated.</param>
+    /// <returns>The new engineer of the task.</returns>
+    public BO.TaskInList ConvertToTaskInList(int id);
+
+    /// <summary>
     /// Reset the task and the dependencies
     /// </summary>
     public void Reset();
