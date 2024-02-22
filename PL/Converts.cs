@@ -1,8 +1,10 @@
 ﻿namespace PL;
 
+using BlApi;
 using System;
 using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 /// <summary>
@@ -218,3 +220,39 @@ internal class ConvertEngineerToEngineerName : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+/// <summary>
+/// to bind two buttons
+/// </summary>
+internal class ConverHiddenTOVissible : IValueConverter
+{
+    /// <summary>
+    /// Convert the engineer id to engineer name
+    /// </summary>
+    /// <param name="value">The engineer id</param>
+    /// <param name="targetType">The type of the target property (not used)</param>
+    /// <param name="parameter">An optional parameter (not used)</param>
+    /// <param name="culture">The culture to use in the converter (not used)</param>
+    /// <returns>The name of the engineer</returns>
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (((Button)value).Visibility == Visibility.Visible)
+            return "Hidden";
+        return "Visible";
+    }
+
+
+    /// <summary>
+    /// Not implemented for one-way conversion.
+    /// </summary>
+    /// <param name="value">The engineer id</param>
+    /// <param name="targetType">The type of the target property (not used)</param>
+    /// <param name="parameter">An optional parameter (not used)</param>
+    /// <param name="culture">The culture to use in the converter (not used)</param>
+    /// <returns>NotImplementedException is thrown</returns>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+

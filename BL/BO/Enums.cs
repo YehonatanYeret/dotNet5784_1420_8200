@@ -8,7 +8,7 @@ public enum EngineerExperience { None, Beginner, AdvancedBeginner, Intermediate,
 /// <summary>
 /// The status of the task.
 /// </summary>
-public enum Status { None, Unscheduled, Scheduled, OnTrack, Done }
+public enum Status { None, InDelay, Unscheduled, Scheduled, OnTrack, Done }
 
 /// <summary>
 /// The status of the project.
