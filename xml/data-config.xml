@@ -1,7 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
+<<<<<<< HEAD
   <NextTaskId>1</NextTaskId>
   <NextDependencyId>1</NextDependencyId>
+=======
+  <NextTaskId>23</NextTaskId>
+  <NextDependencyId>103</NextDependencyId>
+>>>>>>> 77e707d5d2910fc9328c9b10e9ca4a7112993f50
   <StartProject>12/12/2012 00:00:00</StartProject>
   <EndProject></EndProject>
 </config>

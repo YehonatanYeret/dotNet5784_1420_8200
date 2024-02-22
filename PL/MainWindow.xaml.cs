@@ -34,11 +34,11 @@ public partial class MainWindow : Window
                 if (!int.TryParse(dialogBox.Answer, out int id))
                     throw new BO.BLValueIsNotCorrectException("You didn't entered proper Id");
                 BO.Engineer engineer = s_bl.Engineer.Read(id);
-                 new Engineer.ShowEngineer(engineer.Id).Show();
+                new Engineer.EngineerShowWindow(engineer.Id).Show();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("You didnt enterd a proper id", "Unknown error occurred",
+                MessageBox.Show("You didnt enterd a proper id" + ex.Message, "Unknown error occurred",
     MessageBoxButton.OK,
     MessageBoxImage.Error);
             }

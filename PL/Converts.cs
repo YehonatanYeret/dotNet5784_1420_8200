@@ -72,6 +72,37 @@ internal class ConvertIdToBoolean : IValueConverter
     }
 }
 
+/// <summary>
+/// Converts an engineer ID to a boolean value (true if ID is 0, false otherwise).
+/// </summary>
+internal class ConvertIdToColumn : IValueConverter
+{
+    /// <summary>
+    /// Converts the engineer ID to a boolean value.
+    /// </summary>
+    /// <param name="value">The engineer ID.</param>
+    /// <param name="targetType">The type of the target property (not used).</param>
+    /// <param name="parameter">An optional parameter (not used).</param>
+    /// <param name="culture">The culture to use in the converter (not used).</param>
+    /// <returns>True if the ID is 0, otherwise false.</returns>
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return ((int)value == 0) ? 1 : 0;
+    }
+
+    /// <summary>
+    /// Not implemented for one-way conversion.
+    /// </summary>
+    /// <param name="value">The value to convert back.</param>
+    /// <param name="targetType">The type of the target property (not used).</param>
+    /// <param name="parameter">An optional parameter (not used).</param>
+    /// <param name="culture">The culture to use in the converter (not used).</param>
+    /// <returns>NotImplementedException is thrown.</returns>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 /// <summary>
 /// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
@@ -80,7 +111,39 @@ internal class ConvertEngineerIdToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value != 0 ? "visible" : "hidden";
+        return (int)value != 0 ? "Vissible" : "Collapsed";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
+/// </summary>
+internal class ConvertEngineerIdToCollapsed : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (int)value == 0 ? "Vissible" : "Collapsed";
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
+/// </summary>
+internal class ConvertWindowOwnerToVisible : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        return (string)value != "EngineerShowWindow" ? "Vissible" : "Collapsed";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

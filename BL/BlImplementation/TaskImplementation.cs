@@ -252,7 +252,7 @@ internal class TaskImplementation : BlApi.ITask
     /// </summary>
     /// <param name="id">The task that we convert id</param>
     /// <returns>The task but converted to TaskInList</returns>
-    private BO.TaskInList ConvertToTaskInList(int id)
+    public BO.TaskInList ConvertToTaskInList(int id)
     {
         DO.Task task = _dal.Task.Read(id)!;
 

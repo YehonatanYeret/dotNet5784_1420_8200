@@ -18,7 +18,7 @@
         <!-- Set the background gradient -->
         <Grid.Background>
             <LinearGradientBrush>
-                <GradientStop Color="#bec4c2" Offset="0" />
+                <GradientStop Color="#7a7a76" Offset="0" />
                 <GradientStop Color="#e1e6e4" Offset="1" />
             </LinearGradientBrush>
         </Grid.Background>
@@ -79,10 +79,12 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddUpdate_Click" Margin="20 ,7"/>
-            <Button Grid.Column="1" Margin="20 ,7" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertEngineerIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click"/>
+            <Button Grid.Column="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+            <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertEngineerIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </Window>
