@@ -1,6 +1,5 @@
 ﻿namespace PL.Task;
 
-using PL.Engineer;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -32,7 +31,20 @@ public partial class TaskListWindow : Window
     /// </summary>
     public BO.Status status { get; set; } = BO.Status.None;
 
-    public BO.Engineer? currentEngineer { get; set; }
+    public BO.Engineer? currentEngineer
+    {
+        get
+        {
+            return (BO.Engineer)GetValue(EngineerProperty);
+        }
+        set
+        {
+            SetValue(EngineerProperty, value);
+        }
+    }
+
+    public static readonly DependencyProperty EngineerProperty =
+        DependencyProperty.Register("currentEngineer", typeof(BO.Engineer), typeof(TaskListWindow), new PropertyMetadata(null));
 
     /// <summary>
     /// Constructor for EngineerListWindow
