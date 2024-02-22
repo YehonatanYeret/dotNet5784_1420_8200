@@ -48,12 +48,14 @@ public partial class TaskListWindow : Window
     {
         if (this.Owner != null && this.Owner.Title == "EngineerShowWindow")
         {
-            TaskList = (from t in s_bl.Task.ReadAllTask(task => task.Engineer != null && task.Engineer.Id == id && task.Status == BO.Status.Scheduled)
-                        select (BlApi.Factory.Get().Task.ConvertToTaskInList(t.Id))).OrderBy(item => item.Id);
+            //TaskList = (from t in s_bl.Task.ReadAllTask(task => task.Engineer != null && task.Engineer.Id == id && task.Status == BO.Status.Scheduled)
+            //            select (BlApi.Factory.Get().Task.ConvertToTaskInList(t.Id))).OrderBy(item => item.Id);
 
+            TaskList = (from t in s_bl.Task.ReadAllTask(task => task.Engineer == null)
+                         select BlApi.Factory.Get().Task.ConvertToTaskInList(t.Id)).OrderBy(item => item.Id);
             if (!TaskList.Any())
             {
-                MessageBox.Show("there are no task that you can choose", "feild in choose task to engineer",
+                MessageBox.Show("there are no task that you can choose", "faild in choose task to engineer",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return false;

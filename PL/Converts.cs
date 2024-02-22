@@ -111,7 +111,7 @@ internal class ConvertEngineerIdToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value != 0 ? "Vissible" : "Collapsed";
+        return (int)value != 0 ? "Visible" : "Collapsed";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -127,7 +127,7 @@ internal class ConvertEngineerIdToCollapsed : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0 ? "Vissible" : "Collapsed";
+        return (int)value == 0 ? "Visible" : "Collapsed";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
