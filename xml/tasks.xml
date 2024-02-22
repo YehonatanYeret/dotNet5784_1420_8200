@@ -46,15 +46,6 @@
     <ScheduledDate>2013-02-08T00:00:00</ScheduledDate>
   </Task>
   <Task>
-    <Id>6</Id>
-    <Alias>workers</Alias>
-    <Description>the engineeer need to take control over hirring workers</Description>
-    <CreatedAtDate>2023-12-25T14:11:46.6196522+02:00</CreatedAtDate>
-    <RequiredEffortTime>P29D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2013-01-18T00:00:00</ScheduledDate>
-  </Task>
-  <Task>
     <Id>7</Id>
     <Alias>protective measures</Alias>
     <Description>the engineeer need to take control over the buying of the protective measures</Description>
@@ -197,5 +188,17 @@
     <RequiredEffortTime>P47D</RequiredEffortTime>
     <IsActive>true</IsActive>
     <ScheduledDate>2013-10-07T00:00:00</ScheduledDate>
+  </Task>
+  <Task>
+    <Id>6</Id>
+    <Alias>workers</Alias>
+    <Description>the engineeer need to take control over hirring workers</Description>
+    <CreatedAtDate>2023-12-25T14:11:46.6196522+02:00</CreatedAtDate>
+    <RequiredEffortTime>P29D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2013-01-18T00:00:00</ScheduledDate>
+    <StartDate>2024-02-22T15:47:09.0374217+02:00</StartDate>
+    <CompleteDate>2024-02-22T15:47:20.6608827+02:00</CompleteDate>
+    <EngineerId>1</EngineerId>
   </Task>
 </ArrayOfTask>

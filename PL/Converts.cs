@@ -143,7 +143,7 @@ internal class ConvertWindowOwnerToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (BO.Engineer)value is null ? "Vissible" : "Collapsed";
+        return (BO.Engineer)value is null ? "Visible" : "Collapsed";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
