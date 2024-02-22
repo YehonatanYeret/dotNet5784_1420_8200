@@ -36,9 +36,9 @@ public partial class MainWindow : Window
                 BO.Engineer engineer = s_bl.Engineer.Read(id);
                 new Engineer.EngineerShowWindow(engineer.Id).Show();
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show("You didnt enterd a proper id" + ex.Message, "Unknown error occurred",
+                MessageBox.Show("You didnt enterd a proper id", "Unknown error occurred",
     MessageBoxButton.OK,
     MessageBoxImage.Error);
             }
