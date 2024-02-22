@@ -90,8 +90,7 @@
 
                 <!-- Engineer Email -->
                 <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Mode=OneTime, Converter= {StaticResource ConvertEngineerToEngineerNameKey}}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
-
+                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Mode=TwoWay, Converter= {StaticResource ConvertEngineerToEngineerNameKey}}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
 
             </Grid>
 

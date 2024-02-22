@@ -83,6 +83,12 @@ public interface ITask
     public BO.TaskInList ConvertToTaskInList(int id);
 
     /// <summary>
+    /// Set all the dates of the tasks automatically
+    /// </summary>
+    /// <param name="startProject">The start date of the project.</param>
+    public void StartProject(DateTime startProject);
+
+    /// <summary>
     /// Reset the task and the dependencies
     /// </summary>
     public void Reset();

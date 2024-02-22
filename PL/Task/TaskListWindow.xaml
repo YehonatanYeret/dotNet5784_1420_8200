@@ -71,6 +71,6 @@
         </ListView>
 
         <!-- Button to add a new engineer -->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick" Visibility="{Binding currentEngineer, Converter={StaticResource ConvertWindowOwnerToVisible}, Mode=OneWay}"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick" Visibility="{Binding EngineerID, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}"/>
     </Grid>
 </Window>

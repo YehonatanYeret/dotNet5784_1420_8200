@@ -42,10 +42,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
 
     private void TaskButton_Click(object sender, RoutedEventArgs e)
     {
-        TaskListWindow taskListWindow = new TaskListWindow();
-        taskListWindow.Owner = this;
-        taskListWindow.setupWindow();
-        taskListWindow.Show();
+        new TaskListWindow().ShowDialog();
     }
 
     private void ResetDataBtn_Click(object sender, RoutedEventArgs e)
@@ -80,18 +77,17 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
         //if the user chose a date set all dates
         if (dialogBox.ShowDialog() == true)
         {
-            DateTime startProject = (DateTime)dialogBox.Date!;
+            //gets the date of the startProject from the dialog box
+            DateTime? startProject = (DateTime?)dialogBox.Date;
 
-            foreach (var item in s_bl.Task.ReadAllTask(task => task.ScheduledDate == null))
-            {
-
-                // calculate the closest date based on the startDate of the program and the depndencies 
-                DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
-                s_bl.Task.UpdateScheduledDate(item.Id, closest);
-            }
             //start the project
-            s_bl.Clock.SetStartProject(startProject);
-            IsprojectStarted = Visibility.Hidden;
+            if (startProject is not null)
+            {
+                DateTime start = (DateTime)startProject;
+                s_bl.Task.StartProject(start);
+
+                IsprojectStarted = Visibility.Hidden;
+            }
         }
     }
 

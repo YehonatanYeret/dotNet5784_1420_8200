@@ -1,4 +1,6 @@
-﻿namespace BlImplementation;
+﻿using BO;
+
+namespace BlImplementation;
 
 internal class TaskImplementation : BlApi.ITask
 {
@@ -57,7 +59,7 @@ internal class TaskImplementation : BlApi.ITask
 
         return _dal.Task.ReadAll()!.Select(task => CreateTask(task!));
     }
-    
+
     public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null)
     {
         if (filter != null)
@@ -352,16 +354,42 @@ internal class TaskImplementation : BlApi.ITask
         if (!dependencies.Any() && task.DeadlineDate < DateTime.Now && task.CompleteDate == null) return BO.Status.InDelay;
 
         //there are dependencies and one of them in delay
-        if (dependencies.Any(t=>CalculateStatus(t)==BO.Status.InDelay))return BO.Status.InDelay;
-        
-            //check if the task has scheduled date
-            if (task.ScheduledDate is null) return BO.Status.Unscheduled;
+        if (dependencies.Any(t => CalculateStatus(t) == BO.Status.InDelay)) return BO.Status.InDelay;
+
+        //check if the task has scheduled date
+        if (task.ScheduledDate is null) return BO.Status.Unscheduled;
         //chelk if the task not started yet
         else if (task.StartDate is null) return BO.Status.Scheduled;
         //check if the task not completed yet
         else if (task.CompleteDate is null) return BO.Status.OnTrack;
         //the task has started and completed
         else return BO.Status.Done;
+    }
+
+
+    /// <summary>
+    /// Set all the dates of the tasks automatically
+    /// </summary>
+    /// <param name="startProject">The start date of the project.</param>
+    public void StartProject(DateTime startProject)
+    {
+        //go through all the tasks and set the scheduled date
+        while (ReadAllTask(task => task.ScheduledDate == null).Any())
+        {
+            foreach (var item in ReadAllTask(task => task.ScheduledDate == null))
+            {
+                try
+                {
+                    // calculate the closest date based on the startDate of the program and the depndencies 
+                    DateTime closest = CalculateClosestStartDate(item.Id, startProject);
+                    UpdateScheduledDate(item.Id, closest);
+                }
+                //if the task has unscheduled dependencies ignore it
+                catch (BO.BLValueIsNotCorrectException) {  }
+            }
+        }
+        //start the project
+        new ClockImplementation().SetStartProject(startProject);
     }
 
     /// <summary>

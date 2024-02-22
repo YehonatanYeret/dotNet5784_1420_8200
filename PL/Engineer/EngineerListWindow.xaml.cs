@@ -35,16 +35,22 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// if the window is for choosing an engineer
     /// </summary>
-    public int ChooseEngineer { get; set; }
+    public int TaskID {
+    get { return (int)GetValue(TaskIDProperty); }
+        set { SetValue(TaskIDProperty, value); }
+    }
+
+    public static readonly DependencyProperty TaskIDProperty =
+        DependencyProperty.Register("TaskID", typeof(int), typeof(EngineerListWindow), new PropertyMetadata(0));
 
     /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
     public EngineerListWindow(int taskId = 0)
     {
-        InitializeComponent();
         EngineerList = s_bl.Engineer.ReadAll()!;
-        ChooseEngineer = taskId;
+        TaskID = taskId;
+        InitializeComponent();
     }
 
     /// <summary>
@@ -71,9 +77,9 @@ public partial class EngineerListWindow : Window
     {
         try
         {
-            if (ChooseEngineer == 0)
+            BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+            if (TaskID == 0)
             {
-                BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
                 if (EngineerInList != null)
                 {
                     new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
@@ -82,8 +88,8 @@ public partial class EngineerListWindow : Window
             }
             else
             {
-                BO.Task task = s_bl.Task.Read(ChooseEngineer);
-                BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+
+                BO.Task task = s_bl.Task.Read(TaskID);
                 task.Engineer = Factory.Get().Engineer.GetEngineerInTask(EngineerInList!.Id);
                 s_bl.Task.Update(task);
                 Close();

@@ -46,42 +46,31 @@ public partial class TaskListWindow : Window
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("currentEngineer", typeof(BO.Engineer), typeof(TaskListWindow), new PropertyMetadata(null));
 
+    public int EngineerID { get; set; }
+
     /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
-    public TaskListWindow()
+    public TaskListWindow(int engineerID = 0)
     {
 
         InitializeComponent();
+        EngineerID = engineerID;
 
-    }
-
-    public bool setupWindow(int id = 0)
-    {
-        if (this.Owner != null && this.Owner.Title == "EngineerShowWindow")
-        {
-            //TaskList = (from t in s_bl.Task.ReadAllTask(task => task.Engineer != null && task.Engineer.Id == id && task.Status == BO.Status.Scheduled)
-            //            select (BlApi.Factory.Get().Task.ConvertToTaskInList(t.Id))).OrderBy(item => item.Id);
-
-            TaskList = (from t in s_bl.Task.ReadAllTask(task => task.Engineer == null)
-                         select BlApi.Factory.Get().Task.ConvertToTaskInList(t.Id)).OrderBy(item => item.Id);
-            if (!TaskList.Any())
-            {
-                MessageBox.Show("there are no task that you can choose", "faild in choose task to engineer",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return false;
-            }
-
-            currentEngineer = s_bl.Engineer.Read(id);
-            status = BO.Status.Scheduled;
-        }
-        else
+        if (EngineerID == 0)
         {
             TaskList = s_bl.Task.ReadAll().OrderBy(item => item.Id);
         }
-        return true;
+        else
+        {
+            TaskList = s_bl.Engineer.GetTasksOfEngineer(EngineerID);
+            currentEngineer = s_bl.Engineer.Read(EngineerID);
+            status = BO.Status.Scheduled;
+
+        }
+
     }
+
 
     /// <summary>
     /// Event handler for selection changed in the ComboBox
@@ -96,7 +85,7 @@ public partial class TaskListWindow : Window
     /// </summary>
     private void AddBtn_OnClick(object sender, RoutedEventArgs e)
     {
-        new Task.TaskWindow().ShowDialog();
+        new TaskWindow().ShowDialog();
         UpdateListView();
     }
 
@@ -109,14 +98,12 @@ public partial class TaskListWindow : Window
         if (taskInList != null)
         {
 
-            if (this.Owner.Title == "ManagerWindow")
+            if (EngineerID == 0)
             {
-
                 new Task.TaskWindow(taskInList!.Id).ShowDialog();
                 UpdateListView();
             }
-
-            if (this.Owner.Title == "EngineerShowWindow")
+            else
             {
                 currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
                 s_bl.Engineer.Update(currentEngineer);

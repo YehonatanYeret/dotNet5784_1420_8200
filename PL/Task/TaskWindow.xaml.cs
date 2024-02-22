@@ -1,16 +1,17 @@
 ﻿namespace PL.Task;
 
 using System.Windows;
+using System.ComponentModel;
 
 /// <summary>
 /// Interaction logic for TaskWindow.xaml
 /// </summary>
-public partial class TaskWindow : Window
+public partial class TaskWindow :Window, INotifyPropertyChanged
 {
     // Get the business logic instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    // Flag to indicate whether to update or create a new task
+    // Flag to indicate whether to update or create a new task were true means create and false means update
     public bool UpdateOrCreate = false;
 
     /// <summary>
@@ -25,16 +26,23 @@ public partial class TaskWindow : Window
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
+    // Event for property changed
+    public event PropertyChangedEventHandler? PropertyChanged;
 
+    // Invoke property changed event
+    protected virtual void OnPropertyChanged(string PropertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
+    }
 
     /// <summary>
     /// Constructor for EngineerWindow
     /// </summary>
     /// <param name="id">Engineer ID</param>
-    public TaskWindow(int id = -1)
+    public TaskWindow(int id = 0)
     {
         InitializeComponent();
-        UpdateOrCreate = (id == -1);
+        UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
     }
 
@@ -79,6 +87,7 @@ public partial class TaskWindow : Window
         if(CurrentTask.Engineer == null)
         {
             new Engineer.EngineerListWindow(CurrentTask.Id).ShowDialog();
+
         }
         else
         {

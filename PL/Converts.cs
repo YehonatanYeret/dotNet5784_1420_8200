@@ -107,7 +107,7 @@ internal class ConvertIdToColumn : IValueConverter
 /// <summary>
 /// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
 /// </summary>
-internal class ConvertEngineerIdToVisible : IValueConverter
+internal class ConvertIdToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -123,7 +123,7 @@ internal class ConvertEngineerIdToVisible : IValueConverter
 /// <summary>
 /// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
 /// </summary>
-internal class ConvertEngineerIdToCollapsed : IValueConverter
+internal class ConvertIdToCollapsed : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -139,7 +139,7 @@ internal class ConvertEngineerIdToCollapsed : IValueConverter
 /// <summary>
 /// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
 /// </summary>
-internal class ConvertWindowOwnerToVisible : IValueConverter
+internal class ConvertEngineerToVisible : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -224,7 +224,7 @@ internal class ConvertEngineerToEngineerName : IValueConverter
 /// <summary>
 /// to bind two buttons visibility
 /// </summary>
-internal class ConverHiddenTOVissible : IValueConverter
+internal class ConvertHiddenToVissible : IValueConverter
 {
     /// <summary>
     /// Convert the engineer id to engineer name

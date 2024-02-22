@@ -29,14 +29,14 @@
         
         
         <TextBlock Text="You don't work on any task &#xA;Select a task to work on:" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"
-                   Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToCollapsedKey}, Mode=TwoWay}" FontWeight="Bold" Grid.Row="2"/>
+                   Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}" FontWeight="Bold" Grid.Row="2"/>
 
         <Button Content="Select task" Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40"
-                     Grid.Row="3" Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToCollapsedKey}, Mode=TwoWay}"/>
+                     Grid.Row="3" Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}"/>
         
 
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="15"  Grid.Row="1" Grid.RowSpan="4" Margin="7" ClipToBounds="True" Background="#919190" Padding="7" 
-                Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToVisibleKey}, Mode=TwoWay}">
+                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=TwoWay}">
             
             <Grid>
                 <!-- Set the background gradient -->
@@ -80,7 +80,7 @@
         </Border>
 
         <Button Grid.Row="5" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" 
-                Visibility="{Binding Task.Id, Converter={StaticResource ConvertEngineerIdToVisibleKey}, Mode=OneWay}"/>
+                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}"/>
 
         <!--the task-->
         <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->

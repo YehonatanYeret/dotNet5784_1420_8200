@@ -1,4 +1,4 @@
-﻿namespace BlImplementation;
+﻿ namespace BlImplementation;
 using BlApi;
 
 internal class EngineerImplementation : IEngineer
@@ -266,5 +266,17 @@ internal class EngineerImplementation : IEngineer
             Id = engineerId,
             Name = _dal.Engineer.Read(engineerId)!.Name
         };
+    }
+
+
+    /// <summary>
+    /// get all the tasks of the engineer that he can start to work on
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <returns>the tasks that the engineer can start to work on</returns>
+    public IEnumerable<BO.TaskInList> GetTasksOfEngineer(int engineerId)
+    {
+        return (from t in new TaskImplementation().ReadAllTask(task => task.Engineer != null && task.Engineer.Id == engineerId && task.Status == BO.Status.Scheduled)
+                select (new TaskImplementation().ConvertToTaskInList(t.Id)));
     }
 }

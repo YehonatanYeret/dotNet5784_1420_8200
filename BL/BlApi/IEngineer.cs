@@ -61,6 +61,13 @@ public interface IEngineer
     public EngineerInTask GetEngineerInTask(int engineerId);
 
     /// <summary>
+    /// get all the tasks of the engineer that he can start to work on
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <returns>the tasks that the engineer can start to work on</returns>
+    public IEnumerable<BO.TaskInList> GetTasksOfEngineer(int engineerId);
+
+    /// <summary>
     ///  reset the engineer
     /// </summary>
     public void Reset();

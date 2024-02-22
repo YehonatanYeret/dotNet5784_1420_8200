@@ -13,7 +13,7 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
     // Event for property changed
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     // Invoke property changed event
     protected virtual void OnPropertyChanged(string propertyName)
@@ -41,7 +41,7 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     /// <summary>
     /// Gets or sets the current task associated with the engineer.
     /// </summary>
-    public BO.TaskInList Task
+    public BO.TaskInList? Task
     {
         get { return task; }
         set
@@ -50,7 +50,7 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
             OnPropertyChanged(nameof(Task)); // Notify the UI about the property change
         }
     }
-    private BO.TaskInList task;
+    private BO.TaskInList? task;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EngineerShowWindow"/> class.
@@ -75,13 +75,16 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void ChooseTaskBtn_Click(object sender, RoutedEventArgs e)
     {
-        // Open a window for selecting tasks
-        TaskListWindow taskListWindow = new TaskListWindow();
-        taskListWindow.Owner = this;
-        if (taskListWindow.setupWindow(CurrentEngineer!.Id))
-            taskListWindow.ShowDialog();
 
-        // Update the current engineer and associated task after selecting a task
+        if(!s_bl.Engineer.GetTasksOfEngineer(CurrentEngineer.Id).Any())
+        {
+            MessageBox.Show("There are no tasks to choose from", "No tasks", MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+
+        // Open a window for selecting tasks
+        new TaskListWindow(CurrentEngineer.Id).ShowDialog();
+
         CurrentEngineer = s_bl.Engineer.Read(CurrentEngineer.Id);
         if (CurrentEngineer.Task != null)
             Task = s_bl.Task.ConvertToTaskInList(CurrentEngineer.Task.Id);

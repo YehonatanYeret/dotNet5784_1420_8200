@@ -17,10 +17,10 @@
             <!-- Resource for Engineer Collection -->
             <local:EngineerCollection x:Key="EngineerCollectionKey" />
 
-            <local:ConvertIdToColumn x:Key="ConvertIdToColumnKey" />
-
             <!-- Resource for Task Collection -->
             <local:TaskCollection x:Key="TaskCollectionKey" />
+
+            <local:ConvertIdToColumn x:Key="ConvertIdToColumnKey" />
 
             <!-- Resource for Converting Engineer ID to Content for Buttons -->
             <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
@@ -28,10 +28,10 @@
             <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
             <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
-            <local:ConvertEngineerIdToCollapsed x:Key="ConvertEngineerIdToCollapsedKey"/>
+            <local:ConvertIdToCollapsed x:Key="ConvertIdToCollapsedKey"/>
 
             <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
-            <local:ConvertEngineerIdToVisible x:Key="ConvertEngineerIdToVisibleKey"/>
+            <local:ConvertIdToVisible x:Key="ConvertIdToVisibleKey"/>
 
             <!-- Resource for Converting effortTime in task to number for the Gant -->
             <local:ConvertEffortTimeToWidth x:Key="ConvertEffortTimeToWidthKey"/> 
@@ -44,9 +44,9 @@
             <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>  
             
             <!-- Resource for Converting button visibillity to the opposite -->
-            <local:ConverHiddenTOVissible x:Key="ConverHiddenTOVissibleKey"/>  
+            <local:ConvertHiddenToVissible x:Key="ConvertHiddenToVissibleKey"/>
 
-            <local:ConvertWindowOwnerToVisible x:Key="ConvertWindowOwnerToVisible"/>
+            <local:ConvertEngineerToVisible x:Key="ConvertEngineerToVisibleKey"/>
 
             <!--Style for Buttons-->
             <Style TargetType="Button">
