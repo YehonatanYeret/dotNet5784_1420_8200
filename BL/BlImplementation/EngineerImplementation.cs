@@ -54,7 +54,7 @@ internal class EngineerImplementation : IEngineer
         //get the task of the engineer if exist
         BO.TaskInEngineer? task = (from t in _dal.Task.ReadAll()
                                    where t.EngineerId == id
-                                   && TaskImplementation.CalculateStatus(t) == BO.Status.OnTrack
+                                   && new TaskImplementation().CalculateStatus(t) == BO.Status.OnTrack
                                    select new BO.TaskInEngineer
                                    {
                                        Id = t.Id,
@@ -155,7 +155,7 @@ internal class EngineerImplementation : IEngineer
     {
         //check if the engineer has tasks that on track or done
         IEnumerable<DO.Task?> tasks = from task in _dal.Task.ReadAll(task => task.EngineerId == id)
-                                      let stat = TaskImplementation.CalculateStatus(task!)
+                                      let stat = new TaskImplementation().CalculateStatus(task!)
                                       where stat == BO.Status.OnTrack || stat == BO.Status.Done
                                       select task;
 
@@ -219,7 +219,8 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLAlreadyExistsException($"Task with ID {taskId} already have an engineer");
 
         //check if the engineer already work on a task
-        if (TaskImplementation.CalculateStatus(task) == BO.Status.OnTrack && _dal.Task.ReadAll(tsk => tsk.EngineerId == engineerId && TaskImplementation.CalculateStatus(task) is BO.Status.OnTrack).Any())
+        var status = new TaskImplementation().CalculateStatus(task);
+        if (status == BO.Status.OnTrack && _dal.Task.ReadAll(tsk => tsk.EngineerId == engineerId && status is BO.Status.OnTrack).Any())
             throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");
 
         //check if the engineer level is lower or equal then the task level

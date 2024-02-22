@@ -36,8 +36,11 @@
             <local:ConvertStartDateToMargin x:Key="ConvertStartDateToMarginKey"/>
 
             <!-- Resource for Converting engineer to engineer name -->
-            <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>
-
+            <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>  
+            
+            <!-- Resource for Converting button visibillity to the opposite -->
+            <local:ConverHiddenTOVissible x:Key="ConverHiddenTOVissibleKey"/>  
+            
             <!--Style for Buttons-->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#A9A57C"/>

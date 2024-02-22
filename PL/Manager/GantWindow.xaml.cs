@@ -43,5 +43,9 @@ namespace PL.Manager
             GantData = BlApi.Factory.Get().Task.ReadAllTask().OrderBy(task=> task.ScheduledDate);
         }
 
+        private void Grid_MouseLeave(object sender, MouseEventArgs e)
+        {
+            MessageBox.Show("hello niggro");
+        }
     }
 }

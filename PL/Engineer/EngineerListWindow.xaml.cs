@@ -69,22 +69,29 @@ public partial class EngineerListWindow : Window
     /// </summary>
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
-        if (ChooseEngineer == 0)
+        try
         {
-            BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-            if (EngineerInList != null)
+            if (ChooseEngineer == 0)
             {
-                new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
-                UpdateListView();
+                BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+                if (EngineerInList != null)
+                {
+                    new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
+                    UpdateListView();
+                }
+            }
+            else
+            {
+                BO.Task task = s_bl.Task.Read(ChooseEngineer);
+                BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+                task.Engineer = Factory.Get().Engineer.GetEngineerInTask(EngineerInList!.Id);
+                s_bl.Task.Update(task);
+                Close();
             }
         }
-        else
+        catch(Exception ex)
         {
-            BO.Task task = s_bl.Task.Read(ChooseEngineer);
-            BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-            task.Engineer = Factory.Get().Engineer.GetEngineerInTask(EngineerInList!.Id);
-            s_bl.Task.Update(task);
-            Close();
+            MessageBox.Show("error aqured", ex.Message);
         }
     }
 

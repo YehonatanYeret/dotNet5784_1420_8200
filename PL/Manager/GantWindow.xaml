@@ -8,15 +8,21 @@
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="GantWindow" Height="450" Width="800"
         SizeToContent="Height">
+    <!--<Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard >
+                    <DoubleAnimation Duration="0:0:1.5" Storyboard.TargetProperty="Width" From="0" 
+                                     To="{Binding ActualWidth}" AccelerationRatio=".1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>-->
     <Grid Margin="15">
+
         <Border BorderBrush="Black" BorderThickness="2">
 
             <ItemsControl ItemsSource="{Binding GantData}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Vertical"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
@@ -38,16 +44,22 @@
                                     </TextBlock.Background>
                                 </TextBlock>
 
+
                                 <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
+
                                 <Grid Background="LightGray" Grid.Column="2" Margin="0,1">
-                                    <Rectangle Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
-                                   Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"
-                                   Stroke="Black"
-                                   Fill="LightBlue"
-                                   >
-                                    </Rectangle>
+
+                                    <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
+                                   Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
+                                   Background="LightBlue" MouseDown="Grid_MouseLeave" >
+                                        <Border BorderBrush="Black" BorderThickness=".5"/>
+                                    </Grid>
                                 </Grid>
+
+
                             </Grid>
+
+
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

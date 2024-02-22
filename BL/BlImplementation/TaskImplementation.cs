@@ -344,10 +344,18 @@ internal class TaskImplementation : BlApi.ITask
     /// </summary>
     /// <param name="task">The task that we calaulate the steatus for</param>
     /// <returns>the status of the task</returns>
-    internal static BO.Status CalculateStatus(DO.Task task)
+    internal BO.Status CalculateStatus(DO.Task task)
     {
-        //check if the task has scheduled date
-        if (task.ScheduledDate is null) return BO.Status.Unscheduled;
+        var dependencies = from dep in _dal.Dependency.ReadAll(d => d.DependentTask == task.Id)
+                           select _dal.Task.Read(dep.DependentOnTask);
+        //there are no dependencies and the task is on delay
+        if (!dependencies.Any() && task.DeadlineDate < DateTime.Now && task.CompleteDate == null) return BO.Status.InDelay;
+
+        //there are dependencies and one of them in delay
+        if (dependencies.Any(t=>CalculateStatus(t)==BO.Status.InDelay))return BO.Status.InDelay;
+        
+            //check if the task has scheduled date
+            if (task.ScheduledDate is null) return BO.Status.Unscheduled;
         //chelk if the task not started yet
         else if (task.StartDate is null) return BO.Status.Scheduled;
         //check if the task not completed yet

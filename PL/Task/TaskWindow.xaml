@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Task"
-         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:control="clr-namespace:PL"
         mc:Ignorable="d"
         Title="TaskWindow" Height="550" Width="700"
         ResizeMode="NoResize"
@@ -98,7 +98,7 @@
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
             <Grid Grid.Column="2" Margin="20, 0">
-
+                <control:multiSelectControl/>
             </Grid>
 
         </Grid>
