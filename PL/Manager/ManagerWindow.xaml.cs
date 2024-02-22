@@ -1,17 +1,33 @@
 ﻿namespace PL.Manager;
-
 using PL.Task;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 /// <summary>
 /// Interaction logic for ManagerWindow.xaml
 /// </summary>
-public partial class ManagerWindow : Window
+public partial class ManagerWindow : Window, INotifyPropertyChanged
 {
-    public Visibility IsprojectStarted { get; set; }
+    public Visibility IsprojectStarted
+    {
+        get { return (Visibility)GetValue(IsprojectStartedProperty); }
+        set
+        {
+            SetValue(IsprojectStartedProperty, value);
+            OnPropertyChanged(nameof(IsprojectStarted)); // Notify the UI about the property change
+        }
+    }
+
+    // Dependency property for CurrentEngineer
+    public static readonly DependencyProperty IsprojectStartedProperty =
+        DependencyProperty.Register("IsprojectStarted", typeof(Visibility), typeof(ManagerWindow), new PropertyMetadata(null));
+
+
     // Business logic layer instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public ManagerWindow()
     {
@@ -37,7 +53,7 @@ public partial class ManagerWindow : Window
         if (MessageBoxResult.Yes == MessageBox.Show("Do you want to reset all the data?", "Initialization", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
         {
             s_bl.ResetDB();
-            IsprojectStarted = Visibility.Hidden;
+            IsprojectStarted = Visibility.Visible;
         }
 
     }
@@ -51,14 +67,17 @@ public partial class ManagerWindow : Window
         }
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void GanttClick_Button(object sender, RoutedEventArgs e)
     {
         new GantWindow().Show();
     }
 
-    private void Button_Click_1(object sender, RoutedEventArgs e)
+    private void StartProject_Click(object sender, RoutedEventArgs e)
     {
+        //ask for date
         var dialogBox = new Messeges.PickDate();
+
+        //if the user chose a date set all dates
         if (dialogBox.ShowDialog() == true)
         {
             DateTime startProject = (DateTime)dialogBox.Date!;
@@ -70,8 +89,15 @@ public partial class ManagerWindow : Window
                 DateTime closest = s_bl.Task.CalculateClosestStartDate(item.Id, startProject);
                 s_bl.Task.UpdateScheduledDate(item.Id, closest);
             }
+            //start the project
             s_bl.Clock.SetStartProject(startProject);
+            IsprojectStarted = Visibility.Hidden;
         }
-        (sender as Button)!.Visibility = Visibility.Hidden;
+    }
+
+    // Invoke property changed event
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

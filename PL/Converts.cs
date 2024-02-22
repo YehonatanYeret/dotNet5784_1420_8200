@@ -222,7 +222,7 @@ internal class ConvertEngineerToEngineerName : IValueConverter
 }
 
 /// <summary>
-/// to bind two buttons
+/// to bind two buttons visibility
 /// </summary>
 internal class ConverHiddenTOVissible : IValueConverter
 {
@@ -236,8 +236,8 @@ internal class ConverHiddenTOVissible : IValueConverter
     /// <returns>The name of the engineer</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if (((Button)value).Visibility == Visibility.Visible)
-            return "Hidden";
+        if (((Visibility)value) == Visibility.Visible)
+            return "Collapsed";
         return "Visible";
     }
 

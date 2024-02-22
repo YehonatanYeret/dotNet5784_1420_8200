@@ -41,7 +41,7 @@ public partial class TaskWindow : Window
     /// <summary>
     /// Event handler for the Add/Update button click
     /// </summary>
-    private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
+    private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {

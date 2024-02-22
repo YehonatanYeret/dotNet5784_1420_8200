@@ -98,13 +98,67 @@
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
             <Grid Grid.Column="2" Margin="20, 0">
-                <control:multiSelectControl/>
+                <!--<ListView DataContext="{Binding Dependencies}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Task" Width="100" DisplayMemberBinding="{Binding TaskId}"/>
+                            <GridViewColumn Header="Description" Width="200" DisplayMemberBinding="{Binding Description}"/>
+                            <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Status}"/>
+                        </GridView>
+                    </ListView.View>
+                    <ListViewItem>
+                        <Grid>
+                            <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                            <TextBox Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                            <TextBox Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                        </Grid>
+                    </ListViewItem>
+                </ListView>-->
+                <ListView Grid.Row="1" ItemsSource="{Binding Dependencies}">
+                    <ListView.View>
+                        <GridView >
+                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
+                                <GridViewColumn.CellTemplate >
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Id}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Alias}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Description}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock TextWrapping="Wrap" Text="{Binding Status}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+
             </Grid>
 
         </Grid>
 
         <!-- Button for Adding or Updating Engineer -->
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="btnAddUpdate_Click" Margin="30 ,10"/>
+        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="BtnAddUpdate_Click" Margin="30 ,10"/>
     </Grid>
 </Window>
 

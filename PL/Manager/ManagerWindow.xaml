@@ -25,19 +25,21 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Content="Gant" Grid.Column="0" Margin="30" Height="40" Click="Button_Click"
-                        Visibility="{Binding ElementName=StartProjectButton, Converter={StaticResource ConverHiddenTOVissibleKey}, Mode=OneWay}"/>
-                <Button Content="Start Project" Grid.Column="0" Margin="30" Height="40" Click="Button_Click_1"
-                        Name="StartProjectButton" Visibility="{Binding IsprojectStarted, Mode=TwoWay}"/>
+                <Button Content="Gant" Grid.Column="0" Margin="30" Height="40" Click="GanttClick_Button"
+                        Visibility="{Binding IsprojectStarted, Converter={StaticResource ConverHiddenTOVissibleKey}, Mode=OneWay}"/>
+                <Button Content="Start Project" Grid.Column="0" Margin="30" Height="40" Click="StartProject_Click"
+                        Visibility="{Binding IsprojectStarted}"/>
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1" Margin="40">
-                
+
                 <Button Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
                 <Button Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
+                <ProgressBar  Height="20"  VerticalAlignment="Top" 
+                        Visibility="{Binding IsprojectStarted, Converter={StaticResource ConverHiddenTOVissibleKey}}" 
+                              BorderBrush="SandyBrown" BorderThickness="1"/>
 
             </Grid>
 
@@ -47,13 +49,12 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Content="Tasks" Grid.Column="0" Margin="30" Height="40" Click="TaskButton_Click"/>
                 <Button Content="Engineers" Grid.Column="1" Margin="30" Height="40" Click="EngineerButton_Click"/>
-                
+
             </Grid>
-            
-            
+
         </Grid>
 
     </Grid>
