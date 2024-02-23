@@ -34,18 +34,22 @@
             <local:ConvertIdToVisible x:Key="ConvertIdToVisibleKey"/>
 
             <!-- Resource for Converting effortTime in task to number for the Gant -->
-            <local:ConvertEffortTimeToWidth x:Key="ConvertEffortTimeToWidthKey"/> 
-            
+            <local:ConvertEffortTimeToWidth x:Key="ConvertEffortTimeToWidthKey"/>
+
             <!-- Resource for Converting effortTime in task to number for the Gant -->
             <local:ConvertStartDateToMargin x:Key="ConvertStartDateToMarginKey"/>
 
             <!-- Resource for Converting engineer to engineer name -->
 
-            <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>  
-            
+            <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>
+
             <!-- Resource for Converting button visibillity to the opposite -->
             <local:ConvertHiddenToVissible x:Key="ConvertHiddenToVissibleKey"/>
 
+            <!-- Resource for Converting task status to color -->
+            <local:ConvertTaskStatusToColor x:Key="ConvertTaskStatusToColorKey"/>
+
+            <!-- Resource for Converting engineer to visible -->
             <local:ConvertEngineerToVisible x:Key="ConvertEngineerToVisibleKey"/>
 
             <!--Style for Buttons-->
@@ -129,7 +133,7 @@
                 </Style.Triggers>
 
             </Style>
-            
+
             <!--Style for labels-->
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>

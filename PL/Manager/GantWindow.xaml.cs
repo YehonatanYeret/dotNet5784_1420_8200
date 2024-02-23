@@ -45,7 +45,8 @@ namespace PL.Manager
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("hello niggro");
+            BO.Task task = (BO.Task)((Grid)sender).DataContext;
+            new TaskWindow(task.Id).ShowDialog();
         }
     }
 }

@@ -383,6 +383,7 @@ internal class TaskImplementation : BlApi.ITask
                     // calculate the closest date based on the startDate of the program and the depndencies 
                     DateTime closest = CalculateClosestStartDate(item.Id, startProject);
                     UpdateScheduledDate(item.Id, closest);
+                    UpdateDeadLineDate(item.Id, closest + item.RequiredEffortTime);
                 }
                 //if the task has unscheduled dependencies ignore it
                 catch (BO.BLValueIsNotCorrectException) {  }

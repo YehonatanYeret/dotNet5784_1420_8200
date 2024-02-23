@@ -60,7 +60,7 @@
 
                 <!-- Engineer ID -->
                 <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7"/>
 
                 <!-- Engineer Name -->
                 <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
@@ -91,7 +91,7 @@
 
                 <!-- Engineer Email -->
                 <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Mode=TwoWay, Converter={StaticResource ConvertEngineerToEngineerNameKey}}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
+                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Converter={StaticResource ConvertEngineerToEngineerNameKey}, Mode=TwoWay}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
 
 
             </Grid>
@@ -99,23 +99,7 @@
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
             <Grid Grid.Column="2" Margin="20, 0">
-                <!--<ListView DataContext="{Binding Dependencies}">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Task" Width="100" DisplayMemberBinding="{Binding TaskId}"/>
-                            <GridViewColumn Header="Description" Width="200" DisplayMemberBinding="{Binding Description}"/>
-                            <GridViewColumn Header="Status" Width="100" DisplayMemberBinding="{Binding Status}"/>
-                        </GridView>
-                    </ListView.View>
-                    <ListViewItem>
-                        <Grid>
-                            <TextBox Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
-                            <TextBox Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
-                            <TextBox Text="{Binding Status, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
-                        </Grid>
-                    </ListViewItem>
-                </ListView>-->
-                <ListView Grid.Row="1" ItemsSource="{Binding Dependencies}">
+                <ListView Grid.Row="1" ItemsSource="{Binding CurrentTask.Dependencies}">
                     <ListView.View>
                         <GridView >
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
@@ -153,13 +137,13 @@
                     </ListView.View>
 
                 </ListView>
-
             </Grid>
 
         </Grid>
 
         <!-- Button for Adding or Updating Engineer -->
-        <Button Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" VerticalAlignment="Bottom" Click="BtnAddUpdate_Click" Margin="30 ,10"/>
+        <Button Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Height="30" Grid.RowSpan="2" 
+                VerticalAlignment="Bottom" Click="BtnAddUpdate_Click" Margin="30 ,10"/>
     </Grid>
 </Window>
 

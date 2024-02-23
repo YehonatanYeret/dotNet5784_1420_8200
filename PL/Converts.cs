@@ -201,8 +201,7 @@ internal class ConvertEngineerToEngineerName : IValueConverter
     /// <param name="culture">The culture to use in the converter (not used)</param>
     /// <returns>The name of the engineer</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        
+    { 
         return value is null ? "Choose Engineer" : BlApi.Factory.Get().Engineer.Read((value as BO.EngineerInTask)!.Id).Name;
     }
 
@@ -250,6 +249,29 @@ internal class ConvertHiddenToVissible : IValueConverter
     /// <param name="parameter">An optional parameter (not used)</param>
     /// <param name="culture">The culture to use in the converter (not used)</param>
     /// <returns>NotImplementedException is thrown</returns>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// to bind status to color for the gantt chart
+/// </summary>
+internal class ConvertTaskStatusToColor : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if(((BO.Status)value).Equals(BO.Status.Done))
+            return "#2dc937";
+        if (((BO.Status)value).Equals(BO.Status.OnTrack))
+            return "#99c140";  
+        if (((BO.Status)value).Equals(BO.Status.InDelay))
+            return "#cc3232";
+        return "#baffb9";
+
+    }
+
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();

@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        Title="GantWindow" Height="450" Width="800"
-        SizeToContent="Height">
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        Title="GantWindow" Height="450" Width="800">
     <!--<Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -19,51 +20,68 @@
         </EventTrigger>
     </Window.Triggers>-->
     <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Border BorderBrush="Black" BorderThickness="2">
 
-        <Border BorderBrush="Black" BorderThickness="2">
-
-            <ItemsControl ItemsSource="{Binding GantData}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="150"/>
-                                    <ColumnDefinition Width="3"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
+                    <ItemsControl ItemsSource="{Binding GantData}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="150"/>
+                                            <ColumnDefinition Width="3"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
                                    FontFamily="ariel" Grid.Column="0" 
                                        TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3"
                                            >
-                                    <TextBlock.Background>
-                                        <LinearGradientBrush>
-                                            <GradientStop Color="LightCyan" Offset="0" />
-                                            <GradientStop Color="LightBlue" Offset="1" />
-                                        </LinearGradientBrush>
-                                    </TextBlock.Background>
-                                </TextBlock>
+                                            <TextBlock.Background>
+                                                <LinearGradientBrush>
+                                                    <GradientStop Color="LightCyan" Offset="0" />
+                                                    <GradientStop Color="LightBlue" Offset="1" />
+                                                </LinearGradientBrush>
+                                            </TextBlock.Background>
+                                        </TextBlock>
 
 
-                                <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
+                                        <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
-                                <Grid Background="LightGray" Grid.Column="2" Margin="0,1">
+                                        <Grid Background="LightGray" Grid.Column="2" Margin="0,1">
 
-                                    <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
+                                            <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
                                    Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
-                                   Background="LightBlue" MouseDown="Grid_MouseLeave" >
-                                        <Border BorderBrush="Black" BorderThickness=".5"/>
+                                   Background="{Binding Status, Converter={StaticResource ConvertTaskStatusToColorKey}}"
+                                          MouseDown="Grid_MouseLeave" >
+                                                <Border BorderBrush="Black" BorderThickness=".7"/>
+                                            </Grid>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-
-
-                            </Grid>
-
-
-                        </StackPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Border>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Color guide:      "/>
+            <Label Content=" Completed:"/>
+            <Rectangle Fill="#2dc937" Height="20" Width="20"/>
+            
+            <Label Content=" In progress:"/>
+            <Rectangle Fill="#99c140" Height="20" Width="20"/>
+            
+            <Label Content=" Not started:"/>
+            <Rectangle Fill="#baffb9" Height="20" Width="20"/>
+            
+            <Label Content=" In delay:"/>
+            <Rectangle Fill="#cc3232" Height="20" Width="20"/>
+            
+        </StackPanel>
     </Grid>
 </Window>
