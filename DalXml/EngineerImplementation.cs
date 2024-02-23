@@ -97,6 +97,10 @@ internal class EngineerImplementation : IEngineer
 
         engineersList.RemoveAll(engineer => engineer.Id == id);
 
+        // remove in tasks the engineer with the given id
+        foreach (var task in new TaskImplementation().ReadAll(t => t.EngineerId == id))
+            new TaskImplementation().Update(task with { EngineerId = null });
+
         XMLTools.SaveListToXMLSerializer(engineersList, s_engineer_xml);
     }
 

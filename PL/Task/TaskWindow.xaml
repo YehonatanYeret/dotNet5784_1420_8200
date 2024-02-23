@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="TaskWindow" Height="550" Width="700"
         ResizeMode="NoResize"
-        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <!--DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"-->
 
     <!-- Main Grid -->
     <Grid >
@@ -59,38 +60,39 @@
 
                 <!-- Engineer ID -->
                 <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7"/>
 
                 <!-- Engineer Name -->
                 <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
 
                 <!-- Engineer Email -->
                 <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
 
                 <!-- Engineer Email -->
                 <Label Content="Deliverables:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
 
                 <!-- Engineer Email -->
                 <Label Content="Remarks:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
 
                 <!-- Engineer Level -->
                 <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                 <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
-                SelectedValue="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
+                SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                 ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"/>
 
                 <Label Content="Status:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                 <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding Source={StaticResource TaskCollectionKey}}" 
-                SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, 
+                SelectedValue="{Binding CurrentTask.Status, Mode=TwoWay, NotifyOnValidationError=true, 
                 ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"/>
 
                 <!-- Engineer Email -->
                 <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Mode=TwoWay, Converter= {StaticResource ConvertEngineerToEngineerNameKey}}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
+                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Mode=TwoWay, Converter={StaticResource ConvertEngineerToEngineerNameKey}}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
+
 
             </Grid>
 

@@ -65,6 +65,10 @@ internal class EngineerImplementation : IEngineer
             throw new DalDoesNotExistException($"Engineer with ID={id} does not exist");//throw exception
 
         DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
+
+        //remove the engineer from all the tasks
+        foreach (var task in new TaskImplementation() .ReadAll(t => t.EngineerId == id))
+            new TaskImplementation().Update(task with { EngineerId = null });
     }
 
     //delete all engineers
