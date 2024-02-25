@@ -56,7 +56,7 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     {
         UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
-        //Engineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
+        Engineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
         InitializeComponent();
     }
 

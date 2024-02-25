@@ -99,7 +99,7 @@
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
             <Grid Grid.Column="2" Margin="20, 0">
-                <ListView Grid.Row="1" ItemsSource="{Binding CurrentTask.Dependencies}">
+                <!--<ListView Grid.Row="1" ItemsSource="{Binding CurrentTask.Dependencies}" Width="100" Height="200">
                     <ListView.View>
                         <GridView >
                             <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
@@ -117,26 +117,22 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-
-                            <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Description}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-
-                            <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Status}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
                         </GridView>
                     </ListView.View>
 
-                </ListView>
+                </ListView>-->
+                <ListBox ItemsSource="{Binding CurrentTask.Dependencies}" Width="100">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,5">
+                                <CheckBox VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                <TextBlock Text="{Binding Alias}" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
+
             </Grid>
 
         </Grid>
