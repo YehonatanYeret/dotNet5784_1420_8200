@@ -237,7 +237,7 @@ internal class TaskImplementation : BlApi.ITask
 
         // Read all tasks that the given task is dependent on
         IEnumerable<DO.Task> tasks = from dep in dependencies
-                                     select _dal.Task.Read((int)dep.DependentOnTask!);
+                                     select _dal.Task.Read(dep.DependentOnTask!);
 
         // If there are unscheduled dependencies, throw an exception
         if (tasks.Any(task => task.ScheduledDate is null))
@@ -379,7 +379,7 @@ internal class TaskImplementation : BlApi.ITask
                     UpdateDeadLineDate(item.Id, closest + item.RequiredEffortTime);
                 }
                 //if the task has unscheduled dependencies ignore it
-                catch (BO.BLValueIsNotCorrectException) {  }
+                catch{  }
             }
         }
         //start the project

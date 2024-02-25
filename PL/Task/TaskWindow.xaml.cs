@@ -1,8 +1,7 @@
 ﻿namespace PL.Task;
-
 using System.ComponentModel;
 using System.Windows;
-
+using System.Windows.Controls;
 
 /// <summary>
 /// Represents the Task Window for managing tasks.
@@ -19,11 +18,11 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     // Event raised when a property value changes.
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    // Invokes the property changed event.
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    //// Invokes the property changed event.
+    //protected virtual void OnPropertyChanged(string propertyName)
+    //{
+    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    //}
 
     // Dependency property for the Task.
     public BO.Task CurrentTask
@@ -36,17 +35,38 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
-    // Gets or sets the Engineer associated with the task.
-    public BO.EngineerInTask? Engineer
+    //// Gets or sets the Engineer associated with the task.
+    //public BO.EngineerInTask? Engineer
+    //{
+    //    get { return engineer; }
+    //    set
+    //    {
+    //        engineer = value;
+    //        OnPropertyChanged(nameof(Engineer));
+    //    }
+    //}
+    //private BO.EngineerInTask? engineer;
+
+    public BO.EngineerInTask? CurrEngineer
     {
-        get { return engineer; }
-        set
-        {
-            engineer = value;
-            OnPropertyChanged(nameof(Engineer));
-        }
+        get { return (BO.EngineerInTask?)GetValue(CurrEngineerProperty); }
+        set { SetValue(CurrEngineerProperty, value); }
     }
-    private BO.EngineerInTask? engineer;
+
+    // Identifies the CurrentTask dependency property.
+    public static readonly DependencyProperty CurrEngineerProperty =
+        DependencyProperty.Register("CurrEngineer", typeof(BO.EngineerInTask), typeof(TaskWindow), new PropertyMetadata(null));
+
+    public List<DependencyList> Dep
+    {
+        get { return (List<DependencyList>)GetValue(DepProperty); }
+        set { SetValue(DepProperty, value); }
+    }
+
+    // Identifies the CurrentTask dependency property.
+    public static readonly DependencyProperty DepProperty =
+        DependencyProperty.Register("Dep", typeof(List<DependencyList>), typeof(TaskWindow), new PropertyMetadata(null));
+
 
     /// <summary>
     /// Initializes a new instance of the TaskWindow class.
@@ -56,7 +76,13 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     {
         UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
-        Engineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
+        CurrEngineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
+        Dep = (from t in s_bl.Task.ReadAll()
+                  select new DependencyList(){
+                      Task =t,
+                      IsDep= CurrentTask.Dependencies!.Any(x => x.Id == t.Id) }
+                  ).ToList();
+
         InitializeComponent();
     }
 
@@ -68,6 +94,9 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
         try
         {
             // Call the appropriate method in the business logic layer based on the update or create flag.
+            CurrentTask.Dependencies = (from t in Dep
+                                        where t.IsDep
+                                        select t.Task).ToList();
             if (UpdateOrCreate)
                 s_bl.Task.Create(CurrentTask);
             else
@@ -95,17 +124,26 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void EngeineerInTaskButton_Click(object sender, RoutedEventArgs e)
     {
-        if (Engineer == null)
+        if (CurrEngineer == null)
         {
             // Show the EngineerListWindow to select an engineer.
             new Engineer.EngineerListWindow(CurrentTask.Id).ShowDialog();
-            Engineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
+            CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
         }
         else
         {
             // Show the EngineerWindow for the selected engineer.
-            new Engineer.EngineerWindow(Engineer.Id).ShowDialog();
-            Engineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
+            new Engineer.EngineerWindow(CurrEngineer.Id).ShowDialog();
+            CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
         }
     }
+}
+
+/// <summary>
+/// class to represent the dependency list with check box.
+/// </summary>
+public class DependencyList
+{
+    public BO.TaskInList Task { get; set;}
+    public bool IsDep { get; set;}
 }

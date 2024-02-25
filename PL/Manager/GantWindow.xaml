@@ -6,27 +6,17 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        SizeToContent="Height"
         WindowStartupLocation="CenterScreen"
-        Title="GantWindow" Height="450" Width="800">
-    <!--<Window.Triggers>
-        <EventTrigger RoutedEvent="Window.Loaded">
-            <BeginStoryboard>
-                <Storyboard >
-                    <DoubleAnimation Duration="0:0:1.5" Storyboard.TargetProperty="Width" From="0" 
-                                     To="{Binding ActualWidth}" AccelerationRatio=".1"/>
-                </Storyboard>
-            </BeginStoryboard>
-        </EventTrigger>
-    </Window.Triggers>-->
+        Title="GantWindow" Height="650" Width="800">
+
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Border BorderBrush="Black" BorderThickness="2">
 
+            <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                     <ItemsControl ItemsSource="{Binding GantData}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -59,6 +49,14 @@
                                    Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
                                           MouseDown="Grid_MouseLeave" >
                                                 <Border BorderBrush="Black" BorderThickness=".7"/>
+                                                <Grid.ToolTip>
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
+                                                        <TextBlock Text="{Binding ScheduledDate, StringFormat='dd/MM/yyyy'}"/>
+                                                        <TextBlock Text="{Binding RequiredEffortTime}"/>
+                                                    </StackPanel>
+                                                </Grid.ToolTip>
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -66,22 +64,23 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
-                </Border>
-        </Grid>
+                </ScrollViewer>
+            </Border>
+
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label Content="Color guide:      "/>
             <Label Content=" Completed:"/>
             <Rectangle Fill="#2dc937" Height="20" Width="20"/>
-            
+
             <Label Content=" In progress:"/>
             <Rectangle Fill="#99c140" Height="20" Width="20"/>
-            
+
             <Label Content=" Not started:"/>
             <Rectangle Fill="#baffb9" Height="20" Width="20"/>
-            
+
             <Label Content=" In delay:"/>
             <Rectangle Fill="#cc3232" Height="20" Width="20"/>
-            
+
         </StackPanel>
     </Grid>
 </Window>

@@ -91,49 +91,25 @@
 
                 <!-- Engineer Email -->
                 <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding Engineer, Converter={StaticResource ConvertEngineerToEngineerNameKey}, Mode=TwoWay}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
+                <Button Grid.Row="7" Grid.Column="1" FontSize="13" Content="{Binding CurrEngineer, Converter={StaticResource ConvertEngineerToEngineerNameKey}, Mode=TwoWay}" Margin="2,7" Click="EngeineerInTaskButton_Click"/>
 
 
             </Grid>
 
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
-            <Grid Grid.Column="2" Margin="20, 0">
-                <!--<ListView Grid.Row="1" ItemsSource="{Binding CurrentTask.Dependencies}" Width="100" Height="200">
-                    <ListView.View>
-                        <GridView >
-                            <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
-                                <GridViewColumn.CellTemplate >
-                                    <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Id}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-
-                            <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock TextWrapping="Wrap" Text="{Binding Alias}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-
-                </ListView>-->
-                <ListBox ItemsSource="{Binding CurrentTask.Dependencies}" Width="100">
+            <Grid Grid.Column="2" Margin="20,0">
+                <Label Content="Dependencies:" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-17,0,0,173"/>
+                <ListBox ItemsSource="{Binding Dep}" Width="190" Height="200" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0,5">
-                                <CheckBox VerticalAlignment="Center" Margin="0,0,5,0"/>
-                                <TextBlock Text="{Binding Alias}" VerticalAlignment="Center"/>
-                            </StackPanel>
+                            <CheckBox Content="{Binding Task.Alias}" IsChecked="{Binding IsDep}" Tag="{Binding Task.Id}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
-
             </Grid>
+
+
 
         </Grid>
 

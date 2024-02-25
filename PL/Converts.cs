@@ -177,7 +177,7 @@ internal class ConvertStartDateToMargin : IValueConverter
     {
         if(value is null)
             return new Thickness(0, 0, 0, 0);
-        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalDays , 1, 0, 1);
+        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalDays*2 , 1, 0, 1);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
