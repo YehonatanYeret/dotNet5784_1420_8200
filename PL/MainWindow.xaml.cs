@@ -39,8 +39,8 @@ public partial class MainWindow : Window
             catch
             {
                 MessageBox.Show("You didnt enterd a proper id", "Unknown error occurred",
-    MessageBoxButton.OK,
-    MessageBoxImage.Error);
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
             }
         }
     }

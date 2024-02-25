@@ -18,12 +18,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     // Event raised when a property value changes.
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    //// Invokes the property changed event.
-    //protected virtual void OnPropertyChanged(string propertyName)
-    //{
-    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    //}
-
     // Dependency property for the Task.
     public BO.Task CurrentTask
     {
@@ -34,18 +28,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
-
-    //// Gets or sets the Engineer associated with the task.
-    //public BO.EngineerInTask? Engineer
-    //{
-    //    get { return engineer; }
-    //    set
-    //    {
-    //        engineer = value;
-    //        OnPropertyChanged(nameof(Engineer));
-    //    }
-    //}
-    //private BO.EngineerInTask? engineer;
 
     public BO.EngineerInTask? CurrEngineer
     {
@@ -77,11 +59,25 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
         UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
         CurrEngineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
-        Dep = (from t in s_bl.Task.ReadAll()
-                  select new DependencyList(){
-                      Task =t,
-                      IsDep= CurrentTask.Dependencies!.Any(x => x.Id == t.Id) }
-                  ).ToList();
+        if (UpdateOrCreate)
+        {
+            Dep = (from t in s_bl.Task.ReadAll()
+                   select new DependencyList()
+                   {
+                       Task = t,
+                       IsDep = false
+                   }).ToList();
+        }
+        else
+        {
+            Dep = (from t in s_bl.Task.ReadAll()
+                   select new DependencyList()
+                   {
+                       Task = t,
+                       IsDep = CurrentTask.Dependencies!.Any(x => x.Id == t.Id)
+                   }
+      ).ToList();
+        }
 
         InitializeComponent();
     }
@@ -144,6 +140,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
 /// </summary>
 public class DependencyList
 {
-    public BO.TaskInList Task { get; set;}
-    public bool IsDep { get; set;}
+    public BO.TaskInList Task { get; set; }
+    public bool IsDep { get; set; }
 }
