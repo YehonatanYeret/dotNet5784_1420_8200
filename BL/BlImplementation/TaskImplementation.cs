@@ -34,7 +34,7 @@ internal class TaskImplementation : BlApi.ITask
             Complexity = (DO.EngineerExperience?)task.Complexity,
         });
         // Create dependencies if they exist
-        task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, id, dep.Id)));
+        task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
         return id;
     }
 
@@ -415,7 +415,7 @@ internal class TaskImplementation : BlApi.ITask
         BO.Task task = Read(id);
 
         //there are no dependencies and the task is on delay
-        if (!task.Dependencies!.Any() && task.DeadlineDate < DateTime.Now && task.CompleteDate == null) return true;
+        if (!task.Dependencies!.Any() && task.ForecastDate < DateTime.Now && task.CompleteDate == null) return true;
 
         //there are dependencies and one of them in delay
         if (task.Dependencies!.Any(t => InDelay(t.Id))) return true;

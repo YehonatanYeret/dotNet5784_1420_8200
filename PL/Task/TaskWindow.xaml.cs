@@ -18,12 +18,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     // Event raised when a property value changes.
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    //// Invokes the property changed event.
-    //protected virtual void OnPropertyChanged(string propertyName)
-    //{
-    //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    //}
-
     // Dependency property for the Task.
     public BO.Task CurrentTask
     {
@@ -34,18 +28,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
-
-    //// Gets or sets the Engineer associated with the task.
-    //public BO.EngineerInTask? Engineer
-    //{
-    //    get { return engineer; }
-    //    set
-    //    {
-    //        engineer = value;
-    //        OnPropertyChanged(nameof(Engineer));
-    //    }
-    //}
-    //private BO.EngineerInTask? engineer;
 
     public BO.EngineerInTask? CurrEngineer
     {
@@ -74,49 +56,20 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     /// <param name="id">The ID of the task.</param>
     public TaskWindow(int id = 0)
     {
+
         UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
         CurrEngineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
+
+
         Dep = (from t in s_bl.Task.ReadAll()
-                  select new DependencyList(){
-                      Task =t,
-                      IsDep= CurrentTask.Dependencies!.Any(x => x.Id == t.Id) }
-                  ).ToList();
+               select new DependencyList()
+               {
+                   Task = t,
+                   IsDep = UpdateOrCreate ? false : CurrentTask.Dependencies!.Any(x => x.Id == t.Id)
+               }).ToList();
 
         InitializeComponent();
-    }
-
-    /// <summary>
-    /// Handles the click event of the Add/Update button.
-    /// </summary>
-    private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            // Call the appropriate method in the business logic layer based on the update or create flag.
-            CurrentTask.Dependencies = (from t in Dep
-                                        where t.IsDep
-                                        select t.Task).ToList();
-            if (UpdateOrCreate)
-                s_bl.Task.Create(CurrentTask);
-            else
-                s_bl.Task.Update(CurrentTask);
-
-            // Close the window after successful operation.
-            Close();
-        }
-        catch (BO.BLAlreadyExistsException ex)
-        {
-            MessageBox.Show(ex.Message, "Error occurred while creation", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (BO.BLDoesNotExistException ex)
-        {
-            MessageBox.Show(ex.Message, "Error occurred while updation", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Unknown error occurred", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
     }
 
     /// <summary>
@@ -137,6 +90,85 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
             CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
         }
     }
+
+    private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            CurrentTask.Engineer = CurrEngineer;
+
+            CurrentTask.Dependencies = (from t in Dep
+                                        where t.IsDep
+                                        select t.Task).ToList();
+
+            // Call the appropriate method in the business logic layer based on the update or create flag
+            if (UpdateOrCreate)
+            {
+                s_bl.Task.Create(CurrentTask);
+                MessageBox.Show("the the task created successfully", "operation succeed",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            else
+            {
+                s_bl.Task.Update(CurrentTask);
+                MessageBox.Show("the the task updated successfully", "operation succeed",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+
+            // Close the window after successful operation
+            Close();
+        }
+        catch (BO.BLAlreadyExistsException ex)
+        {
+            MessageBox.Show(ex.Message, "Error occurred while creation",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        catch (BO.BLDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error occurred while updation",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Unknown error occurred",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+    }
+
+    private void BtnDelete_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (MessageBox.Show("Are you sure you want to delete this task?", "Delete Task", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                s_bl.Task.Delete(CurrentTask.Id);
+                MessageBox.Show("Task Deleted successfully", "Delete Engineer",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+        }
+        catch (BO.BLDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Error occurred while deletion",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Unknown error occurred",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+        finally
+        {
+            Close();
+        }
+    }
 }
 
 /// <summary>
@@ -144,6 +176,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
 /// </summary>
 public class DependencyList
 {
-    public BO.TaskInList Task { get; set;}
-    public bool IsDep { get; set;}
+    public BO.TaskInList Task { get; set; }
+    public bool IsDep { get; set; }
 }

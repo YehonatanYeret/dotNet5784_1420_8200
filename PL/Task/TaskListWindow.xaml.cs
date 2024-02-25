@@ -33,14 +33,8 @@ public partial class TaskListWindow : Window
 
     public BO.Engineer? currentEngineer
     {
-        get
-        {
-            return (BO.Engineer)GetValue(EngineerProperty);
-        }
-        set
-        {
-            SetValue(EngineerProperty, value);
-        }
+        get { return (BO.Engineer)GetValue(EngineerProperty); }
+        set { SetValue(EngineerProperty, value); }
     }
 
     public static readonly DependencyProperty EngineerProperty =

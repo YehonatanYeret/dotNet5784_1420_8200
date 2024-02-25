@@ -182,16 +182,16 @@ internal class EngineerImplementation : IEngineer
     private void checkEngineer(BO.Engineer engineer)
     {
         //check if the id is not negative
-        if (engineer.Id < 0)
-            throw new BO.BLValueIsNotCorrectException($"Engineer ID cannot be negative: {engineer.Id}");
+        if (engineer.Id <= 0)
+            throw new BO.BLValueIsNotCorrectException($"Engineer ID has to be positive: {engineer.Id}");
 
         //check if the name is not empty
         if (string.IsNullOrEmpty(engineer.Name))
             throw new BO.BLValueIsNotCorrectException($"Engineer name cannot be empty: {engineer.Name}");
 
         //check if the cost is not negative
-        if (engineer.Cost < 0)
-            throw new BO.BLValueIsNotCorrectException($"Engineer cost cannot be negative: {engineer.Cost}");
+        if (engineer.Cost <= 0)
+            throw new BO.BLValueIsNotCorrectException($"Engineer cost has to be positive: {engineer.Cost}");
 
         //check if the level is none
         if (engineer.Level == BO.EngineerExperience.None)
@@ -225,7 +225,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");
 
         //check if the engineer level is lower or equal then the task level
-        if (task.Complexity is not null && engineer.Level <= task.Complexity)
+        if (task.Complexity is not null && engineer.Level < task.Complexity)
             throw new BO.BLValueIsNotCorrectException($"Engineer level cannot be lower than the task level: {engineer.Level}");
 
         //update the task with the engineer id
