@@ -56,7 +56,7 @@
 
                                             <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
                                    Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
-                                   Background="{Binding Status, Converter={StaticResource ConvertTaskStatusToColorKey}}"
+                                   Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
                                           MouseDown="Grid_MouseLeave" >
                                                 <Border BorderBrush="Black" BorderThickness=".7"/>
                                             </Grid>

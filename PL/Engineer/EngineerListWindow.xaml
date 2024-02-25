@@ -80,6 +80,6 @@
         </ListView>
 
         <!-- Button to add a new engineer -->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick"  Visibility="{Binding TaskID, Converter={StaticResource ConvertIdToCollapsedKey}}"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick"  Visibility="{Binding TaskID, Converter={StaticResource ConvertIdToCollapsedKey}}" IsDefault="True"/>
     </Grid>
 </Window>

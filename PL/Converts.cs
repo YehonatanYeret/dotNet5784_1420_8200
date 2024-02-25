@@ -262,12 +262,19 @@ internal class ConvertTaskStatusToColor : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if(((BO.Status)value).Equals(BO.Status.Done))
-            return "#2dc937";
-        if (((BO.Status)value).Equals(BO.Status.OnTrack))
-            return "#99c140";  
-        if (((BO.Status)value).Equals(BO.Status.InDelay))
+        //if the task is in delay
+        if ((BlApi.Factory.Get().Task.InDelay((int)value)))
             return "#cc3232";
+
+        //if the task is done
+        if((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.Done)))
+            return "#2dc937";
+
+        //if the task is on track
+        if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.OnTrack)))
+            return "#99c140";  
+
+        //if the task is scheduled
         return "#baffb9";
 
     }

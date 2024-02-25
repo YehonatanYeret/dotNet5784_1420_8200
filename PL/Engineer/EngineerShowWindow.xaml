@@ -31,7 +31,7 @@
         <TextBlock Text="You don't work on any task &#xA;Select a task to work on:" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"
                    Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}" FontWeight="Bold" Grid.Row="2"/>
 
-        <Button Content="Select task" Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40"
+        <Button Content="Select task" Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" IsDefault="True"
                      Grid.Row="3" Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}"/>
         
 
@@ -80,7 +80,7 @@
         </Border>
 
         <Button Grid.Row="5" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" 
-                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}"/>
+                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}" IsDefault="True"/>
 
         <!--the task-->
         <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->
