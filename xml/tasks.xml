@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>1</Id>
-    <Alias>architect</Alias>
-    <Description>the engineeer need to take control over the architection</Description>
-    <CreatedAtDate>2024-01-16T17:54:49.5971902+02:00</CreatedAtDate>
-    <RequiredEffortTime>P31D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-02-02T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-03-04T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
     <Id>2</Id>
     <Alias>Construction permits</Alias>
     <Description>the engineeer need to take control over the Construction permits</Description>
@@ -41,16 +31,6 @@
     <DeadlineDate>2024-05-03T00:00:00</DeadlineDate>
   </Task>
   <Task>
-    <Id>5</Id>
-    <Alias>cranes</Alias>
-    <Description>the engineeer need to take control moving the cranes</Description>
-    <CreatedAtDate>2024-01-09T17:54:49.7139589+02:00</CreatedAtDate>
-    <RequiredEffortTime>P15D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-04-26T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
     <Id>6</Id>
     <Alias>workers</Alias>
     <Description>the engineeer need to take control over hirring workers</Description>
@@ -61,16 +41,6 @@
     <DeadlineDate>2024-04-26T00:00:00</DeadlineDate>
   </Task>
   <Task>
-    <Id>9</Id>
-    <Alias>ladder</Alias>
-    <Description>the engineeer need to take control over buildig the ladder for the house</Description>
-    <CreatedAtDate>2023-12-12T17:54:49.8322301+02:00</CreatedAtDate>
-    <RequiredEffortTime>P42D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-05-10T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-06-21T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
     <Id>10</Id>
     <Alias>digging</Alias>
     <Description>the engineeer need to take control over the digging so we can start build</Description>
@@ -79,16 +49,6 @@
     <IsActive>true</IsActive>
     <ScheduledDate>2024-05-18T00:00:00</ScheduledDate>
     <DeadlineDate>2024-06-28T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>11</Id>
-    <Alias>foundations</Alias>
-    <Description>the engineeer need to take control over the foundation proccess</Description>
-    <CreatedAtDate>2024-01-17T17:54:49.8868401+02:00</CreatedAtDate>
-    <RequiredEffortTime>P12D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-06-28T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-07-10T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>12</Id>
@@ -211,6 +171,63 @@
     <DeadlineDate>2024-06-12T00:00:00</DeadlineDate>
   </Task>
   <Task>
+    <Id>5</Id>
+    <Alias>cranes</Alias>
+    <Description>the engineeer need to take control moving the cranes</Description>
+    <CreatedAtDate>2024-01-09T17:54:49.7139589+02:00</CreatedAtDate>
+    <RequiredEffortTime>P15D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-04-26T00:00:00</DeadlineDate>
+    <EngineerId>343074363</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>11</Id>
+    <Alias>foundations</Alias>
+    <Description>the engineeer need to take control over the foundation proccess</Description>
+    <CreatedAtDate>2024-01-17T17:54:49.8868401+02:00</CreatedAtDate>
+    <RequiredEffortTime>P12D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-06-28T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-07-10T00:00:00</DeadlineDate>
+    <EngineerId>343074363</EngineerId>
+  </Task>
+  <Task>
+    <Id>1</Id>
+    <Alias>architect</Alias>
+    <Description>the engineeer need to take control over the architection</Description>
+    <CreatedAtDate>2024-01-16T17:54:49.5971902+02:00</CreatedAtDate>
+    <RequiredEffortTime>P31D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-02-02T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-03-04T00:00:00</DeadlineDate>
+    <Remarks>123</Remarks>
+    <EngineerId>343074363</EngineerId>
+  </Task>
+  <Task>
+    <Id>24</Id>
+    <Alias>sdvs</Alias>
+    <Description>sdfsd</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>sdfs</Deliverables>
+    <Remarks>sdfs</Remarks>
+    <Complexity>Advanced</Complexity>
+  </Task>
+  <Task>
+    <Id>25</Id>
+    <Alias>as</Alias>
+    <Description>a</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>s</Deliverables>
+    <Remarks>a</Remarks>
+    <Complexity>AdvancedBeginner</Complexity>
+  </Task>
+  <Task>
     <Id>7</Id>
     <Alias>protective measures</Alias>
     <Description>the engineeer need to take control over the buying of the protective measures</Description>
@@ -219,5 +236,50 @@
     <IsActive>true</IsActive>
     <ScheduledDate>2024-04-26T00:00:00</ScheduledDate>
     <DeadlineDate>2024-05-18T00:00:00</DeadlineDate>
+    <EngineerId>252084696</EngineerId>
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <Alias>ladder</Alias>
+    <Description>the engineeer need to take control over buildig the ladder for the house</Description>
+    <CreatedAtDate>2023-12-12T17:54:49.8322301+02:00</CreatedAtDate>
+    <RequiredEffortTime>P42D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-05-10T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-06-21T00:00:00</DeadlineDate>
+  </Task>
+  <Task>
+    <Id>26</Id>
+    <Alias>crgt</Alias>
+    <Description>cgrt</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>cgr</Deliverables>
+    <Remarks>cgr</Remarks>
+    <Complexity>AdvancedBeginner</Complexity>
+  </Task>
+  <Task>
+    <Id>27</Id>
+    <Alias>bv</Alias>
+    <Description>bf</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>fb</Deliverables>
+    <Remarks>fb</Remarks>
+    <EngineerId>343074363</EngineerId>
+    <Complexity>AdvancedBeginner</Complexity>
+  </Task>
+  <Task>
+    <Id>28</Id>
+    <Alias>fdgtyj</Alias>
+    <Description>;glmrt</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>elfkemrfl</Deliverables>
+    <Remarks>rkfler</Remarks>
+    <Complexity>Intermediate</Complexity>
   </Task>
 </ArrayOfTask>

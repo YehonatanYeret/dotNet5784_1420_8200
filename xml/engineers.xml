@@ -29,17 +29,17 @@
     <Level>AdvancedBeginner</Level>
   </Engineer>
   <Engineer>
-    <Id>343074363</Id>
-    <Cost>48120</Cost>
-    <Name>David Levi</Name>
-    <Email>David@yahoo.com</Email>
-    <Level>Beginner</Level>
-  </Engineer>
-  <Engineer>
     <Id>252084696</Id>
     <Cost>34167</Cost>
     <Name>Asaf Bir</Name>
     <Email>Asaf@hotmail.com</Email>
     <Level>AdvancedBeginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>343074363</Id>
+    <Cost>0</Cost>
+    <Name>David Levi</Name>
+    <Email>David@yahoo.com</Email>
+    <Level>Beginner</Level>
   </Engineer>
 </ArrayOfEngineer>

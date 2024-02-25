@@ -85,13 +85,14 @@
             <Grid Grid.Column="2" Margin="20,0">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3*"/>
-                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -103,7 +104,7 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <!-- Engineer Email -->
+    
                     <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <Button Grid.Row="0" Grid.Column="1" FontSize="13" Content="{Binding CurrEngineer, Converter={StaticResource ConvertEngineerToEngineerNameKey}, Mode=TwoWay}" Margin="2,7"
                             Click="EngeineerInTaskButton_Click"/>
@@ -112,12 +113,20 @@
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                               Margin="2,7" Foreground="Black" IsReadOnly="True" />
 
-
-                    <!-- Engineer Level -->
                     <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource TaskCollectionKey}}" 
+                    <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"/>
+
+
+                    <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <ContentControl>
+                            <TextBlock Text="Required&#10;Effort Time:" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </ContentControl>
+                    </Label>
+                    
+                    
+                    
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -162,8 +171,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="20 ,7" />
-                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2"/>
+                <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click" />
+                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"/>
            
             </Grid>
         </Grid>

@@ -34,7 +34,7 @@ internal class TaskImplementation : BlApi.ITask
             Complexity = (DO.EngineerExperience?)task.Complexity,
         });
         // Create dependencies if they exist
-        task.Dependencies?.Select(dep => _dal.Dependency.Create(new(0, id, dep.Id)));
+        task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
         return id;
     }
 
