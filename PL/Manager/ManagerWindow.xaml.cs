@@ -23,6 +23,17 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty IsprojectStartedProperty =
         DependencyProperty.Register("IsprojectStarted", typeof(Visibility), typeof(ManagerWindow), new PropertyMetadata(null));
 
+    public double percentComplete
+    {
+        get { return (double)GetValue(percentCompleteProperty); }
+        set
+        {
+            SetValue(percentCompleteProperty, value);
+            OnPropertyChanged(nameof(percentComplete)); // Notify the UI about the property change
+        }
+    }
+    public static readonly DependencyProperty percentCompleteProperty =
+        DependencyProperty.Register("percentComplete", typeof(double), typeof(ManagerWindow), new PropertyMetadata(null));
 
     // Business logic layer instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -31,7 +42,10 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
 
     public ManagerWindow()
     {
-        IsprojectStarted = (s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress)? Visibility.Hidden: Visibility.Visible;
+        int allTasks = s_bl.Task.ReadAll().Count();
+        int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
+        percentComplete =  ((double)completedTasks/allTasks)*100;
+        IsprojectStarted = (s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress) ? Visibility.Hidden : Visibility.Visible;
         InitializeComponent();
     }
 
@@ -85,8 +99,10 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             {
                 DateTime start = (DateTime)startProject;
                 s_bl.Task.StartProject(start);
-
-                IsprojectStarted = Visibility.Hidden;
+                if (s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress)
+                {
+                    IsprojectStarted = Visibility.Hidden;
+                }
             }
         }
     }

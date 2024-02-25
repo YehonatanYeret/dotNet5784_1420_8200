@@ -39,7 +39,15 @@
                 <Button Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
                 <ProgressBar  Height="20"  VerticalAlignment="Top" 
                         Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}}" 
-                              BorderBrush="SandyBrown" BorderThickness="1"/>
+                              Value="{Binding percentComplete}" Maximum="100" Minimum="0"
+                              BorderBrush="DeepSkyBlue" BorderThickness="1">
+                    <!--<ProgressBar.Foreground>
+                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                            <GradientStop Color="#FF50DF3E" Offset="1"/>
+                            <GradientStop Color="#FFFB1B1B" Offset="0"/>
+                        </LinearGradientBrush>
+                    </ProgressBar.Foreground>-->
+                </ProgressBar>
 
             </Grid>
 
