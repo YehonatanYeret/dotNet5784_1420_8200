@@ -89,6 +89,13 @@ public interface ITask
     public void StartProject(DateTime startProject);
 
     /// <summary>
+    /// return if the task is in delay
+    /// </summary>
+    /// <param name="id">the id of the task</param>
+    /// <returns>if the task is in delay</returns>
+    public bool InDelay(int id);
+
+    /// <summary>
     /// Reset the task and the dependencies
     /// </summary>
     public void Reset();

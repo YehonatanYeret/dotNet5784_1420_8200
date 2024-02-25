@@ -348,14 +348,6 @@ internal class TaskImplementation : BlApi.ITask
     /// <returns>the status of the task</returns>
     internal BO.Status CalculateStatus(DO.Task task)
     {
-        var dependencies = from dep in _dal.Dependency.ReadAll(d => d.DependentTask == task.Id)
-                           select _dal.Task.Read(dep.DependentOnTask);
-        //there are no dependencies and the task is on delay
-        if (!dependencies.Any() && task.DeadlineDate < DateTime.Now && task.CompleteDate == null) return BO.Status.InDelay;
-
-        //there are dependencies and one of them in delay
-        if (dependencies.Any(t => CalculateStatus(t) == BO.Status.InDelay)) return BO.Status.InDelay;
-
         //check if the task has scheduled date
         if (task.ScheduledDate is null) return BO.Status.Unscheduled;
         //chelk if the task not started yet
@@ -365,6 +357,7 @@ internal class TaskImplementation : BlApi.ITask
         //the task has started and completed
         else return BO.Status.Done;
     }
+
 
 
     /// <summary>
@@ -393,6 +386,27 @@ internal class TaskImplementation : BlApi.ITask
         new ClockImplementation().SetStartProject(startProject);
     }
 
+
+    /// <summary>
+    /// return if the task is in delay
+    /// </summary>
+    /// <param name="id">the id of the task</param>
+    /// <returns>if the task is in delay</returns>
+    public bool InDelay(int id)
+    {
+        BO.Task task = Read(id);
+
+        //there are no dependencies and the task is on delay
+        if (!task.Dependencies!.Any() && task.DeadlineDate < DateTime.Now && task.CompleteDate == null) return true;
+
+        //there are dependencies and one of them in delay
+        if (task.Dependencies!.Any(t => InDelay(t.Id))) return true;
+
+        //if all the dependencies are not in delay and the task is not in delay
+        return false;
+    }
+
+
     /// <summary>
     /// delete all the tasks and dependencies
     /// </summary>
@@ -401,4 +415,5 @@ internal class TaskImplementation : BlApi.ITask
         _dal.Task.DeleteAll();
         _dal.Dependency.DeleteAll();
     }
+
 }
