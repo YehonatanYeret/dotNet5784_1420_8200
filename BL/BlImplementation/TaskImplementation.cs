@@ -77,6 +77,24 @@ internal class TaskImplementation : BlApi.ITask
         // Check if the task values are valid
         CheckTask(task);
 
+        // Create a graph to detect cyclic dependencies
+        Graph graph = new(_dal.Task.ReadAll().Count());
+
+        // Add edges to the graph
+        foreach (TaskInList t in task.Dependencies!)
+        {
+            graph.AddEdge(task.Id - 1, t.Id - 1);
+        }
+        //add the rest of the edges
+        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll();
+        foreach (DO.Dependency dep in dependencies)
+            if ((dep.DependentTask != task.Id))
+                graph.AddEdge(dep.DependentTask - 1, dep.DependentOnTask - 1);
+
+        // Detect cross edges in the graph and throw an exception if found
+        if (graph.DetectCrossEdges())
+            throw new BO.BLValueIsNotCorrectException("The task has a cyclic dependency");
+
         try
         {
             // Perform the task update
@@ -379,7 +397,7 @@ internal class TaskImplementation : BlApi.ITask
                     UpdateDeadLineDate(item.Id, closest + item.RequiredEffortTime);
                 }
                 //if the task has unscheduled dependencies ignore it
-                catch{  }
+                catch { }
             }
         }
         //start the project
