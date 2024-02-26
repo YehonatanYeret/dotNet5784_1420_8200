@@ -99,8 +99,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
                                         where t.IsDep
                                         select t.Task).ToList();
 
-            s_bl.Task.Update(CurrentTask);
-
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
             {

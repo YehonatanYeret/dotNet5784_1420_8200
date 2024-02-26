@@ -100,12 +100,15 @@
                     <!-- engineer in task -->
                     <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <Button Grid.Row="0" Grid.Column="1" FontSize="13" Content="{Binding CurrEngineer, Converter={StaticResource ConvertEngineerToEngineerNameKey}, Mode=TwoWay}" Margin="2,7"
-                            Click="EngeineerInTaskButton_Click"/>
+                            Click="EngeineerInTaskButton_Click" Visibility="{Binding CurrentTask.Id, Converter={StaticResource ConvertIdToVisibleKey}}"/>
+
+                    <Label Grid.Row="0" Grid.Column="1" Content="------------------" Visibility="{Binding CurrentTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="Bold"/>
 
                     <!-- task status -->
                     <Label Content="Status:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                              Margin="2,7" Foreground="Black" IsReadOnly="True" />
+                              Margin="2,7" Foreground="Black" IsReadOnly="True"/>
 
                     <!-- task complexity -->
                     <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
