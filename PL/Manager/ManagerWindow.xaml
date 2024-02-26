@@ -22,33 +22,23 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Grid.Column="0" Margin="40">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Button Content="Gant" Grid.Column="0" Margin="30" Height="40" Click="GanttClick_Button"
+                <!--oppoosite buttons for gantt and start project-->
+                <Button Content="Gant" Margin="30" Height="40" Click="GanttClick_Button"
                         Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}, Mode=OneWay}"/>
-                <Button Content="Start Project" Grid.Column="0" Margin="30" Height="40" Click="StartProject_Click"
+                <Button Content="Start Project" Margin="30" Height="40" Click="StartProject_Click"
                         Visibility="{Binding IsprojectStarted}"/>
             </Grid>
 
             <Grid Grid.Row="0" Grid.Column="1" Margin="40">
-
+                <!-- buttons for reset and initialize -->
                 <Button Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
                 <Button Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
+                <!-- prgress bar -->
                 <ProgressBar  Height="20"  VerticalAlignment="Top" 
                         Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}}" 
                               Value="{Binding percentComplete}" Maximum="100" Minimum="0"
                               BorderBrush="DeepSkyBlue" BorderThickness="1">
-                    <!--<ProgressBar.Foreground>
-                        <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
-                            <GradientStop Color="#FF50DF3E" Offset="1"/>
-                            <GradientStop Color="#FFFB1B1B" Offset="0"/>
-                        </LinearGradientBrush>
-                    </ProgressBar.Foreground>-->
                 </ProgressBar>
-
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="1" Margin="40">
@@ -58,6 +48,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!--buttons to show task and angineers-->
                 <Button Content="Tasks" Grid.Column="0" Margin="30" Height="40" Click="TaskButton_Click"/>
                 <Button Content="Engineers" Grid.Column="1" Margin="30" Height="40" Click="EngineerButton_Click"/>
 

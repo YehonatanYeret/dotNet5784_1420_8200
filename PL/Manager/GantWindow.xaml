@@ -29,8 +29,7 @@
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
                                    FontFamily="ariel" Grid.Column="0" 
-                                       TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3"
-                                           >
+                                       TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3">
                                             <TextBlock.Background>
                                                 <LinearGradientBrush>
                                                     <GradientStop Color="LightCyan" Offset="0" />
@@ -44,17 +43,20 @@
 
                                         <Grid Background="LightGray" Grid.Column="2" Margin="0,1">
 
+                                            <!--every rectangle reprezented by width and margin. fortermore, there is button click on every rect-->
                                             <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
                                    Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
                                    Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
                                           MouseDown="Grid_MouseLeave" >
                                                 <Border BorderBrush="Black" BorderThickness=".7"/>
+                                                
+                                                <!--tooltip for hvering tasks-->
                                                 <Grid.ToolTip>
                                                     <StackPanel>
                                                         <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"/>
                                                         <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
                                                         <TextBlock Text="{Binding ScheduledDate, StringFormat='dd/MM/yyyy'}"/>
-                                                        <TextBlock Text="{Binding RequiredEffortTime}"/>
+                                                    <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
                                                     </StackPanel>
                                                 </Grid.ToolTip>
                                             </Grid>

@@ -19,31 +19,19 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     // Dependency property for the Task.
-    public BO.Task CurrentTask
-    {
-        get { return (BO.Task)GetValue(TaskProperty); }
-        set { SetValue(TaskProperty, value); }
-    }
+    public BO.Task CurrentTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value); } }
 
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
-    public BO.EngineerInTask? CurrEngineer
-    {
-        get { return (BO.EngineerInTask?)GetValue(CurrEngineerProperty); }
-        set { SetValue(CurrEngineerProperty, value); }
-    }
+    public BO.EngineerInTask? CurrEngineer { get { return (BO.EngineerInTask?)GetValue(CurrEngineerProperty); } set { SetValue(CurrEngineerProperty, value); } }
 
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty CurrEngineerProperty =
         DependencyProperty.Register("CurrEngineer", typeof(BO.EngineerInTask), typeof(TaskWindow), new PropertyMetadata(null));
 
-    public List<DependencyList> Dep
-    {
-        get { return (List<DependencyList>)GetValue(DepProperty); }
-        set { SetValue(DepProperty, value); }
-    }
+    public List<DependencyList> Dep { get { return (List<DependencyList>)GetValue(DepProperty); } set { SetValue(DepProperty, value); }}
 
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty DepProperty =
