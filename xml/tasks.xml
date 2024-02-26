@@ -4,220 +4,182 @@
     <Id>1</Id>
     <Alias>architect</Alias>
     <Description>the engineeer need to take control over the architection</Description>
-    <CreatedAtDate>2023-12-29T00:11:55.8724498+02:00</CreatedAtDate>
-    <RequiredEffortTime>P36D</RequiredEffortTime>
+    <CreatedAtDate>2023-12-08T12:27:09.4758151+02:00</CreatedAtDate>
+    <RequiredEffortTime>P17D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-02-19T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-03-26T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>2</Id>
     <Alias>Construction permits</Alias>
     <Description>the engineeer need to take control over the Construction permits</Description>
-    <CreatedAtDate>2024-02-04T00:11:55.8777852+02:00</CreatedAtDate>
-    <RequiredEffortTime>P16D</RequiredEffortTime>
+    <CreatedAtDate>2023-12-08T12:27:09.4809448+02:00</CreatedAtDate>
+    <RequiredEffortTime>P58D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-03-26T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-04-11T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>3</Id>
     <Alias>iron</Alias>
     <Description>the engineeer need to take control over the iron for the structure</Description>
-    <CreatedAtDate>2024-01-13T00:11:55.8958012+02:00</CreatedAtDate>
-    <RequiredEffortTime>P46D</RequiredEffortTime>
+    <CreatedAtDate>2023-12-26T12:27:09.4934299+02:00</CreatedAtDate>
+    <RequiredEffortTime>P12D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-05-27T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>4</Id>
     <Alias>brick</Alias>
     <Description>the engineeer need to take control over the import of the bricks</Description>
-    <CreatedAtDate>2023-12-21T00:11:55.9150078+02:00</CreatedAtDate>
-    <RequiredEffortTime>P48D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-17T12:27:09.5071149+02:00</CreatedAtDate>
+    <RequiredEffortTime>P21D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-05-29T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>5</Id>
     <Alias>cranes</Alias>
     <Description>the engineeer need to take control moving the cranes</Description>
-    <CreatedAtDate>2023-12-15T00:11:55.9413375+02:00</CreatedAtDate>
-    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-29T12:27:09.5282035+02:00</CreatedAtDate>
+    <RequiredEffortTime>P22D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-04-11T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-05-11T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>6</Id>
-    <Alias>workers</Alias>
-    <Description>the engineeer need to take control over hirring workers</Description>
-    <CreatedAtDate>2023-12-16T00:11:55.9586249+02:00</CreatedAtDate>
-    <RequiredEffortTime>P51D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-03-26T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-05-16T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>7</Id>
-    <Alias>protective measures</Alias>
-    <Description>the engineeer need to take control over the buying of the protective measures</Description>
-    <CreatedAtDate>2024-01-03T00:11:55.9852159+02:00</CreatedAtDate>
-    <RequiredEffortTime>P33D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-05-16T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-06-18T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>8</Id>
     <Alias>cement</Alias>
     <Description>the engineeer need to take controll over the creation of the cement</Description>
-    <CreatedAtDate>2023-12-21T00:11:56.0046382+02:00</CreatedAtDate>
-    <RequiredEffortTime>P45D</RequiredEffortTime>
+    <CreatedAtDate>2023-12-28T12:27:09.5727599+02:00</CreatedAtDate>
+    <RequiredEffortTime>P53D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-05-16T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-06-30T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>9</Id>
-    <Alias>ladder</Alias>
-    <Description>the engineeer need to take control over buildig the ladder for the house</Description>
-    <CreatedAtDate>2023-12-31T00:11:56.0244859+02:00</CreatedAtDate>
-    <RequiredEffortTime>P49D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-05-27T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-07-15T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>10</Id>
     <Alias>digging</Alias>
     <Description>the engineeer need to take control over the digging so we can start build</Description>
-    <CreatedAtDate>2024-01-04T00:11:56.0408453+02:00</CreatedAtDate>
-    <RequiredEffortTime>P36D</RequiredEffortTime>
+    <CreatedAtDate>2024-02-01T12:27:09.6122174+02:00</CreatedAtDate>
+    <RequiredEffortTime>P10D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-06-18T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-07-24T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>11</Id>
     <Alias>foundations</Alias>
     <Description>the engineeer need to take control over the foundation proccess</Description>
-    <CreatedAtDate>2024-01-17T00:11:56.0602647+02:00</CreatedAtDate>
-    <RequiredEffortTime>P23D</RequiredEffortTime>
+    <CreatedAtDate>2024-02-01T12:27:09.6348607+02:00</CreatedAtDate>
+    <RequiredEffortTime>P33D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-07-24T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-08-16T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>12</Id>
-    <Alias>skull</Alias>
-    <Description>the engineeer need to take control over the skull of the building</Description>
-    <CreatedAtDate>2024-01-19T00:11:56.119285+02:00</CreatedAtDate>
-    <RequiredEffortTime>P44D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-08-16T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-09-29T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>13</Id>
-    <Alias>roof</Alias>
-    <Description>the engineeer need to control the roof constraction</Description>
-    <CreatedAtDate>2024-01-01T00:11:56.1296384+02:00</CreatedAtDate>
-    <RequiredEffortTime>P21D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-09-29T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-10-20T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>14</Id>
-    <Alias>Solar panels</Alias>
-    <Description>the engineeer need to take control over putting Solar panels</Description>
-    <CreatedAtDate>2023-12-13T00:11:56.1376877+02:00</CreatedAtDate>
-    <RequiredEffortTime>P18D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-10-20T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-11-07T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>15</Id>
     <Alias>plumbing</Alias>
     <Description>the engineeer need to take control over the plumbing</Description>
-    <CreatedAtDate>2023-12-21T00:11:56.1464018+02:00</CreatedAtDate>
-    <RequiredEffortTime>P19D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-29T12:27:09.687722+02:00</CreatedAtDate>
+    <RequiredEffortTime>P33D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-09-29T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-10-18T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>16</Id>
     <Alias>electricity</Alias>
     <Description>the engineeer need to take control over the electric wires and the wiring</Description>
-    <CreatedAtDate>2023-12-17T00:11:56.1703904+02:00</CreatedAtDate>
-    <RequiredEffortTime>P53D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-30T12:27:09.6995071+02:00</CreatedAtDate>
+    <RequiredEffortTime>P56D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-09-29T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-11-21T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>17</Id>
-    <Alias>plaster</Alias>
-    <Description>the engineeer need to take control over the plaster of the building</Description>
-    <CreatedAtDate>2023-12-25T00:11:56.1861252+02:00</CreatedAtDate>
-    <RequiredEffortTime>P53D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-11-21T00:00:00</ScheduledDate>
-    <DeadlineDate>2025-01-13T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>18</Id>
-    <Alias>paint</Alias>
-    <Description>the engineeer need to take control over painting the house</Description>
-    <CreatedAtDate>2023-12-28T00:11:56.2078305+02:00</CreatedAtDate>
-    <RequiredEffortTime>P15D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2025-01-13T00:00:00</ScheduledDate>
-    <DeadlineDate>2025-01-28T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>19</Id>
     <Alias>flooring</Alias>
     <Description>the engineeer need to take control over the flooring</Description>
-    <CreatedAtDate>2024-01-23T00:11:56.2298725+02:00</CreatedAtDate>
-    <RequiredEffortTime>P40D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-19T12:27:09.7360217+02:00</CreatedAtDate>
+    <RequiredEffortTime>P46D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2025-01-28T00:00:00</ScheduledDate>
-    <DeadlineDate>2025-03-09T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>20</Id>
     <Alias>windows and door</Alias>
     <Description>the engineeer need to take control over the exits of the building</Description>
-    <CreatedAtDate>2023-12-21T00:11:56.2474482+02:00</CreatedAtDate>
-    <RequiredEffortTime>P39D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-13T12:27:09.7500675+02:00</CreatedAtDate>
+    <RequiredEffortTime>P43D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-09-29T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-11-07T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>21</Id>
     <Alias>Air-Conditioner</Alias>
     <Description>the engineeer need to take control the Air-Conditioning</Description>
-    <CreatedAtDate>2024-01-02T00:11:56.2626309+02:00</CreatedAtDate>
-    <RequiredEffortTime>P58D</RequiredEffortTime>
+    <CreatedAtDate>2023-12-15T12:27:09.7660622+02:00</CreatedAtDate>
+    <RequiredEffortTime>P17D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-11-21T00:00:00</ScheduledDate>
-    <DeadlineDate>2025-01-18T00:00:00</DeadlineDate>
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Alias>paint</Alias>
+    <Description>the engineeer need to take control over painting the house</Description>
+    <CreatedAtDate>2024-01-23T12:27:09.7210542+02:00</CreatedAtDate>
+    <RequiredEffortTime>P36D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>17</Id>
+    <Alias>plaster</Alias>
+    <Description>the engineeer need to take control over the plaster of the building</Description>
+    <CreatedAtDate>2023-12-28T12:27:09.7112264+02:00</CreatedAtDate>
+    <RequiredEffortTime>P48D</RequiredEffortTime>
+    <IsActive>true</IsActive>
   </Task>
   <Task>
     <Id>22</Id>
     <Alias>rail</Alias>
     <Description>the engineeer need to take control over building the rails in the house</Description>
-    <CreatedAtDate>2023-12-10T00:11:56.2833828+02:00</CreatedAtDate>
-    <RequiredEffortTime>P39D</RequiredEffortTime>
+    <CreatedAtDate>2024-01-16T12:27:09.7790791+02:00</CreatedAtDate>
+    <RequiredEffortTime>P16D</RequiredEffortTime>
     <IsActive>true</IsActive>
-    <ScheduledDate>2024-10-20T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-11-28T00:00:00</DeadlineDate>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <Alias>protective measures</Alias>
+    <Description>the engineeer need to take control over the buying of the protective measures</Description>
+    <CreatedAtDate>2024-01-27T12:27:09.5539441+02:00</CreatedAtDate>
+    <RequiredEffortTime>P13D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>6</Id>
+    <Alias>workers</Alias>
+    <Description>the engineeer need to take control over hirring workers</Description>
+    <CreatedAtDate>2024-01-30T12:27:09.540305+02:00</CreatedAtDate>
+    <RequiredEffortTime>P49D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>9</Id>
+    <Alias>ladder</Alias>
+    <Description>the engineeer need to take control over buildig the ladder for the house</Description>
+    <CreatedAtDate>2024-01-12T12:27:09.5955869+02:00</CreatedAtDate>
+    <RequiredEffortTime>P24D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>13</Id>
+    <Alias>roof</Alias>
+    <Description>the engineeer need to control the roof constraction</Description>
+    <CreatedAtDate>2024-01-01T12:27:09.6629027+02:00</CreatedAtDate>
+    <RequiredEffortTime>P40D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>12</Id>
+    <Alias>skull</Alias>
+    <Description>the engineeer need to take control over the skull of the building</Description>
+    <CreatedAtDate>2023-12-10T12:27:09.6518934+02:00</CreatedAtDate>
+    <RequiredEffortTime>P48D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>14</Id>
+    <Alias>Solar panels</Alias>
+    <Description>the engineeer need to take control over putting Solar panels</Description>
+    <CreatedAtDate>2024-01-27T12:27:09.673935+02:00</CreatedAtDate>
+    <RequiredEffortTime>P49D</RequiredEffortTime>
+    <IsActive>true</IsActive>
   </Task>
 </ArrayOfTask>

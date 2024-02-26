@@ -37,6 +37,9 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty DepProperty =
         DependencyProperty.Register("Dep", typeof(List<DependencyList>), typeof(TaskWindow), new PropertyMetadata(null));
 
+    // The previous engineer of the task.
+    public BO.EngineerInTask? prevEngineer { get; set; }
+
 
     /// <summary>
     /// Initializes a new instance of the TaskWindow class.
@@ -65,6 +68,8 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void EngeineerInTaskButton_Click(object sender, RoutedEventArgs e)
     {
+        prevEngineer = CurrEngineer;
+
         if (CurrEngineer == null)
         {
             // Show the EngineerListWindow to select an engineer.
@@ -77,17 +82,24 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
             new Engineer.EngineerWindow(CurrEngineer.Id).ShowDialog();
             CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
         }
+
+        // If the engineer was changed and the task is not updated at the end of the window the task will be updated with the previous engineer.
+        CurrentTask.Engineer = prevEngineer;
+        s_bl.Task.Update(CurrentTask);
     }
 
     private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
+            // Set the engineer of the task to the current engineer.
             CurrentTask.Engineer = CurrEngineer;
 
             CurrentTask.Dependencies = (from t in Dep
                                         where t.IsDep
                                         select t.Task).ToList();
+
+            s_bl.Task.Update(CurrentTask);
 
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)

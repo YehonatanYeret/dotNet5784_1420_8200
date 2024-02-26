@@ -90,7 +90,7 @@ public partial class EngineerListWindow : Window
             {
 
                 BO.Task task = s_bl.Task.Read(TaskID);
-                task.Engineer = Factory.Get().Engineer.GetEngineerInTask(EngineerInList!.Id);
+                task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
                 s_bl.Task.Update(task);
                 Close();
             }
