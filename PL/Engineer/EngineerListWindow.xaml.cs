@@ -32,6 +32,9 @@ public partial class EngineerListWindow : Window
     /// </summary>
     public BO.EngineerExperience experience { get; set; } = BO.EngineerExperience.None;
 
+
+    public BO.EngineerInTask? choosenEngineer { get; set; }
+
     /// <summary>
     /// if the window is for choosing an engineer
     /// </summary>
@@ -78,6 +81,7 @@ public partial class EngineerListWindow : Window
         try
         {
             BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+            choosenEngineer = new BO.EngineerInTask() { Id = EngineerInList!.Id, Name = EngineerInList!.Name};
             if (TaskID == 0)
             {
                 if (EngineerInList != null)
@@ -89,9 +93,9 @@ public partial class EngineerListWindow : Window
             else
             {
 
-                BO.Task task = s_bl.Task.Read(TaskID);
-                task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
-                s_bl.Task.Update(task);
+                //BO.Task task = s_bl.Task.Read(TaskID);
+                //task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
+                //s_bl.Task.Update(task);
                 Close();
             }
         }

@@ -26,7 +26,7 @@ public partial class MainWindow : Window
 
     private void Button_Click_2(object sender, RoutedEventArgs e)
     {
-        var dialogBox = new Messeges.EnterIdMessege("Enter engineer Id to show:");
+        Messeges.EnterIdMessege dialogBox = new Messeges.EnterIdMessege("Enter engineer Id to show:");
         if (dialogBox.ShowDialog() == true)
         {
             try

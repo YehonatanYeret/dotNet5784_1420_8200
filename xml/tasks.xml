@@ -33,14 +33,6 @@
     <IsActive>true</IsActive>
   </Task>
   <Task>
-    <Id>5</Id>
-    <Alias>cranes</Alias>
-    <Description>the engineeer need to take control moving the cranes</Description>
-    <CreatedAtDate>2024-01-29T12:27:09.5282035+02:00</CreatedAtDate>
-    <RequiredEffortTime>P22D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-  </Task>
-  <Task>
     <Id>8</Id>
     <Alias>cement</Alias>
     <Description>the engineeer need to take controll over the creation of the cement</Description>
@@ -54,14 +46,6 @@
     <Description>the engineeer need to take control over the digging so we can start build</Description>
     <CreatedAtDate>2024-02-01T12:27:09.6122174+02:00</CreatedAtDate>
     <RequiredEffortTime>P10D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>11</Id>
-    <Alias>foundations</Alias>
-    <Description>the engineeer need to take control over the foundation proccess</Description>
-    <CreatedAtDate>2024-02-01T12:27:09.6348607+02:00</CreatedAtDate>
-    <RequiredEffortTime>P33D</RequiredEffortTime>
     <IsActive>true</IsActive>
   </Task>
   <Task>
@@ -130,15 +114,6 @@
     <EngineerId>1</EngineerId>
   </Task>
   <Task>
-    <Id>7</Id>
-    <Alias>protective measures</Alias>
-    <Description>the engineeer need to take control over the buying of the protective measures</Description>
-    <CreatedAtDate>2024-01-27T12:27:09.5539441+02:00</CreatedAtDate>
-    <RequiredEffortTime>P13D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <EngineerId>1</EngineerId>
-  </Task>
-  <Task>
     <Id>6</Id>
     <Alias>workers</Alias>
     <Description>the engineeer need to take control over hirring workers</Description>
@@ -181,5 +156,52 @@
     <CreatedAtDate>2024-01-27T12:27:09.673935+02:00</CreatedAtDate>
     <RequiredEffortTime>P49D</RequiredEffortTime>
     <IsActive>true</IsActive>
+  </Task>
+  <Task>
+    <Id>5</Id>
+    <Alias>cranes</Alias>
+    <Description>the engineeer need to take control moving the cranes</Description>
+    <CreatedAtDate>2024-01-29T12:27:09.5282035+02:00</CreatedAtDate>
+    <RequiredEffortTime>P22D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>7</Id>
+    <Alias>protective measures</Alias>
+    <Description>the engineeer need to take control over the buying of the protective measures</Description>
+    <CreatedAtDate>2024-01-27T12:27:09.5539441+02:00</CreatedAtDate>
+    <RequiredEffortTime>P13D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>11</Id>
+    <Alias>foundations</Alias>
+    <Description>the engineeer need to take control over the foundation proccess</Description>
+    <CreatedAtDate>2024-02-01T12:27:09.6348607+02:00</CreatedAtDate>
+    <RequiredEffortTime>P33D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <EngineerId>1</EngineerId>
+  </Task>
+  <Task>
+    <Id>23</Id>
+    <Alias>kjerbekjvb</Alias>
+    <Description>dlfjhvbjkv</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>lfjvhbfvjkebh</Deliverables>
+    <Remarks>dljfvhbfkvjebh</Remarks>
+  </Task>
+  <Task>
+    <Id>24</Id>
+    <Alias>dlfkvejnbvlkfv </Alias>
+    <Description>flkvjfvlkenj`</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>PT0S</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <Deliverables>ldkfvjnfljkve</Deliverables>
+    <Remarks>ldkejvnekvnev</Remarks>
   </Task>
 </ArrayOfTask>
