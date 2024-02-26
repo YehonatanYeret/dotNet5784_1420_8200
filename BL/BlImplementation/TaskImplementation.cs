@@ -83,7 +83,7 @@ internal class TaskImplementation : BlApi.ITask
         // Add edges to the graph
         foreach (TaskInList t in task.Dependencies!)
         {
-            graph.AddEdge(task.Id - 1, t.Id - 1);
+            graph.AddEdge(task.Id, t.Id - 1);
         }
         //add the rest of the edges
         IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll();

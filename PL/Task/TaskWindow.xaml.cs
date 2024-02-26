@@ -73,8 +73,10 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
         if (CurrEngineer == null)
         {
             // Show the EngineerListWindow to select an engineer.
-            new Engineer.EngineerListWindow(CurrentTask.Id).ShowDialog();
-            CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
+            Engineer.EngineerListWindow engineerlistWiindow = new Engineer.EngineerListWindow(CurrentTask.Id);
+            engineerlistWiindow.ShowDialog();
+            //CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
+            CurrEngineer = engineerlistWiindow.choosenEngineer;
         }
         else
         {
