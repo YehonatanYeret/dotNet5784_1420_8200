@@ -140,7 +140,7 @@ internal class DepenencyImplemention : IDependency
         XElement? root = XMLTools.LoadListFromXMLElement(s_dependency_xml);
 
         IEnumerable<XElement?> dependencys = (from dep in root.Elements()
-                                                select dep);
+                                              select dep);
 
         // Remove all the dependencies
         dependencys.Remove();

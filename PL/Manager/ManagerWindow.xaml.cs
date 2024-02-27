@@ -112,4 +112,8 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
+    private void BtnCreateManager_Click(object sender, RoutedEventArgs e)
+    {
+        new Manager.CreateManagerWindow().ShowDialog();
+    }
 }

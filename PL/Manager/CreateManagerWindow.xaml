@@ -1,0 +1,77 @@
+﻿<Window x:Class="PL.Manager.CreateManagerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:local="clr-namespace:PL.Manager"
+        mc:Ignorable="d"
+        Title="CreateManagerWindow" Height="300" Width="300"
+        ResizeMode="NoResize"
+        DataContext="{Binding CurrentManager, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
+
+
+    <Grid>
+        <!-- Set the background gradient -->
+        <Grid.Background>
+            <LinearGradientBrush>
+
+                <GradientStop Color="#7a7a76" Offset="0" />
+                <GradientStop Color="#e1e6e4" Offset="1" />
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Define Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Sub-Grid for Engineer Details -->
+        <Grid Grid.Row="0" Margin="20, 20">
+
+            <!-- Define Rows -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+ 
+                <!--<RowDefinition Height="*"/>-->
+            </Grid.RowDefinitions>
+
+            <!-- Define Columns -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Engineer Name -->
+            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+            <!-- Engineer Email -->
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+
+            <!-- Engineer Password -->
+            <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
+            <PasswordBox Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,1"/>
+
+        </Grid>
+
+        <!-- Button for Adding or (Updating and Deleting Engineer)-->
+        <Grid Grid.Row="1" Height="40">
+
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            
+            <Button Grid.Column="1" Margin="20 ,7" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Create" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Click="BtnCreateManager_Click"/>
+        </Grid>
+    </Grid>
+</Window>

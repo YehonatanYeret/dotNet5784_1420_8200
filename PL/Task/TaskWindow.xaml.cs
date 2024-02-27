@@ -1,7 +1,6 @@
 ﻿namespace PL.Task;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 
 /// <summary>
 /// Represents the Task Window for managing tasks.

@@ -1,6 +1,8 @@
 ﻿namespace PL.Engineer;
 
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 
 /// <summary>
 /// Interaction logic for EngineerWindow.xaml
@@ -25,15 +27,25 @@ public partial class EngineerWindow : Window
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
 
+    public BO.User CurrentUser
+    {
+        get { return (BO.User)GetValue(UserProperty); }
+        set { SetValue(UserProperty, value); }
+    }
+
+    public static readonly DependencyProperty UserProperty =
+        DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(EngineerWindow), new PropertyMetadata(null));
+
     /// <summary>
     /// Constructor for EngineerWindow
     /// </summary>
     /// <param name="id">Engineer ID</param>
     public EngineerWindow(int id = 0)
     {
-        InitializeComponent();
         UpdateOrCreate = id == 0;
         CurrentEngineer = UpdateOrCreate ? new BO.Engineer() : s_bl.Engineer.Read(id);
+        CurrentUser = UpdateOrCreate? new BO.User() : s_bl.User.Read(CurrentEngineer.Email);
+        InitializeComponent();
     }
 
     /// <summary>
@@ -46,7 +58,16 @@ public partial class EngineerWindow : Window
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
             {
+                s_bl.User.Create(new BO.User
+                {
+                    Type = BO.UserType.engineer,
+                    Name = CurrentEngineer.Name,
+                    Password = CurrentUser.Password,
+                    Email = CurrentEngineer.Email
+                });
+
                 s_bl.Engineer.Create(CurrentEngineer);
+
                 MessageBox.Show("the the engineer created successfully", "operation succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -109,5 +130,10 @@ public partial class EngineerWindow : Window
         {
             Close();
         }
+    }
+
+    private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
+    {
+        CurrentUser.Password = ((PasswordBox)sender).Password;
     }
 }

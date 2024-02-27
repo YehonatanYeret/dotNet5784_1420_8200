@@ -23,7 +23,12 @@
         public IClock Clock => new ClockImplementation();
 
         /// <summary>
-        /// initialize the  db
+        /// Gets an instance of the User interface.
+        /// </summary>
+        public IUser User => new UserImplementation();
+
+        /// <summary>
+        /// initialize the db
         /// </summary>
         public void InitializeDB() => DalTest.Initialization.Do();
 
