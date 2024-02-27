@@ -7,6 +7,8 @@
     <CreatedAtDate>2023-12-28T19:27:49.9800218+02:00</CreatedAtDate>
     <RequiredEffortTime>P50D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-02-02T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-03-23T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>2</Id>
@@ -15,6 +17,8 @@
     <CreatedAtDate>2024-02-01T19:27:49.9866288+02:00</CreatedAtDate>
     <RequiredEffortTime>P15D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-03-23T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-04-07T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>3</Id>
@@ -23,6 +27,8 @@
     <CreatedAtDate>2023-12-19T19:27:49.9968221+02:00</CreatedAtDate>
     <RequiredEffortTime>P18D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-04-07T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-04-25T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>4</Id>
@@ -31,6 +37,8 @@
     <CreatedAtDate>2024-02-02T19:27:50.0080524+02:00</CreatedAtDate>
     <RequiredEffortTime>P13D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-04-07T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-04-20T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>5</Id>
@@ -39,6 +47,8 @@
     <CreatedAtDate>2023-12-19T19:27:50.0255655+02:00</CreatedAtDate>
     <RequiredEffortTime>P24D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-04-07T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-05-01T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>6</Id>
@@ -47,6 +57,8 @@
     <CreatedAtDate>2024-01-20T19:27:50.0424765+02:00</CreatedAtDate>
     <RequiredEffortTime>P41D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-03-23T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-05-03T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>7</Id>
@@ -55,6 +67,8 @@
     <CreatedAtDate>2023-12-24T19:27:50.0538206+02:00</CreatedAtDate>
     <RequiredEffortTime>P30D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-05-03T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-06-02T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>8</Id>
@@ -63,6 +77,8 @@
     <CreatedAtDate>2024-01-11T19:27:50.0710715+02:00</CreatedAtDate>
     <RequiredEffortTime>P54D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-05-03T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-06-26T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>9</Id>
@@ -71,6 +87,8 @@
     <CreatedAtDate>2023-12-13T19:27:50.0902892+02:00</CreatedAtDate>
     <RequiredEffortTime>P52D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-04-25T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-06-16T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>10</Id>
@@ -79,6 +97,8 @@
     <CreatedAtDate>2024-01-07T19:27:50.1083339+02:00</CreatedAtDate>
     <RequiredEffortTime>P21D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-06-02T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-06-23T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>11</Id>
@@ -87,6 +107,8 @@
     <CreatedAtDate>2024-02-02T19:27:50.1257808+02:00</CreatedAtDate>
     <RequiredEffortTime>P22D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-06-26T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-07-18T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>12</Id>
@@ -95,6 +117,8 @@
     <CreatedAtDate>2023-12-16T19:27:50.1473964+02:00</CreatedAtDate>
     <RequiredEffortTime>P50D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-07-18T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-09-06T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>13</Id>
@@ -103,6 +127,8 @@
     <CreatedAtDate>2023-12-24T19:27:50.1623314+02:00</CreatedAtDate>
     <RequiredEffortTime>P57D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-09-06T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-11-02T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>14</Id>
@@ -111,6 +137,8 @@
     <CreatedAtDate>2024-02-07T19:27:50.1768603+02:00</CreatedAtDate>
     <RequiredEffortTime>P45D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-11-02T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-12-17T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>15</Id>
@@ -119,38 +147,8 @@
     <CreatedAtDate>2023-12-14T19:27:50.1910169+02:00</CreatedAtDate>
     <RequiredEffortTime>P27D</RequiredEffortTime>
     <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>16</Id>
-    <Alias>electricity</Alias>
-    <Description>the engineeer need to take control over the electric wires and the wiring</Description>
-    <CreatedAtDate>2024-01-26T19:27:50.2077911+02:00</CreatedAtDate>
-    <RequiredEffortTime>P40D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>17</Id>
-    <Alias>plaster</Alias>
-    <Description>the engineeer need to take control over the plaster of the building</Description>
-    <CreatedAtDate>2024-01-13T19:27:50.2241623+02:00</CreatedAtDate>
-    <RequiredEffortTime>P30D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>18</Id>
-    <Alias>paint</Alias>
-    <Description>the engineeer need to take control over painting the house</Description>
-    <CreatedAtDate>2024-02-03T19:27:50.2379622+02:00</CreatedAtDate>
-    <RequiredEffortTime>P58D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>19</Id>
-    <Alias>flooring</Alias>
-    <Description>the engineeer need to take control over the flooring</Description>
-    <CreatedAtDate>2024-01-01T19:27:50.2561828+02:00</CreatedAtDate>
-    <RequiredEffortTime>P17D</RequiredEffortTime>
-    <IsActive>true</IsActive>
+    <ScheduledDate>2024-09-06T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-10-03T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>20</Id>
@@ -159,14 +157,8 @@
     <CreatedAtDate>2024-01-03T19:27:50.2727918+02:00</CreatedAtDate>
     <RequiredEffortTime>P42D</RequiredEffortTime>
     <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>21</Id>
-    <Alias>Air-Conditioner</Alias>
-    <Description>the engineeer need to take control the Air-Conditioning</Description>
-    <CreatedAtDate>2024-01-28T19:27:50.285758+02:00</CreatedAtDate>
-    <RequiredEffortTime>P13D</RequiredEffortTime>
-    <IsActive>true</IsActive>
+    <ScheduledDate>2024-09-06T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-10-18T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>22</Id>
@@ -175,5 +167,56 @@
     <CreatedAtDate>2024-02-03T19:27:50.2971675+02:00</CreatedAtDate>
     <RequiredEffortTime>P54D</RequiredEffortTime>
     <IsActive>true</IsActive>
+    <ScheduledDate>2024-11-02T00:00:00</ScheduledDate>
+  </Task>
+  <Task>
+    <Id>16</Id>
+    <Alias>electricity</Alias>
+    <Description>the engineeer need to take control over the electric wires and the wiring</Description>
+    <CreatedAtDate>2024-01-26T19:27:50.2077911+02:00</CreatedAtDate>
+    <RequiredEffortTime>P40D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-09-06T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-10-16T00:00:00</DeadlineDate>
+  </Task>
+  <Task>
+    <Id>17</Id>
+    <Alias>plaster</Alias>
+    <Description>the engineeer need to take control over the plaster of the building</Description>
+    <CreatedAtDate>2024-01-13T19:27:50.2241623+02:00</CreatedAtDate>
+    <RequiredEffortTime>P30D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-10-16T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-11-15T00:00:00</DeadlineDate>
+  </Task>
+  <Task>
+    <Id>18</Id>
+    <Alias>paint</Alias>
+    <Description>the engineeer need to take control over painting the house</Description>
+    <CreatedAtDate>2024-02-03T19:27:50.2379622+02:00</CreatedAtDate>
+    <RequiredEffortTime>P58D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-11-15T00:00:00</ScheduledDate>
+    <DeadlineDate>2025-01-12T00:00:00</DeadlineDate>
+  </Task>
+  <Task>
+    <Id>19</Id>
+    <Alias>flooring</Alias>
+    <Description>the engineeer need to take control over the flooring</Description>
+    <CreatedAtDate>2024-01-01T19:27:50.2561828+02:00</CreatedAtDate>
+    <RequiredEffortTime>P17D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2025-01-12T00:00:00</ScheduledDate>
+    <DeadlineDate>2025-01-29T00:00:00</DeadlineDate>
+  </Task>
+  <Task>
+    <Id>21</Id>
+    <Alias>Air-Conditioner</Alias>
+    <Description>the engineeer need to take control the Air-Conditioning</Description>
+    <CreatedAtDate>2024-01-28T19:27:50.285758+02:00</CreatedAtDate>
+    <RequiredEffortTime>P13D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-10-16T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-10-29T00:00:00</DeadlineDate>
   </Task>
 </ArrayOfTask>

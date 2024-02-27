@@ -6,9 +6,9 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
-        Title="CreateManagerWindow" Height="300" Width="300"
+        Title="CreateManagerWindow" Height="350" Width="300"
         ResizeMode="NoResize"
-        DataContext="{Binding CurrentManager, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
 
     <Grid>
@@ -35,7 +35,7 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
- 
+
                 <!--<RowDefinition Height="*"/>-->
             </Grid.RowDefinitions>
 
@@ -47,11 +47,11 @@
 
             <!-- Engineer Name -->
             <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentManager.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentManager.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
             <!-- Engineer Password -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
@@ -62,16 +62,20 @@
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
         <Grid Grid.Row="1" Height="40">
 
+            <!-- Button for Adding or (Updating and Deleting Engineer)-->
+            <Grid Grid.Row="1" Height="40">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            
-            <Button Grid.Column="1" Margin="20 ,7" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Create" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Click="BtnCreateManager_Click"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="{Binding createOrUpdate, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding createOrUpdate, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding createOrUpdate, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

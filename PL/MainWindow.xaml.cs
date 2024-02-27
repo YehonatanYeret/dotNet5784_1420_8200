@@ -47,7 +47,7 @@ public partial class MainWindow : Window
                 }
                 else
                 {
-                    new Manager.ManagerWindow().Show();
+                    new Manager.ManagerWindow(user.Email).Show();
                 }
             }
             else

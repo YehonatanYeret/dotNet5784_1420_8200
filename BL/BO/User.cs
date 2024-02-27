@@ -36,4 +36,7 @@ public class User
     /// The user's email is a unique identifier and is used for communication and account recovery.
     /// </remarks>
     public string Email { get; set; }
+
+    public override string ToString() => this.ToStringProperty();
+
 }

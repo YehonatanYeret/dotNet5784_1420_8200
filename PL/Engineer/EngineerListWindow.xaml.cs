@@ -92,10 +92,6 @@ public partial class EngineerListWindow : Window
             }
             else
             {
-
-                //BO.Task task = s_bl.Task.Read(TaskID);
-                //task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
-                //s_bl.Task.Update(task);
                 Close();
             }
         }

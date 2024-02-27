@@ -29,37 +29,50 @@
                         Visibility="{Binding IsprojectStarted}"/>
         </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="1" Margin="10">
+        <Grid Grid.Row="0" Grid.Column="1" Margin="40">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <!-- buttons for reset and initialize -->
-            <Button Grid.Row="1" Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
-            <Button Grid.Row="1" Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
+
+            <Label Content="{Binding ManagerName, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Center"/>
+
             <!-- prgress bar -->
-            <ProgressBar  Height="20"  Grid.Row="0"
+            <ProgressBar  Height="20"  Grid.Row="1"
                         Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}}" 
                         Value="{Binding percentComplete}" Maximum="100" Minimum="0"
                         BorderBrush="DeepSkyBlue" BorderThickness="1">
             </ProgressBar>
+            
+            <!-- buttons for reset and initialize -->
+            <Button Grid.Row="2" Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
+            <Button Grid.Row="2" Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
 
-            <Button Width="150" Content="Create Manager" Height="40" Click="BtnCreateManager_Click" Grid.Row="2"/>
-        
+    
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="1" Margin="40">
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!--buttons to show task and angineers-->
-            <Button Content="Tasks" Grid.Column="0" Margin="30" Height="40" Click="TaskButton_Click"/>
-            <Button Content="Engineers" Grid.Column="1" Margin="30" Height="40" Click="EngineerButton_Click"/>
+            <Button Content="Tasks" Grid.Column="0" Grid.ColumnSpan="2" Margin="20" Height="40" Click="TaskButton_Click"/>
+            <Button Content="Engineers" Grid.Column="2" Grid.ColumnSpan="2" Margin="20" Height="40" Click="EngineerButton_Click"/>
+
+            <Button Width="150" Content="Managers" Grid.ColumnSpan="2" Height="40" Click="BtnCreateManager_Click" Grid.Row="1" Grid.Column="1" Margin="20"/>
+
 
         </Grid>
 

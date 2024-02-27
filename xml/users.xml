@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User>
-    <Type>manager</Type>
-    <Name>admin</Name>
-    <Password>Admin123</Password>
-    <Email>admin@gmail.com</Email>
-  </User>
-  <User>
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
@@ -47,5 +41,17 @@
     <Name>nignig</Name>
     <Password>Nignig12</Password>
     <Email>n@gmail.com</Email>
+  </User>
+  <User>
+    <Type>manager</Type>
+    <Name>admin1</Name>
+    <Password>Admin123</Password>
+    <Email>admin@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>NIGA</Name>
+    <Password>NigaNiga1</Password>
+    <Email>nignig@gmail.com</Email>
   </User>
 </ArrayOfUser>
