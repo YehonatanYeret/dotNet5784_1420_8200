@@ -36,8 +36,10 @@ internal class EngineerImplementation : IEngineer
     public Engineer? Read(int id)
     {
         List<DO.Engineer> engineersList = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);
-
-        return engineersList.FirstOrDefault(engineer => engineer.Id == id);
+        Engineer? engineer = engineersList.FirstOrDefault(engineer => engineer.Id == id);
+        if(engineer != null)
+            return engineer;
+        return null;
     }
 
     /// <summary>
@@ -49,7 +51,10 @@ internal class EngineerImplementation : IEngineer
     {
         List<DO.Engineer> engineersList = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);
 
-        return engineersList.FirstOrDefault(filter);
+        Engineer? engineer = engineersList.FirstOrDefault(filter);
+        if (engineer != null)
+            return engineer;
+        return null;
     }
 
     /// <summary>
@@ -79,6 +84,7 @@ internal class EngineerImplementation : IEngineer
             throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exist");
 
         engineersList.RemoveAll(engineer => engineer.Id == item.Id);
+
         engineersList.Add(item);
 
         XMLTools.SaveListToXMLSerializer(engineersList, s_engineer_xml);
@@ -117,4 +123,5 @@ internal class EngineerImplementation : IEngineer
         // save the updated list back to XML
         XMLTools.SaveListToXMLSerializer(engineersList, s_engineer_xml);
     }
+
 }

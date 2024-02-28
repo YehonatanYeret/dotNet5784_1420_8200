@@ -14,8 +14,11 @@ public record Engineer
     double Cost,
     string Name,
     string Email,
-    DO.EngineerExperience Level
+    DO.EngineerExperience Level,
+    string? Image=null
 )
 {
     public Engineer() : this(Id: 0, Cost: 0, Name: "",Email: "",Level: DO.EngineerExperience.Beginner) { }
+
+    public bool ShouldSerializeImage() { return !string.IsNullOrEmpty(Image); }
 }

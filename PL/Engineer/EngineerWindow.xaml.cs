@@ -1,11 +1,15 @@
 ﻿namespace PL.Engineer;
 
+using Microsoft.Win32;
+using System.ComponentModel;
+using System.IO;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 /// <summary>
 /// Interaction logic for EngineerWindow.xaml
 /// </summary>
-public partial class EngineerWindow : Window
+public partial class EngineerWindow : Window, INotifyPropertyChanged
 {
     // Get the business logic instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -13,8 +17,15 @@ public partial class EngineerWindow : Window
     // Flag to indicate whether to update or create a new engineer
     public bool UpdateOrCreate = false;
 
+    // Event for property changed
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     /// <summary>
-    /// Dependency Property for Engineer
+    /// Gets or sets the current engineer displayed in the window.
     /// </summary>
     public BO.Engineer CurrentEngineer
     {
@@ -22,8 +33,28 @@ public partial class EngineerWindow : Window
         set { SetValue(EngineerProperty, value); }
     }
 
+    // Dependency property for CurrentEngineer
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerWindow), new PropertyMetadata(null));
+
+
+    /// <summary>
+    /// Gets or sets the image of the current engineer displayed in the window.
+    /// </summary>
+    public string? Image
+    {
+        get { return (string?)GetValue(ImageProperty); }
+        set
+        {
+            SetValue(ImageProperty, value);
+            OnPropertyChanged(nameof(Image)); // Notify the UI about the property change
+        }
+    }
+
+    // Dependency property for image
+    public static readonly DependencyProperty ImageProperty =
+        DependencyProperty.Register("Image", typeof(string), typeof(EngineerWindow), new PropertyMetadata(null));
+
 
     /// <summary>
     /// Constructor for EngineerWindow
@@ -32,8 +63,10 @@ public partial class EngineerWindow : Window
     public EngineerWindow(int id = 0)
     {
         InitializeComponent();
-        UpdateOrCreate = id == 0;
+        UpdateOrCreate = (id == 0);
         CurrentEngineer = UpdateOrCreate ? new BO.Engineer() : s_bl.Engineer.Read(id);
+        // Set the image of the engineer
+        Image = CurrentEngineer.Image;
     }
 
     /// <summary>
@@ -41,6 +74,8 @@ public partial class EngineerWindow : Window
     /// </summary>
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
+        // Set the image of the engineer
+        CurrentEngineer.Image = Image;
         try
         {
             // Call the appropriate method in the business logic layer based on the update or create flag
@@ -108,6 +143,29 @@ public partial class EngineerWindow : Window
         finally
         {
             Close();
+        }
+    }
+
+
+    private void btnBrowse_Click(object sender, RoutedEventArgs e)
+    {
+        // Open file dialog to select an image file and check for valid image file
+        OpenFileDialog fileDialog = new OpenFileDialog();
+        fileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
+
+        // If the user selects a file, convert the image to base64 and set the image property
+        if (fileDialog.ShowDialog() == true)
+        {
+            string filePath = fileDialog.FileName;
+            try
+            {
+                Image = s_bl.Engineer.ConvertImageToBase64(filePath);
+            }
+            // If the file is not a valid image file, show an error message
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

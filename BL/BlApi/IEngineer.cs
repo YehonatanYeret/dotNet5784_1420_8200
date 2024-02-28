@@ -67,6 +67,8 @@ public interface IEngineer
     /// <returns>the tasks that the engineer can start to work on</returns>
     public IEnumerable<BO.TaskInList> GetTasksOfEngineer(int engineerId);
 
+    public string ConvertImageToBase64(string path);
+
     /// <summary>
     ///  reset the engineer
     /// </summary>

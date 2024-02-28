@@ -3,9 +3,11 @@
 using BlApi;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Media.Imaging;
 
 /// <summary>
 /// Converts an engineer ID to content for button labels (Add or Update).
@@ -159,7 +161,7 @@ internal class ConvertEffortTimeToWidth : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return ((TimeSpan)value).TotalDays*2;
+        return ((TimeSpan)value).TotalDays * 2;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -175,9 +177,10 @@ internal class ConvertStartDateToMargin : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        if(value is null)
+        if (value is null)
             return new Thickness(0, 0, 0, 0);
-        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalDays*2 , 1, 0, 1);
+        // TimeSpan day = TimeSpan.FromDays((int)((DateTime)value).);
+        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalDays * 2, 1, 0, 1);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -201,7 +204,7 @@ internal class ConvertEngineerToEngineerName : IValueConverter
     /// <param name="culture">The culture to use in the converter (not used)</param>
     /// <returns>The name of the engineer</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    { 
+    {
         return value is null ? "Choose Engineer" : BlApi.Factory.Get().Engineer.Read((value as BO.EngineerInTask)!.Id).Name;
     }
 
@@ -267,15 +270,44 @@ internal class ConvertTaskStatusToColor : IValueConverter
             return "#cc3232";
 
         //if the task is done
-        if((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.Done)))
+        if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.Done)))
             return "#2dc937";
 
         //if the task is on track
         if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.OnTrack)))
-            return "#99c140";  
+            return "#99c140";
 
         //if the task is scheduled
         return "#baffb9";
+
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// convert string to picture
+/// </summary>
+internal class ConvertStringToImage : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        BitmapImage bitmap = new BitmapImage();
+        //start init
+        bitmap.BeginInit();
+
+        //if the value is null or empty we will show the no image found picture
+        if (value == null || string.IsNullOrEmpty((string)value))
+            bitmap.UriSource = new Uri("../Images/noImageFound.jpg", UriKind.RelativeOrAbsolute);
+        //else we will show the image
+        else
+            bitmap.StreamSource = new MemoryStream(System.Convert.FromBase64String((string)value));
+        bitmap.EndInit();
+
+        return bitmap;
 
     }
 

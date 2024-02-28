@@ -1,5 +1,6 @@
-﻿ namespace BlImplementation;
+﻿namespace BlImplementation;
 using BlApi;
+using static System.Net.Mime.MediaTypeNames;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -22,11 +23,12 @@ internal class EngineerImplementation : IEngineer
             Cost: engineer.Cost,
             Name: engineer.Name,
             Email: engineer.Email,
-            Level: (DO.EngineerExperience)engineer.Level
+            Level: (DO.EngineerExperience)engineer.Level,
+            Image: engineer.Image
         );
 
         try
-        { 
+        {
             return _dal.Engineer.Create(doEngineer);
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -69,7 +71,8 @@ internal class EngineerImplementation : IEngineer
             Name = engineer.Name,
             Email = engineer.Email,
             Level = (BO.EngineerExperience)engineer.Level,
-            Task = task
+            Task = task,
+            Image = engineer.Image
         };
 
         return boEngineer;
@@ -89,22 +92,17 @@ internal class EngineerImplementation : IEngineer
 
         //get all the engineers that return true with filter from the dal
         return (from e in _dal.Engineer.ReadAll()
-                where filter(new BO.Engineer
+                let engineer = new BO.Engineer
                 {
                     Id = e.Id,
                     Cost = e.Cost,
                     Name = e.Name,
                     Email = e.Email,
-                    Level = (BO.EngineerExperience)e.Level
-                })
-                select new BO.Engineer
-                {
-                    Id = e.Id,
-                    Cost = e.Cost,
-                    Name = e.Name,
-                    Email = e.Email,
-                    Level = (BO.EngineerExperience)e.Level
-                });
+                    Level = (BO.EngineerExperience)e.Level,
+                    Image = e.Image
+                }
+                where filter(engineer)
+                select engineer);
     }
 
     /// <summary>
@@ -127,7 +125,8 @@ internal class EngineerImplementation : IEngineer
             Cost: engineer.Cost,
             Name: engineer.Name,
             Email: engineer.Email,
-            Level: (DO.EngineerExperience)engineer.Level
+            Level: (DO.EngineerExperience)engineer.Level,
+            Image: engineer.Image
             ));
 
             //update the task of the engineer if exist
@@ -145,7 +144,7 @@ internal class EngineerImplementation : IEngineer
         {
             throw new BO.BLDoesNotExistException(ex.Message, ex);
         }
-    
+
     }
 
     /// <summary>
@@ -198,7 +197,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLValueIsNotCorrectException("Cannot set none to level of engineer");
         //check if the email is valid
         var mail = new System.ComponentModel.DataAnnotations.EmailAddressAttribute();
-        if ( engineer.Email is null || !mail.IsValid(engineer.Email))
+        if (engineer.Email is null || !mail.IsValid(engineer.Email))
             throw new BO.BLValueIsNotCorrectException($"Engineer email is not valid: {engineer.Email}");
     }
 
@@ -216,7 +215,7 @@ internal class EngineerImplementation : IEngineer
         DO.Task? task = _dal.Task.Read(taskId) ??
             throw new BO.BLDoesNotExistException($"Task with ID {taskId} does not exist");
 
-        if(task.EngineerId is not null)
+        if (task.EngineerId is not null)
             throw new BO.BLAlreadyExistsException($"Task with ID {taskId} already have an engineer");
 
         //check if the engineer already work on a task
@@ -245,14 +244,14 @@ internal class EngineerImplementation : IEngineer
 
         //check if the engineer work on a task and remove the task
         var task = _dal.Task.Read(task => task.EngineerId == engineerId && task.StartDate > DateTime.Now);
-        if(task is not null)
+        if (task is not null)
             _dal.Task.Update(task with { EngineerId = null });
     }
 
     /// <summary>
     /// delete all the engineers
     /// </summary>
-    public void Reset()=> _dal.Engineer.DeleteAll();
+    public void Reset() => _dal.Engineer.DeleteAll();
 
     /// <summary>
     /// get the engineer that work on the task
@@ -278,5 +277,15 @@ internal class EngineerImplementation : IEngineer
     {
         return (from t in new TaskImplementation().ReadAllTask(task => task.Engineer != null && task.Engineer.Id == engineerId && task.Status == BO.Status.Scheduled)
                 select (new TaskImplementation().ConvertToTaskInList(t.Id)));
+    }
+
+    public string ConvertImageToBase64(string path)
+    {
+        using FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+        byte[] bitmapBytes = new byte[stream.Length];
+        stream.Read(bitmapBytes, 0, (int)stream.Length);
+
+        // Convert the byte array to a Base64 string
+        return Convert.ToBase64String(bitmapBytes);
     }
 }

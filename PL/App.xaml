@@ -52,6 +52,9 @@
             <!-- Resource for Converting engineer to visible -->
             <local:ConvertEngineerToVisible x:Key="ConvertEngineerToVisibleKey"/>
 
+            <!-- Resource for Converting engineer to visible -->
+            <local:ConvertStringToImage x:Key="ConvertStringToImageKey"/>
+            
             <!--Style for Buttons-->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#A9A57C"/>

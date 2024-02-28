@@ -80,23 +80,27 @@ public partial class EngineerListWindow : Window
     {
         try
         {
-            BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
-            choosenEngineer = new BO.EngineerInTask() { Id = EngineerInList!.Id, Name = EngineerInList!.Name};
-            if (TaskID == 0)
+            ListView? list = (sender as ListView);
+            if (list is not null)
             {
-                if (EngineerInList != null)
+                BO.Engineer? EngineerInList = list.SelectedItem as BO.Engineer;
+                choosenEngineer = new BO.EngineerInTask() { Id = EngineerInList!.Id, Name = EngineerInList!.Name };
+                if (TaskID == 0)
                 {
-                    new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
-                    UpdateListView();
+                    if (EngineerInList != null)
+                    {
+                        new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
+                        UpdateListView();
+                    }
                 }
-            }
-            else
-            {
+                else
+                {
 
-                //BO.Task task = s_bl.Task.Read(TaskID);
-                //task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
-                //s_bl.Task.Update(task);
-                Close();
+                    //BO.Task task = s_bl.Task.Read(TaskID);
+                    //task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
+                    //s_bl.Task.Update(task);
+                    Close();
+                }
             }
         }
         catch(Exception ex)

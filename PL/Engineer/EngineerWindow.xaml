@@ -8,9 +8,9 @@
         xmlns:local="clr-namespace:PL.Engineer"
          xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="300"
+        Title="EngineerWindow" Height="500" Width="300"
         ResizeMode="NoResize"
-        DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}">
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <!-- Main Grid -->
     <Grid>
@@ -18,7 +18,7 @@
         <!-- Set the background gradient -->
         <Grid.Background>
             <LinearGradientBrush>
-                
+
                 <GradientStop Color="#7a7a76" Offset="0" />
                 <GradientStop Color="#e1e6e4" Offset="1" />
             </LinearGradientBrush>
@@ -35,6 +35,8 @@
 
             <!-- Define Rows -->
             <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -49,33 +51,42 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
+
+            <!--enginner image-->
+            <Label Content="Image:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
+            <Border Grid.Row="0" Grid.Column="1" Width="90"  BorderBrush="#374016" BorderThickness="2">
+                <Image Source="{Binding Image, Converter={StaticResource ConvertStringToImageKey}}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            </Border>
             <!-- Engineer ID -->
-            <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
+            <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentEngineer.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
 
             <!-- Engineer Name -->
-            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentEngineer.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
             <!-- Engineer Email -->
-            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
             <!-- Engineer Level -->
-            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
-            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
-                SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
+            <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Margin="10"/>
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
+                SelectedValue="{Binding CurrentEngineer.Level, Mode=TwoWay, NotifyOnValidationError=true, 
                 ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
 
             <!-- Engineer Cost -->
-            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding CurrentEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
+            <Label Content="image:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>
+            <Button Grid.Row="6" Grid.Column="1" Content="Browse" Margin="2,10" Click="btnBrowse_Click"/>
         </Grid>
 
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
         <Grid Grid.Row="1" Height="40">
-            
+
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -84,8 +95,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
-            <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
+            <Button Grid.Column="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentEngineer.Id, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+            <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </Window>

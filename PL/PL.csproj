@@ -14,6 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\gant.png" />
+    <None Remove="Images\noImageFound.jpg" />
     <None Remove="mainWindow.jpg" />
   </ItemGroup>
 
@@ -22,7 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\gant.png" />
     <Resource Include="Images\mainWindow.jpg" />
+    <Resource Include="Images\noImageFound.jpg" />
   </ItemGroup>
 
 </Project>
