@@ -56,23 +56,28 @@
 
                 <!-- task ID -->
                 <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" SpellCheck.IsEnabled="True" Language="en-US" 
+                         IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7" TextWrapping="Wrap"/>
 
                 <!-- task alias -->
                 <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=True}"
+                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
 
                 <!-- task description -->
                 <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=True}"
+                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
 
                 <!-- task deliverables -->
                 <Label Content="Deliverables:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}"
+                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
 
                 <!-- task remarks -->
                 <Label Content="Remarks:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,7"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=True}"
+                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
             </Grid>
 
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />

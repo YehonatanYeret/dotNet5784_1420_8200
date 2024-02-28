@@ -51,7 +51,23 @@
 
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentManager.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <!--<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentManager.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>-->
+            <Grid Grid.Row="1" Grid.Column="1" Margin="2,10" Background="White">
+                <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding CurrentManager.Email, Mode=TwoWay}"
+                    VerticalContentAlignment="Center">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Background" Value="White"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=waterMarkTextBox,Path=Text}" Value="" >
+                                    <Setter Property="Background" Value="{StaticResource EmailHintSmall}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
 
             <!-- Engineer Password -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>

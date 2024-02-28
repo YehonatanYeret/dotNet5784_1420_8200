@@ -61,7 +61,22 @@
 
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <Grid Grid.Row="2" Grid.Column="1" Margin="2,10" Background="White">
+                <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay}"
+             VerticalContentAlignment="Center">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Background" Value="White"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=waterMarkTextBox,Path=Text}" Value="" >
+                                    <Setter Property="Background" Value="{StaticResource EmailHintSmall}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
 
             <!-- Engineer Level -->
             <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>

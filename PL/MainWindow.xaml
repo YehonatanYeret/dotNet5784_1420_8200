@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="mainWindow" Height="450" Width="800"
+        Title="mainWindow" Height="495" Width="880"
         ResizeMode="NoResize"
         DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
         Background="{StaticResource backgroundImage}">
@@ -57,15 +57,33 @@
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Content="Email:" VerticalAlignment="Center"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}" Margin="2,10"/>
+                    <!--<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}" Margin="2,10" VerticalContentAlignment="Center" FontSize="17" />-->
+
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="2,10" Background="White">
+                        <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}"
+                                 VerticalContentAlignment="Center" FontSize="17">
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=waterMarkTextBox,Path=Text}" Value="" >
+                                            <Setter Property="Background" Value="{StaticResource EmailHintBig}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
 
                     <Label Grid.Row="1" Grid.Column="0" Content="Password:" VerticalAlignment="Center"/>
-                    <PasswordBox Grid.Row="1" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10" VerticalContentAlignment="Center" FontSize="17"/>
+
+
 
                 </Grid>
 
@@ -75,9 +93,9 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2*"/>
-                 </Grid.ColumnDefinitions>
-                    
-                <Button Grid.Column="1" Grid.ColumnSpan="2" Content="Enter" Click="BtnEnterUser_Click" Margin="3" IsDefault="True"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1" Grid.ColumnSpan="2" Content="Enter" Click="BtnEnterUser_Click" Margin="3" IsDefault="True"/>
                 </Grid>
 
             </Grid>
