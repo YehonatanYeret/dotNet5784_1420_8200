@@ -625,7 +625,7 @@ internal class Program
             engineerId = temp3;
 
         Console.Write("complexity:");
-        EngineerExperience? complexity = oldTask.Complexity;
+        EngineerExperience complexity = oldTask.Complexity;
         if (Enum.TryParse(Console.ReadLine(), out EngineerExperience experience))
             complexity = experience;
 

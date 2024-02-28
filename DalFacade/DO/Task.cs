@@ -24,6 +24,7 @@ public record Task
     string Description,
     DateTime CreatedAtDate,
     TimeSpan RequiredEffortTime,
+    EngineerExperience Complexity,
     bool IsActive = true,
     DateTime? ScheduledDate = null,
     DateTime? StartDate = null,
@@ -31,11 +32,10 @@ public record Task
     DateTime? CompleteDate = null,
     string? Deliverables = null,
     string? Remarks = null,
-    int? EngineerId = null,
-    EngineerExperience? Complexity = null
+    int? EngineerId = null
 )
 {
-    public Task() : this(Id: 0, Alias: "", Description: "", CreatedAtDate: DateTime.Now, RequiredEffortTime: TimeSpan.FromSeconds(0)) { }
+    public Task() : this(Id: 0, Alias: "", Description: "", CreatedAtDate: DateTime.Now, RequiredEffortTime: TimeSpan.FromSeconds(0), Complexity: EngineerExperience.Beginner) { }
 
     // functions that indicate whether to serialize a property or not so the XML file will not contain empty tags:
     public bool ShouldSerializeScheduledDate() { return ScheduledDate.HasValue; }
@@ -45,5 +45,4 @@ public record Task
     public bool ShouldSerializeDeliverables() { return !string.IsNullOrEmpty(Deliverables); }
     public bool ShouldSerializeRemarks() { return !string.IsNullOrEmpty(Remarks); }
     public bool ShouldSerializeEngineerId() { return EngineerId.HasValue; }
-    public bool ShouldSerializeComplexity() { return Complexity.HasValue; }
 }

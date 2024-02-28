@@ -10,48 +10,18 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@hotmail.com</Email>
+    <Email>Adam@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@yahoo.com</Email>
+    <Email>Alex@hotmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@walla.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>David Levi</Name>
-    <Password>DavidLevi0</Password>
-    <Email>David@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>Asaf Bir</Name>
-    <Password>AsafBir0</Password>
-    <Email>Asaf@yahoo.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>Benn Baruch</Name>
-    <Password>BenBaruch0</Password>
-    <Email>Ben@yahoo.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>עזריאל</Name>
-    <Password>Aziazazi123</Password>
-    <Email>azi@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>סבתא אולגה פופולרית☺</Name>
-    <Password>Olga1234</Password>
-    <Email>olga@gmail.com</Email>
+    <Email>Aaron@gmail.com</Email>
   </User>
 </ArrayOfUser>

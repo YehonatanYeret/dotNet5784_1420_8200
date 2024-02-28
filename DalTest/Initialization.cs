@@ -45,7 +45,7 @@ public static class Initialization
         ("Air-Conditioner", "the engineeer need to take control the Air-Conditioning"),
         ("rail", "the engineeer need to take control over building the rails in the house"),
         };
-         
+
 
         foreach (var (alias, description) in aliasAndDescription)
         {
@@ -54,13 +54,14 @@ public static class Initialization
 
             // Add to new task database
             s_dal!.Task.Create(new Task
-        {
-            Id = 0,                      // Id will be updated in the creation
-            Alias = alias,               // Task alias
-            Description = description,   // Task description
-            CreatedAtDate = dateTime,    // Creation date
-            RequiredEffortTime = TimeSpan.FromDays(s_rand.Next(10, 60)) // Random effort time from 1 to 10 days
-        });
+            {
+                Id = 0,                      // Id will be updated in the creation
+                Alias = alias,               // Task alias
+                Description = description,   // Task description
+                CreatedAtDate = dateTime,    // Creation date
+                RequiredEffortTime = TimeSpan.FromDays(s_rand.Next(10, 60)), // Random effort time from 1 to 10 days
+                Complexity = (EngineerExperience)s_rand.Next(5) + 1 // Random complexity level
+            });
         }
     }
 
@@ -99,7 +100,7 @@ public static class Initialization
 
             int cost = s_rand.Next(MINCOST, MAXCOST + 1); // Random cost from 10000 to 20000
             string email = fName + emails[s_rand.Next(emails.Length)]; // Random email
-            EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5)+1; // Random engineer experience
+            EngineerExperience engineerExperience = (EngineerExperience)s_rand.Next(5) + 1; // Random engineer experience
 
             // Create new engineer and add to the database
             s_dal!.Engineer.Create(new Engineer
@@ -163,7 +164,7 @@ public static class Initialization
         CreateTasks();
         CreateEngineers();
         CreateDependencies();
-    }    
+    }
     public static void Reset()
     {
         s_dal = Factory.Get ?? throw new NullReferenceException("DAL object cannot be null");

@@ -38,8 +38,9 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// if the window is for choosing an engineer
     /// </summary>
-    public int TaskID {
-    get { return (int)GetValue(TaskIDProperty); }
+    public int TaskID
+    {
+        get { return (int)GetValue(TaskIDProperty); }
         set { SetValue(TaskIDProperty, value); }
     }
 
@@ -51,7 +52,9 @@ public partial class EngineerListWindow : Window
     /// </summary>
     public EngineerListWindow(int taskId = 0)
     {
-        EngineerList = s_bl.Engineer.ReadAll()!;
+
+        EngineerList = (taskId == 0) ? s_bl.Engineer.ReadAll()! :
+            s_bl.Engineer.ReadAll(eng => (int)eng.Level >= (int)s_bl.Task.Read(taskId).Complexity)!;
         TaskID = taskId;
         InitializeComponent();
     }
@@ -69,8 +72,8 @@ public partial class EngineerListWindow : Window
     /// </summary>
     private void AddBtn_OnClick(object sender, RoutedEventArgs e)
     {
-            new Engineer.EngineerWindow().ShowDialog();
-            UpdateListView();   
+        new Engineer.EngineerWindow().ShowDialog();
+        UpdateListView();
     }
 
     /// <summary>
@@ -98,7 +101,7 @@ public partial class EngineerListWindow : Window
                 }
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             MessageBox.Show("error aqured", ex.Message);
         }
@@ -110,8 +113,17 @@ public partial class EngineerListWindow : Window
     /// </summary>
     void UpdateListView()
     {
-        EngineerList = (experience == BO.EngineerExperience.None) ?
-            s_bl?.Engineer.ReadAll()!.OrderBy(item => item.Name)! :
-            s_bl?.Engineer.ReadAll(item => item.Level == experience)!.OrderBy(item => item.Name)!;
+        if (TaskID == 0)
+        {
+            EngineerList = (experience == BO.EngineerExperience.None) ?
+                s_bl?.Engineer.ReadAll()!.OrderBy(item => item.Name)! :
+                s_bl?.Engineer.ReadAll(item => item.Level == experience)!.OrderBy(item => item.Name)!;
+        }
+        else
+        {
+            EngineerList = (experience == BO.EngineerExperience.None) ?
+                s_bl?.Engineer.ReadAll(eng => (int)eng.Level >= (int)s_bl.Task.Read(TaskID).Complexity)!.OrderBy(item => item.Name)! :
+                s_bl?.Engineer.ReadAll(eng => (int)eng.Level >= (int)s_bl.Task.Read(TaskID).Complexity && eng.Level == experience)!.OrderBy(item => item.Name)!;
+        }
     }
 }
