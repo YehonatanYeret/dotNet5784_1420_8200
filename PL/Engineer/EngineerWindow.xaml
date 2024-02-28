@@ -71,7 +71,7 @@
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
-            <TextBox x:Name="waterMarkTextBox" Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay}"
+            <TextBox x:Name="waterMarkTextBox" Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay}" Margin="2,10"
              VerticalContentAlignment="Center">
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">

@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="CreateManagerWindow" Height="350" Width="300"
         ResizeMode="NoResize"
+        
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
 
@@ -46,12 +47,11 @@
             </Grid.ColumnDefinitions>
 
             <!-- Engineer Name -->
-            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentManager.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
             <!-- Engineer Email -->
-            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <!--<TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentManager.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>-->
+            <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
             <Grid Grid.Row="1" Grid.Column="1" Margin="2,10" Background="White">
                 <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding CurrentManager.Email, Mode=TwoWay}"
                     VerticalContentAlignment="Center">
@@ -70,8 +70,8 @@
 
 
             <!-- Engineer Password -->
-            <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
-            <PasswordBox Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,1"/>
+            <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
+            <PasswordBox Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
 
         </Grid>
 

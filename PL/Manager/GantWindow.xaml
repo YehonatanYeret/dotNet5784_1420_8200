@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
-        WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         Title="GantWindow" Height="650" Width="800">
 
