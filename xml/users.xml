@@ -10,36 +10,42 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@gmail.com</Email>
+    <Email>Adam@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@hotmail.com</Email>
+    <Email>Alex@outlook.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@gmail.com</Email>
+    <Email>Aaron@outlook.com</Email>
   </User>
   <User>
-    <Type>manager</Type>
-    <Name>asasas</Name>
-    <Password>Aa123456</Password>
-    <Email>a@gmail.com</Email>
+    <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@outlook.com</Email>
   </User>
   <User>
-    <Type>manager</Type>
-    <Name>`asasas</Name>
-    <Password>Aa123456</Password>
-    <Email>s@gmail.com</Email>
+    <Type>engineer</Type>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@outlook.com</Email>
   </User>
   <User>
-    <Type>manager</Type>
-    <Name>asdasd</Name>
-    <Password>Asdfmisd123</Password>
-    <Email>ad@gmail.com</Email>
+    <Type>engineer</Type>
+    <Name>Asaf Bir</Name>
+    <Password>AsafBir0</Password>
+    <Email>Asaf@walla.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>nignig</Name>
+    <Password>n@gmail.com</Password>
+    <Email>n@gmail.com</Email>
   </User>
 </ArrayOfUser>
