@@ -36,8 +36,19 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty DepProperty =
         DependencyProperty.Register("Dep", typeof(List<DependencyList>), typeof(TaskWindow), new PropertyMetadata(null));
 
+
+    public bool IsProjectStarted
+    {
+        get { return (bool)GetValue(IsProjectStartedProperty); }
+        set { SetValue(IsProjectStartedProperty, value); }
+    }
+
+    public static readonly DependencyProperty IsProjectStartedProperty =
+        DependencyProperty.Register("IsProjectStartedBool", typeof(bool), typeof(TaskListWindow), new PropertyMetadata(null));
+
+
     // The previous engineer of the task.
-    public BO.EngineerInTask? prevEngineer { get; set; }
+    //public BO.EngineerInTask? prevEngineer { get; set; }
 
 
     /// <summary>
@@ -49,6 +60,9 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
 
         UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
+
+        IsProjectStarted = s_bl.Clock.GetProjectStatus() != BO.ProjectStatus.InProgress;
+
         CurrEngineer = CurrentTask.Engineer;
 
 
@@ -67,7 +81,7 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void EngeineerInTaskButton_Click(object sender, RoutedEventArgs e)
     {
-        prevEngineer = CurrEngineer;
+        //prevEngineer = CurrEngineer;
 
         if (CurrEngineer == null)
         {

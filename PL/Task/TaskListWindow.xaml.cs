@@ -42,6 +42,17 @@ public partial class TaskListWindow : Window
 
     public int EngineerID { get; set; }
 
+
+    public bool IsProjectStarted
+    {
+        get { return (bool)GetValue(IsProjectStartedProperty); }
+        set { SetValue(IsProjectStartedProperty, value); }
+    }
+
+    public static readonly DependencyProperty IsProjectStartedProperty =
+        DependencyProperty.Register("IsProjectStarted", typeof(bool), typeof(TaskListWindow), new PropertyMetadata(null));
+
+
     /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
@@ -50,6 +61,7 @@ public partial class TaskListWindow : Window
 
         InitializeComponent();
         EngineerID = engineerID;
+        IsProjectStarted = s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress;
 
         if (EngineerID == 0)
         {

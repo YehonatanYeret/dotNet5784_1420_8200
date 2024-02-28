@@ -141,18 +141,18 @@ internal class ConvertIdToCollapsed : IValueConverter
 /// <summary>
 /// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
 /// </summary>
-internal class ConvertEngineerToVisible : IValueConverter
-{
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return (BO.Engineer)value is null ? "Visible" : "Collapsed";
-    }
+//internal class ConvertEngineerToVisible : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        return (BO.Engineer)value is null ? "Visible" : "Collapsed";
+//    }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotImplementedException();
-    }
-}
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        throw new NotImplementedException();
+//    }
+//}
 
 /// <summary>
 /// convert the effort time to width
@@ -317,3 +317,18 @@ internal class ConvertStringToImage : IValueConverter
     }
 }
 
+internal class ConvertEngineerAndStatusToVisible : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        if ((int)values[0] != 0)
+            return Visibility.Collapsed;
+
+        return (bool)values[1] ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

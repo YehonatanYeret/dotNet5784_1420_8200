@@ -57,7 +57,7 @@
                 <!-- task ID -->
                 <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" SpellCheck.IsEnabled="True" Language="en-US" 
-                         IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,7" TextWrapping="Wrap"/>
+                         IsEnabled="False"/>
 
                 <!-- task alias -->
                 <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
@@ -120,11 +120,13 @@
                     <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"
-                              SelectedItem="{Binding CurrentTask.Complexity}"/>
+                              SelectedItem="{Binding CurrentTask.Complexity}"
+                              IsEnabled="{Binding IsProjectStarted}"/>
 
                     <!-- task effort time -->
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Required&#10;Effort Time:"/>
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.RequiredEffortTime, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.RequiredEffortTime, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat='dd\\.hh\\:mm\\:ss'}"
+                             IsEnabled="{Binding IsProjectStarted}"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -136,10 +138,10 @@
 
                     <!-- task dependencies. for each dep deisplay in nex to checkbox -->
                     <Label Grid.Row="0" Content="Dependencies:" HorizontalAlignment="Center"/>
-                    <ListBox Grid.Row="1" ItemsSource="{Binding Dep}" HorizontalAlignment="Center">
+                    <ListBox Grid.Row="1" ItemsSource="{Binding Dep}" HorizontalAlignment="Center" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Content="{Binding Task.Alias}" IsChecked="{Binding IsDep}" Tag="{Binding Task.Id}"/>
+                                <CheckBox Content="{Binding Task.Alias}" IsChecked="{Binding IsDep}" IsEnabled="{Binding IsProjectStarted, RelativeSource={RelativeSource AncestorType=Window}}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -171,9 +173,12 @@
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click" />
-                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"/>
+                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"
+                        IsEnabled="{Binding IsProjectStarted}"/>
            
             </Grid>
+            
+            
         </Grid>
     </Grid>
 </Window>
