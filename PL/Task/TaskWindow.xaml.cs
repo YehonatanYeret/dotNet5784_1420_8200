@@ -52,7 +52,7 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
         CurrEngineer = CurrentTask.Engineer;
 
 
-        Dep = (from t in s_bl.Task.ReadAll()
+        Dep = (from t in s_bl.Task.ReadAll(task => task.Id != id)
                select new DependencyList()
                {
                    Task = t,
@@ -81,12 +81,20 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
         {
             // Show the EngineerWindow for the selected engineer.
             new Engineer.EngineerWindow(CurrEngineer.Id).ShowDialog();
-            CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
+            try
+            {
+                CurrEngineer = s_bl.Engineer.GetEngineerInTask(CurrEngineer.Id);
+            }
+            catch
+            {
+
+                CurrEngineer = null;
+            }
         }
 
         // If the engineer was changed and the task is not updated at the end of the window the task will be updated with the previous engineer.
-        CurrentTask.Engineer = prevEngineer;
-        s_bl.Task.Update(CurrentTask);
+        //CurrentTask.Engineer = prevEngineer;
+        //s_bl.Task.Update(CurrentTask);
     }
 
     private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)

@@ -68,7 +68,6 @@
                 </TextBox>
             </Grid>
 
-
             <!-- Engineer Password -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
             <PasswordBox Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
@@ -80,7 +79,6 @@
 
             <!-- Button for Adding or (Updating and Deleting Engineer)-->
             <Grid Grid.Row="1" Height="40">
-
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

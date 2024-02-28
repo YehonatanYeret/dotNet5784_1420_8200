@@ -52,6 +52,8 @@ internal class EngineerImplementation : IEngineer
             throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exist");//throw exception
 
         DataSource.Engineers.RemoveAll(temp => temp.Id == engineer.Id);//remove the engineer
+        DataSource.Users.RemoveAll(temp => temp.Email == engineer.Email);//remove the user
+
         DataSource.Engineers.Add(item);//add the new engineer
     }
 

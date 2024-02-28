@@ -224,7 +224,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");
 
         //check if the engineer level is lower or equal then the task level
-        if (task.Complexity is not null && engineer.Level < task.Complexity)
+        if (engineer.Level < task.Complexity)
             throw new BO.BLValueIsNotCorrectException($"Engineer level cannot be lower than the task level: {engineer.Level}");
 
         //update the task with the engineer id

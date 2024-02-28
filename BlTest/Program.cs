@@ -531,7 +531,7 @@ internal class Program
         string? remarks = Console.ReadLine();
 
         Console.Write("complexity:");
-        BO.EngineerExperience? complexity = null;
+        BO.EngineerExperience complexity = EngineerExperience.Beginner;
         if(Enum.TryParse(Console.ReadLine(), out BO.EngineerExperience tempComplexity))
             complexity = tempComplexity;
 
@@ -666,7 +666,7 @@ internal class Program
             remarks = oldTask.Remarks;
 
         Console.Write("complexity:");
-        BO.EngineerExperience? complexity = oldTask.Complexity;
+        BO.EngineerExperience complexity = oldTask.Complexity;
         if (Enum.TryParse(Console.ReadLine(), out BO.EngineerExperience experience))
             complexity = experience;
 

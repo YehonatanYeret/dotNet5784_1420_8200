@@ -31,7 +31,7 @@ internal class TaskImplementation : BlApi.ITask
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
             EngineerId = task.Engineer?.Id,
-            Complexity = (DO.EngineerExperience?)task.Complexity,
+            Complexity = (DO.EngineerExperience)task.Complexity,
         });
         // Create dependencies if they exist
         task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, id, dep.Id)));
@@ -113,7 +113,7 @@ internal class TaskImplementation : BlApi.ITask
                 Deliverables = task.Deliverables,
                 Remarks = task.Remarks,
                 EngineerId = task.Engineer?.Id,
-                Complexity = (DO.EngineerExperience?)task.Complexity,
+                Complexity = (DO.EngineerExperience)task.Complexity
             });
 
             // delete the old dependencies
@@ -341,7 +341,7 @@ internal class TaskImplementation : BlApi.ITask
             Deliverables = task.Deliverables,
             Remarks = task.Remarks,
             Engineer = ConvertToEngineerInTask(task.EngineerId),
-            Complexity = (BO.EngineerExperience?)task.Complexity,
+            Complexity = (BO.EngineerExperience)task.Complexity,
         };
     }
 

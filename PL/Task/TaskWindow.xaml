@@ -72,7 +72,7 @@
                 <!-- task deliverables -->
                 <Label Content="Deliverables:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}"
-                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
+                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US"/>
 
                 <!-- task remarks -->
                 <Label Content="Remarks:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>

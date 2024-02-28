@@ -119,7 +119,7 @@ public class Task
     /// <summary>
     /// Gets or sets the minimum experience required for an engineer to be assigned to the task.
     /// </summary>
-    public EngineerExperience? Complexity { get; set; }
+    public EngineerExperience Complexity { get; set; }
 
     public override string ToString() => this.ToStringProperty();
 }
