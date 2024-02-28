@@ -26,12 +26,6 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Ben Baruch</Name>
-    <Password>BenBaruch0</Password>
-    <Email>Ben@yahoo.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
     <Name>David Levi</Name>
     <Password>DavidLevi0</Password>
     <Email>David@gmail.com</Email>
@@ -44,9 +38,9 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>nigniga</Name>
-    <Password>Aa12345678</Password>
-    <Email>nignig@gmail.com</Email>
+    <Name>Benn Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>

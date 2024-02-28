@@ -10,6 +10,7 @@
         ResizeMode="NoResize"
         DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
         Background="{StaticResource backgroundImage}">
+        <!--WindowState="Maximized"-->
 
 
     <Grid>

@@ -148,11 +148,11 @@
 
             <VisualBrush x:Key="EmailHintBig" Stretch="None" AlignmentX="Left">
                 <VisualBrush.Visual>
-                    <TextBlock FontSize="17" Text="example@gmail.com"/>
+                    <TextBlock FontSize="17" Text="example@gmail.com" Opacity="0.6"/>
                 </VisualBrush.Visual>
             </VisualBrush>
 
-            <VisualBrush x:Key="EmailHintSmall" Stretch="None" AlignmentX="Left">
+            <VisualBrush x:Key="EmailHintSmall" Stretch="None" AlignmentX="Left" Opacity="0.6">
                 <VisualBrush.Visual>
                     <TextBlock Text="example@gmail.com"/>
                 </VisualBrush.Visual>

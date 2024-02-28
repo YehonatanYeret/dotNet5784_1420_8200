@@ -9,6 +9,7 @@ using System.Linq;
 internal class EngineerImplementation : IEngineer
 {
     readonly string s_engineer_xml = "engineers";
+    readonly string s_user_xml = "users";
 
     /// <summary>
     /// Creates a new Engineer.
@@ -83,11 +84,32 @@ internal class EngineerImplementation : IEngineer
         if (!engineersList.Any(engineer => engineer.Id == item.Id))
             throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exist");
 
-        engineersList.RemoveAll(engineer => engineer.Id == item.Id);
+        List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
+        // remove the old engineer from the list and the user from the list
+        foreach(DO.Engineer engineer in engineersList)
+        {
+            if (engineer.Id == item.Id)
+            {
+                engineersList.Remove(engineer);
+                usersList.Remove(usersList.First(user => user.Email == engineer.Email));
+                break;
+            }
+        }
+
+        // add the updated engineer to the list and the user to the list
         engineersList.Add(item);
 
+        usersList.Add(new DO.User
+        {
+            Type = DO.UserType.engineer,
+            Name = item.Name,
+            Password = item.Email,
+            Email = item.Email
+        });
+
         XMLTools.SaveListToXMLSerializer(engineersList, s_engineer_xml);
+        XMLTools.SaveListToXMLSerializer(usersList, s_user_xml);
     }
 
     /// <summary>
