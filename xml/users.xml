@@ -24,4 +24,22 @@
     <Password>AaronIsraeli0</Password>
     <Email>Aaron@gmail.com</Email>
   </User>
+  <User>
+    <Type>manager</Type>
+    <Name>asasas</Name>
+    <Password>Aa123456</Password>
+    <Email>a@gmail.com</Email>
+  </User>
+  <User>
+    <Type>manager</Type>
+    <Name>`asasas</Name>
+    <Password>Aa123456</Password>
+    <Email>s@gmail.com</Email>
+  </User>
+  <User>
+    <Type>manager</Type>
+    <Name>asdasd</Name>
+    <Password>Asdfmisd123</Password>
+    <Email>ad@gmail.com</Email>
+  </User>
 </ArrayOfUser>

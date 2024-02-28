@@ -1,5 +1,7 @@
 ﻿namespace PL.Manager;
 
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,7 +9,7 @@ using System.Windows.Controls;
 /// <summary>
 /// Interaction logic for CreateManagerWindow.xaml
 /// </summary>
-public partial class CreateManagerWindow : Window
+public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
 {
     // Get the business logic instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -15,22 +17,42 @@ public partial class CreateManagerWindow : Window
     public BO.User CurrentManager
     {
         get { return (BO.User)GetValue(userProperty); }
-        set { SetValue(userProperty, value); }
+        set { SetValue(userProperty, value);
+            OnPropertyChanged(nameof(CurrentManager));
+        }
     }
 
     public static readonly DependencyProperty userProperty =
         DependencyProperty.Register("CurrentManager", typeof(BO.User), typeof(MainWindow), new PropertyMetadata(null));
 
+    // Event for property changed
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public string? Email { get; set; }
     public string? ManagerEmail { get; set; }
-    public int createOrUpdate { get; set; }
+    public int createOrUpdate
+    {
+        get { return (int)GetValue(createOrUpdateProperty); }
+        set { SetValue(createOrUpdateProperty, value);
+            OnPropertyChanged(nameof(createOrUpdate));
+        }
+    }
 
-    public CreateManagerWindow(string? managerEmail = "", string? email = "")
+        public static readonly DependencyProperty createOrUpdateProperty =
+        DependencyProperty.Register("createOrUpdate", typeof(int), typeof(CreateManagerWindow), new PropertyMetadata(null));
+    public int Place { get; set; }
+
+    public CreateManagerWindow(int place = 0, string? managerEmail = "", string? email = "")
     {
         Email = email;
+        Place = place;
         ManagerEmail = managerEmail;
         createOrUpdate = string.IsNullOrEmpty(email) ? 0 : 1;
-        CurrentManager = (createOrUpdate==0) ? new BO.User() : s_bl.User.Read(email!);
+        CurrentManager = (createOrUpdate == 0) ? new BO.User() : s_bl.User.Read(email!);
         InitializeComponent();
     }
 
@@ -46,6 +68,8 @@ public partial class CreateManagerWindow : Window
                 MessageBox.Show("the the manager created successfully", "operation succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
+
+                Close();
             }
             else
             {
@@ -120,5 +144,29 @@ public partial class CreateManagerWindow : Window
     private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
     {
         CurrentManager.Password = ((PasswordBox)sender).Password;
+    }
+
+    private void btnLeft_Click(object sender, RoutedEventArgs e)
+    {
+        Place--;
+        if (Place < 0)
+            Place++;
+
+        CurrentManager = s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).ToList().ElementAt(Place);
+    }
+
+    private void btnRight_Click(object sender, RoutedEventArgs e)
+    {
+        Place++;
+        if(Place > s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).Count() - 1)
+            Place--;
+
+        CurrentManager = s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).ToList().ElementAt(Place);
+    }
+
+    private void btnNew_Click(object sender, RoutedEventArgs e)
+    {
+        CurrentManager = new BO.User();
+        createOrUpdate = 0;
     }
 }

@@ -6,11 +6,32 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
-        Title="CreateManagerWindow" Height="350" Width="300"
+        Title="CreateManagerWindow" Height="480" Width="300"
         ResizeMode="NoResize"
         
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal"/>
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="border">
+                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource Image2}" />
+                                </ObjectAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+                <Border x:Name="border" Background="Blue">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
 
     <Grid>
         <!-- Set the background gradient -->
@@ -24,8 +45,9 @@
 
         <!-- Define Rows -->
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <!-- Sub-Grid for Engineer Details -->
@@ -87,9 +109,38 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="{Binding createOrUpdate, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding createOrUpdate, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
-                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding createOrUpdate, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
+                <Button Grid.Column="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
             </Grid>
         </Grid>
+
+        <Grid Grid.Row="2" Margin="17">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Click="btnLeft_Click" Margin="2,10" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}" BorderThickness="0">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Images/leftArrowOver.png"/>
+                </Button.Background>
+
+            </Button>
+            <Button Content="new" Grid.Column="1" HorizontalAlignment="center" VerticalAlignment="Center" Width="100" Height="30" Click="btnNew_Click" Margin="2,10" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}"/>
+            <Button Grid.Column="2" Click="btnRight_Click" Margin="2,10" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+                <Button.Background>
+                    <ImageBrush ImageSource="../Images/leftArrowOver.png"/>
+                </Button.Background>
+            </Button>
+        </Grid>
+
+
     </Grid>
 </Window>

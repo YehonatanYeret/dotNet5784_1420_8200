@@ -58,7 +58,7 @@ public partial class ManagerListWindow : Window
 
             if (UserInList != null)
             {
-                new CreateManagerWindow(Email, UserInList!.Email).ShowDialog();
+                new CreateManagerWindow(0, Email, UserInList!.Email).ShowDialog();
                 UpdateListView();
             }
         }

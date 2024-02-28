@@ -119,7 +119,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     }
     private void BtnCreateManager_Click(object sender, RoutedEventArgs e)
     {
-        new ManagerListWindow(Email).ShowDialog();
+        new CreateManagerWindow(0,Email, Email).ShowDialog();
         ManagerName = s_bl.User.Read(Email).Name;
     }
 }
