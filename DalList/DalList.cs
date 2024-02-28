@@ -26,6 +26,14 @@ sealed internal class DalList : IDal
     /// </summary>
     public IDependency Dependency => new DependencyImplementation();
 
+    /// <summary>
+    /// Gets an instance of the <see cref="IUser"/> interface for accessing user-related data.
+    /// </summary>
     public IClock Clock => new ClockImplementation();
+
+    /// <summary>
+    /// Gets an instance of the <see cref="IClock"/> interface for accessing clock-related data.
+    /// </summary>
+    public IUser User => new UserImplementation();
 }
 

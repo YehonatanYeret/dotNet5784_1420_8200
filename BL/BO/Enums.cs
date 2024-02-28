@@ -14,3 +14,8 @@ public enum Status { None, Unscheduled, Scheduled, OnTrack, Done }
 /// The status of the project.
 /// </summary>
 public enum ProjectStatus { NotStarted, InProgress, Done }
+
+/// <summary>
+/// The type of the user.
+/// </summary>
+public enum UserType { manager, engineer }

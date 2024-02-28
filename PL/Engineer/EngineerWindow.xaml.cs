@@ -56,6 +56,15 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         DependencyProperty.Register("Image", typeof(string), typeof(EngineerWindow), new PropertyMetadata(null));
 
 
+    public BO.User CurrentUser
+    {
+        get { return (BO.User)GetValue(UserProperty); }
+        set { SetValue(UserProperty, value); }
+    }
+
+    public static readonly DependencyProperty UserProperty =
+        DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(EngineerWindow), new PropertyMetadata(null));
+
     /// <summary>
     /// Constructor for EngineerWindow
     /// </summary>
@@ -67,6 +76,8 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         CurrentEngineer = UpdateOrCreate ? new BO.Engineer() : s_bl.Engineer.Read(id);
         // Set the image of the engineer
         Image = CurrentEngineer.Image;
+        CurrentUser = UpdateOrCreate? new BO.User() : s_bl.User.Read(CurrentEngineer.Email);
+        InitializeComponent();
     }
 
     /// <summary>
@@ -78,16 +89,29 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         CurrentEngineer.Image = Image;
         try
         {
+            BO.User user = new BO.User()
+            {
+                Type = BO.UserType.engineer,
+                Name = CurrentEngineer.Name,
+                Password = CurrentUser.Password,
+                Email = CurrentEngineer.Email
+            };
+
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
             {
+                s_bl.User.Create(user);
+
                 s_bl.Engineer.Create(CurrentEngineer);
+
                 MessageBox.Show("the the engineer created successfully", "operation succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
             else
             {
+                s_bl.User.Update(user);
+
                 s_bl.Engineer.Update(CurrentEngineer);
                 MessageBox.Show("the the engineer updated successfully", "operation succeed",
                     MessageBoxButton.OK,
@@ -122,7 +146,7 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         {
             if (MessageBox.Show("Are you sure you want to delete this engineer?", "Delete Engineer", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                s_bl.Engineer.Delete(CurrentEngineer.Id);
+                s_bl.User.Delete(CurrentEngineer.Email);
                 MessageBox.Show("Engineer Deleted successfully", "Delete Engineer",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -144,6 +168,11 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         {
             Close();
         }
+    }
+
+    private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
+    {
+        CurrentUser.Password = ((PasswordBox)sender).Password;
     }
 
 

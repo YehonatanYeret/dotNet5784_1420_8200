@@ -1,9 +1,4 @@
-﻿<!-- 
-    This XAML document represents the main window layout.
-    It includes a background image, text, and buttons for handling engineers and initializing a database.
--->
-
-<Window x:Class="PL.MainWindow"
+﻿<Window x:Class="PL.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -11,30 +6,99 @@
         xmlns:local="clr-namespace:PL"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
-        MaxHeight="450" MaxWidth="800"
-        Background="{StaticResource backgroundImage}"
-        ResizeMode="NoResize">
+        Title="mainWindow" Height="495" Width="880"
+        ResizeMode="NoResize"
+        DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
+        Background="{StaticResource backgroundImage}">
 
 
     <Grid>
-        <!-- Set the background image -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <!-- TextBlock displaying project name -->
-        <TextBlock Panel.ZIndex="2" VerticalAlignment="Top" HorizontalAlignment="Center" Height="119" FontFamily="Impact" FontSize="46" FontWeight="Bold" FontStyle="Italic" Margin="0,31,0,0" Width="323">
+        <TextBlock HorizontalAlignment="Center" Height="119" FontFamily="Impact" FontSize="46" FontWeight="Bold" FontStyle="Italic" Grid.Row="0" Grid.ColumnSpan="2" >
             <Run Text="Project "/>
             <LineBreak/>
             <Run Text="   Managment"/>
         </TextBlock>
 
         <!-- Grid containing buttons -->
-        <Grid Panel.ZIndex="1" VerticalAlignment="Bottom" Margin="400,0,20,90">
-            <!-- Button for handling engineers -->
-            <!--<Button Height="50" Width="165" Content="Handle Engineers" Click="EngineerList_click" HorizontalAlignment="Left"/>-->
-            <Button Height="50" Width="165" Content="Engineer" HorizontalAlignment="Left" Click="Button_Click_2"/>
-            <!-- Button for initializing the database -->
-            <!--<Button Height="50" Width="165" Content="Initialize DataBase" Click="Initialization_click" HorizontalAlignment="Right"/>-->
-            <Button Height="50" Width="165" Content="Manager"  HorizontalAlignment="Right" Click="Button_Click_1"/>
-        </Grid>
+
+        <Border Grid.Row="1" Grid.Column="1" Margin="20" BorderBrush="Black" BorderThickness="2">
+            <Border.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#d6d6cb" Offset="1" />
+                    <GradientStop Color="#bad1c7" Offset="0" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <Grid Margin="10">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Content="Login" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <Grid Grid.Row="1">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Email:" VerticalAlignment="Center"/>
+                    <!--<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}" Margin="2,10" VerticalContentAlignment="Center" FontSize="17" />-->
+
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="2,10" Background="White">
+                        <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}"
+                                 VerticalContentAlignment="Center" FontSize="17">
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="Background" Value="White"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=waterMarkTextBox,Path=Text}" Value="" >
+                                            <Setter Property="Background" Value="{StaticResource EmailHintBig}"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
+
+                    <Label Grid.Row="1" Grid.Column="0" Content="Password:" VerticalAlignment="Center"/>
+                    <PasswordBox Grid.Row="1" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10" VerticalContentAlignment="Center" FontSize="17"/>
+
+
+
+                </Grid>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="1" Grid.ColumnSpan="2" Content="Enter" Click="BtnEnterUser_Click" Margin="3" IsDefault="True"/>
+                </Grid>
+
+            </Grid>
+        </Border>
     </Grid>
 </Window>

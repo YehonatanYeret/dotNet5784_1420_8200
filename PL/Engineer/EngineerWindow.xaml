@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
-         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+        xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="EngineerWindow" Height="500" Width="300"
         ResizeMode="NoResize"
@@ -60,15 +60,30 @@
             </Border>
             <!-- Engineer ID -->
             <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentEngineer.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
 
             <!-- Engineer Name -->
             <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentEngineer.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+                <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay}"
+             VerticalContentAlignment="Center">
+                    <TextBox.Style>
+                        <Style TargetType="{x:Type TextBox}">
+                            <Setter Property="Background" Value="White"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=waterMarkTextBox,Path=Text}" Value="" >
+                                    <Setter Property="Background" Value="{StaticResource EmailHintSmall}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+
 
             <!-- Engineer Level -->
             <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Margin="10"/>
@@ -78,10 +93,15 @@
 
             <!-- Engineer Cost -->
             <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding CurrentEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            
+            <!-- Engineer Password -->
+            <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>
+            <PasswordBox Grid.Row="6" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"
+                         IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"/>
 
-            <Label Content="image:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>
-            <Button Grid.Row="6" Grid.Column="1" Content="Browse" Margin="2,10" Click="btnBrowse_Click"/>
+        </Grid>
+            <Button Grid.Row="7" Grid.Column="1" Content="Browse" Margin="2,10" Click="btnBrowse_Click"/>
         </Grid>
 
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
@@ -95,8 +115,8 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentEngineer.Id, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
-            <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
+            <Button Grid.Column="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+            <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
         </Grid>
     </Grid>
 </Window>

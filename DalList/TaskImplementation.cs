@@ -21,6 +21,8 @@ internal class TaskImplementation : ITask
     {
         return DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.IsActive);//find the task with the id and if not found return null
     }
+
+    //read a task that matches the condition and return it. if not found return null
     public Task? Read(Func<Task, bool> filter)
     {
         // find the task that matches the condition and if not found return null

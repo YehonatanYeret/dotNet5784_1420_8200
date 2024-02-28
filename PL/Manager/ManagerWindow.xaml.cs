@@ -40,8 +40,13 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ManagerWindow()
+    public string Email { get; set; }
+    public string ManagerName { get; set; }
+
+    public ManagerWindow(string email)
     {
+        Email = email;
+        ManagerName = s_bl.User.Read(email).Name;
         int allTasks = s_bl.Task.ReadAll().Count();
         int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
         percentComplete =  ((double)completedTasks/allTasks)*100;
@@ -111,5 +116,10 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+    private void BtnCreateManager_Click(object sender, RoutedEventArgs e)
+    {
+        new ManagerListWindow(Email).ShowDialog();
+        ManagerName = s_bl.User.Read(Email).Name;
     }
 }

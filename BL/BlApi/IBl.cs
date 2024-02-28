@@ -21,6 +21,11 @@ public interface IBl
     public IClock Clock { get; }
 
     /// <summary>
+    /// Gets an instance of the IUser interface for accessing user-related functionalities.
+    /// </summary>
+    public IUser User { get; }
+
+    /// <summary>
     /// initialize the db
     /// </summary>
     public void InitializeDB();
@@ -29,6 +34,4 @@ public interface IBl
     /// delete all the db
     /// </summary>
     public void ResetDB();
-
-
 }

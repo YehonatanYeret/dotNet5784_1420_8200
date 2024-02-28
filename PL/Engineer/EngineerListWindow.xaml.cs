@@ -83,7 +83,7 @@ public partial class EngineerListWindow : Window
             ListView? list = (sender as ListView);
             if (list is not null)
             {
-                BO.Engineer? EngineerInList = list.SelectedItem as BO.Engineer;
+                BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
                 choosenEngineer = new BO.EngineerInTask() { Id = EngineerInList!.Id, Name = EngineerInList!.Name };
                 if (TaskID == 0)
                 {
@@ -95,10 +95,6 @@ public partial class EngineerListWindow : Window
                 }
                 else
                 {
-
-                    //BO.Task task = s_bl.Task.Read(TaskID);
-                    //task.Engineer = s_bl.Engineer.GetEngineerInTask(EngineerInList!.Id);
-                    //s_bl.Task.Update(task);
                     Close();
                 }
             }

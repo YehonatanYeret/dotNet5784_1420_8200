@@ -146,6 +146,18 @@
                 <Setter Property="Padding" Value="3"/>
             </Style>
 
+            <VisualBrush x:Key="EmailHintBig" Stretch="None" AlignmentX="Left">
+                <VisualBrush.Visual>
+                    <TextBlock FontSize="17" Text="example@gmail.com"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
+
+            <VisualBrush x:Key="EmailHintSmall" Stretch="None" AlignmentX="Left">
+                <VisualBrush.Visual>
+                    <TextBlock Text="example@gmail.com"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

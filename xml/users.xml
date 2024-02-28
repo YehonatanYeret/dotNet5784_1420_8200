@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <User>
+    <Type>manager</Type>
+    <Name>admin</Name>
+    <Password>Admin123</Password>
+    <Email>admin@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Adam Chohen</Name>
+    <Password>AdamChohen0</Password>
+    <Email>Adam@yahoo.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Alex Charcov</Name>
+    <Password>AlexCharcov0</Password>
+    <Email>Alex@hotmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Aaron Israeli</Name>
+    <Password>AaronIsraeli0</Password>
+    <Email>Aaron@yahoo.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@yahoo.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@walla.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Asaf Bir</Name>
+    <Password>AsafBir0</Password>
+    <Email>Asaf@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Niga!!!</Name>
+    <Password>NigaNiga1</Password>
+    <Email>nignig@gmail.com</Email>
+  </User>
+</ArrayOfUser>

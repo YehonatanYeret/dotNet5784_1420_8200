@@ -9,5 +9,6 @@ public interface IDal
     IEngineer Engineer { get; }
     ITask Task { get; }
     IDependency Dependency { get; }
-    IClock Clock { get;} 
+    IClock Clock { get; }
+    IUser User { get; }
 }
