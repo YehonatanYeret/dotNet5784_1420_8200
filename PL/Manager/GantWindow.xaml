@@ -17,12 +17,19 @@
 
         <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <Grid>
+                <Grid Background="#fdfad4">
+                    <!--<Grid.Background>
+                        <VisualBrush TileMode="Tile" Viewport="1,1,.4,1">
+                            <VisualBrush.Visual>
+                                <Image Source="../Images/gantBackground.jpg"></Image>
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Grid.Background>-->
                     <!--<Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>-->
-                    <!--<Grid Grid.Row="0" Margin="150,0,0,0">
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="150,0,0,0">
                         <Grid.Background>
                             <VisualBrush TileMode="Tile" Viewport="1,1,.6,1">
                                 <VisualBrush.Visual>
@@ -31,7 +38,7 @@
                             </VisualBrush>
                         </Grid.Background>
                     </Grid>-->
-                    <ItemsControl ItemsSource="{Binding GantData}">
+                    <ItemsControl ItemsSource="{Binding GantData}" Grid.Row="0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -42,8 +49,8 @@
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
-                                   FontFamily="ariel" Grid.Column="0" 
-                                       TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3">
+                                            FontFamily="ariel" Grid.Column="0" 
+                                            TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3">
                                             <TextBlock.Background>
                                                 <LinearGradientBrush>
                                                     <GradientStop Color="LightCyan" Offset="0" />
@@ -55,13 +62,13 @@
 
                                         <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
-                                        <Grid Background="LightGray" Grid.Column="2" Margin="0,1">
+                                        <Grid Background="#564d525e" Grid.Column="2" Margin="0,1">
 
                                             <!--every rectangle reprezented by width and margin. fortermore, there is button click on every rect-->
                                             <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
-                                   Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
-                                   Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
-                                          MouseDown="Grid_MouseLeave" >
+                                                Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
+                                                Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
+                                                MouseDown="Grid_MouseLeave" >
                                                 <Border BorderBrush="Black" BorderThickness=".7"/>
 
                                                 <!--tooltip for hvering tasks-->
@@ -73,6 +80,7 @@
                                                         <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
                                                     </StackPanel>
                                                 </Grid.ToolTip>
+                                                
                                             </Grid>
                                         </Grid>
                                     </Grid>

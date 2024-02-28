@@ -161,7 +161,7 @@ internal class ConvertEffortTimeToWidth : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return ((TimeSpan)value).TotalDays * 2;
+        return ((TimeSpan)value).Days * 2;
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -180,7 +180,7 @@ internal class ConvertStartDateToMargin : IValueConverter
         if (value is null)
             return new Thickness(0, 0, 0, 0);
         // TimeSpan day = TimeSpan.FromDays((int)((DateTime)value).);
-        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).TotalDays * 2, 1, 0, 1);
+        return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).Days * 2, 1, 0, 1);
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
