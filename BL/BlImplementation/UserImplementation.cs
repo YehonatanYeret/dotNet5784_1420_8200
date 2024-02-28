@@ -110,7 +110,6 @@ internal class UserImplementation : BlApi.IUser
                 Password: user.Password,
                 Email: user.Email
             ));
-
         }
         // If the user does not exist, throw a BLDoesNotExistException.
         catch (DO.DalDoesNotExistException ex)
@@ -130,6 +129,11 @@ internal class UserImplementation : BlApi.IUser
         try
         {
             _dal.User.Delete(email);
+            DO.Engineer? engineer = _dal.Engineer.Read(eng => eng.Email == email);
+
+            //if the user is an engineer, delete the engineer
+            if (engineer is not null)
+                _dal.Engineer.Delete(engineer.Id);
         }
         catch (DO.DalDoesNotExistException ex)
         {

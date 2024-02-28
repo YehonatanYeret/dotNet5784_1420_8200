@@ -55,16 +55,18 @@ public partial class EngineerWindow : Window
     {
         try
         {
+            BO.User user = new BO.User()
+            {
+                Type = BO.UserType.engineer,
+                Name = CurrentEngineer.Name,
+                Password = CurrentUser.Password,
+                Email = CurrentEngineer.Email
+            };
+
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
             {
-                s_bl.User.Create(new BO.User
-                {
-                    Type = BO.UserType.engineer,
-                    Name = CurrentEngineer.Name,
-                    Password = CurrentUser.Password,
-                    Email = CurrentEngineer.Email
-                });
+                s_bl.User.Create(user);
 
                 s_bl.Engineer.Create(CurrentEngineer);
 
@@ -74,6 +76,8 @@ public partial class EngineerWindow : Window
             }
             else
             {
+                s_bl.User.Update(user);
+
                 s_bl.Engineer.Update(CurrentEngineer);
                 MessageBox.Show("the the engineer updated successfully", "operation succeed",
                     MessageBoxButton.OK,
@@ -108,7 +112,7 @@ public partial class EngineerWindow : Window
         {
             if (MessageBox.Show("Are you sure you want to delete this engineer?", "Delete Engineer", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                s_bl.Engineer.Delete(CurrentEngineer.Id);
+                s_bl.User.Delete(CurrentEngineer.Email);
                 MessageBox.Show("Engineer Deleted successfully", "Delete Engineer",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
