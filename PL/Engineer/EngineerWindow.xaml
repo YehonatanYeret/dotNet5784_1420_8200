@@ -54,7 +54,7 @@
 
             <!--enginner image-->
             <Grid Grid.Row="0" Grid.Column="0">
-                <Label Content="Image:" HorizontalAlignment="Left" Margin="10"/>
+                <Label Content="Image:" Margin="10" HorizontalContentAlignment="Center"/>
                 <Button  VerticalAlignment="Top" Content="Browse" Margin="2,45,2,0" Click="btnBrowse_Click" BorderBrush="#374016" BorderThickness="1"/>
             </Grid>
             <Border Grid.Row="0" Grid.Column="1" Width="90"  BorderBrush="#374016" BorderThickness="2">

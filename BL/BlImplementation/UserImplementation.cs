@@ -125,7 +125,6 @@ internal class UserImplementation : BlApi.IUser
     /// <param name="email">The Email of the user that need to delete.</param>
     public void Delete(string email)
     {
-
         try
         {
             _dal.User.Delete(email);

@@ -21,16 +21,6 @@
     <DeadlineDate>2024-06-01T00:00:00</DeadlineDate>
   </Task>
   <Task>
-    <Id>4</Id>
-    <Alias>brick</Alias>
-    <Description>the engineeer need to take control over the import of the bricks</Description>
-    <CreatedAtDate>2023-12-19T13:50:10.9453078+02:00</CreatedAtDate>
-    <RequiredEffortTime>P53D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-04-20T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-06-12T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
     <Id>6</Id>
     <Alias>workers</Alias>
     <Description>the engineeer need to take control over hirring workers</Description>
@@ -69,16 +59,6 @@
     <IsActive>true</IsActive>
     <ScheduledDate>2024-06-01T00:00:00</ScheduledDate>
     <DeadlineDate>2024-06-25T00:00:00</DeadlineDate>
-  </Task>
-  <Task>
-    <Id>10</Id>
-    <Alias>digging</Alias>
-    <Description>the engineeer need to take control over the digging so we can start build</Description>
-    <CreatedAtDate>2023-12-13T13:50:11.0924482+02:00</CreatedAtDate>
-    <RequiredEffortTime>P19D</RequiredEffortTime>
-    <IsActive>true</IsActive>
-    <ScheduledDate>2024-06-23T00:00:00</ScheduledDate>
-    <DeadlineDate>2024-07-12T00:00:00</DeadlineDate>
   </Task>
   <Task>
     <Id>11</Id>
@@ -200,6 +180,17 @@
     <ScheduledDate>2024-11-17T00:00:00</ScheduledDate>
   </Task>
   <Task>
+    <Id>10</Id>
+    <Alias>digging</Alias>
+    <Description>the engineeer need to take control over the digging so we can start build</Description>
+    <CreatedAtDate>2023-12-13T13:50:11.0924482+02:00</CreatedAtDate>
+    <RequiredEffortTime>P19D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-06-23T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-07-12T00:00:00</DeadlineDate>
+    <EngineerId>204022689</EngineerId>
+  </Task>
+  <Task>
     <Id>5</Id>
     <Alias>cranes</Alias>
     <Description>the engineeer need to take control moving the cranes</Description>
@@ -210,7 +201,6 @@
     <StartDate>2024-02-28T13:55:14.8411588+02:00</StartDate>
     <DeadlineDate>2024-06-14T00:00:00</DeadlineDate>
     <CompleteDate>2024-02-28T13:55:18.442322+02:00</CompleteDate>
-    <EngineerId>11111</EngineerId>
   </Task>
   <Task>
     <Id>1</Id>
@@ -223,6 +213,15 @@
     <StartDate>2024-02-28T14:18:43.5242409+02:00</StartDate>
     <DeadlineDate>2024-03-19T00:00:00</DeadlineDate>
     <CompleteDate>2024-02-28T14:20:06.3537368+02:00</CompleteDate>
-    <EngineerId>11111</EngineerId>
+  </Task>
+  <Task>
+    <Id>4</Id>
+    <Alias>brick</Alias>
+    <Description>the engineeer need to take control over the import of the bricks</Description>
+    <CreatedAtDate>2023-12-19T13:50:10.9453078+02:00</CreatedAtDate>
+    <RequiredEffortTime>P53D</RequiredEffortTime>
+    <IsActive>true</IsActive>
+    <ScheduledDate>2024-04-20T00:00:00</ScheduledDate>
+    <DeadlineDate>2024-06-12T00:00:00</DeadlineDate>
   </Task>
 </ArrayOfTask>
