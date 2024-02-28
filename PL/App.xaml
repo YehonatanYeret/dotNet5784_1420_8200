@@ -52,10 +52,13 @@
             <local:ConvertTaskStatusToColor x:Key="ConvertTaskStatusToColorKey"/>
 
             <!-- Resource for Converting engineer to visible -->
-            <local:ConvertEngineerToVisible x:Key="ConvertEngineerToVisibleKey"/>
+            <!--<local:ConvertEngineerToVisible x:Key="ConvertEngineerToVisibleKey"/>-->
 
             <!-- Resource for Converting engineer to visible -->
             <local:ConvertStringToImage x:Key="ConvertStringToImageKey"/>
+
+            <!-- Resource for Converting engineer to visible -->
+            <local:ConvertEngineerAndStatusToVisible x:Key="ConvertEngineerAndStatusToVisibleKey"/>
             
             <!--Style for Buttons-->
             <Style TargetType="Button">

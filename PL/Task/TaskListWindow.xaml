@@ -71,6 +71,13 @@
         </ListView>
 
         <!-- Button to add a new engineer -->
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick" Visibility="{Binding EngineerID, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=OneWay}"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick">
+            <Button.Visibility>
+                <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
+                    <Binding Path="EngineerID" />
+                    <Binding Path="IsProjectStarted" />
+                </MultiBinding>
+            </Button.Visibility>
+        </Button>
     </Grid>
 </Window>
