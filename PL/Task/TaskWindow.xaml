@@ -119,7 +119,8 @@
                     <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
-                        ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"/>
+                        ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"
+                              SelectedItem="{Binding CurrentTask.Complexity}"/>
 
                     <!-- task effort time -->
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Required&#10;Effort Time:"/>

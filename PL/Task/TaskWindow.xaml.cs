@@ -30,7 +30,7 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty CurrEngineerProperty =
         DependencyProperty.Register("CurrEngineer", typeof(BO.EngineerInTask), typeof(TaskWindow), new PropertyMetadata(null));
 
-    public List<DependencyList> Dep { get { return (List<DependencyList>)GetValue(DepProperty); } set { SetValue(DepProperty, value); }}
+    public List<DependencyList> Dep { get { return (List<DependencyList>)GetValue(DepProperty); } set { SetValue(DepProperty, value); } }
 
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty DepProperty =
@@ -49,7 +49,7 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
 
         UpdateOrCreate = (id == 0);
         CurrentTask = UpdateOrCreate ? new BO.Task() : s_bl.Task.Read(id);
-        CurrEngineer = (CurrentTask.Engineer != null) ? CurrentTask.Engineer : null;
+        CurrEngineer = CurrentTask.Engineer;
 
 
         Dep = (from t in s_bl.Task.ReadAll()
