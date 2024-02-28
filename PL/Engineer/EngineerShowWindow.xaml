@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="EngineerShowWindow" Height="450" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}">
-    
+
     <Grid>
         <Grid.Background>
             <LinearGradientBrush>
@@ -25,19 +25,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="{Binding CurrentEngineer.Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bookman Old Style" FontSize="24"/>
-        
-        
+        <Grid Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="{Binding CurrentEngineer.Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bookman Old Style" FontSize="24"/>
+            <Border Grid.Column="1" Width="90"  BorderBrush="#374016" BorderThickness="2">
+                <Image Source="{Binding  CurrentEngineer.Image, Converter={StaticResource ConvertStringToImageKey}}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Border>
+        </Grid>
         <TextBlock Text="You don't work on any task &#xA;Select a task to work on:" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"
                    Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}" FontWeight="Bold" Grid.Row="2"/>
 
         <Button Content="Select task" Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" IsDefault="True"
                      Grid.Row="3" Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}"/>
-        
+
 
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="15"  Grid.Row="1" Grid.RowSpan="4" Margin="7" ClipToBounds="True" Background="#919190" Padding="7" 
                 Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=TwoWay}">
-            
+
             <Grid>
                 <!-- Set the background gradient -->
 

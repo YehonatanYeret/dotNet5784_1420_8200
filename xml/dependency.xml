@@ -26,11 +26,6 @@
     <dependentOnTask>2</dependentOnTask>
   </dependency>
   <dependency>
-    <Id>45</Id>
-    <dependentTask>5</dependentTask>
-    <dependentOnTask>2</dependentOnTask>
-  </dependency>
-  <dependency>
     <Id>46</Id>
     <dependentTask>6</dependentTask>
     <dependentOnTask>1</dependentOnTask>
@@ -204,5 +199,10 @@
     <Id>80</Id>
     <dependentTask>21</dependentTask>
     <dependentOnTask>15</dependentOnTask>
+  </dependency>
+  <dependency>
+    <Id>84</Id>
+    <dependentTask>5</dependentTask>
+    <dependentOnTask>2</dependentOnTask>
   </dependency>
 </ArrayOfdependency>

@@ -10,19 +10,19 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@yahoo.com</Email>
+    <Email>Adam@hotmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@hotmail.com</Email>
+    <Email>Alex@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@yahoo.com</Email>
+    <Email>Aaron@walla.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
@@ -34,18 +34,18 @@
     <Type>engineer</Type>
     <Name>David Levi</Name>
     <Password>DavidLevi0</Password>
-    <Email>David@walla.com</Email>
+    <Email>David@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
-    <Email>Asaf@gmail.com</Email>
+    <Email>Asaf@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Niga!!!</Name>
-    <Password>NigaNiga1</Password>
+    <Name>nigniga</Name>
+    <Password>Aa12345678</Password>
     <Email>nignig@gmail.com</Email>
   </User>
 </ArrayOfUser>

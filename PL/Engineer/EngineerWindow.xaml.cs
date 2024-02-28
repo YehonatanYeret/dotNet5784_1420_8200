@@ -4,6 +4,7 @@ using Microsoft.Win32;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 /// <summary>
@@ -71,7 +72,6 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
     /// <param name="id">Engineer ID</param>
     public EngineerWindow(int id = 0)
     {
-        InitializeComponent();
         UpdateOrCreate = (id == 0);
         CurrentEngineer = UpdateOrCreate ? new BO.Engineer() : s_bl.Engineer.Read(id);
         // Set the image of the engineer
