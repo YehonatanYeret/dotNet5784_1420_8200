@@ -8,11 +8,20 @@ using System.Windows;
 /// </summary>
 public partial class App : Application 
 {
+    // Get the business logic instance
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-    // Event for property changed
-    public event PropertyChangedEventHandler? PropertyChanged;
-    protected virtual void OnPropertyChanged(string propertyName)
+    protected override void OnExit(ExitEventArgs e)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        s_bl.Clock.SetCurrentTime(s_bl.Time);
+        base.OnExit(e);
+    }
+
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+        DateTime? time = s_bl.Clock.GetCurrentTime();
+        if (time != null)
+            s_bl.Init(time.Value);
     }
 }

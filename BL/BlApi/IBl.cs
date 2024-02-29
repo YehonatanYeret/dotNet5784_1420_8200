@@ -35,6 +35,9 @@ public interface IBl
     /// </summary>
     public void ResetDB();
 
+    /// <summary>
+    /// add all the time in the system
+    /// </summary>
     #region
     public DateTime Time { get; }
     public void AddYears();
@@ -42,5 +45,6 @@ public interface IBl
     public void AddDays();
     public void AddHours();
     public void ResetTime();
+    public void Init(DateTime date);
     #endregion
 }
