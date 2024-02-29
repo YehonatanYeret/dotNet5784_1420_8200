@@ -213,8 +213,11 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLValueIsNotCorrectException("The task has no Engineer");
 
         // Check if the engineer already has a task on track except the task that we want to update
-        if (ReadAllTask(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Count() > 1)
+        if (ReadAllTask(task => task.Engineer?.Id == taskToUpdate.Engineer!.Id && task.Status == BO.Status.OnTrack).Any() && taskToUpdate.Status == BO.Status.Scheduled)
             throw new BO.BLValueIsNotCorrectException($"The engineer with ID {taskToUpdate.Engineer!.Id} has a task on track");
+
+        if (taskToUpdate.Status == BO.Status.Scheduled && taskToUpdate.Dependencies!.Any(dep => dep.Status != BO.Status.Done))
+            throw new BO.BLValueIsNotCorrectException("First complete the dependencies tasks");
 
         // Check if the task is unscheduled
         if (taskToUpdate.Status == BO.Status.Unscheduled)
