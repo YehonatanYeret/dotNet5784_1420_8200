@@ -34,8 +34,9 @@
 
             <!-- Define Rows -->
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
 
                 <!--<RowDefinition Height="*"/>-->
@@ -49,7 +50,7 @@
 
             <!-- Engineer Name -->
             <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentManager.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentManager.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10" VerticalContentAlignment="Center"/>
 
             <!-- Engineer Email -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
@@ -69,17 +70,40 @@
                 </TextBox>
             </Grid>
 
-            <!-- Engineer Password -->
+            <!-- Manager Password -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
             <PasswordBox Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
+            
+            <!-- Password Hint-->
+            <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}">
 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" HorizontalContentAlignment="Right" FontSize="12" FontWeight="Light" Content="the old password:"/>
+
+                <Label Grid.Column="1" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Light" Content="**********">
+
+                    <Label.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="The old Password:" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding CurrentManager.Password, Mode=OneWay}" TextAlignment="Center"/>
+                                <TextBlock FontWeight="Light" Text="*to use the old password - just don't enter new one*"/>
+                            </StackPanel>
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
+            </Grid>
         </Grid>
 
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
-        <Grid Grid.Row="1"  Margin="10,0">
+        <Grid Grid.Row="1" Margin="10,0">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -98,7 +122,7 @@
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="10" Height="60" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}">
+        <Grid Grid.Row="2" Margin="30, 0" Height="50" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

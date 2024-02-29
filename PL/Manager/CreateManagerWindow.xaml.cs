@@ -77,7 +77,6 @@ public partial class CreateManagerWindow : Window, INotifyPropertyChanged
             }
             else
             {
-
                 // Delete the old manager and create a new one (because the email is the primary key)
                 s_bl.User.Delete(Email!);
                 s_bl.User.Create(CurrentManager);
@@ -101,11 +100,6 @@ public partial class CreateManagerWindow : Window, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            //because the email is the primary key if the manager change his mail the system will throw an exception so we can know that
-            //if (Email == ManagerEmail)
-            //{
-            //    throw new Exception(CurrentManager.Email);
-            //}
             MessageBox.Show(ex.Message, "Unknown error occurred",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -154,15 +148,11 @@ public partial class CreateManagerWindow : Window, INotifyPropertyChanged
 
     private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
     {
+        // Set the password of the manager to the password box value only if it's not empty
         string pass = ((PasswordBox)sender).Password;
 
         if (!string.IsNullOrEmpty(pass))
-        {
-
-            CurrentManager.Password = pass;
-        }
-
-
+            CurrentManager.Password = pass;       
     }
 
     private void btnLeft_Click(object sender, RoutedEventArgs e)
