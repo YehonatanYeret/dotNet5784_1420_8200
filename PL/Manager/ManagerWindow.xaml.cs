@@ -49,7 +49,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
         ManagerName = s_bl.User.Read(email).Name;
         int allTasks = s_bl.Task.ReadAll().Count();
         int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
-        percentComplete =  ((double)completedTasks/allTasks)*100;
+        percentComplete = ((double)completedTasks / allTasks) * 100;
         IsprojectStarted = (s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress) ? Visibility.Hidden : Visibility.Visible;
         InitializeComponent();
     }
@@ -119,7 +119,14 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     }
     private void BtnCreateManager_Click(object sender, RoutedEventArgs e)
     {
-        new CreateManagerWindow(0,Email, Email).ShowDialog();
-        ManagerName = s_bl.User.Read(Email).Name;
+        try
+        {
+            new CreateManagerWindow(0, Email, Email).ShowDialog();
+            ManagerName = s_bl.User.Read(Email).Name;
+        }
+        catch
+        {
+            Close();
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Windows.Controls;
 /// <summary>
 /// Interaction logic for CreateManagerWindow.xaml
 /// </summary>
-public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
+public partial class CreateManagerWindow : Window, INotifyPropertyChanged
 {
     // Get the business logic instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -17,7 +17,9 @@ public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
     public BO.User CurrentManager
     {
         get { return (BO.User)GetValue(userProperty); }
-        set { SetValue(userProperty, value);
+        set
+        {
+            SetValue(userProperty, value);
             OnPropertyChanged(nameof(CurrentManager));
         }
     }
@@ -37,13 +39,15 @@ public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
     public int createOrUpdate
     {
         get { return (int)GetValue(createOrUpdateProperty); }
-        set { SetValue(createOrUpdateProperty, value);
+        set
+        {
+            SetValue(createOrUpdateProperty, value);
             OnPropertyChanged(nameof(createOrUpdate));
         }
     }
 
-        public static readonly DependencyProperty createOrUpdateProperty =
-        DependencyProperty.Register("createOrUpdate", typeof(int), typeof(CreateManagerWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty createOrUpdateProperty =
+    DependencyProperty.Register("createOrUpdate", typeof(int), typeof(CreateManagerWindow), new PropertyMetadata(null));
     public int Place { get; set; }
 
     public CreateManagerWindow(int place = 0, string? managerEmail = "", string? email = "")
@@ -73,7 +77,11 @@ public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
             }
             else
             {
-                s_bl.User.Update(CurrentManager);
+
+                // Delete the old manager and create a new one (because the email is the primary key)
+                s_bl.User.Delete(Email!);
+                s_bl.User.Create(CurrentManager);
+
                 MessageBox.Show("the the manager updated successfully", "operation succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -89,12 +97,15 @@ public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
         }
         catch (BO.BLDoesNotExistException ex)
         {
-            MessageBox.Show(ex.Message, "Error occurred while updation",
-                MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            s_bl.User.Create(CurrentManager);
         }
         catch (Exception ex)
         {
+            //because the email is the primary key if the manager change his mail the system will throw an exception so we can know that
+            //if (Email == ManagerEmail)
+            //{
+            //    throw new Exception(CurrentManager.Email);
+            //}
             MessageBox.Show(ex.Message, "Unknown error occurred",
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -143,7 +154,15 @@ public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
 
     private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
     {
-        CurrentManager.Password = ((PasswordBox)sender).Password;
+        string pass = ((PasswordBox)sender).Password;
+
+        if (!string.IsNullOrEmpty(pass))
+        {
+
+            CurrentManager.Password = pass;
+        }
+
+
     }
 
     private void btnLeft_Click(object sender, RoutedEventArgs e)
@@ -153,20 +172,23 @@ public partial class CreateManagerWindow : Window ,INotifyPropertyChanged
             Place++;
 
         CurrentManager = s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).ToList().ElementAt(Place);
+        Email = CurrentManager.Email;
     }
 
     private void btnRight_Click(object sender, RoutedEventArgs e)
     {
         Place++;
-        if(Place > s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).Count() - 1)
+        if (Place > s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).Count() - 1)
             Place--;
 
         CurrentManager = s_bl.User.ReadAll(u => u.Type == BO.UserType.manager).ToList().ElementAt(Place);
+        Email = CurrentManager.Email;
     }
 
     private void btnNew_Click(object sender, RoutedEventArgs e)
     {
         CurrentManager = new BO.User();
         createOrUpdate = 0;
+        Email = null;
     }
 }
