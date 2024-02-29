@@ -10,12 +10,12 @@
         WindowState="Maximized"
         DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
         Background="{StaticResource backgroundImage}">
-        <!--WindowState="Maximized"-->
+    <!--WindowState="Maximized"-->
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- TextBlock displaying project name -->
-        <TextBlock HorizontalAlignment="Center" Height="119" FontFamily="Impact" FontSize="46" FontWeight="Bold" FontStyle="Italic" Grid.Row="0" Grid.ColumnSpan="2" >
+        <TextBlock HorizontalAlignment="Center" Height="200" FontFamily="Impact" FontSize="60" FontWeight="Bold" FontStyle="Italic" Grid.Row="0" Grid.ColumnSpan="2" Margin="30">
             <Run Text="Project "/>
             <LineBreak/>
             <Run Text="   Managment"/>
@@ -32,7 +32,7 @@
 
         <!-- Grid containing buttons -->
 
-        <Border Grid.Row="1" Grid.Column="1" Margin="20" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Row="1" Grid.Column="1" Margin="90, 20" BorderBrush="Black" BorderThickness="2">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#d6d6cb" Offset="1" />
@@ -42,7 +42,7 @@
             <Grid Margin="10">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="2*"/>
                     <RowDefinition Height="3*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -52,31 +52,31 @@
                         <ColumnDefinition Width="6*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Login" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
 
                     <Label Grid.Column="1" Width="30" Height="30">
-                        
+
                         <Label.Background>
                             <ImageBrush ImageSource="/Images/question.png" />
                         </Label.Background>
 
                         <Label.ToolTip>
-                        <ToolTip>
-                            <StackPanel>
+                            <ToolTip>
+                                <StackPanel>
                                     <TextBlock Text="At the start of the project" TextAlignment="Center"/>
                                     <TextBlock Text="The Defult manager is:&#10;"  TextAlignment="Center"/>
                                     <TextBlock FontWeight="Bold" Text="User: Admin"/>
                                     <TextBlock FontWeight="Bold" Text="Email: admin@gmail.com"/>
                                     <TextBlock FontWeight="Bold" Text="Password: Admin123"/>
                                 </StackPanel>
-                        </ToolTip>
+                            </ToolTip>
                         </Label.ToolTip>
 
                     </Label>
-                    
+
                 </Grid>
-           
+
                 <Grid Grid.Row="1">
 
                     <Grid.RowDefinitions>
@@ -89,8 +89,7 @@
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0" Grid.Column="0" Content="Email:" VerticalAlignment="Center"/>
-                    <!--<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}" Margin="2,10" VerticalContentAlignment="Center" FontSize="17" />-->
+                    <Label Grid.Row="0" Grid.Column="0" Content="Email:" VerticalAlignment="Center" FontSize="18"/>
 
                     <Grid Grid.Row="0" Grid.Column="1" Margin="2,10" Background="White">
                         <TextBox x:Name="waterMarkTextBox" Grid.Column="1" Text="{Binding Email, Mode=TwoWay}"
@@ -108,10 +107,8 @@
                         </TextBox>
                     </Grid>
 
-                    <Label Grid.Row="1" Grid.Column="0" Content="Password:" VerticalAlignment="Center"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="Password:" VerticalAlignment="Center" FontSize="18"/>
                     <PasswordBox Grid.Row="1" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10" VerticalContentAlignment="Center" FontSize="17"/>
-
-
 
                 </Grid>
 

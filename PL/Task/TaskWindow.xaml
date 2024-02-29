@@ -59,13 +59,13 @@
 
                 <!-- task ID -->
                 <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" SpellCheck.IsEnabled="True" Language="en-US" 
-                         IsEnabled="False"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" VerticalContentAlignment="Center" IsEnabled="False"/>
+                        
 
                 <!-- task alias -->
                 <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=True}"
-                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
+                         Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" VerticalContentAlignment="Center"/>
 
                 <!-- task description -->
                 <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
@@ -116,20 +116,20 @@
                     <!-- task status -->
                     <Label Content="Status:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                              Margin="2,7" Foreground="Black" IsReadOnly="True"/>
+                              Margin="2,7" Foreground="Black" IsReadOnly="True" VerticalContentAlignment="Center"/>
 
                     <!-- task complexity -->
                     <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"
-                              SelectedItem="{Binding CurrentTask.Complexity}"
+                              SelectedItem="{Binding CurrentTask.Complexity}" VerticalContentAlignment="Center"
                               IsEnabled="{Binding IsProjectStarted}" SelectionChanged="ComboBox_SelectionChanged"/>
 
                     <!-- task effort time -->
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Required&#10;Effort Time:"/>
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.RequiredEffortTime, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat='dd\\.hh\\:mm\\:ss'}"
-                             IsEnabled="{Binding IsProjectStarted}"/>
+                             IsEnabled="{Binding IsProjectStarted}" VerticalContentAlignment="Center"/>
                 </Grid>
 
                 <Grid Grid.Row="1">
