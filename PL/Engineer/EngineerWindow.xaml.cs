@@ -112,6 +112,7 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
             else
             {
                 s_bl.Engineer.Update(CurrentEngineer);
+                s_bl.User.Update(user);
                 MessageBox.Show("the the engineer updated successfully", "operation succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
@@ -171,7 +172,11 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
 
     private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
     {
-        CurrentUser.Password = ((PasswordBox)sender).Password;
+        // Set the password of the User to the password box value only if it's not empty
+        string pass = ((PasswordBox)sender).Password;
+
+        if (!string.IsNullOrEmpty(pass))
+            CurrentUser.Password = pass;
     }
 
 

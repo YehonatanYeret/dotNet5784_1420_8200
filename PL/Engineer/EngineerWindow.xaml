@@ -35,11 +35,12 @@
             <!-- Define Rows -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="90"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
                 <!--<RowDefinition Height="*"/>-->
             </Grid.RowDefinitions>
@@ -96,8 +97,32 @@
 
             <!-- Engineer Password -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>
-            <PasswordBox Grid.Row="6" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"
-                         IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"/>
+            <PasswordBox Grid.Row="6" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
+
+            <!-- Password Hint-->
+            <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"  Visibility="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToVisibleKey}}">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" HorizontalContentAlignment="Right" FontSize="12" FontWeight="Light" Content="the old password:"/>
+
+                <Label Grid.Column="1" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Light"    Content="**********">
+
+
+                    <Label.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Text="The old Password:" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding CurrentUser.Password, Mode=OneWay}" TextAlignment="Center"/>
+                                <TextBlock FontWeight="Light" Text="*to use the old password - just don't enter new one*"/>
+                            </StackPanel>
+                        </ToolTip>
+                    </Label.ToolTip>
+                </Label>
+            </Grid>
 
         </Grid>
         <!-- Button for Adding or (Updating and Deleting Engineer)-->

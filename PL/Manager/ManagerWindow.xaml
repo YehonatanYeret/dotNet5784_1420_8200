@@ -71,7 +71,7 @@
             <Button Content="Tasks" Grid.Column="0" Grid.ColumnSpan="2" Margin="20" Height="40" Click="TaskButton_Click"/>
             <Button Content="Engineers" Grid.Column="2" Grid.ColumnSpan="2" Margin="20" Height="40" Click="EngineerButton_Click"/>
 
-            <Button Width="150" Content="Managers" Grid.ColumnSpan="2" Height="40" Click="BtnCreateManager_Click" Grid.Row="1" Grid.Column="1" Margin="20"/>
+            <Button Content="Managers" Grid.ColumnSpan="2" Height="40" Click="BtnCreateManager_Click" Grid.Row="1" Grid.Column="1" Margin="20"/>
 
 
         </Grid>

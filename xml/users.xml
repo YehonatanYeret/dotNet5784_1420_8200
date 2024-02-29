@@ -26,26 +26,26 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>David Levi</Name>
-    <Password>DavidLevi0</Password>
-    <Email>David@outlook.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
     <Email>Asaf@hotmail.com</Email>
   </User>
   <User>
     <Type>manager</Type>
-    <Name>sdfsdfsfsdf</Name>
-    <Password>Aandikmsd123</Password>
-    <Email>ss@gmail.com</Email>
+    <Name>sdfsdfsd</Name>
+    <Password>Admasm5ksdmf</Password>
+    <Email>asds@gmail.com</Email>
   </User>
   <User>
     <Type>manager</Type>
-    <Name>sdfsdfs</Name>
-    <Password>Admasm5ksdmf</Password>
-    <Email>asds@gmail.com</Email>
+    <Name>sdfsdfsfsdf</Name>
+    <Password>Aa123456</Password>
+    <Email>ss@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Hello</Name>
+    <Password>Yy122112</Password>
+    <Email>yy@outlook.com</Email>
   </User>
 </ArrayOfUser>
