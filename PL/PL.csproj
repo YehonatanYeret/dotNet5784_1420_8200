@@ -19,6 +19,7 @@
     <None Remove="Images\leftArrow.png" />
     <None Remove="Images\leftArrowOver.png" />
     <None Remove="Images\noImageFound.jpg" />
+    <None Remove="Images\question.png" />
     <None Remove="mainWindow.jpg" />
   </ItemGroup>
 
@@ -29,6 +30,7 @@
   <ItemGroup>
     <Resource Include="Images\gant.png" />
     <Resource Include="Images\gantBackground.jpg" />
+    <Resource Include="Images\question.png" />
     <Resource Include="Images\leftArrow.png" />
     <Resource Include="Images\leftArrowOver.png" />
     <Resource Include="Images\mainWindow.jpg" />

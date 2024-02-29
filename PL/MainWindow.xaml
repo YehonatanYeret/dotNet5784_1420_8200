@@ -48,8 +48,36 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Content="Login" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Login" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
 
+                    <Label Grid.Column="1" Width="30" Height="30">
+                        
+                        <Label.Background>
+                            <ImageBrush ImageSource="/Images/question.png" />
+                        </Label.Background>
+
+                        <Label.ToolTip>
+                        <ToolTip>
+                            <StackPanel>
+                                    <TextBlock Text="At the start of the project" TextAlignment="Center"/>
+                                    <TextBlock Text="The Defult manager is:&#10;"  TextAlignment="Center"/>
+                                    <TextBlock FontWeight="Bold" Text="User: Admin"/>
+                                    <TextBlock FontWeight="Bold" Text="Email: admin@gmail.com"/>
+                                    <TextBlock FontWeight="Bold" Text="Password: Admin123"/>
+                                </StackPanel>
+                        </ToolTip>
+                        </Label.ToolTip>
+
+                    </Label>
+                    
+                </Grid>
+           
                 <Grid Grid.Row="1">
 
                     <Grid.RowDefinitions>
