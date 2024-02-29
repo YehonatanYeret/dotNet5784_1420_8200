@@ -1,5 +1,6 @@
 ﻿namespace PL;
 
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,7 +8,7 @@ using System.Windows.Controls;
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class MainWindow : Window, INotifyPropertyChanged
 {
     // Get the business logic instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -21,12 +22,32 @@ public partial class MainWindow : Window
     public static readonly DependencyProperty userProperty =
         DependencyProperty.Register("CurrentUser", typeof(BO.User), typeof(MainWindow), new PropertyMetadata(null));
 
+
+    public DateTime Date
+    {
+        get { return (DateTime)GetValue(dateProperty); }
+        set { SetValue(dateProperty, value); }
+    }
+
+    public static readonly DependencyProperty dateProperty =
+        DependencyProperty.Register("Date", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
+
+    // Event for property changed
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+
+
     /// <summary>
     /// Constructor for the MainWindow class.
     /// Initializes the main window and its components.
     /// </summary>
     public MainWindow()
     {
+        Date = DateTime.Now;
         CurrentUser = new BO.User();
         InitializeComponent();
     }
@@ -70,5 +91,15 @@ public partial class MainWindow : Window
     private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
     {
         CurrentUser.Password = ((PasswordBox)sender).Password;
+    }
+
+    private void BtnHour_Click(object sender, RoutedEventArgs e)
+    {
+        Date = Date.AddHours(1);
+    }
+
+    private void BtnDay_Click(object sender, RoutedEventArgs e)
+    {
+        Date = Date.AddDays(1);
     }
 }
