@@ -71,4 +71,6 @@ public partial class MainWindow : Window
     {
         CurrentUser.Password = ((PasswordBox)sender).Password;
     }
+
+
 }

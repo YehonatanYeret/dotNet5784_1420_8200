@@ -64,7 +64,12 @@
 
         public void ResetTime()
         {
-            Time = DateTime.Now;
+            Time = DateTime.Now.Date;
+        }
+
+        public void Init(DateTime date)
+        {
+            Time = date;
         }
     }
 }
