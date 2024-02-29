@@ -10,7 +10,7 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@yahoo.com</Email>
+    <Email>Adam@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
@@ -22,24 +22,24 @@
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@gmail.com</Email>
+    <Email>Aaron@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Ben Baruch</Name>
     <Password>BenBaruch0</Password>
-    <Email>Ben@outlook.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>David Levi</Name>
-    <Password>DavidLevi0</Password>
-    <Email>David@yahoo.com</Email>
+    <Email>Ben@hotmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
     <Email>Asaf@yahoo.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@gmail.com</Email>
   </User>
 </ArrayOfUser>

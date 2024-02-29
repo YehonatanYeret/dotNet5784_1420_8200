@@ -25,7 +25,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0" Margin="150, 70" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Row="0" Grid.Column="0" Margin="150, 70" MaxWidth="250" MaxHeight="150" BorderBrush="Black" BorderThickness="2">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#d6d6cb" Offset="1" />
@@ -46,8 +46,8 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Date}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
-                <Button Grid.Row="1" Grid.Column="0" Content="Hour" Click="BtnHour_Click" Margin="3" IsDefault="True"/>
-                <Button Grid.Row="1" Grid.Column="1" Content="Day" Click="BtnDay_Click" Margin="3" IsCancel="True"/>
+                <Button Grid.Row="1" Grid.Column="0" Content="Hour" Click="BtnHour_Click" Margin="3"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Day" Click="BtnDay_Click" Margin="3"/>
               
 
 
