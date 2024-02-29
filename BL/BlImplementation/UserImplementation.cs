@@ -152,7 +152,7 @@ internal class UserImplementation : BlApi.IUser
     /// check if the values of the user is correct
     /// </summary>
     /// <param name="user">the user that need to check</param>
-    private void checkUser(BO.User user)
+    public void checkUser(BO.User user)
     {
         //check if the name is not empty
         if (string.IsNullOrEmpty(user.Name))

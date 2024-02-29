@@ -42,4 +42,10 @@ public interface IUser
     /// Resets all users in the system and creates a new default admin user.
     /// </summary>
     public void Reset();
+
+    /// <summary>
+    /// check if the user is valid
+    /// </summary>
+    /// <param name="user"></param>
+    public void checkUser(BO.User user);
 }
