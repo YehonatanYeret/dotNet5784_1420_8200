@@ -10,13 +10,13 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@outlook.com</Email>
+    <Email>Adam@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@yahoo.com</Email>
+    <Email>Alex@outlook.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
@@ -26,50 +26,26 @@
   </User>
   <User>
     <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@outlook.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
     <Name>David Levi</Name>
     <Password>DavidLevi0</Password>
-    <Email>David@hotmail.com</Email>
+    <Email>David@outlook.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
-    <Email>Asaf@gmail.com</Email>
+    <Email>Asaf@walla.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Ben Baruch</Name>
-    <Password>Ben@gmail.com</Password>
-    <Email>Ben@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>יאיר לוי</Name>
-    <Password>YairLevi123</Password>
-    <Email>yair@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>מאור הגבר</Name>
-    <Password>Muhamad123</Password>
-    <Email>maornoy1310@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>מאור הגבר</Name>
-    <Password>Muhamad123</Password>
-    <Email>maor@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>עידודו</Name>
-    <Password>Ido12345678</Password>
-    <Email>ido@gmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>בניה</Name>
-    <Password>Benaya123</Password>
-    <Email>benaya@gmail.com</Email>
+    <Name>nignig</Name>
+    <Password>n@gmail.com</Password>
+    <Email>n@gmail.com</Email>
   </User>
 </ArrayOfUser>
