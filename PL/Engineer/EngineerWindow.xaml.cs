@@ -2,10 +2,8 @@
 
 using Microsoft.Win32;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 /// <summary>
 /// Interaction logic for EngineerWindow.xaml
@@ -76,7 +74,7 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         CurrentEngineer = UpdateOrCreate ? new BO.Engineer() : s_bl.Engineer.Read(id);
         // Set the image of the engineer
         Image = CurrentEngineer.Image;
-        CurrentUser = UpdateOrCreate? new BO.User() : s_bl.User.Read(CurrentEngineer.Email);
+        CurrentUser = UpdateOrCreate ? new BO.User() : s_bl.User.Read(CurrentEngineer.Email);
         InitializeComponent();
     }
 
@@ -89,6 +87,7 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         CurrentEngineer.Image = Image;
         try
         {
+            // Create a user object for the engineer
             BO.User user = new BO.User()
             {
                 Type = BO.UserType.engineer,
@@ -96,16 +95,17 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
                 Password = CurrentUser.Password,
                 Email = CurrentEngineer.Email
             };
+
+            // Validate and check if the user already exists
             s_bl.User.checkUser(user);
 
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
             {
-
                 s_bl.Engineer.Create(CurrentEngineer);
                 s_bl.User.Create(user);
 
-                MessageBox.Show("the the engineer created successfully", "operation succeed",
+                MessageBox.Show("The engineer created successfully", "Operation Succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -113,12 +113,12 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
             {
                 s_bl.Engineer.Update(CurrentEngineer);
                 s_bl.User.Update(user);
-                MessageBox.Show("the the engineer updated successfully", "operation succeed",
+                MessageBox.Show("The engineer updated successfully", "Operation Succeed",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
 
-            // Close the window after successful operation
+            // Close the window after a successful operation
             Close();
         }
         catch (BO.BLAlreadyExistsException ex)
@@ -140,14 +140,19 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
                 MessageBoxImage.Error);
         }
     }
+
+    /// <summary>
+    /// Event handler for the Delete button click
+    /// </summary>
     private void btnDelete_Click(object sender, RoutedEventArgs e)
     {
         try
         {
+            // Confirm the deletion with a message box
             if (MessageBox.Show("Are you sure you want to delete this engineer?", "Delete Engineer", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 s_bl.User.Delete(CurrentUser.Email);
-                MessageBox.Show("Engineer Deleted successfully", "Delete Engineer",
+                MessageBox.Show("Engineer deleted successfully", "Delete Engineer",
                     MessageBoxButton.OK,
                     MessageBoxImage.Information);
             }
@@ -166,10 +171,14 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
         }
         finally
         {
+            // Close the window after the operation
             Close();
         }
     }
 
+    /// <summary>
+    /// Event handler for the PasswordBox password change
+    /// </summary>
     private void PasswordBox_PasswordChange(object sender, RoutedEventArgs e)
     {
         // Set the password of the User to the password box value only if it's not empty
@@ -179,10 +188,12 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
             CurrentUser.Password = pass;
     }
 
-
+    /// <summary>
+    /// Event handler for the Browse button click to select an image file
+    /// </summary>
     private void btnBrowse_Click(object sender, RoutedEventArgs e)
     {
-        // Open file dialog to select an image file and check for valid image file
+        // Open file dialog to select an image file and check for a valid image file
         OpenFileDialog fileDialog = new OpenFileDialog();
         fileDialog.Filter = "Image Files (*.png;*.jpeg;*.jpg;*.gif;*.bmp)|*.png;*.jpeg;*.jpg;*.gif;*.bmp";
 

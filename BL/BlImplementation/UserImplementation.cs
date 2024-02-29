@@ -67,7 +67,6 @@ internal class UserImplementation : BlApi.IUser
     /// </summary>
     /// <param name="filter">An optional filter function to apply to the users.</param>
     /// <returns>An IEnumerable of users that satisfy the provided filter.</returns>
-    /// 
     public IEnumerable<BO.User> ReadAll(Func<BO.User, bool>? filter = null)
     {
         //if there is no filter, return all the users

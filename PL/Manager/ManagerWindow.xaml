@@ -11,6 +11,7 @@
         Title="ManagerWindow" Height="450" Width="800">
     <Grid>
 
+        <!-- Grid for main layout -->
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -21,14 +22,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- Grid for buttons related to Gantt and Start Project -->
         <Grid Grid.Row="0" Grid.Column="0" Margin="40">
-            <!--oppoosite buttons for gantt and start project-->
+            <!-- Buttons for Gantt and Start Project -->
             <Button Content="Gant" Margin="30" Height="40" Click="GanttClick_Button"
-                        Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}, Mode=OneWay}"/>
+                    Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}, Mode=OneWay}"/>
             <Button Content="Start Project" Margin="30" Height="40" Click="StartProject_Click"
-                        Visibility="{Binding IsprojectStarted}"/>
+                    Visibility="{Binding IsprojectStarted}"/>
         </Grid>
 
+        <!-- Grid for Manager information and controls -->
         <Grid Grid.Row="0" Grid.Column="1" Margin="40">
 
             <Grid.RowDefinitions>
@@ -37,22 +40,23 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <!-- Manager name label -->
             <Label Content="{Binding ManagerName, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Center"/>
 
-            <!-- prgress bar -->
+            <!-- Progress bar for project completion -->
             <ProgressBar  Height="20"  Grid.Row="1"
                         Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}}" 
                         Value="{Binding percentComplete}" Maximum="100" Minimum="0"
                         BorderBrush="DeepSkyBlue" BorderThickness="1">
             </ProgressBar>
-            
-            <!-- buttons for reset and initialize -->
+
+            <!-- Buttons for resetting and initializing data -->
             <Button Grid.Row="2" Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
             <Button Grid.Row="2" Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
 
-    
         </Grid>
 
+        <!-- Grid for Task, Engineer, and Manager buttons -->
         <Grid Grid.Row="1" Grid.Column="1" Margin="10">
 
             <Grid.RowDefinitions>
@@ -67,14 +71,12 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!--buttons to show task and angineers-->
+            <!-- Buttons to show Task and Engineers -->
             <Button Content="Tasks" Grid.Column="0" Grid.ColumnSpan="2" Margin="20" Height="40" Click="TaskButton_Click"/>
             <Button Content="Engineers" Grid.Column="2" Grid.ColumnSpan="2" Margin="20" Height="40" Click="EngineerButton_Click"/>
 
+            <!-- Button to show Managers -->
             <Button Content="Managers" Grid.ColumnSpan="2" Height="40" Click="BtnCreateManager_Click" Grid.Row="1" Grid.Column="1" Margin="20"/>
-
-
         </Grid>
-
     </Grid>
 </Window>
