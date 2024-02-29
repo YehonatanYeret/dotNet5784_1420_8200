@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
   <NextTaskId>23</NextTaskId>
-  <NextDependencyId>56</NextDependencyId>
+  <NextDependencyId>88</NextDependencyId>
   <NextTaskId>23</NextTaskId>
   <NextDependencyId>103</NextDependencyId>
-  <StartProject></StartProject>
+  <StartProject>08/02/2024 00:00:00</StartProject>
   <EndProject></EndProject>
 </config>
