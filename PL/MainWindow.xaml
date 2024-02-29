@@ -9,9 +9,10 @@
         Title="mainWindow" Height="495" Width="880"
         WindowState="Maximized"
         DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
-        Background="{StaticResource backgroundImage}">
-        <!--WindowState="Maximized"-->
-
+        >
+    <Window.Background>
+        <ImageBrush ImageSource="Images/mainWindow.jpg"/>
+    </Window.Background>
 
     <Grid>
         <Grid.RowDefinitions>

@@ -6,9 +6,9 @@ internal class ClockImplementation : IClock
 {
     private readonly string s_clock_xml = "data-config";
 
-    public DateTime? GetEndProject()
+    public DateTime? GetCurrentTime()
     {
-        XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml).Element("EndProject")!;
+        XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml).Element("CurrentDate")!;
         if(root.Value == "")
         {
             return null;
@@ -30,23 +30,21 @@ internal class ClockImplementation : IClock
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml);
         root.Element("StartProject")!.Value = "";
-        root.Element("EndProject")!.Value = "";
+        root.Element("CurrentDate")!.Value = "";
         XMLTools.SaveListToXMLElement(root, s_clock_xml);
     }
 
-    public DateTime? SetEndProject(DateTime endProject)
+    public void SetCurrentTime(DateTime currentTime)
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml);
-        root.Element("EndProject")!.Value = endProject.ToString();
+        root.Element("CurrentDate")!.Value = currentTime.ToString();
         XMLTools.SaveListToXMLElement(root, s_clock_xml);
-        return endProject;
     }
 
-    public DateTime? SetStartProject(DateTime startProject)
+    public void SetStartProject(DateTime startProject)
     {
         XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml);
         root.Element("StartProject")!.Value = startProject.ToString();
         XMLTools.SaveListToXMLElement(root, s_clock_xml);
-        return startProject;
     }
 }

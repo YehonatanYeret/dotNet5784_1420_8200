@@ -10,26 +10,13 @@
         /// </summary>
         /// <param name="startProject">The start project date to be set.</param>
         /// <returns>A nullable DateTime representing the set start project date.</returns>
-        public DateTime? SetStartProject(DateTime startProject);
+        public void SetStartProject(DateTime startProject);
 
         /// <summary>
         /// Gets the start project date.
         /// </summary>
         /// <returns>A nullable DateTime representing the start project date.</returns>
         public DateTime? GetStartProject();
-
-        /// <summary>
-        /// Sets the end project date.
-        /// </summary>
-        /// <param name="endProject">The end project date to be set.</param>
-        /// <returns>A nullable DateTime representing the set end project date.</returns>
-        public DateTime? SetEndProject(DateTime endProject);
-
-        /// <summary>
-        /// Gets the end project date.
-        /// </summary>
-        /// <returns>A nullable DateTime representing the end project date.</returns>
-        public DateTime? GetEndProject();
 
         /// <summary>
         /// Resets the project timeline.
@@ -41,5 +28,17 @@
         /// </summary>
         /// <returns>A ProjectStatus enum value indicating the project status.</returns>
         public BO.ProjectStatus GetProjectStatus();
+
+        /// <summary>
+        ///  sets the current time.
+        /// </summary>
+        /// <param name="currentTime"></param>
+        public void SetCurrentTime(DateTime currentTime);
+
+        /// <summary>
+        /// Gets the current time.
+        /// </summary>
+        /// <returns></returns>
+        public DateTime? GetCurrentTime();
     }
 }

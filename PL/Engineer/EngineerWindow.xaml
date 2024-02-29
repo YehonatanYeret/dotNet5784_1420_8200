@@ -94,10 +94,10 @@
 
             <!-- Engineer Password Section -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>
-            <PasswordBox Grid.Row="6" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10" Password="loremesposel"/>
+            <PasswordBox Grid.Row="6" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
 
             <!-- Password Hint Section -->
-            <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"  Visibility="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToVisibleKey}}">
+            <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"  Visibility="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneTime}">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
