@@ -1,11 +1,13 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using BO;
 using static System.Net.Mime.MediaTypeNames;
 
 internal class EngineerImplementation : IEngineer
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
-
+    private readonly IBl _bl;
+    internal EngineerImplementation(IBl bl) => _bl = bl;
     /// <summary>
     /// Creates a new engineer.
     /// </summary>
@@ -56,7 +58,7 @@ internal class EngineerImplementation : IEngineer
         //get the task of the engineer if exist
         BO.TaskInEngineer? task = (from t in _dal.Task.ReadAll()
                                    where t.EngineerId == id
-                                   && new TaskImplementation().CalculateStatus(t) == BO.Status.OnTrack
+                                   && CalculateStatus(t) == BO.Status.OnTrack
                                    select new BO.TaskInEngineer
                                    {
                                        Id = t.Id,
@@ -155,7 +157,7 @@ internal class EngineerImplementation : IEngineer
     {
         //check if the engineer has tasks that on track or done
         IEnumerable<DO.Task?> tasks = from task in _dal.Task.ReadAll(task => task.EngineerId == id)
-                                      let stat = new TaskImplementation().CalculateStatus(task!)
+                                      let stat = CalculateStatus(task!)
                                       where stat == BO.Status.OnTrack || stat == BO.Status.Done
                                       select task;
 
@@ -219,7 +221,7 @@ internal class EngineerImplementation : IEngineer
             throw new BO.BLAlreadyExistsException($"Task with ID {taskId} already have an engineer");
 
         //check if the engineer already work on a task
-        var status = new TaskImplementation().CalculateStatus(task);
+        var status = CalculateStatus(task);
         if (status == BO.Status.OnTrack && _dal.Task.ReadAll(tsk => tsk.EngineerId == engineerId && status is BO.Status.OnTrack).Any())
             throw new BO.BLAlreadyExistsException($"Engineer with ID {engineerId} already work on a task");
 
@@ -243,7 +245,7 @@ internal class EngineerImplementation : IEngineer
               throw new BO.BLDoesNotExistException($"Engineer with ID {engineerId} does not exist");
 
         //check if the engineer work on a task and remove the task
-        var task = _dal.Task.Read(task => task.EngineerId == engineerId && task.StartDate > DateTime.Now);
+        var task = _dal.Task.Read(task => task.EngineerId == engineerId && task.StartDate > _bl.Time);
         if (task is not null)
             _dal.Task.Update(task with { EngineerId = null });
     }
@@ -260,6 +262,7 @@ internal class EngineerImplementation : IEngineer
     /// <returns>the engineer that work on the task convert to EngineerInTask</returns>
     public BO.EngineerInTask GetEngineerInTask(int engineerId)
     {
+
         return new BO.EngineerInTask
         {
             Id = engineerId,
@@ -275,8 +278,14 @@ internal class EngineerImplementation : IEngineer
     /// <returns>the tasks that the engineer can start to work on</returns>
     public IEnumerable<BO.TaskInList> GetTasksOfEngineer(int engineerId)
     {
-        return (from t in new TaskImplementation().ReadAllTask(task => task.Engineer != null && task.Engineer.Id == engineerId && task.Status == BO.Status.Scheduled)
-                select (new TaskImplementation().ConvertToTaskInList(t.Id)));
+        return (from t in _dal.Task.ReadAll(task => task.EngineerId == engineerId && task.ScheduledDate != null && task.StartDate == null)
+                select (new TaskInList()
+                {
+                    Id = t.Id,
+                    Description = t.Description,
+                    Alias = t.Alias,
+                    Status = BO.Status.Scheduled
+                }));
     }
 
     public string ConvertImageToBase64(string path)
@@ -287,5 +296,22 @@ internal class EngineerImplementation : IEngineer
 
         // Convert the byte array to a Base64 string
         return Convert.ToBase64String(bitmapBytes);
+    }
+
+    /// <summary>
+    /// Calculate the status of a task based on its scheduled date, complete date, and milestone status.
+    /// </summary>
+    /// <param name="task">The task that we calaulate the steatus for</param>
+    /// <returns>the status of the task</returns>
+    BO.Status CalculateStatus(DO.Task task)
+    {
+        //check if the task has scheduled date
+        if (task.ScheduledDate is null) return BO.Status.Unscheduled;
+        //chelk if the task not started yet
+        else if (task.StartDate is null) return BO.Status.Scheduled;
+        //check if the task not completed yet
+        else if (task.CompleteDate is null) return BO.Status.OnTrack;
+        //the task has started and completed
+        else return BO.Status.Done;
     }
 }

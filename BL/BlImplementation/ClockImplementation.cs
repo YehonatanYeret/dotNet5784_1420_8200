@@ -7,12 +7,13 @@ internal class ClockImplementation : IClock
 {
     // Data Access Layer instance
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-
+    private readonly IBl _bl;
+    internal ClockImplementation(IBl bl) => _bl = bl;
     /// <summary>
-    /// // Get the end of the project
+    ///  gets the current time
     /// </summary>
-    /// <returns> return The end of the project</returns>
-    public DateTime? GetEndProject()=> _dal.Clock.GetEndProject();
+    /// <returns></returns>
+    public DateTime? GetCurrentTime()=> _dal.Clock.GetCurrentTime();
 
     /// <summary>
     /// Get the status of the project
@@ -20,11 +21,10 @@ internal class ClockImplementation : IClock
     /// <returns> return the status of the project</returns>
     public ProjectStatus GetProjectStatus()
     {
-        if (GetEndProject() < DateTime.Now)
-            return BO.ProjectStatus.Done;
-        if (GetStartProject() < DateTime.Now)
-            return BO.ProjectStatus.InProgress;
-        return BO.ProjectStatus.NotStarted;
+        if (GetStartProject() > _bl.Time)
+            return BO.ProjectStatus.NotStarted;
+
+        return BO.ProjectStatus.InProgress;
     }
 
     /// <summary>
@@ -39,16 +39,15 @@ internal class ClockImplementation : IClock
     public void Reset()=>_dal.Clock.resetTimeLine();
 
     /// <summary>
-    /// Set the end of the project
+    /// sets the current time.
     /// </summary>
-    /// <param name="endProject"> The end of the project</param>
-    /// <returns> return The end of the project</returns>
-    public DateTime? SetEndProject(DateTime endProject)=> _dal.Clock.SetEndProject(endProject);
+    /// <param name="currentTime"></param>
+    public void SetCurrentTime(DateTime currentTime)=> _dal.Clock.SetCurrentTime(currentTime);
 
     /// <summary>
     ///  Set the start of the project
     /// </summary>
     /// <param name="startProject"> The start of the project</param>
     /// <returns> return The start of the project</returns>
-    public DateTime? SetStartProject(DateTime startProject)=> _dal.Clock.SetStartProject(startProject);
+    public void SetStartProject(DateTime startProject)=> _dal.Clock.SetStartProject(startProject);
 }

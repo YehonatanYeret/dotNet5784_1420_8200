@@ -3,9 +3,9 @@ using DalApi;
 
 internal class ClockImplementation : IClock
 {
-    public DateTime? GetEndProject()
+    public DateTime? GetCurrentTime()
     {
-        return DataSource.Config.EndDate;
+        return DataSource.Config.CurrentTime;
     }
 
     public DateTime? GetStartProject()
@@ -16,18 +16,16 @@ internal class ClockImplementation : IClock
     public void resetTimeLine()
     {
         DataSource.Config.StartDate = null;
-        DataSource.Config.EndDate = null;
+        DataSource.Config.CurrentTime = null;
     }
 
-    public DateTime? SetEndProject(DateTime endProject)
+    public void SetCurrentTime(DateTime currentTime)
     {
-        DataSource.Config.EndDate = endProject;
-        return endProject;
+        DataSource.Config.CurrentTime = currentTime;
     }
 
-    public DateTime? SetStartProject(DateTime startProject)
+    public void SetStartProject(DateTime startProject)
     {
         DataSource.Config.StartDate = startProject;
-        return startProject;
     }
 }

@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BlApi;
+using BO;
 
 namespace BlImplementation;
 
@@ -6,7 +7,8 @@ internal class TaskImplementation : BlApi.ITask
 {
     // Data Access Layer instance
     private readonly DalApi.IDal _dal = DalApi.Factory.Get;
-
+    private readonly IBl _bl;
+    internal TaskImplementation(IBl bl) => _bl = bl;
     /// <summary>
     /// Creates a new task in the system.
     /// </summary>
@@ -227,11 +229,11 @@ internal class TaskImplementation : BlApi.ITask
 
         // Update the status of the task
         if (taskToUpdate.Status == BO.Status.Scheduled)
-            taskToUpdate.StartDate = DateTime.Now;
+            taskToUpdate.StartDate = _bl.Time;
 
         // Update the complete date if the task is done
         if (taskToUpdate.Status == BO.Status.OnTrack)
-            taskToUpdate.CompleteDate = DateTime.Now;
+            taskToUpdate.CompleteDate = _bl.Time;
 
         Update(taskToUpdate);
 
@@ -404,7 +406,7 @@ internal class TaskImplementation : BlApi.ITask
             }
         }
         //start the project
-        new ClockImplementation().SetStartProject(startProject);
+        _dal.Clock.SetStartProject(startProject);
     }
 
 
@@ -418,7 +420,7 @@ internal class TaskImplementation : BlApi.ITask
         BO.Task task = Read(id);
 
         //there are no dependencies and the task is on delay
-        if (!task.Dependencies!.Any() && task.ForecastDate < DateTime.Now && task.CompleteDate == null) return true;
+        if (!task.Dependencies!.Any() && task.ForecastDate < _bl.Time && task.CompleteDate == null) return true;
 
         //there are dependencies and one of them in delay
         if (task.Dependencies!.Any(t => InDelay(t.Id))) return true;

@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation
 {
     using BlApi;
+    using System;
 
     /// <summary>
     /// Implementation of the business logic interface (IBl).
@@ -10,22 +11,46 @@
         /// <summary>
         /// Gets an instance of the Engineer interface.
         /// </summary>
-        public IEngineer Engineer => new EngineerImplementation();
+        public IEngineer Engineer => new EngineerImplementation(this);
 
         /// <summary>
         /// Gets an instance of the Task interface.
         /// </summary>
-        public ITask Task => new TaskImplementation();
+        public ITask Task => new TaskImplementation(this);
 
         /// <summary>
         /// Gets an instance of the Clock interface.
         /// </summary>
-        public IClock Clock => new ClockImplementation();
+        public IClock Clock => new ClockImplementation(this);
 
         /// <summary>
         /// Gets an instance of the User interface.
         /// </summary>
         public IUser User => new UserImplementation();
+
+        private static DateTime s_Clock = DateTime.Now.Date;
+
+        public DateTime Time { get { return s_Clock; } private set { s_Clock = value; } }
+
+        public void AddDays()
+        {
+            Time = Time.AddDays(1);
+        }
+
+        public void AddHours()
+        {
+            Time = Time.AddHours(1);
+        }
+
+        public void AddMonths()
+        {
+            Time = Time.AddMonths(1);
+        }
+
+        public void AddYears()
+        {
+            Time = Time.AddYears(1);
+        }
 
         /// <summary>
         /// initialize the db
@@ -35,6 +60,11 @@
         /// <summary>
         /// delete all the db
         /// </summary>
-        public void ResetDB()=>DalTest.Initialization.Reset();
+        public void ResetDB() => DalTest.Initialization.Reset();
+
+        public void ResetTime()
+        {
+            Time = DateTime.Now;
+        }
     }
 }

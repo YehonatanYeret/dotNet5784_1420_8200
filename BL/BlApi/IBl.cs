@@ -34,4 +34,13 @@ public interface IBl
     /// delete all the db
     /// </summary>
     public void ResetDB();
+
+    #region
+    public DateTime Time { get; }
+    public void AddYears();
+    public void AddMonths();
+    public void AddDays();
+    public void AddHours();
+    public void ResetTime();
+    #endregion
 }

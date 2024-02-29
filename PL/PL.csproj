@@ -14,7 +14,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\gant.png" />
     <None Remove="Images\gantBackground.jpg" />
     <None Remove="Images\leftArrow.png" />
     <None Remove="Images\leftArrowOver.png" />
@@ -28,7 +27,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\gant.png" />
     <Resource Include="Images\gantBackground.jpg" />
     <Resource Include="Images\question.png" />
     <Resource Include="Images\leftArrow.png" />

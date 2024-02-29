@@ -24,7 +24,7 @@ internal static class DataSource
         internal static DateTime? StartDate;
 
         //the end date of the project
-        internal static DateTime? EndDate;
+        internal static DateTime? CurrentTime;
     }
 
     //create a lists of the data

@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Background="{DynamicResource backgroundImage}"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         Title="ManagerWindow" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="../Images/mainWindow.jpg"/>
+    </Window.Background>
     <Grid>
 
         <!-- Grid for main layout -->
