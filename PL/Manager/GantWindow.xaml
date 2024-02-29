@@ -25,6 +25,7 @@
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </Grid.Background>-->
+
                     <!--<Grid.RowDefinitions>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="auto"/>
@@ -38,6 +39,7 @@
                             </VisualBrush>
                         </Grid.Background>
                     </Grid>-->
+                    <Image Source="../Images/gant.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,0,0,0" Height="20"/>
                     <ItemsControl ItemsSource="{Binding GantData}" Grid.Row="0">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -80,7 +82,7 @@
                                                         <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
                                                     </StackPanel>
                                                 </Grid.ToolTip>
-                                                
+
                                             </Grid>
                                         </Grid>
                                     </Grid>

@@ -7,7 +7,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="mainWindow" Height="495" Width="880"
-        ResizeMode="NoResize"
+        WindowState="Maximized"
         DataContext="{Binding CurrentUser, RelativeSource={RelativeSource Mode=Self}, Mode=TwoWay}"
         Background="{StaticResource backgroundImage}">
         <!--WindowState="Maximized"-->
