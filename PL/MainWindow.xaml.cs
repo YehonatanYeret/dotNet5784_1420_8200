@@ -47,7 +47,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     /// </summary>
     public MainWindow()
     {
-        Date = DateTime.Now;
+        Date =  s_bl.Time;
         CurrentUser = new BO.User();
         InitializeComponent();
     }
@@ -95,11 +95,13 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
     private void BtnHour_Click(object sender, RoutedEventArgs e)
     {
-        Date = Date.AddHours(1);
+        s_bl.AddHour();
+        Date = s_bl.Time;
     }
 
     private void BtnDay_Click(object sender, RoutedEventArgs e)
     {
-        Date = Date.AddDays(1);
+        s_bl.AddDay();
+        Date = s_bl.Time;
     }
 }

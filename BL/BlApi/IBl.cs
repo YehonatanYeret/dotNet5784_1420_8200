@@ -40,10 +40,8 @@ public interface IBl
     /// </summary>
     #region
     public DateTime Time { get; }
-    public void AddYears();
-    public void AddMonths();
-    public void AddDays();
-    public void AddHours();
+    public void AddDay();
+    public void AddHour();
     public void ResetTime();
     public void Init(DateTime date);
     #endregion

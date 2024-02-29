@@ -32,24 +32,14 @@
 
         public DateTime Time { get { return s_Clock; } private set { s_Clock = value; } }
 
-        public void AddDays()
+        public void AddDay()
         {
             Time = Time.AddDays(1);
         }
 
-        public void AddHours()
+        public void AddHour()
         {
             Time = Time.AddHours(1);
-        }
-
-        public void AddMonths()
-        {
-            Time = Time.AddMonths(1);
-        }
-
-        public void AddYears()
-        {
-            Time = Time.AddYears(1);
         }
 
         /// <summary>
