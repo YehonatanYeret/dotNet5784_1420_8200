@@ -1,5 +1,6 @@
 ﻿namespace PL.Task;
 
+using BO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -57,9 +58,7 @@ public partial class TaskListWindow : Window
     /// Constructor for EngineerListWindow
     /// </summary>
     public TaskListWindow(int engineerID = 0)
-    {
-
-        InitializeComponent();
+    {   
         EngineerID = engineerID;
         IsProjectStarted = s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress;
 
@@ -72,8 +71,8 @@ public partial class TaskListWindow : Window
             TaskList = s_bl.Engineer.GetTasksOfEngineer(EngineerID);
             currentEngineer = s_bl.Engineer.Read(EngineerID);
             status = BO.Status.Scheduled;
-
         }
+        InitializeComponent();
 
     }
 
@@ -106,15 +105,23 @@ public partial class TaskListWindow : Window
 
             if (EngineerID == 0)
             {
-                new Task.TaskWindow(taskInList!.Id).ShowDialog();
+                //new Task.TaskWindow(taskInList!.Id).ShowDialog();
+                new TaskWindow(taskInList!.Id).ShowDialog();
                 UpdateListView();
             }
             else
             {
-                currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
-                s_bl.Engineer.Update(currentEngineer);
-                s_bl.Task.ChangeStatusOfTask(taskInList.Id);
-                Close();
+                try
+                {
+                    currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
+                    s_bl.Task.ChangeStatusOfTask(taskInList.Id);
+                    s_bl.Engineer.Update(currentEngineer);
+                    Close();
+                }
+                catch (BLValueIsNotCorrectException ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
@@ -125,8 +132,17 @@ public partial class TaskListWindow : Window
     /// </summary>
     void UpdateListView()
     {
-        TaskList = (status == BO.Status.None) ?
-            s_bl?.Task.ReadAll()!.OrderBy(item => item.Id)! :
-            s_bl?.Task.ReadAll(item => item.Status == status)!.OrderBy(item => item.Id)!;
+        if (EngineerID == 0)
+        {
+            TaskList = (status == BO.Status.None) ?
+                s_bl?.Task.ReadAll()!.OrderBy(item => item.Id)! :
+                s_bl?.Task.ReadAll(item => item.Status == status)!.OrderBy(item => item.Id)!;
+        }
+        else
+        {
+            TaskList = (status == BO.Status.None) ?
+                s_bl?.Engineer.GetTasksOfEngineer(EngineerID)!.OrderBy(item => item.Id)! :
+                s_bl?.Engineer.GetTasksOfEngineer(EngineerID).Where(item => item.Status == status)!.OrderBy(item => item.Id)!;
+        }
     }
 }

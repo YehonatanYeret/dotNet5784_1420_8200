@@ -12,7 +12,6 @@
         Background="{StaticResource backgroundImage}">
         <!--WindowState="Maximized"-->
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

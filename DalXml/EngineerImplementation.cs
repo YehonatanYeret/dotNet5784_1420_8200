@@ -38,7 +38,7 @@ internal class EngineerImplementation : IEngineer
     {
         List<DO.Engineer> engineersList = XMLTools.LoadListFromXMLSerializer<DO.Engineer>(s_engineer_xml);
         Engineer? engineer = engineersList.FirstOrDefault(engineer => engineer.Id == id);
-        if(engineer != null)
+        if (engineer != null)
             return engineer;
         return null;
     }
@@ -86,25 +86,28 @@ internal class EngineerImplementation : IEngineer
 
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
+        string pass="";
+
         // remove the old engineer from the list and the user from the list
-        foreach(DO.Engineer engineer in engineersList)
+        foreach (DO.Engineer engineer in engineersList)
         {
             if (engineer.Id == item.Id)
             {
                 engineersList.Remove(engineer);
+                pass = usersList.First(user => user.Email == engineer.Email).Password;
                 usersList.Remove(usersList.First(user => user.Email == engineer.Email));
                 break;
             }
         }
 
-        // add the updated engineer to the list and the user to the list
+        // add the updated engineer to the list and the user to the likst
         engineersList.Add(item);
 
         usersList.Add(new DO.User
         {
             Type = DO.UserType.engineer,
             Name = item.Name,
-            Password = item.Email,
+            Password = pass,
             Email = item.Email
         });
 
