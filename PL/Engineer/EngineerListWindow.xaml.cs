@@ -48,14 +48,19 @@ public partial class EngineerListWindow : Window
         DependencyProperty.Register("TaskID", typeof(int), typeof(EngineerListWindow), new PropertyMetadata(0));
 
     /// <summary>
+    /// The level of the task
+    /// </summary>
+    public BO.EngineerExperience TaskLevel { get; set; }
+
+    /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
-    public EngineerListWindow(int taskId = 0)
+    public EngineerListWindow(int taskId = 0, BO.EngineerExperience taskLevel = BO.EngineerExperience.None)
     {
-
         EngineerList = (taskId == 0) ? s_bl.Engineer.ReadAll()! :
-            s_bl.Engineer.ReadAll(eng => (int)eng.Level >= (int)s_bl.Task.Read(taskId).Complexity)!;
+            s_bl.Engineer.ReadAll(eng => eng.Level >= taskLevel)!;
         TaskID = taskId;
+        TaskLevel = taskLevel;
         InitializeComponent();
     }
 
@@ -122,8 +127,8 @@ public partial class EngineerListWindow : Window
         else
         {
             EngineerList = (experience == BO.EngineerExperience.None) ?
-                s_bl?.Engineer.ReadAll(eng => (int)eng.Level >= (int)s_bl.Task.Read(TaskID).Complexity)!.OrderBy(item => item.Name)! :
-                s_bl?.Engineer.ReadAll(eng => (int)eng.Level >= (int)s_bl.Task.Read(TaskID).Complexity && eng.Level == experience)!.OrderBy(item => item.Name)!;
+                s_bl?.Engineer.ReadAll(eng => eng.Level >= TaskLevel)!.OrderBy(item => item.Name)! :
+                s_bl?.Engineer.ReadAll(eng => eng.Level >= TaskLevel && eng.Level == experience)!.OrderBy(item => item.Name)!;
         }
     }
 }

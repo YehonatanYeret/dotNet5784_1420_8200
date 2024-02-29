@@ -23,7 +23,9 @@
 
         <!-- Define Rows -->
         <Grid.RowDefinitions>
+            <!-- Row 0: Sub-Grid for Engineer Details -->
             <RowDefinition Height="*"/>
+            <!-- Row 1: Button for Adding or (Updating and Deleting Engineer)-->
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
@@ -32,8 +34,11 @@
 
             <!-- Define Columns -->
             <Grid.ColumnDefinitions>
+                <!-- Column 0: Left part for Task Details -->
                 <ColumnDefinition Width="*"/>
+                <!-- Column 1: Separator -->
                 <ColumnDefinition Width="auto"/>
+                <!-- Column 2: Right part for Engineer Details -->
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -45,10 +50,8 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="2*"/>
-                    <!--<RowDefinition Height="*"/>-->
                 </Grid.RowDefinitions>
 
-                <!-- Define Columns -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
@@ -121,7 +124,7 @@
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"
                               SelectedItem="{Binding CurrentTask.Complexity}"
-                              IsEnabled="{Binding IsProjectStarted}"/>
+                              IsEnabled="{Binding IsProjectStarted}" SelectionChanged="ComboBox_SelectionChanged"/>
 
                     <!-- task effort time -->
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Required&#10;Effort Time:"/>
@@ -148,9 +151,6 @@
 
                 </Grid>
             </Grid>
-
-
-
         </Grid>
 
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
@@ -175,12 +175,7 @@
                 <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click" />
                 <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"
                         IsEnabled="{Binding IsProjectStarted}"/>
-           
             </Grid>
-            
-            
         </Grid>
     </Grid>
 </Window>
-
-

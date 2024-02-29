@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User>
+    <Type>manager</Type>
+    <Name>admin</Name>
+    <Password>Admin123</Password>
+    <Email>admin@gmail.com</Email>
+  </User>
+  <User>
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
@@ -16,36 +22,30 @@
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@yahoo.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
-    <Name>Ben Baruch</Name>
-    <Password>BenBaruch0</Password>
-    <Email>Ben@yahoo.com</Email>
+    <Email>Aaron@hotmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
-    <Email>Asaf@hotmail.com</Email>
-  </User>
-  <User>
-    <Type>manager</Type>
-    <Name>sdfsdfsd</Name>
-    <Password>Admasm5ksdmf</Password>
-    <Email>asds@gmail.com</Email>
-  </User>
-  <User>
-    <Type>manager</Type>
-    <Name>sdfsdfsfsdf</Name>
-    <Password>Aa123456</Password>
-    <Email>ss@gmail.com</Email>
+    <Email>Asaf@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Hello</Name>
-    <Password>Yy122112</Password>
-    <Email>yy@outlook.com</Email>
+    <Name>David Levi</Name>
+    <Password>David@gmail.com</Password>
+    <Email>David@gmail.com</Email>
+  </User>
+  <User>
+    <Type>manager</Type>
+    <Name>sgsdg</Name>
+    <Password>Aa12345678</Password>
+    <Email>sf@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@outlook.com</Email>
   </User>
 </ArrayOfUser>

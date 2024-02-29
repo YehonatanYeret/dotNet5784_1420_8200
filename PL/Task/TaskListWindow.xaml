@@ -11,19 +11,27 @@
     <!-- External Grid -->
     <Grid Background="#FF9ABECA">
         <Grid.RowDefinitions>
+            <!-- Row 0: Top part for filter and selection -->
             <RowDefinition Height="40*"/>
+            <!-- Row 1: Main content area for displaying tasks -->
             <RowDefinition Height="500*"/>
+            <!-- Row 2: Button for adding new task -->
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Internal, Upper Grid -->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
+                <!-- Column 0: Label for displaying selected task status -->
                 <ColumnDefinition Width="2*"/>
+                <!-- Column 1: ComboBox for selecting task status -->
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Label for displaying selected task status -->
             <Label Grid.Column="0" Content="Selected status of task:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+
+            <!-- ComboBox for selecting task status -->
             <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
                       ItemsSource="{Binding Source={StaticResource TaskCollectionKey}}"
                       SelectedItem="{Binding status, Mode=TwoWay}" SelectionChanged="Status_SelectionChanged"/>
@@ -34,14 +42,16 @@
                   MouseDoubleClick="UpdateListView_DoubleClick">
             <ListView.View>
                 <GridView >
-                <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
-                    <GridViewColumn.CellTemplate >
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap" Text="{Binding Id}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
+                    <!-- Column 0: Task ID -->
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" >
+                        <GridViewColumn.CellTemplate >
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
 
+                    <!-- Column 1: Task Alias -->
                     <GridViewColumn Header="Alias" DisplayMemberBinding="{Binding Alias}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -49,7 +59,8 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    
+
+                    <!-- Column 2: Task Description -->
                     <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -58,20 +69,21 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
+                    <!-- Column 3: Task Status -->
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}">
-                    <GridViewColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock TextWrapping="Wrap" Text="{Binding Status}"/>
-                        </DataTemplate>
-                    </GridViewColumn.CellTemplate>
-                </GridViewColumn>
-            </GridView>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Status}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
             </ListView.View>
-
         </ListView>
 
         <!-- Button to add a new engineer -->
         <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick">
+            <!-- Visibility of the button based on conditions using MultiBinding -->
             <Button.Visibility>
                 <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
                     <Binding Path="EngineerID" />

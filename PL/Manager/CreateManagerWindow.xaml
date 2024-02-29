@@ -7,16 +7,13 @@
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
         Title="CreateManagerWindow" Height="480" Width="300"
-        
         ResizeMode="NoResize"
-        
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Grid>
         <!-- Set the background gradient -->
         <Grid.Background>
             <LinearGradientBrush>
-
                 <GradientStop Color="#7a7a76" Offset="0" />
                 <GradientStop Color="#e1e6e4" Offset="1" />
             </LinearGradientBrush>
@@ -31,15 +28,12 @@
 
         <!-- Sub-Grid for Engineer Details -->
         <Grid Grid.Row="0" Margin="20, 20">
-
             <!-- Define Rows -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
-
-                <!--<RowDefinition Height="*"/>-->
             </Grid.RowDefinitions>
 
             <!-- Define Columns -->
@@ -60,6 +54,7 @@
                     <TextBox.Style>
                         <Style TargetType="{x:Type TextBox}">
                             <Setter Property="Background" Value="White"/>
+                            <!-- Email hint style -->
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=waterMarkTextBox,Path=Text}" Value="" >
                                     <Setter Property="Background" Value="{StaticResource EmailHintSmall}"/>
@@ -73,23 +68,24 @@
             <!-- Manager Password -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10" VerticalContentAlignment="Center"/>
             <PasswordBox Grid.Row="2" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10"/>
-            
+
             <!-- Password Hint-->
             <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}">
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Old password label -->
                 <Label Grid.Column="0" HorizontalContentAlignment="Right" FontSize="12" FontWeight="Light" Content="the old password:"/>
 
+                <!-- Old password value -->
                 <Label Grid.Column="1" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Light" Content="**********">
-
                     <Label.ToolTip>
                         <ToolTip>
                             <StackPanel>
                                 <TextBlock FontWeight="Bold" Text="The old Password:" TextAlignment="Center"/>
+                                <!-- Display old password -->
                                 <TextBlock Text="{Binding CurrentManager.Password, Mode=OneWay}" TextAlignment="Center"/>
                                 <TextBlock FontWeight="Light" Text="*to use the old password - just don't enter new one*"/>
                             </StackPanel>
@@ -101,15 +97,13 @@
 
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
         <Grid Grid.Row="1" Margin="10,0">
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <!-- Button for Adding or (Updating and Deleting Engineer)-->
+            <!-- Action buttons -->
             <Grid Grid.Row="0" Height="40">
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -117,26 +111,33 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Add or Update button -->
                 <Button Grid.Column="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+
+                <!-- Delete button -->
                 <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
             </Grid>
         </Grid>
 
+        <!-- Navigation buttons -->
         <Grid Grid.Row="2" Margin="30, 0" Height="50" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Left navigation button -->
             <Button Grid.Column="0" Click="btnLeft_Click" Margin="2,10"  BorderThickness="0">
                 <Button.Background>
                     <ImageBrush ImageSource="../Images/leftArrowOver.png"/>
                 </Button.Background>
-
             </Button>
+
+            <!-- New button -->
             <Button Content="new" Grid.Column="1" HorizontalAlignment="center" VerticalAlignment="Center" Width="100" Height="30" Click="btnNew_Click" Margin="2,10"/>
+
+            <!-- Right navigation button -->
             <Button Grid.Column="2" Click="btnRight_Click" Margin="2,10" BorderThickness="0" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -148,7 +149,5 @@
                 </Button.Background>
             </Button>
         </Grid>
-
-
     </Grid>
 </Window>

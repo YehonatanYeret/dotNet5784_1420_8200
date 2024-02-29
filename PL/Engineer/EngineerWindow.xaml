@@ -1,6 +1,4 @@
-﻿<!-- EngineerWindow.xaml -->
-
-<Window x:Class="PL.Engineer.EngineerWindow"
+﻿<Window x:Class="PL.Engineer.EngineerWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -42,7 +40,6 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
-                <!--<RowDefinition Height="*"/>-->
             </Grid.RowDefinitions>
 
             <!-- Define Columns -->
@@ -51,8 +48,7 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
 
-
-            <!--enginner image-->
+            <!-- Engineer Image Section -->
             <Grid Grid.Row="0" Grid.Column="0">
                 <Label Content="Image:" Margin="10" HorizontalContentAlignment="Center"/>
                 <Button  VerticalAlignment="Top" Content="Browse" Margin="2,45,2,0" Click="btnBrowse_Click" BorderBrush="#374016" BorderThickness="1"/>
@@ -60,15 +56,16 @@
             <Border Grid.Row="0" Grid.Column="1" Width="90"  BorderBrush="#374016" BorderThickness="2">
                 <Image Source="{Binding Image, Converter={StaticResource ConvertStringToImageKey}}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Border>
-            <!-- Engineer ID -->
+
+            <!-- Engineer ID Section -->
             <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentEngineer.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
 
-            <!-- Engineer Name -->
+            <!-- Engineer Name Section -->
             <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentEngineer.Name, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
-            <!-- Engineer Email -->
+            <!-- Engineer Email Section -->
             <Label Content="Email:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" Margin="10"/>
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
             <TextBox x:Name="waterMarkTextBox" Grid.Row="3" Grid.Column="1" Text="{Binding CurrentEngineer.Email, Mode=TwoWay}" Margin="2,10"
@@ -85,21 +82,21 @@
                 </TextBox.Style>
             </TextBox>
 
-            <!-- Engineer Level -->
+            <!-- Engineer Level Section -->
             <Label Content="Level:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" Margin="10"/>
             <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                 SelectedValue="{Binding CurrentEngineer.Level, Mode=TwoWay, NotifyOnValidationError=true, 
                 ValidatesOnExceptions=true}" Margin="2,10" Foreground="AliceBlue"/>
 
-            <!-- Engineer Cost -->
+            <!-- Engineer Cost Section -->
             <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding CurrentEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
 
-            <!-- Engineer Password -->
+            <!-- Engineer Password Section -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>
             <PasswordBox Grid.Row="6" Grid.Column="1" PasswordChanged="PasswordBox_PasswordChange" Margin="2,10" Password="loremesposel"/>
 
-            <!-- Password Hint-->
+            <!-- Password Hint Section -->
             <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"  Visibility="{Binding CurrentEngineer.Id, Converter={StaticResource ConvertIdToVisibleKey}}">
 
                 <Grid.ColumnDefinitions>
@@ -110,7 +107,6 @@
                 <Label Grid.Column="0" HorizontalContentAlignment="Right" FontSize="12" FontWeight="Light" Content="the old password:"/>
 
                 <Label Grid.Column="1" HorizontalContentAlignment="Left" FontSize="16" FontWeight="Light"    Content="**********">
-
 
                     <Label.ToolTip>
                         <ToolTip>
@@ -125,6 +121,7 @@
             </Grid>
 
         </Grid>
+
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
         <Grid Grid.Row="1" Height="40">
             <Grid.ColumnDefinitions>
