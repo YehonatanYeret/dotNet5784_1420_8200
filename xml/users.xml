@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfUser xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <User>
+    <Type>manager</Type>
+    <Name>admin</Name>
+    <Password>Admin123</Password>
+    <Email>admin@gmail.com</Email>
+  </User>
+  <User>
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
@@ -10,13 +16,13 @@
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@hotmail.com</Email>
+    <Email>Alex@outlook.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@yahoo.com</Email>
+    <Email>Aaron@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
@@ -26,26 +32,14 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Asaf Bir</Name>
-    <Password>AsafBir0</Password>
-    <Email>Asaf@hotmail.com</Email>
-  </User>
-  <User>
-    <Type>manager</Type>
-    <Name>sdfsdfsd</Name>
-    <Password>Admasm5ksdmf</Password>
-    <Email>asds@gmail.com</Email>
-  </User>
-  <User>
-    <Type>manager</Type>
-    <Name>sdfsdfsfsdf</Name>
-    <Password>Aa123456</Password>
-    <Email>ss@gmail.com</Email>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Hello</Name>
-    <Password>Yy122112</Password>
-    <Email>yy@outlook.com</Email>
+    <Name>Asaf Bir</Name>
+    <Password>AsafBir0</Password>
+    <Email>Asaf@yahoo.com</Email>
   </User>
 </ArrayOfUser>

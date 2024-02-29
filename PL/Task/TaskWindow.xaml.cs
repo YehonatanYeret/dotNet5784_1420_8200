@@ -46,11 +46,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty IsProjectStartedProperty =
         DependencyProperty.Register("IsProjectStartedBool", typeof(bool), typeof(TaskListWindow), new PropertyMetadata(null));
 
-
-    // The previous engineer of the task.
-    //public BO.EngineerInTask? prevEngineer { get; set; }
-
-
     /// <summary>
     /// Initializes a new instance of the TaskWindow class.
     /// </summary>
@@ -81,14 +76,11 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void EngeineerInTaskButton_Click(object sender, RoutedEventArgs e)
     {
-        //prevEngineer = CurrEngineer;
-
         if (CurrEngineer == null)
         {
             // Show the EngineerListWindow to select an engineer.
-            Engineer.EngineerListWindow engineerlistWiindow = new Engineer.EngineerListWindow(CurrentTask.Id);
+            Engineer.EngineerListWindow engineerlistWiindow = new Engineer.EngineerListWindow(CurrentTask.Id, CurrentTask.Complexity);
             engineerlistWiindow.ShowDialog();
-            //CurrEngineer = (s_bl.Task.Read(CurrentTask.Id).Engineer != null) ? s_bl.Task.Read(CurrentTask.Id).Engineer : null;
             CurrEngineer = engineerlistWiindow.choosenEngineer;
         }
         else
@@ -101,14 +93,9 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
             }
             catch
             {
-
                 CurrEngineer = null;
             }
         }
-
-        // If the engineer was changed and the task is not updated at the end of the window the task will be updated with the previous engineer.
-        //CurrentTask.Engineer = prevEngineer;
-        //s_bl.Task.Update(CurrentTask);
     }
 
     private void BtnAddUpdate_Click(object sender, RoutedEventArgs e)
@@ -188,6 +175,18 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
         finally
         {
             Close();
+        }
+    }
+
+    
+    private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+    {
+        if(CurrEngineer != null && s_bl.Engineer.Read(CurrEngineer.Id).Level < CurrentTask.Complexity)
+        {
+            MessageBox.Show("The engineer is not qualified for this task", "Error occurred while updation",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            CurrEngineer = null;
         }
     }
 }

@@ -121,7 +121,7 @@
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"
                               SelectedItem="{Binding CurrentTask.Complexity}"
-                              IsEnabled="{Binding IsProjectStarted}"/>
+                              IsEnabled="{Binding IsProjectStarted}" SelectionChanged="ComboBox_SelectionChanged"/>
 
                     <!-- task effort time -->
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Required&#10;Effort Time:"/>
