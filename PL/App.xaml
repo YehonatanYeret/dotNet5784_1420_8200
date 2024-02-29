@@ -13,8 +13,9 @@
             <!--Resource for background-->
             <ImageSource x:Key="imgSource1">Images/mainWindow.jpg</ImageSource>
             <ImageBrush x:Key="backgroundImage" ImageSource="{DynamicResource imgSource1}"></ImageBrush>
-            <ImageSource x:Key="imgSource2">Images/leftArrow.png</ImageSource>
-            <ImageBrush x:Key="leftArrow" ImageSource="{DynamicResource imgSource2}"></ImageBrush>
+            
+            <!--<ImageSource x:Key="imgSource2">Images/leftArrow.png</ImageSource>
+            <ImageBrush x:Key="leftArrow" ImageSource="{DynamicResource imgSource2}"></ImageBrush>-->
 
             <!-- Resource for Engineer Collection -->
             <local:EngineerCollection x:Key="EngineerCollectionKey" />

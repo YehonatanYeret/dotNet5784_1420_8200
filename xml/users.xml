@@ -10,36 +10,66 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@gmail.com</Email>
+    <Email>Adam@outlook.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@hotmail.com</Email>
+    <Email>Alex@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@gmail.com</Email>
+    <Email>Aaron@outlook.com</Email>
   </User>
   <User>
-    <Type>manager</Type>
-    <Name>asasas</Name>
-    <Password>Aa123456</Password>
-    <Email>a@gmail.com</Email>
+    <Type>engineer</Type>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@hotmail.com</Email>
   </User>
   <User>
-    <Type>manager</Type>
-    <Name>`asasas</Name>
-    <Password>Aa123456</Password>
-    <Email>s@gmail.com</Email>
+    <Type>engineer</Type>
+    <Name>Asaf Bir</Name>
+    <Password>AsafBir0</Password>
+    <Email>Asaf@gmail.com</Email>
   </User>
   <User>
-    <Type>manager</Type>
-    <Name>asdasd</Name>
-    <Password>Asdfmisd123</Password>
-    <Email>ad@gmail.com</Email>
+    <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>Ben@gmail.com</Password>
+    <Email>Ben@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>יאיר לוי</Name>
+    <Password>YairLevi123</Password>
+    <Email>yair@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>מאור הגבר</Name>
+    <Password>Muhamad123</Password>
+    <Email>maornoy1310@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>מאור הגבר</Name>
+    <Password>Muhamad123</Password>
+    <Email>maor@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>עידודו</Name>
+    <Password>Ido12345678</Password>
+    <Email>ido@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>בניה</Name>
+    <Password>Benaya123</Password>
+    <Email>benaya@gmail.com</Email>
   </User>
 </ArrayOfUser>

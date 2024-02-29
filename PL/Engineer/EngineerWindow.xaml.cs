@@ -96,13 +96,14 @@ public partial class EngineerWindow : Window, INotifyPropertyChanged
                 Password = CurrentUser.Password,
                 Email = CurrentEngineer.Email
             };
+            s_bl.User.checkUser(user);
 
             // Call the appropriate method in the business logic layer based on the update or create flag
             if (UpdateOrCreate)
             {
-                s_bl.User.Create(user);
 
                 s_bl.Engineer.Create(CurrentEngineer);
+                s_bl.User.Create(user);
 
                 MessageBox.Show("the the engineer created successfully", "operation succeed",
                     MessageBoxButton.OK,
