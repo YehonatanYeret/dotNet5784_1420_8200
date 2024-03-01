@@ -76,13 +76,13 @@ public class Task
     /// </summary>
     public DateTime? ForecastDate
     {
-        get 
+        get
         {
-            if (ScheduledDate < StartDate )
+            if (ScheduledDate < StartDate)
                 return StartDate + RequiredEffortTime;
 
             else
-                return ScheduledDate + RequiredEffortTime; 
+                return ScheduledDate + RequiredEffortTime;
         }
     }
 

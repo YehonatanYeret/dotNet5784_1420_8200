@@ -419,11 +419,11 @@ internal class TaskImplementation : BlApi.ITask
     {
         BO.Task task = Read(id);
 
-        //there are no dependencies and the task is on delay
-        if (!task.Dependencies!.Any() && task.ForecastDate < _bl.Time && task.CompleteDate == null) return true;
-
         //there are dependencies and one of them in delay
         if (task.Dependencies!.Any(t => InDelay(t.Id))) return true;
+
+        //there are no dependencies in delay and the task is on delay
+        if (task.ForecastDate < _bl.Time && task.CompleteDate == null) return true;
 
         //if all the dependencies are not in delay and the task is not in delay
         return false;
