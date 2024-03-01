@@ -1,4 +1,5 @@
-﻿using PL.Task;
+﻿using BlApi;
+using PL.Task;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,7 @@ namespace PL.Manager
     /// <summary>
     /// Interaction logic for GantWindow.xaml
     /// </summary>
-    public partial class GantWindow : Window
+    public partial class GantWindow : Window, INotifyPropertyChanged
     {
 
         /// <summary>
@@ -28,7 +29,9 @@ namespace PL.Manager
         public IEnumerable<BO.Task> GantData
         {
             get { return (IEnumerable<BO.Task>)GetValue(GantDataProperty); }
-            set { SetValue(GantDataProperty, value); }
+            set { SetValue(GantDataProperty, value);
+                OnPropertyChanged(nameof(GantData));
+            }
         }
 
         /// <summary>
@@ -43,7 +46,9 @@ namespace PL.Manager
         public DateTime Now
         {
             get { return (DateTime)GetValue(NowProperty); }
-            set { SetValue(NowProperty, value); }
+            set { SetValue(NowProperty, value);
+                OnPropertyChanged(nameof(Now));
+            }
         }
 
         /// <summary>
@@ -52,19 +57,30 @@ namespace PL.Manager
         public static readonly DependencyProperty NowProperty =
             DependencyProperty.Register("Now", typeof(DateTime), typeof(GantWindow), new PropertyMetadata(null));
 
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public GantWindow()
         {
-            Now = BlApi.Factory.Get().Time;
+            Activated += GantWindow_Activated;
             InitializeComponent();
-            GantData = BlApi.Factory.Get().Task.GetTopologicalTasks();
-            //GantData = BlApi.Factory.Get().Task.ReadAllTask().OrderBy(task=> task.ScheduledDate);
         }
 
+
+        private void GantWindow_Activated(object? sender, EventArgs e)
+        {
+            GantData = BlApi.Factory.Get().Task.GetTopologicalTasks();
+            Now = Factory.Get().Time;
+        }
         private void Grid_MouseLeave(object sender, MouseEventArgs e)
         {
             BO.Task task = (BO.Task)((Grid)sender).DataContext;
             new TaskWindow(task.Id).ShowDialog();
+        }
+
+        // Invoke property changed event
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

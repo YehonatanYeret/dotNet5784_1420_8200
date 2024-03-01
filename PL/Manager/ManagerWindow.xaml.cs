@@ -54,15 +54,21 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
         Email = email;
         ManagerName = s_bl.User.Read(email).Name;
 
-        // Calculate percentage of completed tasks
-        int allTasks = s_bl.Task.ReadAll().Count();
-        int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
-        percentComplete = ((double)completedTasks / allTasks) * 100;
+
+        Activated += ManagerWindow_Activated;
 
         // Set visibility based on project status
         IsprojectStarted = (s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress) ? Visibility.Hidden : Visibility.Visible;
 
         InitializeComponent();
+    }
+
+    private void ManagerWindow_Activated(object? sender, EventArgs e)
+    {
+        // Calculate percentage of completed tasks
+        int allTasks = s_bl.Task.ReadAll().Count();
+        int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
+        percentComplete = ((double)completedTasks / allTasks) * 100;
     }
 
     // Event handler for EngineerButton click
