@@ -32,6 +32,11 @@ public partial class TaskListWindow : Window
     /// </summary>
     public BO.Status status { get; set; } = BO.Status.None;
 
+    /// <summary>
+    /// Selected task's level
+    /// </summary>
+    public BO.EngineerExperience complexity { get; set; } = BO.EngineerExperience.None;
+
     public BO.Engineer? currentEngineer
     {
         get { return (BO.Engineer)GetValue(EngineerProperty); }
@@ -58,7 +63,7 @@ public partial class TaskListWindow : Window
     /// Constructor for EngineerListWindow
     /// </summary>
     public TaskListWindow(int engineerID = 0)
-    {   
+    {
         EngineerID = engineerID;
         IsProjectStarted = s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress;
 
@@ -80,7 +85,7 @@ public partial class TaskListWindow : Window
     /// <summary>
     /// Event handler for selection changed in the ComboBox
     /// </summary>
-    private void Status_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void Filter_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         UpdateListView();
     }
@@ -143,6 +148,12 @@ public partial class TaskListWindow : Window
             TaskList = (status == BO.Status.None) ?
                 s_bl?.Engineer.GetTasksOfEngineer(EngineerID)!.OrderBy(item => item.Id)! :
                 s_bl?.Engineer.GetTasksOfEngineer(EngineerID).Where(item => item.Status == status)!.OrderBy(item => item.Id)!;
+
+
         }
+
+        TaskList = (complexity == BO.EngineerExperience.None) ?
+            TaskList :
+            TaskList.Where(item => s_bl!.Task.Read(item.Id).Complexity == complexity);  
     }
 }

@@ -1,11 +1,9 @@
 ﻿namespace PL;
 
-using BlApi;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
