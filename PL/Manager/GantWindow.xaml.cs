@@ -1,6 +1,7 @@
 ﻿using PL.Task;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,11 +37,28 @@ namespace PL.Manager
         public static readonly DependencyProperty GantDataProperty =
             DependencyProperty.Register("GantData", typeof(IEnumerable<BO.Task>), typeof(GantWindow), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Dependency Property for list of Tasks
+        /// </summary>
+        public DateTime Now
+        {
+            get { return (DateTime)GetValue(NowProperty); }
+            set { SetValue(NowProperty, value); }
+        }
+
+        /// <summary>
+        /// Dependency property for TaskList
+        /// </summary>
+        public static readonly DependencyProperty NowProperty =
+            DependencyProperty.Register("Now", typeof(DateTime), typeof(GantWindow), new PropertyMetadata(null));
+
 
         public GantWindow()
         {
+            Now = BlApi.Factory.Get().Time;
             InitializeComponent();
-            GantData = BlApi.Factory.Get().Task.ReadAllTask().OrderBy(task=> task.ScheduledDate);
+            GantData = BlApi.Factory.Get().Task.GetTopologicalTasks();
+            //GantData = BlApi.Factory.Get().Task.ReadAllTask().OrderBy(task=> task.ScheduledDate);
         }
 
         private void Grid_MouseLeave(object sender, MouseEventArgs e)

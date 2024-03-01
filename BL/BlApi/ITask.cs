@@ -95,6 +95,8 @@ public interface ITask
     /// <returns>if the task is in delay</returns>
     public bool InDelay(int id);
 
+    public IEnumerable<BO.Task> GetTopologicalTasks();
+
     /// <summary>
     /// Reset the task and the dependencies
     /// </summary>

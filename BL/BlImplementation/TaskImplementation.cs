@@ -94,7 +94,7 @@ internal class TaskImplementation : BlApi.ITask
                 graph.AddEdge(dep.DependentTask - 1, dep.DependentOnTask - 1);
 
         // Detect cross edges in the graph and throw an exception if found
-        if (graph.DetectCrossEdges())
+        if (graph.DetectCycle())
             throw new BO.BLValueIsNotCorrectException("The task has a cyclic dependency");
 
         try
@@ -420,7 +420,7 @@ internal class TaskImplementation : BlApi.ITask
         BO.Task task = Read(id);
 
         //there are no dependencies and the task is on delay
-        if ((!task.Dependencies!.Any() || !task.Dependencies!.Any(t=>InDelay(t.Id))) && task.ForecastDate < _bl.Time && task.CompleteDate == null) return true;
+        if (!task.Dependencies!.Any() && task.ForecastDate < _bl.Time && task.CompleteDate == null) return true;
 
         //there are dependencies and one of them in delay
         if (task.Dependencies!.Any(t => InDelay(t.Id))) return true;
@@ -439,4 +439,13 @@ internal class TaskImplementation : BlApi.ITask
         _dal.Dependency.DeleteAll();
     }
 
+    public IEnumerable<BO.Task> GetTopologicalTasks()
+    {
+        Graph graph = new(_dal.Task.ReadAll().Count());
+        foreach (var item in _dal.Dependency.ReadAll())
+        {
+            graph.AddEdge(item.DependentTask - 1, item.DependentOnTask - 1);
+        }
+        return graph.TopologicalSort().Select(id => Read(id + 1));
+    }
 }
