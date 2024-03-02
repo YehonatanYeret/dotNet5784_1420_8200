@@ -103,24 +103,53 @@
 
 
         <Grid Grid.Row="3" Height="50">
-            
+
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Visibility of the buttons based on conditions using MultiBinding -->
-            <Grid.Visibility>
-                <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
-                    <Binding Path="EngineerID" />
-                    <Binding Path="IsProjectStarted" />
-                </MultiBinding>
-            </Grid.Visibility>
-            
-            <!-- Button to add a new engineer -->
-            <Button Grid.Column="0" Content="Add" HorizontalAlignment="Right" Width="100" Click="AddBtn_OnClick" Margin="5"/>
+            <Grid Grid.Column="1" Grid.ColumnSpan="2">
 
-            <Button Grid.Column="1" Content="Recovery" HorizontalAlignment="Left" Width="100" Click="BtnRecovery_Click" Margin="5"/>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Button to recover a task -->
+                <Button Grid.Column="{Binding NormalMode, Mode=TwoWay, Converter={StaticResource ConvertIdToColumnKey}}"
+                    Grid.ColumnSpan="2" Content="Recovery" Click="BtnRecovery_Click" Margin="5">
+
+                    <!-- Visibility of the buttons based on conditions using MultiBinding -->
+                    <Button.Visibility>
+                        <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
+                            <Binding Path="EngineerID" />
+                            <Binding Path="IsProjectStarted"/>
+                        </MultiBinding>
+                    </Button.Visibility>
+
+                </Button>
+
+                <!-- Button to add a new task -->
+                <Button Grid.Column="2" Grid.ColumnSpan="2" Content="Add" Click="AddBtn_OnClick" Margin="5">
+
+                    <!-- Visibility of the button based on conditions using MultiBinding -->
+                    <Button.Visibility>
+                        <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
+                            <Binding Path="EngineerID" />
+                            <Binding Path="IsProjectStarted" />
+                            <Binding Path="NormalMode"/>
+                        </MultiBinding>
+                    </Button.Visibility>
+
+                </Button>
+
+            </Grid>
 
         </Grid>
     </Grid>

@@ -1,16 +1,25 @@
 ﻿namespace PL.Task;
 
 using BO;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 /// <summary>
 /// Interaction logic for TaskListWindow.xaml
 /// </summary>
-public partial class TaskListWindow : Window
+public partial class TaskListWindow : Window, INotifyPropertyChanged
 {
     // Business logic layer instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+
+    // Event for property changed
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
     /// <summary>
     /// Dependency Property for list of Tasks
@@ -37,6 +46,9 @@ public partial class TaskListWindow : Window
     /// </summary>
     public BO.EngineerExperience complexity { get; set; } = BO.EngineerExperience.None;
 
+    /// <summary>
+    /// Dependency property for the engineer of the task (if we are in engineer mode)
+    /// </summary>
     public BO.Engineer? currentEngineer
     {
         get { return (BO.Engineer)GetValue(EngineerProperty); }
@@ -46,11 +58,30 @@ public partial class TaskListWindow : Window
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("currentEngineer", typeof(BO.Engineer), typeof(TaskListWindow), new PropertyMetadata(null));
 
+    /// <summary>
+    /// Dependency property for the engineer id (if we are in engineer mode)
+    /// </summary>
     public int EngineerID { get; set; }
 
-    public bool recoveryMode { get; set; } = false;
+    /// <summary>
+    /// Dependency property for the recovery mode when 0 is recovery mode and 1 is normal mode
+    /// </summary>
+    public int NormalMode
+    {
+        get { return (int)GetValue(RecoveryModeProperty); }
+        set
+        {
+            SetValue(RecoveryModeProperty, value);
+            OnPropertyChanged(nameof(NormalMode));
+        }
+    }
 
+    public static readonly DependencyProperty RecoveryModeProperty =
+        DependencyProperty.Register("NormalMode", typeof(int), typeof(TaskListWindow), new PropertyMetadata(null));
 
+    /// <summary>
+    /// Dependency property for the project status
+    /// </summary>
     public bool IsProjectStarted
     {
         get { return (bool)GetValue(IsProjectStartedProperty); }
@@ -68,14 +99,10 @@ public partial class TaskListWindow : Window
     {
         EngineerID = engineerID;
         IsProjectStarted = s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress;
+        NormalMode = 1;
 
-        if (EngineerID == 0)
+        if(EngineerID != 0)
         {
-            TaskList = s_bl.Task.ReadAll().OrderBy(item => item.Id);
-        }
-        else
-        {
-            TaskList = s_bl.Engineer.GetTasksOfEngineer(EngineerID);
             currentEngineer = s_bl.Engineer.Read(EngineerID);
             status = BO.Status.Scheduled;
         }
@@ -109,23 +136,44 @@ public partial class TaskListWindow : Window
         BO.TaskInList? taskInList = (sender as ListView)?.SelectedItem as BO.TaskInList;
         if (taskInList != null)
         {
-
-            if (EngineerID == 0)
+            //if we are not in recover mode 
+            if (NormalMode != 0)
             {
-                //new Task.TaskWindow(taskInList!.Id).ShowDialog();
-                new TaskWindow(taskInList!.Id).ShowDialog();
-                UpdateListView();
+                if (EngineerID == 0)
+                {
+                    //if we are not in engineer mode
+                    new TaskWindow(taskInList!.Id).ShowDialog();
+                    UpdateListView();
+                }
+                else
+                {
+                    try
+                    {
+                        //create a new task in engineer and update the task status to on track
+                        currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
+                        s_bl.Task.ChangeStatusOfTask(taskInList.Id);
+                        s_bl.Engineer.Update(currentEngineer);
+                        Close();
+                    }
+                    catch (BLValueIsNotCorrectException ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
             else
             {
                 try
                 {
-                    currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
-                    s_bl.Task.ChangeStatusOfTask(taskInList.Id);
-                    s_bl.Engineer.Update(currentEngineer);
-                    Close();
+                    //recover the task
+                    s_bl.Task.RecoverTask(taskInList.Id);
+
+                    UpdateListView();
+
+                    MessageBox.Show($"Task nummer {taskInList.Id} recovered successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
                 }
-                catch (BLValueIsNotCorrectException ex)
+                catch(BLDoesNotExistException ex)
                 {
                     MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
@@ -133,8 +181,13 @@ public partial class TaskListWindow : Window
         }
     }
 
+    /// <summary>
+    /// Event handler for the "Recovery" button click
+    /// </summary>
     private void BtnRecovery_Click(object sender, RoutedEventArgs e)
     {
+        // Change the recovery mode
+        NormalMode = NormalMode == 0 ? 1 : 0;
         UpdateListView();
     }
 
@@ -143,7 +196,9 @@ public partial class TaskListWindow : Window
     /// </summary>
     void UpdateListView()
     {
-        if (!recoveryMode)
+        // First, filter the list based on the selected status and after that, based on the selected experience level
+        // and filter by recovery mode if needed
+        if (NormalMode != 0)
         {
             if (EngineerID == 0)
             {
@@ -151,7 +206,6 @@ public partial class TaskListWindow : Window
                     s_bl?.Task.ReadAll()!.OrderBy(item => item.Id)! :
                     s_bl?.Task.ReadAll(item => item.Status == status)!.OrderBy(item => item.Id)!;
             }
-
             else
             {
                 TaskList = (status == BO.Status.None) ?
@@ -159,10 +213,11 @@ public partial class TaskListWindow : Window
                     s_bl?.Engineer.GetTasksOfEngineer(EngineerID).Where(item => item.Status == status)!.OrderBy(item => item.Id)!;
             }
         }
-
         else
         {
-            TaskList = s_bl?.Task.GetDeletedTasks()!.OrderBy(item => item.Id)!;
+            TaskList = (status == BO.Status.None) ?
+                s_bl?.Task.GetDeletedTasks()!.OrderBy(item => item.Id)! :
+                s_bl?.Task.GetDeletedTasks().Where(item => item.Status == status)!.OrderBy(item => item.Id)!;
         }
 
         TaskList = (complexity == BO.EngineerExperience.None) ?

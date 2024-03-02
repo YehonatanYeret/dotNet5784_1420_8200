@@ -108,6 +108,12 @@ public interface ITask
     public IEnumerable<BO.TaskInList> GetDeletedTasks();
 
     /// <summary>
+    /// recover the task
+    /// </summary>
+    /// <param name="id">the id of the task</param>
+    public void RecoverTask(int id);
+
+    /// <summary>
     /// Reset the task and the dependencies
     /// </summary>
     public void Reset();

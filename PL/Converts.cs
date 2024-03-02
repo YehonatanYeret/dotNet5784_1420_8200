@@ -15,24 +15,12 @@ internal class ConvertIdToContent : IValueConverter
     /// <summary>
     /// Converts the engineer ID to button content.
     /// </summary>
-    /// <param name="value">The engineer ID.</param>
-    /// <param name="targetType">The type of the target property (not used).</param>
-    /// <param name="parameter">An optional parameter (not used).</param>
-    /// <param name="culture">The culture to use in the converter (not used).</param>
     /// <returns>"Add" if the ID is 0, otherwise "Update".</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return (int)value == 0 ? "Add" : "Update";
     }
 
-    /// <summary>
-    /// Not implemented for one-way conversion.
-    /// </summary>
-    /// <param name="value">The value to convert back.</param>
-    /// <param name="targetType">The type of the target property (not used).</param>
-    /// <param name="parameter">An optional parameter (not used).</param>
-    /// <param name="culture">The culture to use in the converter (not used).</param>
-    /// <returns>NotImplementedException is thrown.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -48,24 +36,12 @@ internal class ConvertIdToBoolean : IValueConverter
     /// <summary>
     /// Converts the engineer ID to a boolean value.
     /// </summary>
-    /// <param name="value">The engineer ID.</param>
-    /// <param name="targetType">The type of the target property (not used).</param>
-    /// <param name="parameter">An optional parameter (not used).</param>
-    /// <param name="culture">The culture to use in the converter (not used).</param>
     /// <returns>True if the ID is 0, otherwise false.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return (int)value == 0;
     }
 
-    /// <summary>
-    /// Not implemented for one-way conversion.
-    /// </summary>
-    /// <param name="value">The value to convert back.</param>
-    /// <param name="targetType">The type of the target property (not used).</param>
-    /// <param name="parameter">An optional parameter (not used).</param>
-    /// <param name="culture">The culture to use in the converter (not used).</param>
-    /// <returns>NotImplementedException is thrown.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -80,24 +56,12 @@ internal class ConvertIdToColumn : IValueConverter
     /// <summary>
     /// Converts the engineer ID to a boolean value.
     /// </summary>
-    /// <param name="value">The engineer ID.</param>
-    /// <param name="targetType">The type of the target property (not used).</param>
-    /// <param name="parameter">An optional parameter (not used).</param>
-    /// <param name="culture">The culture to use in the converter (not used).</param>
     /// <returns>True if the ID is 0, otherwise false.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return ((int)value == 0) ? 1 : 0;
     }
 
-    /// <summary>
-    /// Not implemented for one-way conversion.
-    /// </summary>
-    /// <param name="value">The value to convert back.</param>
-    /// <param name="targetType">The type of the target property (not used).</param>
-    /// <param name="parameter">An optional parameter (not used).</param>
-    /// <param name="culture">The culture to use in the converter (not used).</param>
-    /// <returns>NotImplementedException is thrown.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -137,22 +101,6 @@ internal class ConvertIdToCollapsed : IValueConverter
 }
 
 /// <summary>
-/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
-/// </summary>
-//internal class ConvertEngineerToVisible : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        return (BO.Engineer)value is null ? "Visible" : "Collapsed";
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
-
-/// <summary>
 /// convert the effort time to width
 /// </summary>
 internal class ConvertEffortTimeToWidth : IValueConverter
@@ -177,7 +125,7 @@ internal class ConvertStartDateToMargin : IValueConverter
     {
         if (value is null)
             return new Thickness(0, 0, 0, 0);
-        // TimeSpan day = TimeSpan.FromDays((int)((DateTime)value).);
+
         return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).Days * 2, 1, 0, 1);
     }
 
@@ -196,25 +144,12 @@ internal class ConvertEngineerToEngineerName : IValueConverter
     /// <summary>
     /// Convert the engineer id to engineer name
     /// </summary>
-    /// <param name="value">The engineer id</param>
-    /// <param name="targetType">The type of the target property (not used)</param>
-    /// <param name="parameter">An optional parameter (not used)</param>
-    /// <param name="culture">The culture to use in the converter (not used)</param>
     /// <returns>The name of the engineer</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return value is null ? "Choose Engineer" : BlApi.Factory.Get().Engineer.Read((value as BO.EngineerInTask)!.Id).Name;
     }
 
-
-    /// <summary>
-    /// Not implemented for one-way conversion.
-    /// </summary>
-    /// <param name="value">The engineer id</param>
-    /// <param name="targetType">The type of the target property (not used)</param>
-    /// <param name="parameter">An optional parameter (not used)</param>
-    /// <param name="culture">The culture to use in the converter (not used)</param>
-    /// <returns>NotImplementedException is thrown</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -229,10 +164,6 @@ internal class ConvertHiddenToVissible : IValueConverter
     /// <summary>
     /// Convert the engineer id to engineer name
     /// </summary>
-    /// <param name="value">The engineer id</param>
-    /// <param name="targetType">The type of the target property (not used)</param>
-    /// <param name="parameter">An optional parameter (not used)</param>
-    /// <param name="culture">The culture to use in the converter (not used)</param>
     /// <returns>The name of the engineer</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -241,15 +172,6 @@ internal class ConvertHiddenToVissible : IValueConverter
         return "Visible";
     }
 
-
-    /// <summary>
-    /// Not implemented for one-way conversion.
-    /// </summary>
-    /// <param name="value">The engineer id</param>
-    /// <param name="targetType">The type of the target property (not used)</param>
-    /// <param name="parameter">An optional parameter (not used)</param>
-    /// <param name="culture">The culture to use in the converter (not used)</param>
-    /// <returns>NotImplementedException is thrown</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -317,12 +239,21 @@ internal class ConvertStringToImage : IValueConverter
 
 internal class ConvertEngineerAndStatusToVisible : IMultiValueConverter
 {
+    /// <summary>
+    /// if the engineer is null or the project is started we will return collapsed or when we at recovery mode
+    /// </summary>
+    /// <returns>if the engineer is null or the project is started we will return collapsed or when we at recovery mode</returns>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if ((int)values[0] != 0)
             return Visibility.Collapsed;
 
-        return (bool)values[1] ? Visibility.Collapsed : Visibility.Visible;
+        //if there are no value 2, we will return the value based on the value 1
+        if (values.Length == 2)
+            return ((bool)values[1]) ? Visibility.Collapsed : Visibility.Visible;
+
+        //if the project is started or we are in recovery mode
+        return ((bool)values[1] || (int)values[2] == 0) ? Visibility.Collapsed : Visibility.Visible;
     }
 
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

@@ -460,6 +460,22 @@ internal class TaskImplementation : BlApi.ITask
                };
     }
 
+
+    /// <summary>
+    /// recover the task
+    /// </summary>
+    /// <param name="id">the id of the task</param>
+    public void RecoverTask(int id)
+    {
+        DO.Task? task = _dal.Task.Read(id);
+
+        if(task is null)
+            throw new BO.BLDoesNotExistException($"No task found with ID {id}");
+
+        _dal.Task.Update(task with { IsActive = true});
+    }
+
+
     /// <summary>
     /// delete all the tasks and dependencies
     /// </summary>

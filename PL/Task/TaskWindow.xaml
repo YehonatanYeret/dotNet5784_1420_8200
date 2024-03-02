@@ -172,7 +172,10 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click" />
+                <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}"
+                        Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
+                        Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click" />
+                
                 <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"
                         IsEnabled="{Binding IsProjectStarted}"/>
             </Grid>

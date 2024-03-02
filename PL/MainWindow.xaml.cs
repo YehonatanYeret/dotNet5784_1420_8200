@@ -40,7 +40,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     }
 
 
-
     /// <summary>
     /// Constructor for the MainWindow class.
     /// Initializes the main window and its components.
