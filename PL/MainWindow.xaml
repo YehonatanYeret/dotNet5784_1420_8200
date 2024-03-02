@@ -25,7 +25,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.Column="0" Margin="150, 70" MaxWidth="250" MaxHeight="150" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Row="0" Grid.Column="0" Margin="50, 40, 200, 100" MaxHeight="150" MaxWidth="300" BorderBrush="Black" BorderThickness="2">
                 <Border.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#d6d6cb" Offset="1" />
@@ -63,7 +63,7 @@
 
         <!-- Grid containing buttons -->
 
-        <Border Grid.Row="1" Grid.Column="1" Margin="90, 20" BorderBrush="Black" BorderThickness="2">
+        <Border Grid.Row="1" Grid.Column="1" Margin="100, 30" BorderBrush="Black" BorderThickness="2">
             <Border.Background>
                 <LinearGradientBrush>
                     <GradientStop Color="#d6d6cb" Offset="1" />
@@ -84,7 +84,7 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
+                    <Label Grid.Column="0" Grid.ColumnSpan="2" Content="Login" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
 
                     <Label Grid.Column="1" Width="30" Height="30">
 

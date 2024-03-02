@@ -33,9 +33,9 @@ internal class TaskImplementation : ITask
     public IEnumerable<Task> ReadAll(Func<Task, bool>? filter = null)
     {
         if(filter != null)
-            return DataSource.Tasks.Where(task => task.IsActive && filter(task));//return a copy of the list of tasks
-        
-        return DataSource.Tasks.Where(task => task.IsActive);//return a copy of the list of tasks
+            return DataSource.Tasks.Where(task => filter(task));//return a copy of the list of tasks
+
+        return DataSource.Tasks.Select(task => task);//return a copy of the list of tasks
     }
 
     //update a task by removing the old one and adding the new one
@@ -45,9 +45,6 @@ internal class TaskImplementation : ITask
         Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == item.Id && task.IsActive);
         if (task == null)//if not found
             throw new DalDoesNotExistException($"Task with ID={item.Id} does not exist");//throw exception
-
-        //DataSource.Tasks[task.Id] = item;//update the task
-        //can work but not how we have been asked for
 
         //remove the task
         DataSource.Tasks.RemoveAll(t => t?.Id == task.Id);
@@ -65,6 +62,7 @@ internal class TaskImplementation : ITask
         DataSource.Tasks.RemoveAll(temp => temp.Id == id);//remove the task
         DataSource.Tasks.Add(t);//add the new task
     }
+
     //delete all tasks
     public void DeleteAll() { DataSource.Tasks.Clear(); }
 }

@@ -48,6 +48,8 @@ public partial class TaskListWindow : Window
 
     public int EngineerID { get; set; }
 
+    public bool recoveryMode { get; set; } = false;
+
 
     public bool IsProjectStarted
     {
@@ -131,29 +133,40 @@ public partial class TaskListWindow : Window
         }
     }
 
+    private void BtnRecovery_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateListView();
+    }
 
     /// <summary>
     /// Updates the ListView based on the selected experience level
     /// </summary>
     void UpdateListView()
     {
-        if (EngineerID == 0)
+        if (!recoveryMode)
         {
-            TaskList = (status == BO.Status.None) ?
-                s_bl?.Task.ReadAll()!.OrderBy(item => item.Id)! :
-                s_bl?.Task.ReadAll(item => item.Status == status)!.OrderBy(item => item.Id)!;
+            if (EngineerID == 0)
+            {
+                TaskList = (status == BO.Status.None) ?
+                    s_bl?.Task.ReadAll()!.OrderBy(item => item.Id)! :
+                    s_bl?.Task.ReadAll(item => item.Status == status)!.OrderBy(item => item.Id)!;
+            }
+
+            else
+            {
+                TaskList = (status == BO.Status.None) ?
+                    s_bl?.Engineer.GetTasksOfEngineer(EngineerID)!.OrderBy(item => item.Id)! :
+                    s_bl?.Engineer.GetTasksOfEngineer(EngineerID).Where(item => item.Status == status)!.OrderBy(item => item.Id)!;
+            }
         }
+
         else
         {
-            TaskList = (status == BO.Status.None) ?
-                s_bl?.Engineer.GetTasksOfEngineer(EngineerID)!.OrderBy(item => item.Id)! :
-                s_bl?.Engineer.GetTasksOfEngineer(EngineerID).Where(item => item.Status == status)!.OrderBy(item => item.Id)!;
-
-
+            TaskList = s_bl?.Task.GetDeletedTasks()!.OrderBy(item => item.Id)!;
         }
 
         TaskList = (complexity == BO.EngineerExperience.None) ?
             TaskList :
-            TaskList.Where(item => s_bl!.Task.Read(item.Id).Complexity == complexity);  
+            TaskList.Where(item => s_bl!.Task.Read(item.Id).Complexity == complexity);
     }
 }

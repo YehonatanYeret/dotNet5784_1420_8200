@@ -57,17 +57,18 @@ internal class TaskImplementation : BlApi.ITask
     public IEnumerable<BO.Task> ReadAllTask(Func<BO.Task, bool>? filter = null)
     {
         if (filter != null)
-            return _dal.Task.ReadAll()!.Select(task => CreateTask(task!)).Where(filter);
+            return _dal.Task.ReadAll(task => task.IsActive)!.Select(task => CreateTask(task!)).Where(filter);
 
-        return _dal.Task.ReadAll()!.Select(task => CreateTask(task!));
+        return _dal.Task.ReadAll(task => task.IsActive)!.Select(task => CreateTask(task!));
     }
 
     public IEnumerable<BO.TaskInList> ReadAll(Func<BO.TaskInList, bool>? filter = null)
     {
         if (filter != null)
-            return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id)).Where(filter);
+            return _dal.Task.ReadAll(task => task.IsActive)!.Select(task => ConvertToTaskInList(task.Id)).Where(filter);
 
-        return _dal.Task.ReadAll()!.Select(task => ConvertToTaskInList(task.Id));
+        return _dal.Task.ReadAll(task => task.IsActive
+        )!.Select(task => ConvertToTaskInList(task.Id));
     }
 
     /// <summary>
@@ -80,7 +81,7 @@ internal class TaskImplementation : BlApi.ITask
         CheckTask(task);
 
         // Create a graph to detect cyclic dependencies
-        Graph graph = new(_dal.Task.ReadAll().Count());
+        Graph graph = new(_dal.Task.ReadAll(task => task.IsActive).Count());
 
         // Add edges to the graph
         foreach (TaskInList t in task.Dependencies!)
@@ -429,6 +430,35 @@ internal class TaskImplementation : BlApi.ITask
         return false;
     }
 
+    /// <summary>
+    /// return the task in topology order
+    /// </summary>
+    /// <returns>the task in topology order</returns>
+    public IEnumerable<BO.Task> GetTopologicalTasks()
+    {
+        Graph graph = new(_dal.Task.ReadAll(task => task.IsActive).Count());
+        foreach (var item in _dal.Dependency.ReadAll())
+        {
+            graph.AddEdge(item.DependentTask - 1, item.DependentOnTask - 1);
+        }
+        return graph.TopologicalSort().Select(id => Read(id + 1));
+    }
+
+    /// <summary>
+    /// all the tasks that are deleted to recover
+    /// </summary>
+    /// <returns>all of the deleted tasks</returns>
+    public IEnumerable<BO.TaskInList> GetDeletedTasks()
+    {
+        return from t in _dal.Task.ReadAll(task => !task.IsActive)
+               select new TaskInList()
+               {
+                   Id = t.Id,
+                   Description = t.Description,
+                   Alias = t.Alias,
+                   Status = CalculateStatus(t)
+               };
+    }
 
     /// <summary>
     /// delete all the tasks and dependencies
@@ -439,13 +469,4 @@ internal class TaskImplementation : BlApi.ITask
         _dal.Dependency.DeleteAll();
     }
 
-    public IEnumerable<BO.Task> GetTopologicalTasks()
-    {
-        Graph graph = new(_dal.Task.ReadAll().Count());
-        foreach (var item in _dal.Dependency.ReadAll())
-        {
-            graph.AddEdge(item.DependentTask - 1, item.DependentOnTask - 1);
-        }
-        return graph.TopologicalSort().Select(id => Read(id + 1));
-    }
 }

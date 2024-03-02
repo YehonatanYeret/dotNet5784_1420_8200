@@ -66,7 +66,7 @@ internal class TaskImplementation : ITask
         List<Task> tasksList = XMLTools.LoadListFromXMLSerializer<Task>(s_task_xml);
 
         if (filter != null)
-            return tasksList.Where(task => filter(task) && task.IsActive);
+            return tasksList.Where(task => filter(task));
 
         return tasksList.Select(task => task);
     }
@@ -103,8 +103,10 @@ internal class TaskImplementation : ITask
         if (!tasksList.Any(task => task.Id == id))
             throw new DalDoesNotExistException($"Task with ID={id} does not exist");
 
-        // Remove the Task with the specified ID
-        tasksList.RemoveAll(task => task.Id == id);
+        // Change the Task's IsActive property to false
+        Task task = tasksList.FirstOrDefault(task => task.Id == id)!;
+        tasksList.Remove(task);
+        tasksList.Add(task with { IsActive = false });
 
         // Save the updated list back to XML
         XMLTools.SaveListToXMLSerializer(tasksList, s_task_xml);

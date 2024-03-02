@@ -95,7 +95,17 @@ public interface ITask
     /// <returns>if the task is in delay</returns>
     public bool InDelay(int id);
 
+    /// <summary>
+    /// return the task in topology order
+    /// </summary>
+    /// <returns>the task in topology order</returns>
     public IEnumerable<BO.Task> GetTopologicalTasks();
+
+    /// <summary>
+    /// all the tasks that are deleted to recover
+    /// </summary>
+    /// <returns>all of the deleted tasks</returns>
+    public IEnumerable<BO.TaskInList> GetDeletedTasks();
 
     /// <summary>
     /// Reset the task and the dependencies

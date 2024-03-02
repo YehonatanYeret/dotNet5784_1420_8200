@@ -101,15 +101,27 @@
             </ListView.View>
         </ListView>
 
-        <!-- Button to add a new engineer -->
-        <Button Content="Add" Grid.Row="3" HorizontalAlignment="Center" Height="50" Width="100" Click="AddBtn_OnClick">
-            <!-- Visibility of the button based on conditions using MultiBinding -->
-            <Button.Visibility>
+
+        <Grid Grid.Row="3" Height="50">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Visibility of the buttons based on conditions using MultiBinding -->
+            <Grid.Visibility>
                 <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
                     <Binding Path="EngineerID" />
                     <Binding Path="IsProjectStarted" />
                 </MultiBinding>
-            </Button.Visibility>
-        </Button>
+            </Grid.Visibility>
+            
+            <!-- Button to add a new engineer -->
+            <Button Grid.Column="0" Content="Add" HorizontalAlignment="Right" Width="100" Click="AddBtn_OnClick" Margin="5"/>
+
+            <Button Grid.Column="1" Content="Recovery" HorizontalAlignment="Left" Width="100" Click="BtnRecovery_Click" Margin="5"/>
+
+        </Grid>
     </Grid>
 </Window>
