@@ -10,36 +10,36 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@walla.com</Email>
+    <Email>Adam@hotmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@outlook.com</Email>
+    <Email>Alex@hotmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@outlook.com</Email>
+    <Email>Aaron@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Ben Baruch</Name>
     <Password>BenBaruch0</Password>
-    <Email>Ben@yahoo.com</Email>
+    <Email>Ben@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>David Levi</Name>
     <Password>DavidLevi0</Password>
-    <Email>David@outlook.com</Email>
+    <Email>David@walla.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
-    <Email>Asaf@outlook.com</Email>
+    <Email>Asaf@walla.com</Email>
   </User>
 </ArrayOfUser>
