@@ -199,21 +199,21 @@
     <IsActive>true</IsActive>
   </Task>
   <Task>
-    <Id>25</Id>
-    <Alias>ekjvelk</Alias>
-    <Description>ldkjdnlked f</Description>
-    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P12D</RequiredEffortTime>
-    <Complexity>AdvancedBeginner</Complexity>
-    <IsActive>true</IsActive>
-  </Task>
-  <Task>
     <Id>24</Id>
     <Alias>khgvulj</Alias>
     <Description>lhbeljdbv</Description>
     <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
     <RequiredEffortTime>P12D</RequiredEffortTime>
     <Complexity>Intermediate</Complexity>
+    <IsActive>false</IsActive>
+  </Task>
+  <Task>
+    <Id>25</Id>
+    <Alias>ekjvelk</Alias>
+    <Description>ldkjdnlked f</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P12D</RequiredEffortTime>
+    <Complexity>AdvancedBeginner</Complexity>
     <IsActive>true</IsActive>
   </Task>
 </ArrayOfTask>

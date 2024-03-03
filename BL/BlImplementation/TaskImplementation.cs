@@ -81,7 +81,7 @@ internal class TaskImplementation : BlApi.ITask
         CheckTask(task);
 
         // Create a graph to detect cyclic dependencies
-        Graph graph = new(_dal.Task.ReadAll().Count());
+        Graph graph = new(_dal.Task.ReadAll().Max(x=>x.Id));
 
         // Add edges to the graph
         foreach (TaskInList t in task.Dependencies!)
