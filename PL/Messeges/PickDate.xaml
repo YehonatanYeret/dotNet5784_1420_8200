@@ -8,15 +8,25 @@
         Title="PickDate" Height="150" Width="200"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         ResizeMode="NoResize">
+
     <Grid>
+        <!-- Grid Rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
+            <!-- First row takes 2 times the space of other rows -->
             <RowDefinition Height="1*"/>
+            <!-- Second row takes 1 times the space of other rows -->
             <RowDefinition Height="2*"/>
+            <!-- Third row takes 2 times the space of other rows -->
         </Grid.RowDefinitions>
+
+        <!-- TextBlock for instruction -->
         <TextBlock Text="Choose start date project" Grid.Row="0" TextAlignment="Center" VerticalAlignment="Center" FontFamily="Cambria Math" FontSize="13" HorizontalAlignment="Center"/>
+
+        <!-- DatePicker for selecting the date -->
         <DatePicker Grid.Row="1" Margin="10,0" SelectedDate="{Binding Date}"/>
+
+        <!-- Button to confirm and close the window -->
         <Button Content="OK" IsDefault="True" Click="OKButton_Click" Grid.Row="2" Width="150" Height="25" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
-
 </Window>

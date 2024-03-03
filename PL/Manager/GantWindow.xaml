@@ -9,28 +9,38 @@
         WindowState="Maximized"
         Title="GantWindow" Height="650" Width="800">
 
+    <!-- Main Grid with two rows -->
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!-- Border for the Gantt Chart with ScrollViewer -->
         <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <!-- Grid for Gantt Chart ItemsControl -->
                 <Grid Background="#fdfad4">
+                    <!-- ItemsControl for displaying Gantt items -->
                     <ItemsControl ItemsSource="{Binding GantData}" Grid.Row="0">
                         <ItemsControl.ItemTemplate>
+                            <!-- DataTemplate for each Gantt item -->
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
+                                    <!-- Grid for each Gantt item -->
                                     <Grid>
+                                        <!-- Columns for Alias, Separator, and Gantt Chart -->
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="150"/>
                                             <ColumnDefinition Width="3"/>
                                             <ColumnDefinition Width="auto"/>
                                         </Grid.ColumnDefinitions>
+
+                                        <!-- TextBlock for Alias -->
                                         <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
                                             FontFamily="ariel" Grid.Column="0" 
                                             TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3">
+                                            <!-- Background gradient for Alias -->
                                             <TextBlock.Background>
                                                 <LinearGradientBrush>
                                                     <GradientStop Color="LightCyan" Offset="0" />
@@ -39,19 +49,20 @@
                                             </TextBlock.Background>
                                         </TextBlock>
 
-
+                                        <!-- Separator Border -->
                                         <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
+                                        <!-- Grid for Gantt Chart -->
                                         <Grid Background="#564d525e" Grid.Column="2" Margin="0,1">
-
-                                            <!--every rectangle reprezented by width and margin. fortermore, there is button click on every rect-->
+                                            <!-- Rectangle representing task -->
                                             <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
                                                 Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
                                                 Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
                                                 MouseDown="Grid_MouseLeave" >
+                                                <!-- Border for Rectangle -->
                                                 <Border BorderBrush="Black" BorderThickness=".7"/>
 
-                                                <!--tooltip for hvering tasks-->
+                                                <!-- Tooltip for hovering tasks -->
                                                 <Grid.ToolTip>
                                                     <StackPanel>
                                                         <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"/>
@@ -60,7 +71,6 @@
                                                         <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
                                                     </StackPanel>
                                                 </Grid.ToolTip>
-
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -68,29 +78,36 @@
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
+
+                    <!-- Grid for displaying the current date line -->
                     <Grid Margin="150,0,0,0">
+                        <!-- Border indicating the current date line -->
                         <Border BorderBrush="Black" BorderThickness="2" Width="1" HorizontalAlignment="Left"
                             Margin="{Binding Now, Converter={StaticResource ConvertStartDateToMarginKey}}"/>
                     </Grid>
                 </Grid>
             </ScrollViewer>
-
         </Border>
 
+        <!-- StackPanel for displaying the color guide -->
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label Content="Color guide:      "/>
+
+            <!-- Completed task color indicator -->
             <Label Content=" Completed:"/>
             <Rectangle Fill="#2dc937" Height="20" Width="20"/>
 
+            <!-- In progress task color indicator -->
             <Label Content=" In progress:"/>
             <Rectangle Fill="#99c140" Height="20" Width="20"/>
 
+            <!-- Not started task color indicator -->
             <Label Content=" Not started:"/>
             <Rectangle Fill="#baffb9" Height="20" Width="20"/>
 
+            <!-- In delay task color indicator -->
             <Label Content=" In delay:"/>
             <Rectangle Fill="#cc3232" Height="20" Width="20"/>
-
         </StackPanel>
     </Grid>
 </Window>

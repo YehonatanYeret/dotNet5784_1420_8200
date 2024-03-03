@@ -1,8 +1,8 @@
 ﻿namespace PL.Engineer;
 
-using BlApi;
 using System.Windows;
 using System.Windows.Controls;
+using System.Collections.Generic;
 
 /// <summary>
 /// Interaction logic for EngineerListWindow.xaml
@@ -32,7 +32,6 @@ public partial class EngineerListWindow : Window
     /// </summary>
     public BO.EngineerExperience experience { get; set; } = BO.EngineerExperience.None;
 
-
     public BO.EngineerInTask? choosenEngineer { get; set; }
 
     /// <summary>
@@ -55,6 +54,8 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// Constructor for EngineerListWindow
     /// </summary>
+    /// <param name="taskId">The ID of the task</param>
+    /// <param name="taskLevel">The experience level of the task</param>
     public EngineerListWindow(int taskId = 0, BO.EngineerExperience taskLevel = BO.EngineerExperience.None)
     {
         EngineerList = (taskId == 0) ? s_bl.Engineer.ReadAll()! :
@@ -67,6 +68,8 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// Event handler for selection changed in the ComboBox
     /// </summary>
+    /// <param name="sender">The sender of the event</param>
+    /// <param name="e">The event arguments</param>
     private void Expirience_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         UpdateListView();
@@ -75,8 +78,11 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// Event handler for the "Add" button click
     /// </summary>
+    /// <param name="sender">The sender of the event</param>
+    /// <param name="e">The event arguments</param>
     private void AddBtn_OnClick(object sender, RoutedEventArgs e)
     {
+        // Open the EngineerWindow for adding a new engineer
         new Engineer.EngineerWindow().ShowDialog();
         UpdateListView();
     }
@@ -84,16 +90,25 @@ public partial class EngineerListWindow : Window
     /// <summary>
     /// Event handler for double click on the ListView item
     /// </summary>
+    /// <param name="sender">The sender of the event</param>
+    /// <param name="e">The event arguments</param>
     private void UpdateListView_DoubleClick(object sender, RoutedEventArgs e)
     {
         try
         {
+            // Retrieve the selected engineer from the ListView
             BO.Engineer? EngineerInList = (sender as ListView)?.SelectedItem as BO.Engineer;
+
+            // Check if an engineer is selected
             if (EngineerInList is not null)
             {
+                // Create a new EngineerInTask instance based on the selected engineer
                 choosenEngineer = new BO.EngineerInTask() { Id = EngineerInList!.Id, Name = EngineerInList!.Name };
+
+                // Check if the window is not for choosing an engineer
                 if (TaskID == 0)
                 {
+                    // Open the EngineerWindow for the selected engineer
                     if (EngineerInList != null)
                     {
                         new Engineer.EngineerWindow(EngineerInList!.Id).ShowDialog();
@@ -102,21 +117,21 @@ public partial class EngineerListWindow : Window
                 }
                 else
                 {
+                    // Close the window when an engineer is chosen for a task
                     Close();
                 }
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show("error aqured", ex.Message);
+            MessageBox.Show("Error occurred", ex.Message);
         }
     }
-
 
     /// <summary>
     /// Updates the ListView based on the selected experience level
     /// </summary>
-    void UpdateListView()
+    private void UpdateListView()
     {
         if (TaskID == 0)
         {

@@ -356,14 +356,15 @@ internal class TaskImplementation : BlApi.ITask
     /// <param name="task">The task that we chack</param>
     private static void CheckTask(BO.Task task)
     {
+        // Check if the alias and description are not empty and the required effort time is positive and the complexity is not none
         if (string.IsNullOrEmpty(task.Alias))
-            throw new BO.BLValueIsNotCorrectException("alias must not be empty");//nedd to change to BO exception
+            throw new BO.BLValueIsNotCorrectException("alias must not be empty");
         if (string.IsNullOrEmpty(task.Description))
-            throw new BO.BLValueIsNotCorrectException("description must not be empty");//nedd to change to BO exception
-        if (task.RequiredEffortTime < TimeSpan.Zero)
-            throw new BO.BLValueIsNotCorrectException("required effort time must not be negative");//nedd to change to BO exception
-        if(task.Complexity == EngineerExperience.None)
-            throw new BO.BLValueIsNotCorrectException("complexity must not be none");//nedd to change to BO exception
+            throw new BO.BLValueIsNotCorrectException("description must not be empty");
+        if (task.RequiredEffortTime <= TimeSpan.Zero)
+            throw new BO.BLValueIsNotCorrectException("required effort time must be positive");
+        if(task.Complexity == BO.EngineerExperience.None)
+            throw new BO.BLValueIsNotCorrectException("complexity must not be none");
     }
 
     /// <summary>

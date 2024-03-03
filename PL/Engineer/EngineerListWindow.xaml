@@ -25,8 +25,7 @@
             <Label Grid.Column="0" Content="Selected level for engineer:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
             <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
                       ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}"
-                      SelectedItem="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"
-                      />
+                      SelectedItem="{Binding experience, Mode=TwoWay}" SelectionChanged="Expirience_SelectionChanged"/>
         </Grid>
 
         <!-- ListView to display EngineerList -->
