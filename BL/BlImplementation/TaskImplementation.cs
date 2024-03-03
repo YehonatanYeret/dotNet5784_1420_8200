@@ -1,5 +1,4 @@
 ﻿using BlApi;
-using BO;
 
 namespace BlImplementation;
 
@@ -84,7 +83,7 @@ internal class TaskImplementation : BlApi.ITask
         Graph graph = new(_dal.Task.ReadAll(task => task.IsActive).Count());
 
         // Add edges to the graph
-        foreach (TaskInList t in task.Dependencies!)
+        foreach (BO.TaskInList t in task.Dependencies!)
         {
             graph.AddEdge(task.Id, t.Id - 1);
         }
@@ -451,7 +450,7 @@ internal class TaskImplementation : BlApi.ITask
     public IEnumerable<BO.TaskInList> GetDeletedTasks()
     {
         return from t in _dal.Task.ReadAll(task => !task.IsActive)
-               select new TaskInList()
+               select new BO.TaskInList()
                {
                    Id = t.Id,
                    Description = t.Description,
@@ -459,7 +458,6 @@ internal class TaskImplementation : BlApi.ITask
                    Status = CalculateStatus(t)
                };
     }
-
 
     /// <summary>
     /// recover the task

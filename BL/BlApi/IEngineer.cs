@@ -65,8 +65,20 @@ public interface IEngineer
     /// </summary>
     /// <param name="engineerId">the id of the engineer</param>
     /// <returns>the tasks that the engineer can start to work on</returns>
-    public IEnumerable<BO.TaskInList> GetTasksOfEngineer(int engineerId);
+    public IEnumerable<BO.TaskInList> GetTasksOfEngineerToWork(int engineerId);
 
+    /// <summary>
+    /// get all the tasks of the engineer even if he can't start to work on or he already finish the task
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <returns>the tasks that sets to the engineer</returns>
+    public IEnumerable<BO.TaskInList> GetAllTaskOfEngineer(int engineerId, Func<BO.Task, bool>? filter = null);
+
+    /// <summary>
+    /// Convert image to base64
+    /// </summary>
+    /// <param name="path">the path of the image</param>
+    /// <returns>the image in base64</returns>
     public string ConvertImageToBase64(string path);
 
     /// <summary>

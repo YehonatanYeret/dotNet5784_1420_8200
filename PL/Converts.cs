@@ -21,6 +21,9 @@ internal class ConvertIdToContent : IValueConverter
         return (int)value == 0 ? "Add" : "Update";
     }
 
+    /// <summary>
+    /// Converts back from button content to engineer ID (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -42,6 +45,9 @@ internal class ConvertIdToBoolean : IValueConverter
         return (int)value == 0;
     }
 
+    /// <summary>
+    /// Converts back from boolean value to engineer ID (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -49,19 +55,22 @@ internal class ConvertIdToBoolean : IValueConverter
 }
 
 /// <summary>
-/// Converts an engineer ID to a boolean value (true if ID is 0, false otherwise).
+/// Converts an engineer ID to a column index value.
 /// </summary>
 internal class ConvertIdToColumn : IValueConverter
 {
     /// <summary>
-    /// Converts the engineer ID to a boolean value.
+    /// Converts the engineer ID to a column index value.
     /// </summary>
-    /// <returns>True if the ID is 0, otherwise false.</returns>
+    /// <returns>1 if the ID is 0, otherwise 0.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return ((int)value == 0) ? 1 : 0;
     }
 
+    /// <summary>
+    /// Converts back from column index value to engineer ID (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -69,15 +78,22 @@ internal class ConvertIdToColumn : IValueConverter
 }
 
 /// <summary>
-/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
+/// Converts a task ID to a visibility value ("Visible" if ID is not 0, "Collapsed" otherwise).
 /// </summary>
 internal class ConvertIdToVisible : IValueConverter
 {
+    /// <summary>
+    /// Converts the task ID to a visibility value.
+    /// </summary>
+    /// <returns>"Visible" if the ID is not 0, otherwise "Collapsed".</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value != 0 ? "Visible" : "Collapsed";
+        return (int)value != 0 ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    /// <summary>
+    /// Converts back from visibility value to task ID (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -85,15 +101,22 @@ internal class ConvertIdToVisible : IValueConverter
 }
 
 /// <summary>
-/// Converts an task ID to a boolean value (true if ID is 0, false otherwise).
+/// Converts a task ID to a visibility value ("Visible" if ID is 0, "Collapsed" otherwise).
 /// </summary>
 internal class ConvertIdToCollapsed : IValueConverter
 {
+    /// <summary>
+    /// Converts the task ID to a visibility value.
+    /// </summary>
+    /// <returns>"Visible" if the ID is 0, otherwise "Collapsed".</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return (int)value == 0 ? "Visible" : "Collapsed";
+        return (int)value == 0 ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    /// <summary>
+    /// Converts back from visibility value to task ID (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -101,15 +124,21 @@ internal class ConvertIdToCollapsed : IValueConverter
 }
 
 /// <summary>
-/// convert the effort time to width
+/// Converts effort time to width for the Gantt Chart.
 /// </summary>
 internal class ConvertEffortTimeToWidth : IValueConverter
 {
+    /// <summary>
+    /// Converts effort time to width for the Gantt Chart.
+    /// </summary>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return ((TimeSpan)value).Days * 2;
     }
 
+    /// <summary>
+    /// Converts back from width to effort time (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -117,10 +146,13 @@ internal class ConvertEffortTimeToWidth : IValueConverter
 }
 
 /// <summary>
-/// convert the start date to margin
+/// Converts start date to margin for positioning.
 /// </summary>
 internal class ConvertStartDateToMargin : IValueConverter
 {
+    /// <summary>
+    /// Converts start date to margin for positioning.
+    /// </summary>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is null)
@@ -129,27 +161,32 @@ internal class ConvertStartDateToMargin : IValueConverter
         return new Thickness((((DateTime)value) - (DateTime)BlApi.Factory.Get().Clock.GetStartProject()!).Days * 2, 1, 0, 1);
     }
 
+    /// <summary>
+    /// Converts back from margin to start date (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
 }
 
-
 /// <summary>
-/// convert the engineer id to engineer name
+/// Converts engineer ID to engineer name.
 /// </summary>
 internal class ConvertEngineerToEngineerName : IValueConverter
 {
     /// <summary>
-    /// Convert the engineer id to engineer name
+    /// Converts engineer ID to engineer name.
     /// </summary>
-    /// <returns>The name of the engineer</returns>
+    /// <returns>The name of the engineer or "Choose Engineer" if ID is null.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         return value is null ? "Choose Engineer" : BlApi.Factory.Get().Engineer.Read((value as BO.EngineerInTask)!.Id).Name;
     }
 
+    /// <summary>
+    /// Converts back from engineer name to engineer ID (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -157,21 +194,24 @@ internal class ConvertEngineerToEngineerName : IValueConverter
 }
 
 /// <summary>
-/// to bind two buttons visibility
+/// Converts visibility value to its opposite.
 /// </summary>
 internal class ConvertHiddenToVissible : IValueConverter
 {
     /// <summary>
-    /// Convert the engineer id to engineer name
+    /// Converts visibility value to its opposite.
     /// </summary>
-    /// <returns>The name of the engineer</returns>
+    /// <returns>"Collapsed" if the input is "Visible", and vice versa.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (((Visibility)value) == Visibility.Visible)
-            return "Collapsed";
-        return "Visible";
+            return Visibility.Collapsed;
+        return Visibility.Visible;
     }
 
+    /// <summary>
+    /// Converts back from visibility value to its opposite (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -179,29 +219,34 @@ internal class ConvertHiddenToVissible : IValueConverter
 }
 
 /// <summary>
-/// to bind status to color for the gantt chart
+/// Converts task status to color for the Gantt Chart.
 /// </summary>
 internal class ConvertTaskStatusToColor : IValueConverter
 {
+    /// <summary>
+    /// Converts task status to color for the Gantt Chart.
+    /// </summary>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        //if the task is in delay
+        // If the task is in delay
         if ((BlApi.Factory.Get().Task.InDelay((int)value)))
             return "#cc3232";
 
-        //if the task is done
+        // If the task is done
         if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.Done)))
             return "#2dc937";
 
-        //if the task is on track
+        // If the task is on track
         if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.OnTrack)))
             return "#99c140";
 
-        //if the task is scheduled
+        // If the task is scheduled
         return "#baffb9";
-
     }
 
+    /// <summary>
+    /// Converts back from color to task status (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
@@ -209,53 +254,63 @@ internal class ConvertTaskStatusToColor : IValueConverter
 }
 
 /// <summary>
-/// convert string to picture
+/// Converts a base64-encoded string to a BitmapImage.
 /// </summary>
 internal class ConvertStringToImage : IValueConverter
 {
+    /// <summary>
+    /// Converts a base64-encoded string to a BitmapImage.
+    /// </summary>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         BitmapImage bitmap = new BitmapImage();
-        //start init
+        // Start initialization
         bitmap.BeginInit();
 
-        //if the value is null or empty we will show the no image found picture
+        // If the value is null or empty, show the no image found picture
         if (value == null || string.IsNullOrEmpty((string)value))
             bitmap.UriSource = new Uri("../Images/noImageFound.jpg", UriKind.RelativeOrAbsolute);
-        //else we will show the image
+        // Else, show the image
         else
             bitmap.StreamSource = new MemoryStream(System.Convert.FromBase64String((string)value));
         bitmap.EndInit();
 
         return bitmap;
-
     }
 
+    /// <summary>
+    /// Converts back from BitmapImage to base64-encoded string (Not implemented).
+    /// </summary>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
 }
 
+/// <summary>
+/// Converts a set of values to visibility based on conditions.
+/// </summary>
 internal class ConvertEngineerAndStatusToVisible : IMultiValueConverter
 {
     /// <summary>
-    /// if the engineer is null or the project is started we will return collapsed or when we at recovery mode
+    /// Converts a set of values to visibility based on conditions.
     /// </summary>
-    /// <returns>if the engineer is null or the project is started we will return collapsed or when we at recovery mode</returns>
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if ((int)values[0] != 0)
             return Visibility.Collapsed;
 
-        //if there are no value 2, we will return the value based on the value 1
+        // If there are no value 2, return the value based on the value 1
         if (values.Length == 2)
             return ((bool)values[1]) ? Visibility.Collapsed : Visibility.Visible;
 
-        //if the project is started or we are in recovery mode
+        // If the project is started or we are in recovery mode
         return ((bool)values[1] || (int)values[2] == 0) ? Visibility.Collapsed : Visibility.Visible;
     }
 
+    /// <summary>
+    /// Converts back from visibility to a set of values (Not implemented).
+    /// </summary>
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();

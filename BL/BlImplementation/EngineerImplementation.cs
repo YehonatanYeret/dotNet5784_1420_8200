@@ -1,7 +1,5 @@
 ﻿namespace BlImplementation;
 using BlApi;
-using BO;
-using static System.Net.Mime.MediaTypeNames;
 
 internal class EngineerImplementation : IEngineer
 {
@@ -270,22 +268,33 @@ internal class EngineerImplementation : IEngineer
         };
     }
 
-
     /// <summary>
     /// get all the tasks of the engineer that he can start to work on
     /// </summary>
     /// <param name="engineerId">the id of the engineer</param>
     /// <returns>the tasks that the engineer can start to work on</returns>
-    public IEnumerable<BO.TaskInList> GetTasksOfEngineer(int engineerId)
+    public IEnumerable<BO.TaskInList> GetTasksOfEngineerToWork(int engineerId)
     {
-        return (from t in _dal.Task.ReadAll(task => task.EngineerId == engineerId && task.ScheduledDate != null && task.StartDate == null)
-                select (new TaskInList()
-                {
-                    Id = t.Id,
-                    Description = t.Description,
-                    Alias = t.Alias,
-                    Status = BO.Status.Scheduled
-                }));
+        //return IEnumerable of the tasks that the engineer can start to work on based on the status and the dependencies
+        return GetAllTaskOfEngineer(engineerId, task => task.Status == BO.Status.Scheduled && !task.Dependencies!.Any(dep => dep.Status != Status.Done));
+    }
+
+    /// <summary>
+    /// get all the tasks of the engineer even if he can't start to work on or he already finish the task
+    /// </summary>
+    /// <param name="engineerId">the id of the engineer</param>
+    /// <returns>the tasks that sets to the engineer</returns>
+    public IEnumerable<BO.TaskInList> GetAllTaskOfEngineer(int engineerId, Func<BO.Task, bool>? filter = null)
+    {
+        //if there is no filter, return all the tasks without filter
+        if (filter is null)
+            filter = (t) => true;
+
+        //return IEnumerable of the tasks after the filter in convert to TaskInList
+        return (from t in _dal.Task.ReadAll(task => task.EngineerId == engineerId)
+                let task = _bl.Task.Read(t.Id)
+                where filter(task)
+                select _bl.Task.ConvertToTaskInList(t.Id));
     }
 
     public string ConvertImageToBase64(string path)

@@ -1,12 +1,10 @@
-﻿<!-- App.xaml -->
-
-<Application x:Class="PL.App"
+﻿<Application x:Class="PL.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PL"
              StartupUri="MainWindow.xaml">
 
-    <!-- Application Resources -->
+    <!-- Define resources for the application -->
     <Application.Resources>
         <ResourceDictionary>
 
@@ -16,45 +14,43 @@
             <!-- Resource for Task Collection -->
             <local:TaskCollection x:Key="TaskCollectionKey" />
 
+            <!-- Convert ID to Column resource -->
             <local:ConvertIdToColumn x:Key="ConvertIdToColumnKey" />
 
-            <!-- Resource for Converting Engineer ID to Content for Buttons -->
+            <!-- Convert ID to Content resource for Buttons -->
             <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
 
-            <!-- Resource for Converting Engineer ID to Boolean for Button IsEnabled Property -->
+            <!-- Convert ID to Boolean resource for Button IsEnabled Property -->
             <local:ConvertIdToBoolean x:Key="ConvertIdToBooleanKey"/>
 
+            <!-- Convert ID to Collapsed resource -->
             <local:ConvertIdToCollapsed x:Key="ConvertIdToCollapsedKey"/>
 
-            <!-- Resource for Converting Engineer in task to Boolean for Button IsEnabled Property -->
+            <!-- Convert Engineer in task to Boolean resource for Button IsEnabled Property -->
             <local:ConvertIdToVisible x:Key="ConvertIdToVisibleKey"/>
 
-            <!-- Resource for Converting effortTime in task to number for the Gant -->
+            <!-- Convert EffortTime in task to number for the Gantt Chart -->
             <local:ConvertEffortTimeToWidth x:Key="ConvertEffortTimeToWidthKey"/>
 
-            <!-- Resource for Converting effortTime in task to number for the Gant -->
+            <!-- Convert StartDate in task to Margin for positioning -->
             <local:ConvertStartDateToMargin x:Key="ConvertStartDateToMarginKey"/>
 
-            <!-- Resource for Converting engineer to engineer name -->
-
+            <!-- Convert Engineer to Engineer Name resource -->
             <local:ConvertEngineerToEngineerName x:Key="ConvertEngineerToEngineerNameKey"/>
 
-            <!-- Resource for Converting button visibillity to the opposite -->
+            <!-- Convert Button visibility to the opposite resource -->
             <local:ConvertHiddenToVissible x:Key="ConvertHiddenToVissibleKey"/>
 
-            <!-- Resource for Converting task status to color -->
+            <!-- Convert Task Status to color resource -->
             <local:ConvertTaskStatusToColor x:Key="ConvertTaskStatusToColorKey"/>
 
-            <!-- Resource for Converting engineer to visible -->
-            <!--<local:ConvertEngineerToVisible x:Key="ConvertEngineerToVisibleKey"/>-->
-
-            <!-- Resource for Converting engineer to visible -->
+            <!-- Convert String to Image resource -->
             <local:ConvertStringToImage x:Key="ConvertStringToImageKey"/>
 
-            <!-- Resource for Converting engineer to visible -->
+            <!-- Convert Engineer and Status to visibility resource -->
             <local:ConvertEngineerAndStatusToVisible x:Key="ConvertEngineerAndStatusToVisibleKey"/>
 
-            <!--Style for Buttons-->
+            <!-- Style for Buttons -->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#A9A57C"/>
                 <Setter Property="Foreground" Value="#374016"/>
@@ -88,7 +84,7 @@
                 </Style.Triggers>
             </Style>
 
-            <!--Style for ComboBoxes-->
+            <!-- Style for ComboBoxes -->
             <Style TargetType="ComboBox">
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="FontWeight" Value="Bold"/>
@@ -101,8 +97,7 @@
                 <Setter Property="Foreground" Value="Black"/>
                 <Setter Property="FontStretch" Value="Normal"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
-
-                <!--ItemTemplate for ComboBox items-->
+                <!-- ItemTemplate for ComboBox items -->
                 <Setter Property="ItemTemplate">
                     <Setter.Value>
                         <DataTemplate>
@@ -112,31 +107,28 @@
                 </Setter>
             </Style>
 
-            <!--Style for listview header-->
+            <!-- Style for GridViewColumnHeader (ListView header) -->
             <Style TargetType="GridViewColumnHeader" >
                 <Setter Property="Background" Value="#FF9ABECA"/>
                 <Setter Property="Foreground" Value="White"/>
             </Style>
 
-            <!--Style for ListView-->
+            <!-- Style for ListViewItem (ListView item) -->
             <Style TargetType="ListViewItem" >
-
                 <Setter Property="Background" Value="White"/>
                 <Setter Property="BorderBrush" Value="#374016"/>
                 <Setter Property="BorderThickness" Value="0 0 0 1"/>
                 <Setter Property="Height" Value="30" />
                 <Setter Property="Margin" Value="0,2,0,2" />
                 <Setter Property="FontWeight" Value="DemiBold"/>
-
                 <Style.Triggers >
                     <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                         <Setter Property="Background" Value="#F5F5F5"/>
                     </Trigger>
                 </Style.Triggers>
-
             </Style>
 
-            <!--Style for labels-->
+            <!-- Style for Labels -->
             <Style TargetType="Label">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontWeight" Value="Bold"/>
@@ -145,12 +137,14 @@
                 <Setter Property="Padding" Value="3"/>
             </Style>
 
+            <!-- VisualBrush for EmailHintBig -->
             <VisualBrush x:Key="EmailHintBig" Stretch="None" AlignmentX="Left">
                 <VisualBrush.Visual>
                     <TextBlock FontSize="17" Text="example@gmail.com" Opacity="0.6"/>
                 </VisualBrush.Visual>
             </VisualBrush>
 
+            <!-- VisualBrush for EmailHintSmall -->
             <VisualBrush x:Key="EmailHintSmall" Stretch="None" AlignmentX="Left" Opacity="0.6">
                 <VisualBrush.Visual>
                     <TextBlock Text="example@gmail.com"/>

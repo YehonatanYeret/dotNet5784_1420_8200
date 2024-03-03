@@ -195,6 +195,7 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
+        // Check if the selected engineer is qualified for the task.
         if (CurrEngineer != null && s_bl.Engineer.Read(CurrEngineer.Id).Level < CurrentTask.Complexity)
         {
             MessageBox.Show("The engineer is not qualified for this task", "Error occurred while updation",

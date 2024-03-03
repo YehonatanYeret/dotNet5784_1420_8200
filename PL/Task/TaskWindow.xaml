@@ -42,6 +42,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
+            <!-- Left part for Task Details -->
             <Grid Grid.Column="0" Margin="20, 0">
                 <!-- Define Rows -->
                 <Grid.RowDefinitions>
@@ -52,6 +53,7 @@
                     <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
+                <!-- Columns within Left part -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
@@ -59,41 +61,50 @@
 
                 <!-- task ID -->
                 <Label Content="Task number:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task ID -->
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=True}" VerticalContentAlignment="Center" IsEnabled="False"/>
-                        
 
                 <!-- task alias -->
                 <Label Content="Alias:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task Alias -->
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=True}"
                          Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" VerticalContentAlignment="Center"/>
 
                 <!-- task description -->
                 <Label Content="Description:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task Description -->
                 <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=True}"
                          Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
 
                 <!-- task deliverables -->
                 <Label Content="Deliverables:" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task Deliverables -->
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}"
                          Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US"/>
 
                 <!-- task remarks -->
                 <Label Content="Remarks:" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task Remarks -->
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=True}"
                          Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" />
             </Grid>
 
+            <!-- Separator -->
             <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
+            <!-- Right part for Engineer Details -->
             <Grid Grid.Column="2" Margin="20,0">
 
+                <!-- Define Rows -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
+                <!-- Top Section within Right part -->
                 <Grid Grid.Row="0">
 
+                    <!-- Rows within Top Section -->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
@@ -101,48 +112,59 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
+                    <!-- Columns within Top Section -->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
-                    <!-- engineer in task -->
+
+                    <!-- Engineer in Task -->
                     <Label Content="Engineer:" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <!-- Button for Engineer in Task -->
                     <Button Grid.Row="0" Grid.Column="1" FontSize="13" Content="{Binding CurrEngineer, Converter={StaticResource ConvertEngineerToEngineerNameKey}, Mode=TwoWay}" Margin="2,7"
                             Click="EngeineerInTaskButton_Click" Visibility="{Binding CurrentTask.Id, Converter={StaticResource ConvertIdToVisibleKey}}"/>
 
+                    <!-- Separator Line -->
                     <Label Grid.Row="0" Grid.Column="1" Content="------------------" Visibility="{Binding CurrentTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}}"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="Bold"/>
 
-                    <!-- task status -->
+                    <!-- Task Status -->
                     <Label Content="Status:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <!-- TextBox for Task Status -->
                     <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentTask.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                               Margin="2,7" Foreground="Black" IsReadOnly="True" VerticalContentAlignment="Center"/>
 
-                    <!-- task complexity -->
+                    <!-- Task Complexity -->
                     <Label Content="Complexity:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                    <!-- ComboBox for Task Complexity -->
                     <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}" 
                         SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}" Margin="2,7" Foreground="AliceBlue"
                               SelectedItem="{Binding CurrentTask.Complexity}" VerticalContentAlignment="Center"
                               IsEnabled="{Binding IsProjectStarted}" SelectionChanged="ComboBox_SelectionChanged"/>
 
-                    <!-- task effort time -->
+                    <!-- Task Effort Time -->
                     <Label Grid.Row="3" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Content="Required&#10;Effort Time:"/>
+                    <!-- TextBox for Task Effort Time -->
                     <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding CurrentTask.RequiredEffortTime, NotifyOnValidationError=true, ValidatesOnExceptions=true, StringFormat='dd\\.hh\\:mm\\:ss'}"
                              IsEnabled="{Binding IsProjectStarted}" VerticalContentAlignment="Center"/>
                 </Grid>
 
+                <!-- Bottom Section within Right part -->
                 <Grid Grid.Row="1">
 
+                    <!-- Rows within Bottom Section -->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="7*"/>
                     </Grid.RowDefinitions>
 
-                    <!-- task dependencies. for each dep deisplay in nex to checkbox -->
+                    <!-- Task Dependencies -->
                     <Label Grid.Row="0" Content="Dependencies:" HorizontalAlignment="Center"/>
+                    <!-- ListBox for Task Dependencies -->
                     <ListBox Grid.Row="1" ItemsSource="{Binding Dep}" HorizontalAlignment="Center" >
                         <ListBox.ItemTemplate>
+                            <!-- CheckBox for each Dependency -->
                             <DataTemplate>
                                 <CheckBox Content="{Binding Task.Alias}" IsChecked="{Binding IsDep}" IsEnabled="{Binding IsProjectStarted, RelativeSource={RelativeSource AncestorType=Window}}"/>
                             </DataTemplate>
@@ -156,6 +178,7 @@
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
         <Grid Grid.Row="1" Height="40">
 
+            <!-- Columns within Button Grid -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -165,6 +188,7 @@
 
             <Grid Grid.Column="1" Grid.ColumnSpan="2">
 
+                <!-- Columns within Inner Button Grid -->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
@@ -172,10 +196,12 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- Button for Adding or Updating Task -->
                 <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}"
                         Content="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"
                         Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click" />
-                
+
+                <!-- Button for Deleting Task -->
                 <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"
                         IsEnabled="{Binding IsProjectStarted}"/>
             </Grid>

@@ -23,6 +23,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Margin="0,10,0,0">
@@ -91,5 +92,7 @@
 
         <!--the task-->
         <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->
+
+        <Button Grid.Row="6" Content="Your Tasks"  Grid.ColumnSpan="2" Margin="20 ,7" Width="100" Height="40" Click="EngineerAllTasksBtn_Click"/> 
     </Grid>
 </Window>

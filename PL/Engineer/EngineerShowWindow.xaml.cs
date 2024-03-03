@@ -76,7 +76,7 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     private void ChooseTaskBtn_Click(object sender, RoutedEventArgs e)
     {
 
-        if(!s_bl.Engineer.GetTasksOfEngineer(CurrentEngineer.Id).Any())
+        if(!s_bl.Engineer.GetTasksOfEngineerToWork(CurrentEngineer.Id).Any())
         {
             MessageBox.Show("There are no tasks to choose from", "No tasks", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
@@ -102,5 +102,11 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
 
         // Reset the current task to a default value
         Task = new BO.TaskInList() { Id = 0 };
+    }
+
+    private void EngineerAllTasksBtn_Click(object sender, RoutedEventArgs e)
+    {
+        // Open a window for displaying all tasks of the engineer but in read-only mode
+        new TaskListWindow(CurrentEngineer.Id, false).ShowDialog();
     }
 }
