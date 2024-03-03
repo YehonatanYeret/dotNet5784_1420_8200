@@ -14,11 +14,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\description.png" />
+    <None Remove="Images\email.png" />
+    <None Remove="Images\engineer.png" />
+    <None Remove="Images\gant.png" />
     <None Remove="Images\gantBackground.jpg" />
     <None Remove="Images\leftArrow.png" />
     <None Remove="Images\leftArrowOver.png" />
+    <None Remove="Images\manager.png" />
+    <None Remove="Images\name.png" />
     <None Remove="Images\noImageFound.jpg" />
     <None Remove="Images\question.png" />
+    <None Remove="Images\reset.png" />
+    <None Remove="Images\schedule.png" />
+    <None Remove="Images\task.png" />
     <None Remove="mainWindow.jpg" />
   </ItemGroup>
 
@@ -27,12 +36,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\gantBackground.jpg" />
+    <Resource Include="Images\description.png" />
+    <Resource Include="Images\email.png" />
+    <Resource Include="Images\engineer.png" />
+    <Resource Include="Images\gant.png" />
+    <Resource Include="Images\manager.png" />
+    <Resource Include="Images\name.png" />
     <Resource Include="Images\question.png" />
-    <Resource Include="Images\leftArrow.png" />
     <Resource Include="Images\leftArrowOver.png" />
     <Resource Include="Images\mainWindow.jpg" />
     <Resource Include="Images\noImageFound.jpg" />
+    <Resource Include="Images\reset.png" />
+    <Resource Include="Images\schedule.png" />
+    <Resource Include="Images\task.png" />
   </ItemGroup>
 
 </Project>
