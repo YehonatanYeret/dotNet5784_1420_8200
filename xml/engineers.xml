@@ -42,4 +42,11 @@
     <Email>Asaf@gmail.com</Email>
     <Level>Intermediate</Level>
   </Engineer>
+  <Engineer>
+    <Id>12</Id>
+    <Cost>1</Cost>
+    <Name>smkamfk</Name>
+    <Email>Moshe@gmail.com</Email>
+    <Level>AdvancedBeginner</Level>
+  </Engineer>
 </ArrayOfEngineer>

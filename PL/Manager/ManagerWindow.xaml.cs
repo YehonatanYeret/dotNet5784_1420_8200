@@ -151,12 +151,17 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     {
         try
         {
+            //for checking self changing
+            BO.User manager = s_bl.User.Read(Email);
+
             // Open the CreateManagerWindow for creating a new manager
             new CreateManagerWindow(0, Email, Email).ShowDialog();
-            ManagerName = s_bl.User.Read(Email).Name;
+            if (ManagerName != manager.Name || s_bl.User.Read(Email).Password != manager.Password)
+                Close();
         }
         catch
         {
+            //catch when self Email change
             Close();
         }
     }

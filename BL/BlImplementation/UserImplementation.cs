@@ -171,5 +171,8 @@ internal class UserImplementation : BlApi.IUser
 
         if (!user.Password.Any(char.IsUpper) || !user.Password.Any(char.IsLower) || !user.Password.Any(char.IsDigit))
             throw new BO.BLValueIsNotCorrectException($"User password must contain at least one uppercase letter, one lowercase letter and one digit: {user.Password}");
+
+        if(user.Password.Any(ch => ch == ' '))
+            throw new BO.BLValueIsNotCorrectException($"User password can not contain white space: {user.Password}");
     }
 }

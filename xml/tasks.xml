@@ -199,6 +199,16 @@
     <IsActive>true</IsActive>
   </Task>
   <Task>
+    <Id>24</Id>
+    <Alias>asdf</Alias>
+    <Description>sda</Description>
+    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
+    <RequiredEffortTime>P12DT21H12M21S</RequiredEffortTime>
+    <Complexity>Intermediate</Complexity>
+    <IsActive>false</IsActive>
+    <Deliverables>awda</Deliverables>
+  </Task>
+  <Task>
     <Id>23</Id>
     <Alias>knkmk</Alias>
     <Description>saklmda</Description>
@@ -206,15 +216,5 @@
     <RequiredEffortTime>PT0S</RequiredEffortTime>
     <Complexity>AdvancedBeginner</Complexity>
     <IsActive>true</IsActive>
-  </Task>
-  <Task>
-    <Id>24</Id>
-    <Alias>asdf</Alias>
-    <Description>sda</Description>
-    <CreatedAtDate>0001-01-01T00:00:00</CreatedAtDate>
-    <RequiredEffortTime>P12DT21H12M21S</RequiredEffortTime>
-    <Complexity>Intermediate</Complexity>
-    <IsActive>true</IsActive>
-    <Deliverables>awda</Deliverables>
   </Task>
 </ArrayOfTask>

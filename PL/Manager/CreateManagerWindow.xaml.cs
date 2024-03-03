@@ -91,6 +91,13 @@ public partial class CreateManagerWindow : Window, INotifyPropertyChanged
             }
             else
             {
+                if(ManagerEmail == Email)
+                {
+                    if (MessageBox.Show("Change yourself data will cause to log out\nAre you sure about that?", "Self change data",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Information) == MessageBoxResult.No)
+                        return;
+                }
                 // Delete the old manager and create a new one (because the email is the primary key)
                 s_bl.User.Delete(Email!);
                 s_bl.User.Create(CurrentManager);
@@ -111,7 +118,7 @@ public partial class CreateManagerWindow : Window, INotifyPropertyChanged
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
-        catch (BO.BLDoesNotExistException ex)
+        catch (BO.BLDoesNotExistException)
         {
             // Handle a specific exception
             s_bl.User.Create(CurrentManager);
