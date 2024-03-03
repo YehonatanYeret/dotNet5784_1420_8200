@@ -104,6 +104,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             s_bl.InitializeDB();
             IsprojectStarted = Visibility.Visible;
             s_bl.Init(DateTime.Now.Date);
+            MessageBox.Show("Data initialized successfully");
         }
     }
 

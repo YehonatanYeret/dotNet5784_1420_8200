@@ -81,12 +81,12 @@ internal class TaskImplementation : BlApi.ITask
         CheckTask(task);
 
         // Create a graph to detect cyclic dependencies
-        Graph graph = new(_dal.Task.ReadAll(task => task.IsActive).Count());
+        Graph graph = new(_dal.Task.ReadAll().Count());
 
         // Add edges to the graph
         foreach (TaskInList t in task.Dependencies!)
         {
-            graph.AddEdge(task.Id, t.Id - 1);
+            graph.AddEdge(task.Id-1, t.Id - 1);
         }
         //add the rest of the edges
         IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll();
@@ -363,6 +363,8 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLValueIsNotCorrectException("description must not be empty");//nedd to change to BO exception
         if (task.RequiredEffortTime < TimeSpan.Zero)
             throw new BO.BLValueIsNotCorrectException("required effort time must not be negative");//nedd to change to BO exception
+        if(task.Complexity == EngineerExperience.None)
+            throw new BO.BLValueIsNotCorrectException("complexity must not be none");//nedd to change to BO exception
     }
 
     /// <summary>
