@@ -32,14 +32,14 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>David Levi</Name>
-    <Password>DavidLevi0</Password>
-    <Email>David@hotmail.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
     <Name>Asaf Bir</Name>
     <Password>AsafBir0</Password>
     <Email>Asaf@walla.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@hotmail.com</Email>
   </User>
 </ArrayOfUser>

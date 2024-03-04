@@ -37,11 +37,8 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty DepProperty =
         DependencyProperty.Register("Dep", typeof(List<DependencyList>), typeof(TaskWindow), new PropertyMetadata(null));
 
-    public bool IsProjectStarted
-    {
-        get { return (bool)GetValue(IsProjectStartedProperty); }
-        set { SetValue(IsProjectStartedProperty, value); }
-    }
+    // Dependency property for indicating project status.
+    public bool IsProjectStarted { get { return (bool)GetValue(IsProjectStartedProperty); } set { SetValue(IsProjectStartedProperty, value); } }
 
     // Dependency property for indicating project status.
     public static readonly DependencyProperty IsProjectStartedProperty =
