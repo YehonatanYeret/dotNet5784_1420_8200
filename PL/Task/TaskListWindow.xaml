@@ -12,53 +12,92 @@
     <Grid Background="#FF9ABECA">
         <Grid.RowDefinitions>
             <!-- Row 0: Top part 1 for filter and selection -->
-            <RowDefinition Height="40*"/>
-            <!-- Row 1: Top part 2 for filter and selection -->
-            <RowDefinition Height="40*"/>
+            <RowDefinition Height="80*"/>
+
             <!-- Row 2 Main content area for displaying tasks -->
             <RowDefinition Height="500*"/>
             <!-- Row 3: Button for adding new task -->
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Internal, Upper Grid 1-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid Grid.Row="0" >
             <Grid.ColumnDefinitions>
-                <!-- Column 0: Label for displaying selected task status -->
-                <ColumnDefinition Width="2*"/>
-                <!-- Column 1: ComboBox for selecting task status -->
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!-- Label for displaying selected task status -->
-            <Label Grid.Column="0" Content="Selected status of tasks:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            <!--button for switch options between cimboboxes and searchbar-->
+            <Button Width="25" Height="25" Margin="10" Grid.Column="0" Click="SearchOptionsBtn_click">
+                <Button.Background>
+                    <ImageBrush ImageSource="../Images/reset.png"/>
+                </Button.Background>
+            </Button>
 
-            <!-- ComboBox for selecting task status -->
-            <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
+            <!--grid for the first filter option-->
+            <Grid Visibility="{Binding SearchBoxesVisibility}" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+            
+                <!-- Internal, Upper Grid 1-->
+                <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" Grid.Column="1" VerticalAlignment="Stretch" Width="auto">
+                    <Grid.ColumnDefinitions>
+                        <!-- Column 0: Label for displaying selected task status -->
+                        <ColumnDefinition Width="2*"/>
+                        <!-- Column 1: ComboBox for selecting task status -->
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Label for displaying selected task status -->
+                    <Label Grid.Column="0" Content="Selected status of tasks:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+
+                    <!-- ComboBox for selecting task status -->
+                    <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
                       ItemsSource="{Binding Source={StaticResource TaskCollectionKey}}"
                       SelectedItem="{Binding status, Mode=TwoWay}" SelectionChanged="Filter_SelectionChanged"/>
-        </Grid>
+                </Grid>
 
-        <!-- Internal, Upper Grid 2-->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="1" VerticalAlignment="Stretch" Width="auto">
-            <Grid.ColumnDefinitions>
-                <!-- Column 0: Label for displaying selected task complexity -->
-                <ColumnDefinition Width="2*"/>
-                <!-- Column 1: ComboBox for selecting task complexity -->
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
+                <!-- Internal, Upper Grid 2-->
+                <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch" Width="auto">
+                    <Grid.ColumnDefinitions>
+                        <!-- Column 0: Label for displaying selected task complexity -->
+                        <ColumnDefinition Width="2*"/>
+                        <!-- Column 1: ComboBox for selecting task complexity -->
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
 
-            <!-- Label for displaying selected task complexity -->
-            <Label Grid.Column="0" Content="Selected level of tasks:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+                    <!-- Label for displaying selected task complexity -->
+                    <Label Grid.Column="0" Content="Selected level of tasks:" VerticalContentAlignment="Stretch" FontSize="24" FontFamily="MS UI Gothic" FontWeight="Bold" HorizontalContentAlignment="Center"/>
 
-            <!-- ComboBox for selecting task complexity -->
-            <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
+                    <!-- ComboBox for selecting task complexity -->
+                    <ComboBox Grid.Column="1" VerticalAlignment="Stretch"
                ItemsSource="{Binding Source={StaticResource EngineerCollectionKey}}"
                SelectedItem="{Binding complexity, Mode=TwoWay}" SelectionChanged="Filter_SelectionChanged"/>
-        </Grid>
+                </Grid>
+            </Grid>
 
+            <!--grid for the second filter option-->
+            <Grid Grid.Column="1" Visibility="{Binding SearchBoxesVisibility, Converter={StaticResource ConvertHiddenToVissibleKey}}">
+                <TextBox Width="250" Height="50" TextChanged="TextBox_TextChanged" VerticalAlignment="Center" FontSize="25" VerticalContentAlignment="Center">
+                    <TextBox.Style>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TextBox">
+                                        <Border BorderBrush="Black" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="5">
+                                            <ScrollViewer x:Name="PART_ContentHost"/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TextBox.Style>
+                </TextBox>
+            </Grid>
+        </Grid>
         <!-- ListView to display EngineerList -->
-        <ListView Grid.Row="2" ItemsSource="{Binding TaskList}" 
+        <ListView Grid.Row="1" ItemsSource="{Binding FilteredData}" 
                   MouseDoubleClick="UpdateListView_DoubleClick">
             <ListView.View>
                 <GridView >
@@ -101,8 +140,7 @@
             </ListView.View>
         </ListView>
 
-
-        <Grid Grid.Row="3" Height="50">
+        <Grid Grid.Row="2" Height="50">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
@@ -112,15 +150,13 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="1" Grid.ColumnSpan="2">
-
-
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <!-- Button to recover a task -->
                 <Button Grid.Column="{Binding NormalMode, Mode=TwoWay, Converter={StaticResource ConvertIdToColumnKey}}"
                     Grid.ColumnSpan="2" Content="Recovery" Click="BtnRecovery_Click" Margin="5">
@@ -128,16 +164,15 @@
                     <!-- Visibility of the buttons based on conditions using MultiBinding -->
                     <Button.Visibility>
                         <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
-                            <Binding Path="EngineerID" />
+                            <Binding Path="EngineerID"/>
                             <Binding Path="IsProjectStarted"/>
                         </MultiBinding>
                     </Button.Visibility>
-
                 </Button>
 
                 <!-- Button to add a new task -->
                 <Button Grid.Column="2" Grid.ColumnSpan="2" Content="Add" Click="AddBtn_OnClick" Margin="5">
-
+                   
                     <!-- Visibility of the button based on conditions using MultiBinding -->
                     <Button.Visibility>
                         <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
@@ -146,7 +181,6 @@
                             <Binding Path="NormalMode"/>
                         </MultiBinding>
                     </Button.Visibility>
-
                 </Button>
 
             </Grid>
