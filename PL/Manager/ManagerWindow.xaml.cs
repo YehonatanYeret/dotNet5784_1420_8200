@@ -92,6 +92,8 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             s_bl.ResetDB();
             IsprojectStarted = Visibility.Visible;
             s_bl.Init(DateTime.Now.Date);
+            MessageBox.Show("Data reset successfully");
+            Close();
         }
     }
 
@@ -105,6 +107,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             IsprojectStarted = Visibility.Visible;
             s_bl.Init(DateTime.Now.Date);
             MessageBox.Show("Data initialized successfully");
+            Close();
         }
     }
 
@@ -151,12 +154,15 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     {
         try
         {
-            //for checking self changing
-            BO.User manager = s_bl.User.Read(Email);
+            string ManagerPassword = s_bl.User.Read(Email).Password;
 
             // Open the CreateManagerWindow for creating a new manager
             new CreateManagerWindow(0, Email, Email).ShowDialog();
-            if (ManagerName != manager.Name || s_bl.User.Read(Email).Password != manager.Password)
+
+            //for checking self changing
+            BO.User manager = s_bl.User.Read(Email);
+
+            if (ManagerName != manager.Name || ManagerPassword != manager.Password)
                 Close();
         }
         catch

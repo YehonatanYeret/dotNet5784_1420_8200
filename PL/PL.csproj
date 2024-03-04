@@ -14,21 +14,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\add.png" />
+    <None Remove="Images\addDay.png" />
+    <None Remove="Images\addHour.png" />
+    <None Remove="Images\addImage.png" />
+    <None Remove="Images\delete.png" />
     <None Remove="Images\description.png" />
     <None Remove="Images\email.png" />
     <None Remove="Images\engineer.png" />
+    <None Remove="Images\finishTask.png" />
     <None Remove="Images\gant.png" />
     <None Remove="Images\gantBackground.jpg" />
+    <None Remove="Images\initialize.png" />
     <None Remove="Images\leftArrow.png" />
     <None Remove="Images\leftArrowOver.png" />
     <None Remove="Images\manager.png" />
     <None Remove="Images\name.png" />
     <None Remove="Images\noImageFound.jpg" />
+    <None Remove="Images\password.png" />
     <None Remove="Images\question.png" />
     <None Remove="Images\reset.png" />
     <None Remove="Images\schedule.png" />
     <None Remove="Images\task.png" />
+    <None Remove="Images\update.png" />
     <None Remove="mainWindow.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\addDay.png" />
+    <Resource Include="Images\addHour.png" />
+    <Resource Include="Images\addImage.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\email.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,11 +55,13 @@
 
   <ItemGroup>
     <Resource Include="Images\description.png" />
-    <Resource Include="Images\email.png" />
     <Resource Include="Images\engineer.png" />
+    <Resource Include="Images\finishTask.png" />
     <Resource Include="Images\gant.png" />
+    <Resource Include="Images\initialize.png" />
     <Resource Include="Images\manager.png" />
     <Resource Include="Images\name.png" />
+    <Resource Include="Images\password.png" />
     <Resource Include="Images\question.png" />
     <Resource Include="Images\leftArrowOver.png" />
     <Resource Include="Images\mainWindow.jpg" />
@@ -49,6 +69,7 @@
     <Resource Include="Images\reset.png" />
     <Resource Include="Images\schedule.png" />
     <Resource Include="Images\task.png" />
+    <Resource Include="Images\update.png" />
   </ItemGroup>
 
 </Project>

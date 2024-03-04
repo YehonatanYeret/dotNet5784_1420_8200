@@ -66,7 +66,7 @@
                 </Grid.ColumnDefinitions>
 
 
-                <Label Content="The engineer works on task:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="You works on task:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
 
                 <!-- Engineer ID -->
                 <Label Content="ID:  " HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
@@ -87,12 +87,31 @@
             </Grid>
         </Border>
 
-        <Button Grid.Row="5" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" 
-                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}" IsDefault="True"/>
+        <Button Grid.Row="5" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="160" Height="40" 
+                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}" IsDefault="True">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/finishTask.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                        <TextBlock Text="Finish the task" />
+                    </StackPanel>
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+
 
         <!--the task-->
         <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->
 
-        <Button Grid.Row="6" Content="Your Tasks"  Grid.ColumnSpan="2" Margin="20 ,7" Width="100" Height="40" Click="EngineerAllTasksBtn_Click"/> 
+        <Button Grid.Row="6" Content="Your Tasks"  Grid.ColumnSpan="2" Margin="20 ,7" Width="100" Height="40" Click="EngineerAllTasksBtn_Click">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/task.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                        <TextBlock Text="Tasks" />
+                    </StackPanel>
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
     </Grid>
 </Window>
