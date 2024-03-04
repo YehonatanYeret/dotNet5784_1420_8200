@@ -19,10 +19,10 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     public event PropertyChangedEventHandler? PropertyChanged;
 
     // Dependency property for the Task.
-    public BO.Task CurrentTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value); } }
+    public BO.Task CurrentTask { get { return (BO.Task)GetValue(CTaskProperty); } set { SetValue(CTaskProperty, value); } }
 
     // Identifies the CurrentTask dependency property.
-    public static readonly DependencyProperty TaskProperty =
+    public static readonly DependencyProperty CTaskProperty =
         DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
     public BO.EngineerInTask? CurrEngineer { get { return (BO.EngineerInTask?)GetValue(CurrEngineerProperty); } set { SetValue(CurrEngineerProperty, value); } }

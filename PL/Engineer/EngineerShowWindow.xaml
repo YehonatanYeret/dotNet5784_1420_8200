@@ -34,10 +34,10 @@
             </Border>
         </Grid>
         <TextBlock Text="You don't work on any task &#xA;Select a task to work on:" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"
-                   Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}" FontWeight="Bold" Grid.Row="1" Margin="0,50"/>
+                   Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=OneWay}" FontWeight="Bold" Grid.Row="1" Margin="0,50"/>
 
         <Button Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" IsDefault="True"
-                     Grid.Row="2" Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}">
+                     Grid.Row="2" Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=OneWay}">
             <Button.ContentTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -50,7 +50,7 @@
 
 
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="15"  Grid.Row="1" Margin="7" ClipToBounds="True" Background="#919190" Padding="7" 
-                Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=TwoWay}">
+                Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}">
 
             <Grid>
                 <!-- Set the background gradient -->
@@ -77,11 +77,11 @@
 
                 <!-- Task ID -->
                 <Label Content="ID:  " HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
-                <Label Content="{Binding CurrTask.Id, Mode=TwoWay}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding CurrTask.Id, Mode=OneWay}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
 
                 <!-- Task alias -->
                 <Label Content="Alias:  " HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
-                <Label Content="{Binding CurrTask.Alias, Mode=TwoWay}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding CurrTask.Alias, Mode=OneWay}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
 
                 <!-- Task description -->
                 <Label Content="Description:  " HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>

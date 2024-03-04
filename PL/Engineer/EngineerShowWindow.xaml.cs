@@ -40,11 +40,13 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerShowWindow), new PropertyMetadata(null));
 
     // Dependency property for the Task.
-    public BO.Task? CurrTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value); OnPropertyChanged(nameof(CurrTask)); } }
+    public BO.Task CurrTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value);
+            OnPropertyChanged(nameof(CurrTask));
+        } }
 
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty TaskProperty =
-        DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("CurrTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
 
 
