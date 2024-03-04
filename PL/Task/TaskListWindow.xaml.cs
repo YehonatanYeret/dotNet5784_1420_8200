@@ -1,9 +1,9 @@
-﻿namespace PL.Task;
-
-using BO;
+﻿using BO;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+namespace PL.Task;
+
 
 /// <summary>
 /// Interaction logic for TaskListWindow.xaml
@@ -21,6 +21,21 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     }
 
     /// <summary>
+    /// the filterd data to show in the list view
+    /// </summary>
+    public IEnumerable<BO.TaskInList> FilteredData
+    {
+        get { return (IEnumerable<BO.TaskInList>)GetValue(FilteredDataProperty); }
+        set { SetValue(FilteredDataProperty, value); }
+    }
+
+    /// <summary>
+    /// Dependency property for TaskList
+    /// </summary>
+    public static readonly DependencyProperty FilteredDataProperty =
+        DependencyProperty.Register("FilteredData", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+
+    /// <summary>
     /// Dependency Property for list of Tasks
     /// </summary>
     public IEnumerable<BO.TaskInList> TaskList
@@ -34,6 +49,8 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     /// </summary>
     public static readonly DependencyProperty TaskListProperty =
         DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+
+
 
     /// <summary>
     /// Selected task's status
@@ -61,6 +78,18 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     /// Dependency property for the engineer id (if we are in engineer mode)
     /// </summary>
     public int EngineerID { get; set; }
+
+    /// <summary>
+    /// dep property for the search boxes visibility
+    /// </summary>
+    public Visibility SearchBoxesVisibility
+    {
+        get { return (Visibility)GetValue(SearchBoxesVisibilityProperty); }
+        set { SetValue(SearchBoxesVisibilityProperty, value); }
+    }
+
+    public static readonly DependencyProperty SearchBoxesVisibilityProperty =
+        DependencyProperty.Register("SearchBoxesVisibility", typeof(Visibility), typeof(TaskListWindow), new PropertyMetadata(null));
 
     /// <summary>
     /// Dependency property for knowing if we are in engineer mode then we can choose a mission or just see the tasks
@@ -105,6 +134,9 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
         EngineerID = engineerID;
         IsProjectStarted = s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress;
         NormalMode = 1;
+
+        // Set the visibility of the search boxes based on the mode
+        SearchBoxesVisibility = Visibility.Visible;
 
         if (EngineerID != 0)
         {
@@ -246,8 +278,36 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
         }
 
         // Filter by experience level
-        TaskList = (complexity == BO.EngineerExperience.None) ?
+        FilteredData = (complexity == BO.EngineerExperience.None) ?
             TaskList :
             TaskList.Where(item => s_bl!.Task.Read(item.Id).Complexity == complexity);
+    }
+
+    /// <summary>
+    /// function that will be called to flip the search boxes options
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void SearchOptionsBtn_click(object sender, RoutedEventArgs e)
+    {
+        SearchBoxesVisibility = SearchBoxesVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+    }
+
+    /// <summary>
+    /// a function that will be called when the text in the search box is changed
+    /// the function will filter the data based on the text in the search box
+    /// </summary>
+    private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (sender is TextBox textBox)
+        {
+            string searchText = textBox.Text.ToLower();//check on lower case
+            //filter the data based on the search text and update the filtered data
+            if (!string.IsNullOrEmpty(searchText))
+                FilteredData = TaskList.Where(x => x.Alias.ToLower().StartsWith(searchText) || x.Description.ToLower().StartsWith(searchText));
+            //if the search text is empty then show all the data
+            else
+                FilteredData = TaskList;
+        }
     }
 }
