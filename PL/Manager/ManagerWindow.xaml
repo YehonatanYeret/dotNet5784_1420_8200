@@ -61,7 +61,7 @@
             </Grid.RowDefinitions>
 
             <!-- Manager name label -->
-            <Label Content="{Binding ManagerName, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Center"/>
+            <Label Content="{Binding ManagerName, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"/>
 
             <!-- Progress bar for project completion -->
             <ProgressBar  Height="20"  Grid.Row="1" Margin="30, 0"
