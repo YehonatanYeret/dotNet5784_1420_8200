@@ -96,7 +96,7 @@
                     <TextBox Text="{Binding CurrTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}"
                        Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" Width="120"/>
 
-                    <Button Margin="2,7" Height="25" Click="Button_Click_1">
+                    <Button Margin="2,7" Height="25" Click="BtnSaveChange_click">
                         <Button.ContentTemplate>
                             <DataTemplate>
                                 <Image Source="../Images/update.png"  Width="22" Height="22"/>
@@ -117,7 +117,7 @@
                     <TextBox Text="{Binding CurrTask.Remarks, Mode=TwoWay, NotifyOnValidationError=True}"
                        Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" Width="120"/>
 
-                    <Button Margin="2,7" Height="25" Click="Button_Click">
+                    <Button Margin="2,7" Height="25" Click="BtnSaveChange_click">
                         <Button.ContentTemplate>
                             <DataTemplate>
                                 <Image Source="../Images/update.png"  Width="22" Height="22"/>

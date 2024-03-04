@@ -40,15 +40,11 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerShowWindow), new PropertyMetadata(null));
 
     // Dependency property for the Task.
-    public BO.Task CurrTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value);
-            OnPropertyChanged(nameof(CurrTask));
-        } }
+    public BO.Task CurrTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value); OnPropertyChanged(nameof(CurrTask)); } }
 
     // Identifies the CurrentTask dependency property.
     public static readonly DependencyProperty TaskProperty =
         DependencyProperty.Register("CurrTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
-
-
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EngineerShowWindow"/> class.
@@ -84,6 +80,8 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
         new TaskListWindow(CurrentEngineer.Id).ShowDialog();
 
         CurrentEngineer = s_bl.Engineer.Read(CurrentEngineer.Id);
+
+        // Set the associated task or create a default one
         if (CurrentEngineer.Task != null)
             CurrTask = s_bl.Task.Read(CurrentEngineer.Task.Id);
         else
@@ -105,28 +103,23 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
 
     }
 
+    /// <summary>
+    /// Event handler for displaying all tasks of the engineer.
+    /// </summary>
     private void EngineerAllTasksBtn_Click(object sender, RoutedEventArgs e)
     {
         // Open a window for displaying all tasks of the engineer but in read-only mode
         new TaskListWindow(CurrentEngineer.Id, false).ShowDialog();
     }
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    /// <summary>
+    /// Event handler for saving changes to the task.
+    /// </summary>
+    private void BtnSaveChange_click(object sender, RoutedEventArgs e)
     {
         try
         {
-            s_bl.Task.Update(CurrTask!);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    private void Button_Click_1(object sender, RoutedEventArgs e)
-    {
-        try
-        {
+            // Update the task in the business logic
             s_bl.Task.Update(CurrTask!);
         }
         catch (Exception ex)
