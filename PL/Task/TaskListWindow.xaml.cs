@@ -109,7 +109,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
         if (EngineerID != 0)
         {
             currentEngineer = s_bl.Engineer.Read(EngineerID);
-            status = BO.Status.Scheduled;
+            status = chooseMission ? BO.Status.Scheduled : BO.Status.None;
         }
         InitializeComponent();
     }
@@ -160,8 +160,8 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
                         try
                         {
                             // Create a new task in engineer and update the task status to on track
-                            currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
                             s_bl.Task.ChangeStatusOfTask(taskInList.Id);
+                            currentEngineer!.Task = new BO.TaskInEngineer { Id = taskInList.Id, Alias = taskInList.Alias };
                             s_bl.Engineer.Update(currentEngineer);
                             Close();
                         }
@@ -232,8 +232,8 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
                 {
                     // Engineer mode and not choose mission mode
                     TaskList = (status == BO.Status.None) ?
-                        s_bl?.Engineer.GetAllTaskOfEngineer(EngineerID).OrderBy(item => item.Id)! :
-                        s_bl?.Engineer.GetAllTaskOfEngineer(EngineerID).Where(task => task.Status == status).OrderBy(item => item.Id)!;
+                        s_bl?.Engineer.GetAllTasksOfEngineer(EngineerID).OrderBy(item => item.Id)! :
+                        s_bl?.Engineer.GetAllTasksOfEngineer(EngineerID).Where(task => task.Status == status).OrderBy(item => item.Id)!;
                 }
             }
         }

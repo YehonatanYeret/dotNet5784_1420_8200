@@ -72,7 +72,7 @@ public interface IEngineer
     /// </summary>
     /// <param name="engineerId">the id of the engineer</param>
     /// <returns>the tasks that sets to the engineer</returns>
-    public IEnumerable<BO.TaskInList> GetAllTaskOfEngineer(int engineerId, Func<BO.Task, bool>? filter = null);
+    public IEnumerable<BO.TaskInList> GetAllTasksOfEngineer(int engineerId, Func<BO.Task, bool>? filter = null);
 
     /// <summary>
     /// Convert image to base64

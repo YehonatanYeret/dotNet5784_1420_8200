@@ -20,12 +20,6 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Ben Baruch</Name>
-    <Password>BenBaruch0</Password>
-    <Email>Ben@walla.com</Email>
-  </User>
-  <User>
-    <Type>engineer</Type>
     <Name>David Levi</Name>
     <Password>DavidLevi0</Password>
     <Email>David@outlook.com</Email>
@@ -47,6 +41,12 @@
     <Name>sndjf</Name>
     <Password>Aasnisanfka12</Password>
     <Email>kss@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@walla.com</Email>
   </User>
   <User>
     <Type>engineer</Type>

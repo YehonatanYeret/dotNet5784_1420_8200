@@ -276,7 +276,7 @@ internal class EngineerImplementation : IEngineer
     public IEnumerable<BO.TaskInList> GetTasksOfEngineerToWork(int engineerId)
     {
         //return IEnumerable of the tasks that the engineer can start to work on based on the status and the dependencies
-        return GetAllTaskOfEngineer(engineerId, task => task.Status == BO.Status.Scheduled && !task.Dependencies!.Any(dep => dep.Status != BO.Status.Done));
+        return GetAllTasksOfEngineer(engineerId, task => task.Status == BO.Status.Scheduled);
     }
 
     /// <summary>
@@ -284,7 +284,7 @@ internal class EngineerImplementation : IEngineer
     /// </summary>
     /// <param name="engineerId">the id of the engineer</param>
     /// <returns>the tasks that sets to the engineer</returns>
-    public IEnumerable<BO.TaskInList> GetAllTaskOfEngineer(int engineerId, Func<BO.Task, bool>? filter = null)
+    public IEnumerable<BO.TaskInList> GetAllTasksOfEngineer(int engineerId, Func<BO.Task, bool>? filter = null)
     {
         //if there is no filter, return all the tasks without filter
         if (filter is null)
