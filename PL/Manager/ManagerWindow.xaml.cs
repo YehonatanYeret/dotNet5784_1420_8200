@@ -91,7 +91,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             // Reset the database
             s_bl.ResetDB();
             IsprojectStarted = Visibility.Visible;
-            s_bl.Init(DateTime.Now.Date);
+            s_bl.Init();
         }
     }
 
@@ -103,7 +103,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             // Initialize the database
             s_bl.InitializeDB();
             IsprojectStarted = Visibility.Visible;
-            s_bl.Init(DateTime.Now.Date);
+            s_bl.Init();
             MessageBox.Show("Data initialized successfully");
         }
     }

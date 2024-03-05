@@ -43,6 +43,6 @@ public interface IBl
     public void AddDay();
     public void AddHour();
     public void ResetTime();
-    public void Init(DateTime date);
+    public void Init();
     #endregion
 }

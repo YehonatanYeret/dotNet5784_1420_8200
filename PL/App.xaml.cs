@@ -30,12 +30,6 @@ public partial class App : Application
     {
         // Call the base class method for further processing
         base.OnStartup(e);
-
-        // Get the current time from the business logic layer
-        DateTime? time = s_bl.Clock.GetCurrentTime();
-
-        // If the time is available, initialize the business logic layer with the current time
-        if (time != null)
-            s_bl.Init(time.Value);
+        s_bl.Init();
     }
 }

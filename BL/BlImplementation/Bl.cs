@@ -57,9 +57,9 @@
             Time = DateTime.Now.Date;
         }
 
-        public void Init(DateTime date)
+        public void Init()
         {
-            Time = date;
+            Time = Factory.Get().Clock.GetCurrentTime() ?? DateTime.Now.Date;
         }
     }
 }
