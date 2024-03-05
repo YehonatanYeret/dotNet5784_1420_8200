@@ -96,7 +96,7 @@
         </Grid>
 
         <!-- Button for Adding or (Updating and Deleting Engineer)-->
-        <Grid Grid.Row="1" Margin="10,0">
+        <Grid Grid.Row="1" Margin="5,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
@@ -112,10 +112,30 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Add or Update button -->
-                <Button Grid.Column="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToColumnKey}}" Content="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}" Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="20 ,7" />
+                <Button Grid.Column="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToColumnKey}}" 
+                       Grid.ColumnSpan="2" Click="btnAddUpdate_Click" Margin="15 ,7" >
+
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/update.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConverIdToContentKey}}"/>
+                        </StackPanel>
+                    </Button.Content>
+
+                </Button>
 
                 <!-- Delete button -->
-                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}" Content="Delete" VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2"/>
+                <Button Grid.Column="2" Margin="15 ,7" Visibility="{Binding createOrUpdate, Mode=OneWay, Converter={StaticResource ConvertIdToVisibleKey}}" 
+                        VerticalContentAlignment="Center" Background="#FFC41E1C" Click="btnDelete_Click" Grid.ColumnSpan="2">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Images/delete.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                                <TextBlock Text="Delete" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
             </Grid>
         </Grid>
 
@@ -135,7 +155,16 @@
             </Button>
 
             <!-- New button -->
-            <Button Content="new" Grid.Column="1" HorizontalAlignment="center" VerticalAlignment="Center" Width="100" Height="30" Click="btnNew_Click" Margin="2,10"/>
+            <Button Grid.Column="1" HorizontalAlignment="center" VerticalAlignment="Center" Width="100" Height="30" Click="btnNew_Click" Margin="2,10">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/add.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="New" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
 
             <!-- Right navigation button -->
             <Button Grid.Column="2" Click="btnRight_Click" Margin="2,10" BorderThickness="0" RenderTransformOrigin="0.5,0.5">

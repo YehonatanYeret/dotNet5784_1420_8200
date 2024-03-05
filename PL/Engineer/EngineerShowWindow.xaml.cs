@@ -39,19 +39,12 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(EngineerShowWindow), new PropertyMetadata(null));
 
-    /// <summary>
-    /// Gets or sets the current task associated with the engineer.
-    /// </summary>
-    public BO.TaskInList? Task
-    {
-        get { return task; }
-        set
-        {
-            task = value;
-            OnPropertyChanged(nameof(Task)); // Notify the UI about the property change
-        }
-    }
-    private BO.TaskInList? task;
+    // Dependency property for the Task.
+    public BO.Task CurrTask { get { return (BO.Task)GetValue(TaskProperty); } set { SetValue(TaskProperty, value); OnPropertyChanged(nameof(CurrTask)); } }
+
+    // Identifies the CurrentTask dependency property.
+    public static readonly DependencyProperty TaskProperty =
+        DependencyProperty.Register("CurrTask", typeof(BO.Task), typeof(TaskWindow), new PropertyMetadata(null));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EngineerShowWindow"/> class.
@@ -64,9 +57,9 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
 
         // Set the associated task or create a default one
         if (CurrentEngineer.Task != null)
-            Task = s_bl.Task.ConvertToTaskInList(CurrentEngineer.Task.Id);
+            CurrTask = s_bl.Task.Read(CurrentEngineer.Task.Id);
         else
-            Task = new BO.TaskInList() { Id = 0 };
+            CurrTask = new BO.Task() { Id = 0 };
 
         InitializeComponent();
     }
@@ -77,7 +70,7 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     private void ChooseTaskBtn_Click(object sender, RoutedEventArgs e)
     {
 
-        if(!s_bl.Engineer.GetTasksOfEngineerToWork(CurrentEngineer.Id).Any())
+        if (!s_bl.Engineer.GetTasksOfEngineerToWork(CurrentEngineer.Id).Any())
         {
             MessageBox.Show("There are no tasks to choose from", "No tasks", MessageBoxButton.OK, MessageBoxImage.Error);
             return;
@@ -87,10 +80,12 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
         new TaskListWindow(CurrentEngineer.Id).ShowDialog();
 
         CurrentEngineer = s_bl.Engineer.Read(CurrentEngineer.Id);
+
+        // Set the associated task or create a default one
         if (CurrentEngineer.Task != null)
-            Task = s_bl.Task.ConvertToTaskInList(CurrentEngineer.Task.Id);
+            CurrTask = s_bl.Task.Read(CurrentEngineer.Task.Id);
         else
-            Task = new BO.TaskInList() { Id = 0 };
+            CurrTask = new BO.Task() { Id = 0 };
     }
 
     /// <summary>
@@ -98,16 +93,38 @@ public partial class EngineerShowWindow : Window, INotifyPropertyChanged
     /// </summary>
     private void FinishTaskBtn_Click(object sender, RoutedEventArgs e)
     {
+        s_bl.Task.Update(CurrTask!);
+
         // Change the status of the current task
-        s_bl.Task.ChangeStatusOfTask(Task!.Id);
+        s_bl.Task.ChangeStatusOfTask(CurrTask!.Id);
 
         // Reset the current task to a default value
-        Task = new BO.TaskInList() { Id = 0 };
+        CurrTask = new BO.Task() { Id = 0 };
+
     }
 
+    /// <summary>
+    /// Event handler for displaying all tasks of the engineer.
+    /// </summary>
     private void EngineerAllTasksBtn_Click(object sender, RoutedEventArgs e)
     {
         // Open a window for displaying all tasks of the engineer but in read-only mode
         new TaskListWindow(CurrentEngineer.Id, false).ShowDialog();
+    }
+
+    /// <summary>
+    /// Event handler for saving changes to the task.
+    /// </summary>
+    private void BtnSaveChange_click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Update the task in the business logic
+            s_bl.Task.Update(CurrTask!);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }

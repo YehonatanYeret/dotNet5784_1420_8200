@@ -27,14 +27,32 @@
         <!-- Grid for buttons related to Gantt and Start Project -->
         <Grid Grid.Row="0" Grid.Column="0" Margin="40">
             <!-- Buttons for Gantt and Start Project -->
-            <Button Content="Gant" Margin="30" Height="40" Click="GanttClick_Button"
-                    Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}, Mode=OneWay}"/>
-            <Button Content="Start Project" Margin="30" Height="40" Click="StartProject_Click"
-                    Visibility="{Binding IsprojectStarted}"/>
+            <Button Margin="30" Height="40" Click="GanttClick_Button"
+                    Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}, Mode=OneWay}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/gant.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Gant" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+
+            <Button Margin="30" Height="40" Click="StartProject_Click" Visibility="{Binding IsprojectStarted}">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/schedule.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Start Project" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
         </Grid>
 
         <!-- Grid for Manager information and controls -->
-        <Grid Grid.Row="0" Grid.Column="1" Margin="40">
+        <Grid Grid.Row="0" Grid.Column="1" Margin="10">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -43,18 +61,36 @@
             </Grid.RowDefinitions>
 
             <!-- Manager name label -->
-            <Label Content="{Binding ManagerName, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Center"/>
+            <Label Content="{Binding ManagerName, Mode=TwoWay}" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25"/>
 
             <!-- Progress bar for project completion -->
-            <ProgressBar  Height="20"  Grid.Row="1"
+            <ProgressBar  Height="20"  Grid.Row="1" Margin="30, 0"
                         Visibility="{Binding IsprojectStarted, Converter={StaticResource ConvertHiddenToVissibleKey}}" 
                         Value="{Binding percentComplete}" Maximum="100" Minimum="0"
                         BorderBrush="DeepSkyBlue" BorderThickness="1">
             </ProgressBar>
 
             <!-- Buttons for resetting and initializing data -->
-            <Button Grid.Row="2" Content="Reset data" Grid.Column="0"  Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right"/>
-            <Button Grid.Row="2" Content="Initialize data" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click"/>
+            <Button Grid.Row="2" Grid.Column="0" Height="40" Width="150" Click="ResetDataBtn_Click" HorizontalAlignment="Right" Margin="20, 0">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/reset.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Reset data" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+            <Button Grid.Row="2" Grid.Column="0" Height="40" Width="150"  HorizontalAlignment="Left" Click="InitializeDataBtn_Click" Margin="20, 0">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/initialize.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Initialize data" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
 
         </Grid>
 
@@ -74,11 +110,39 @@
             </Grid.ColumnDefinitions>
 
             <!-- Buttons to show Task and Engineers -->
-            <Button Content="Tasks" Grid.Column="0" Grid.ColumnSpan="2" Margin="20" Height="40" Click="TaskButton_Click"/>
-            <Button Content="Engineers" Grid.Column="2" Grid.ColumnSpan="2" Margin="20" Height="40" Click="EngineerButton_Click"/>
+            <Button Grid.Column="0" Grid.ColumnSpan="2" Margin="20" Height="40" Click="TaskButton_Click">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/task.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Tasks" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
+            
+            <Button Grid.Column="2" Grid.ColumnSpan="2" Margin="20" Height="40" Click="EngineerButton_Click">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/engineer.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Engineers" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
 
             <!-- Button to show Managers -->
-            <Button Content="Managers" Grid.ColumnSpan="2" Height="40" Click="BtnCreateManager_Click" Grid.Row="1" Grid.Column="1" Margin="20"/>
+            <Button Grid.ColumnSpan="2" Height="40" Click="BtnCreateManager_Click" Grid.Row="1" Grid.Column="1" Margin="20">
+                <Button.ContentTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/manager.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                            <TextBlock Text="Managers" />
+                        </StackPanel>
+                    </DataTemplate>
+                </Button.ContentTemplate>
+            </Button>
         </Grid>
     </Grid>
 </Window>

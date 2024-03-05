@@ -1,13 +1,12 @@
 ﻿namespace PL;
 
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
 /// </summary>
-public partial class MainWindow : Window, INotifyPropertyChanged
+public partial class MainWindow : Window
 {
     // Get the business logic instance
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -33,15 +32,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     // Identifies the Date dependency property
     public static readonly DependencyProperty dateProperty =
         DependencyProperty.Register("Date", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(DateTime.Now));
-
-    // Event for property changed
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    // Method to invoke PropertyChanged event
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 
     /// <summary>
     /// Constructor for the MainWindow class.

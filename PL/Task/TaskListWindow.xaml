@@ -159,7 +159,7 @@
 
                 <!-- Button to recover a task -->
                 <Button Grid.Column="{Binding NormalMode, Mode=TwoWay, Converter={StaticResource ConvertIdToColumnKey}}"
-                    Grid.ColumnSpan="2" Content="Recovery" Click="BtnRecovery_Click" Margin="5">
+                    Grid.ColumnSpan="2" Click="BtnRecovery_Click" Margin="5">
 
                     <!-- Visibility of the buttons based on conditions using MultiBinding -->
                     <Button.Visibility>
@@ -168,11 +168,21 @@
                             <Binding Path="IsProjectStarted"/>
                         </MultiBinding>
                     </Button.Visibility>
+
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Images/reset.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                                <TextBlock Text="Recovery" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+
                 </Button>
 
                 <!-- Button to add a new task -->
-                <Button Grid.Column="2" Grid.ColumnSpan="2" Content="Add" Click="AddBtn_OnClick" Margin="5">
-                   
+                <Button Grid.Column="2" Grid.ColumnSpan="2" Click="AddBtn_OnClick" Margin="5">
+
                     <!-- Visibility of the button based on conditions using MultiBinding -->
                     <Button.Visibility>
                         <MultiBinding Converter="{StaticResource ConvertEngineerAndStatusToVisibleKey}">
@@ -181,10 +191,17 @@
                             <Binding Path="NormalMode"/>
                         </MultiBinding>
                     </Button.Visibility>
+
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="../Images/add.png"  Width="22" Height="22" Margin="0,0,10,0"/>
+                                <TextBlock Text="Add" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
                 </Button>
-
             </Grid>
-
         </Grid>
     </Grid>
 </Window>

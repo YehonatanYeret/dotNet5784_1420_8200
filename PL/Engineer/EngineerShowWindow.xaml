@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerShowWindow" Height="450" Width="300"
+        Title="EngineerShowWindow" Height="500" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}">
 
     <Grid>
@@ -17,13 +17,10 @@
         </Grid.Background>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
         <Grid Margin="0,10,0,0">
@@ -37,14 +34,23 @@
             </Border>
         </Grid>
         <TextBlock Text="You don't work on any task &#xA;Select a task to work on:" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16"
-                   Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}" FontWeight="Bold" Grid.Row="2"/>
+                   Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=OneWay}" FontWeight="Bold" Grid.Row="1" Margin="0,50"/>
 
-        <Button Content="Select task" Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" IsDefault="True"
-                     Grid.Row="3" Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=TwoWay}"/>
+        <Button Click="ChooseTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" IsDefault="True"
+                     Grid.Row="2" Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToCollapsedKey}, Mode=OneWay}">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/finishTask.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                        <TextBlock Text="Select task" />
+                    </StackPanel>
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
 
 
-        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="15"  Grid.Row="1" Grid.RowSpan="4" Margin="7" ClipToBounds="True" Background="#919190" Padding="7" 
-                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=TwoWay}">
+        <Border BorderBrush="Black" BorderThickness="1" CornerRadius="15"  Grid.Row="1" Margin="7" ClipToBounds="True" Background="#919190" Padding="7" 
+                Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}">
 
             <Grid>
                 <!-- Set the background gradient -->
@@ -55,7 +61,8 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="2*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
                     <!--<RowDefinition Height="*"/>-->
                 </Grid.RowDefinitions>
 
@@ -66,33 +73,88 @@
                 </Grid.ColumnDefinitions>
 
 
-                <Label Content="The engineer works on task:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
+                <Label Content="You works on task:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontSize="17" HorizontalContentAlignment="Center" HorizontalAlignment="Center"/>
 
-                <!-- Engineer ID -->
+                <!-- Task ID -->
                 <Label Content="ID:  " HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
-                <Label Content="{Binding Task.Id, Mode=TwoWay}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding CurrTask.Id, Mode=OneWay}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
 
-                <!-- Engineer Name -->
+                <!-- Task alias -->
                 <Label Content="Alias:  " HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
-                <Label Content="{Binding Task.Alias, Mode=TwoWay}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
+                <Label Content="{Binding CurrTask.Alias, Mode=OneWay}" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="1" VerticalContentAlignment="Center" FontSize="14"/>
 
-                <!-- Engineer Email -->
+                <!-- Task description -->
                 <Label Content="Description:  " HorizontalAlignment="Left" Grid.Row="3" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
-                <TextBlock Text="{Binding Task.Description}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                <TextBlock Text="{Binding CurrTask.Description}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
 
-                <Label Content="Status:  " HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" VerticalContentAlignment="Center" FontSize="14"/>
-                <Label Content="{Binding Task.Status}" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="1" VerticalContentAlignment="Center" FontSize="12"/>
+                <!-- task deliverables -->
+                <Label Content="Deliverables:   " HorizontalAlignment="Left" Grid.Row="4" Grid.Column="0" HorizontalContentAlignment="Center" FontSize="14"
+                       VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task Deliverables -->
+                <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+
+                    <TextBox Text="{Binding CurrTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=True}"
+                       Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" Width="120"/>
+
+                    <Button Margin="2,7" Height="25" Click="BtnSaveChange_click">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <Image Source="../Images/update.png"  Width="22" Height="22"/>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
+
+                </StackPanel>
+
+                <!-- task remarks -->
+
+                <Label Content="Remarks:   " HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" FontSize="14"
+                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                <!-- TextBox for Task Remarks -->
+
+                <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+
+                    <TextBox Text="{Binding CurrTask.Remarks, Mode=TwoWay, NotifyOnValidationError=True}"
+                       Margin="2,7" TextWrapping="Wrap" SpellCheck.IsEnabled="True" Language="en-US" Width="120"/>
+
+                    <Button Margin="2,7" Height="25" Click="BtnSaveChange_click">
+                        <Button.ContentTemplate>
+                            <DataTemplate>
+                                <Image Source="../Images/update.png"  Width="22" Height="22"/>
+                            </DataTemplate>
+                        </Button.ContentTemplate>
+                    </Button>
+                </StackPanel>
 
 
             </Grid>
         </Border>
 
-        <Button Grid.Row="5" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="150" Height="40" 
-                Visibility="{Binding Task.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}" IsDefault="True"/>
+        <Button Grid.Row="2" Content="Finish the task" Grid.ColumnSpan="2" Click="FinishTaskBtn_Click" Margin="20 ,7" Width="160" Height="40" 
+                Visibility="{Binding CurrTask.Id, Converter={StaticResource ConvertIdToVisibleKey}, Mode=OneWay}" IsDefault="True">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/finishTask.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                        <TextBlock Text="Finish the task" />
+                    </StackPanel>
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
+
 
         <!--the task-->
         <!--if work - can update finish date and more, else can choose mission to work on from the missions that have is is-->
 
-        <Button Grid.Row="6" Content="Your Tasks"  Grid.ColumnSpan="2" Margin="20 ,7" Width="100" Height="40" Click="EngineerAllTasksBtn_Click"/> 
+        <Button Grid.Row="3" Content="Your Tasks"  Grid.ColumnSpan="2" Margin="20 ,7" Width="100" Height="40" Click="EngineerAllTasksBtn_Click">
+            <Button.ContentTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="../Images/task.png" Width="22" Height="22" Margin="0,0,10,0"/>
+                        <TextBlock Text="Tasks" />
+                    </StackPanel>
+                </DataTemplate>
+            </Button.ContentTemplate>
+        </Button>
     </Grid>
 </Window>
