@@ -21,28 +21,9 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// the filterd data to show in the list view
-    /// </summary>
-    public IEnumerable<BO.TaskInList> FilteredData
-    {
-        get { return (IEnumerable<BO.TaskInList>)GetValue(FilteredDataProperty); }
-        set { SetValue(FilteredDataProperty, value); }
-    }
-
-    /// <summary>
-    /// Dependency property for TaskList
-    /// </summary>
-    public static readonly DependencyProperty FilteredDataProperty =
-        DependencyProperty.Register("FilteredData", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
-
-    /// <summary>
     /// Dependency Property for list of Tasks
     /// </summary>
-    public IEnumerable<BO.TaskInList> TaskList
-    {
-        get { return (IEnumerable<BO.TaskInList>)GetValue(TaskListProperty); }
-        set { SetValue(TaskListProperty, value); }
-    }
+    public IEnumerable<BO.TaskInList> TaskList { get { return (IEnumerable<BO.TaskInList>)GetValue(TaskListProperty); } set { SetValue(TaskListProperty, value); } }
 
     /// <summary>
     /// Dependency property for TaskList
@@ -50,7 +31,10 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     public static readonly DependencyProperty TaskListProperty =
         DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
 
-
+    /// <summary>
+    /// String to hold the search text
+    /// </summary>
+    public string? SearchText { get; set; }
 
     /// <summary>
     /// Selected task's status
@@ -65,11 +49,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     /// <summary>
     /// Dependency property for the engineer of the task (if we are in engineer mode)
     /// </summary>
-    public BO.Engineer? currentEngineer
-    {
-        get { return (BO.Engineer)GetValue(EngineerProperty); }
-        set { SetValue(EngineerProperty, value); }
-    }
+    public BO.Engineer? currentEngineer { get { return (BO.Engineer)GetValue(EngineerProperty); } set { SetValue(EngineerProperty, value); } }
 
     public static readonly DependencyProperty EngineerProperty =
         DependencyProperty.Register("currentEngineer", typeof(BO.Engineer), typeof(TaskListWindow), new PropertyMetadata(null));
@@ -82,11 +62,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     /// <summary>
     /// dep property for the search boxes visibility
     /// </summary>
-    public Visibility SearchBoxesVisibility
-    {
-        get { return (Visibility)GetValue(SearchBoxesVisibilityProperty); }
-        set { SetValue(SearchBoxesVisibilityProperty, value); }
-    }
+    public Visibility SearchBoxesVisibility { get { return (Visibility)GetValue(SearchBoxesVisibilityProperty); } set { SetValue(SearchBoxesVisibilityProperty, value); } }
 
     public static readonly DependencyProperty SearchBoxesVisibilityProperty =
         DependencyProperty.Register("SearchBoxesVisibility", typeof(Visibility), typeof(TaskListWindow), new PropertyMetadata(null));
@@ -99,15 +75,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     /// <summary>
     /// Dependency property for the recovery mode when 0 is recovery mode and 1 is normal mode
     /// </summary>
-    public int NormalMode
-    {
-        get { return (int)GetValue(RecoveryModeProperty); }
-        set
-        {
-            SetValue(RecoveryModeProperty, value);
-            OnPropertyChanged(nameof(NormalMode));
-        }
-    }
+    public int NormalMode { get { return (int)GetValue(RecoveryModeProperty); } set { SetValue(RecoveryModeProperty, value); OnPropertyChanged(nameof(NormalMode)); } }
 
     public static readonly DependencyProperty RecoveryModeProperty =
         DependencyProperty.Register("NormalMode", typeof(int), typeof(TaskListWindow), new PropertyMetadata(null));
@@ -115,11 +83,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     /// <summary>
     /// Dependency property for the project status
     /// </summary>
-    public bool IsProjectStarted
-    {
-        get { return (bool)GetValue(IsProjectStartedProperty); }
-        set { SetValue(IsProjectStartedProperty, value); }
-    }
+    public bool IsProjectStarted { get { return (bool)GetValue(IsProjectStartedProperty); } set { SetValue(IsProjectStartedProperty, value); } }
 
     public static readonly DependencyProperty IsProjectStartedProperty =
         DependencyProperty.Register("IsProjectStarted", typeof(bool), typeof(TaskListWindow), new PropertyMetadata(null));
@@ -240,7 +204,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     void UpdateListView()
     {
         // First, filter the list based on the selected status and after that, based on the selected experience level
-        // and filter by recovery mode if needed
+        // and at the end filter by the search text and filter by recovery mode if needed
         if (NormalMode != 0)
         {
             if (EngineerID == 0)
@@ -278,9 +242,14 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
         }
 
         // Filter by experience level
-        FilteredData = (complexity == BO.EngineerExperience.None) ?
+        TaskList = (complexity == BO.EngineerExperience.None) ?
             TaskList :
             TaskList.Where(item => s_bl!.Task.Read(item.Id).Complexity == complexity);
+
+        // At the end, filter by the search text if there is any
+        if (!string.IsNullOrEmpty(SearchText))
+            TaskList = TaskList.Where(x => x.Alias.ToLower().Contains(SearchText) || x.Description.ToLower().Contains(SearchText));
+
     }
 
     /// <summary>
@@ -294,20 +263,15 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
     }
 
     /// <summary>
-    /// a function that will be called when the text in the search box is changed
-    /// the function will filter the data based on the text in the search box
+    /// Event handler for the change of the text in the search box
     /// </summary>
     private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
     {
         if (sender is TextBox textBox)
         {
-            string searchText = textBox.Text.ToLower();//check on lower case
-            //filter the data based on the search text and update the filtered data
-            if (!string.IsNullOrEmpty(searchText))
-                FilteredData = TaskList.Where(x => x.Alias.ToLower().StartsWith(searchText) || x.Description.ToLower().StartsWith(searchText));
-            //if the search text is empty then show all the data
-            else
-                FilteredData = TaskList;
+            //check on lower case and update the list view
+            SearchText = textBox.Text.ToLower();
+            UpdateListView();
         }
     }
 }
