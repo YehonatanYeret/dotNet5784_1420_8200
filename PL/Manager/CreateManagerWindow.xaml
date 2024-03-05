@@ -6,6 +6,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:local="clr-namespace:PL.Manager"
         mc:Ignorable="d"
+        Icon="../Images/addManagerIcon.png"
         Title="CreateManagerWindow" Height="480" Width="300"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">

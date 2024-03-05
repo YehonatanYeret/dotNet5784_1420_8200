@@ -9,6 +9,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
         Title="mainWindow" 
+        Icon="Images/projectIcon.png"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowState="Normal"
         Width="{x:Static SystemParameters.PrimaryScreenWidth}" 

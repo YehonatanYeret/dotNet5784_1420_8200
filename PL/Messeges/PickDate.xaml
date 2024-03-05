@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Messeges"
         mc:Ignorable="d"
+        Icon="../Images/dateIcon.png"
         Title="PickDate" Height="150" Width="200"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
         ResizeMode="NoResize">

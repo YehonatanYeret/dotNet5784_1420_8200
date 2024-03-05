@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
+        Icon="../Images/engineerIcon.png"
         Title="EngineerWindow" Height="480" Width="300"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">

@@ -6,6 +6,8 @@
         xmlns:local="clr-namespace:PL.Task"
         xmlns:control="clr-namespace:PL"
         mc:Ignorable="d"
+        Icon="../Images/taskIcon.png
+        "
         Title="TaskWindow" Height="550" Width="700"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Self}}">

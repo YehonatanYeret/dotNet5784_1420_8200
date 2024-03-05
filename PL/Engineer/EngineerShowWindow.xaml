@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
+        Icon="../Images/engineerShowIcon.png"
         Title="EngineerShowWindow" Height="500" Width="300"
         DataContext="{Binding RelativeSource={RelativeSource Self}, Mode=OneWay}">
 
