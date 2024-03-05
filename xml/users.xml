@@ -10,19 +10,31 @@
     <Type>engineer</Type>
     <Name>Adam Chohen</Name>
     <Password>AdamChohen0</Password>
-    <Email>Adam@walla.com</Email>
+    <Email>Adam@yahoo.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Alex Charcov</Name>
     <Password>AlexCharcov0</Password>
-    <Email>Alex@walla.com</Email>
+    <Email>Alex@outlook.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
     <Name>Aaron Israeli</Name>
     <Password>AaronIsraeli0</Password>
-    <Email>Aaron@yahoo.com</Email>
+    <Email>Aaron@outlook.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Ben Baruch</Name>
+    <Password>BenBaruch0</Password>
+    <Email>Ben@walla.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>David Levi</Name>
+    <Password>DavidLevi0</Password>
+    <Email>David@gmail.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
@@ -32,14 +44,62 @@
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>Ben Baruch</Name>
-    <Password>BenBaruch0</Password>
-    <Email>Ben@outlook.com</Email>
+    <Name>Eliezer gensburger</Name>
+    <Password>Eliezer0</Password>
+    <Email>gensburger@.com</Email>
   </User>
   <User>
     <Type>engineer</Type>
-    <Name>David Levi</Name>
-    <Password>DavidLevi0</Password>
-    <Email>David@hotmail.com</Email>
+    <Name>grandma olga</Name>
+    <Password>Olgaggg0</Password>
+    <Email>olga@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Ido</Name>
+    <Password>Idodo0kro</Password>
+    <Email>idodu@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>benaya</Name>
+    <Password>BenayaHaefes0</Password>
+    <Email>benaya@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Azazi</Name>
+    <Password>Azizi1234</Password>
+    <Email>Azi@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>pnini</Name>
+    <Password>Pnini1234</Password>
+    <Email>pni@gmail.com</Email>
+  </User>
+  <User>
+    <Type>manager</Type>
+    <Name>maor</Name>
+    <Password>Maornoy123</Password>
+    <Email>maor@gmail.com</Email>
+  </User>
+  <User>
+    <Type>manager</Type>
+    <Name>Yoni yeret</Name>
+    <Password>YoniYeret123</Password>
+    <Email>Yoni@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Omer</Name>
+    <Password>Omer1234</Password>
+    <Email>omer@gmail.com</Email>
+  </User>
+  <User>
+    <Type>engineer</Type>
+    <Name>Yair</Name>
+    <Password>YairLevi0</Password>
+    <Email>yairLevi@gmail.com</Email>
   </User>
 </ArrayOfUser>
