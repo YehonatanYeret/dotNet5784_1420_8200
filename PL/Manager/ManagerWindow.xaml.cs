@@ -68,7 +68,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
         // Calculate percentage of completed tasks
         int allTasks = s_bl.Task.ReadAll().Count();
         int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
-        percentComplete = ((double)completedTasks / allTasks) * 100;
+        percentComplete = allTasks!=0? ((double)completedTasks / allTasks) * 100: 0;
     }
 
     // Event handler for EngineerButton click

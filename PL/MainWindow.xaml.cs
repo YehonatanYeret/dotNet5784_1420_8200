@@ -42,6 +42,14 @@ public partial class MainWindow : Window
         // Set the initial date and create a new user
         Date = s_bl.Time;
         CurrentUser = new BO.User();
+        if (s_bl.User.ReadAll().Count() == 0)
+            s_bl.User.Create(new BO.User
+            {
+                Type = BO.UserType.manager,
+                Name = "admin",
+                Password = "Admin123",
+                Email = "admin@gmail.com"
+            });
         InitializeComponent();
     }
 

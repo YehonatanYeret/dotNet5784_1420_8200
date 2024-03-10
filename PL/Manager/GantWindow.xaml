@@ -40,14 +40,7 @@
                                         <!-- TextBlock for Alias -->
                                         <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
                                             FontFamily="ariel" Grid.Column="0" 
-                                            TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3">
-                                            <!-- Background gradient for Alias -->
-                                            <TextBlock.Background>
-                                                <LinearGradientBrush>
-                                                    <GradientStop Color="LightCyan" Offset="0" />
-                                                    <GradientStop Color="LightBlue" Offset="1" />
-                                                </LinearGradientBrush>
-                                            </TextBlock.Background>
+                                            TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3" Background="LightBlue">
                                         </TextBlock>
 
                                         <!-- Separator Border -->
@@ -66,7 +59,7 @@
                                                 <!-- Tooltip for hovering tasks -->
                                                 <Grid.ToolTip>
                                                     <StackPanel>
-                                                        <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"/>
+                                                        <TextBlock Text="{Binding Id}" FontWeight="SemiBold"/>
                                                         <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
                                                         <TextBlock Text="{Binding ScheduledDate, StringFormat='dd/MM/yyyy'}"/>
                                                         <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
