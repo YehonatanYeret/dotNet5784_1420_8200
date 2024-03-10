@@ -68,7 +68,10 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
         // Calculate percentage of completed tasks
         int allTasks = s_bl.Task.ReadAll().Count();
         int completedTasks = s_bl.Task.ReadAll().Where(t => t.Status == BO.Status.Done).Count();
-        percentComplete = allTasks!=0? ((double)completedTasks / allTasks) * 100: 0;
+        percentComplete = allTasks != 0 ? ((double)completedTasks / allTasks) * 100 : 0;
+
+        // Update visibility based on project status
+        IsprojectStarted = s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress? Visibility.Hidden : Visibility.Visible;
     }
 
     // Event handler for EngineerButton click
@@ -119,26 +122,7 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
     private void StartProject_Click(object sender, RoutedEventArgs e)
     {
         // Ask for the project start date using a custom dialog box
-        var dialogBox = new Messeges.PickDate();
-
-        // If the user chose a date, set all project dates
-        if (dialogBox.ShowDialog() == true)
-        {
-            DateTime? startProject = (DateTime?)dialogBox.Date;
-
-            // Start the project
-            if (startProject is not null)
-            {
-                DateTime start = (DateTime)startProject;
-                s_bl.Task.StartProject(start);
-
-                // Update visibility based on project status
-                if (s_bl.Clock.GetProjectStatus() == BO.ProjectStatus.InProgress)
-                {
-                    IsprojectStarted = Visibility.Hidden;
-                }
-            }
-        }
+        new Messeges.PickDate().ShowDialog();
     }
 
     // Invoke property changed event
