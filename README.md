@@ -1,10 +1,9 @@
 # dotNet5784_1420_8200
-ביחד ננצח
-או שלא
-hello world
-final part
 
-I don't understand what to with myself
+Project Managment
+
+!Maor Noy && Yehonatan Yeret!
+
 בונוסים:
 1.שימוש ב tryParse
 2.שימוש ב tostringPropertie
@@ -13,7 +12,7 @@ I don't understand what to with myself
 5. אלגוריתם לבניית לוז אוטומטי
 6. מחיקה לוגית וניהול אובייטים שנמחקו ואפשרות לשחזור
 7. שימוש בreflection
-8. singleton thread safe
+8. שימוש בגרפיקה- rectangle
 9. תצוגה גרפית בפורט קלט לא תקין
 10. סינון אוטומטי של רשימה תוך כדי הקלדה
 11. אייקון בכותרת החלון ושורת המשימות
@@ -22,4 +21,3 @@ I don't understand what to with myself
 14. control template
 15. multivalue converter
 16. טיפול בישות משתמשים- בכל השכבות
-17.שימוש בגרפיקה- rectangle

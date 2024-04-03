@@ -17,6 +17,7 @@ internal class UserImplementation : IUser
     /// <returns>The Email of the newly created User.</returns>
     public string Create(User item)
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         if (usersList.Any(user => user.Email == item.Email))
@@ -35,6 +36,7 @@ internal class UserImplementation : IUser
     /// <returns>The User object if found, otherwise null.</returns>
     public User? Read(string email)
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         return usersList.FirstOrDefault(user => user.Email == email);
@@ -47,6 +49,7 @@ internal class UserImplementation : IUser
     /// <returns>The first User that satisfies the filter, otherwise null.</returns>
     public User? Read(Func<User, bool> filter)
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         return usersList.FirstOrDefault(filter);
@@ -59,6 +62,7 @@ internal class UserImplementation : IUser
     /// <returns>A collection of Users that satisfy the filter, or all Users if no filter is provided.</returns>
     public IEnumerable<User> ReadAll(Func<User, bool>? filter = null)
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         if (filter != null)
@@ -73,6 +77,7 @@ internal class UserImplementation : IUser
     /// <param name="item">The updated User object.</param>
     public void Update(User item)
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         if (!usersList.Any(user => user.Email == item.Email))
@@ -90,6 +95,7 @@ internal class UserImplementation : IUser
     /// <param name="id">The ID of the User to delete.</param>
     public void Delete(string email)
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         if (!usersList.Any(user => user.Email == email))
@@ -105,6 +111,7 @@ internal class UserImplementation : IUser
     /// </summary>
     public void DeleteAll()
     {
+        // load the list of users from XML
         List<DO.User> usersList = XMLTools.LoadListFromXMLSerializer<DO.User>(s_user_xml);
 
         // remove all users
