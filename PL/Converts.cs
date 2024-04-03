@@ -300,7 +300,7 @@ internal class ConvertEngineerAndStatusToVisible : IMultiValueConverter
         if ((int)values[0] != 0)
             return Visibility.Collapsed;
 
-        // If there are no value 2, return the value based on the value 1
+        // If there are 2 value, return the value based on the value 1
         if (values.Length == 2)
             return ((bool)values[1]) ? Visibility.Collapsed : Visibility.Visible;
 
@@ -312,6 +312,58 @@ internal class ConvertEngineerAndStatusToVisible : IMultiValueConverter
     /// Converts back from visibility to a set of values (Not implemented).
     /// </summary>
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// Converts a set of values to visibility based on conditions.
+/// </summary>
+internal class ConvertTaskndStatusToVisible : IMultiValueConverter
+{
+    /// <summary>
+    /// Converts a set of values to visibility based on conditions.
+    /// </summary>
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        // If we are in create mode or the project is started hide the button
+        if ((int)values[0] == 0 || !(bool)values[1])
+            return Visibility.Collapsed;
+
+        // If the project isn't started or we are in update mode
+        return Visibility.Visible;
+    }
+
+    /// <summary>
+    /// Converts back from visibility to a set of values (Not implemented).
+    /// </summary>
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+/// <summary>
+/// Convert visibility to column index
+/// </summary>
+internal class ConvertVisibilityToColumn : IValueConverter
+{
+    /// <summary>
+    ///  Convert visibility to column index
+    /// </summary>
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if((Visibility)value == Visibility.Visible)
+            return 0;
+
+        return 1;
+    }
+
+    /// <summary>
+    /// Converts back from visibility to num of column (Not implemented).
+    /// </summary>
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

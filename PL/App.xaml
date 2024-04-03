@@ -50,6 +50,12 @@
             <!-- Convert Engineer and Status to visibility resource -->
             <local:ConvertEngineerAndStatusToVisible x:Key="ConvertEngineerAndStatusToVisibleKey"/>
 
+            <!-- Convert Task and Status to visibility resource -->
+            <local:ConvertTaskndStatusToVisible x:Key="ConvertTaskndStatusToVisibleKey"/>
+
+            <!-- Convert Visibility to Column resource -->
+            <local:ConvertVisibilityToColumn x:Key="ConvertVisibilityToColumnKey"/>
+
             <!-- Style for Buttons -->
             <Style TargetType="Button">
                 <Setter Property="Background" Value="#A9A57C"/>

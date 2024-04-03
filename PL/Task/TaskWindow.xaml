@@ -199,19 +199,29 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Button for Adding or Updating Task -->
-                <Button Grid.Column="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToColumnKey}}"
+                <Button Grid.Column="{Binding ElementName=delBtn, Path=Visibility, Converter={StaticResource ConvertVisibilityToColumnKey}}"
                         Grid.ColumnSpan="2" Margin="20 ,7" Click="BtnAddUpdate_Click">
+
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="../Images/update.png"  Width="22" Height="22" Margin="0,0,10,0"/>
                             <TextBlock Text="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}"/>
                         </StackPanel>
                     </Button.Content>
+                    
                 </Button>
 
                 <!-- Button for Deleting Task -->
-                <Button Grid.Column="2" Margin="20 ,7" Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ConvertIdToVisibleKey}}" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click"
-                        IsEnabled="{Binding IsProjectStarted}">
+                <Button Grid.Column="2" Margin="20 ,7" VerticalContentAlignment="Center" Background="#FFC41E1C" Grid.ColumnSpan="2" Click="BtnDelete_Click" Name="delBtn">
+
+                    <!-- Visibility of the button based on conditions using MultiBinding -->
+                    <Button.Visibility>
+                        <MultiBinding Converter="{StaticResource ConvertTaskndStatusToVisibleKey}">
+                            <Binding Path="CurrentTask.Id" />
+                            <Binding Path="IsProjectStarted" />
+                        </MultiBinding>
+                    </Button.Visibility>
+                    
                     <Button.ContentTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -220,6 +230,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </Button.ContentTemplate>
+                    
                 </Button>
             </Grid>
         </Grid>
