@@ -263,18 +263,22 @@ internal class ConvertStringToImage : IValueConverter
     /// </summary>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        //create a new BitmapImage object to store the image
         BitmapImage bitmap = new BitmapImage();
+
         // Start initialization
         bitmap.BeginInit();
 
         // If the value is null or empty, show the no image found picture
         if (value == null || string.IsNullOrEmpty((string)value))
             bitmap.UriSource = new Uri("../Images/noImageFound.jpg", UriKind.RelativeOrAbsolute);
-        // Else, show the image
+        // Else, show the image from the base64 string
         else
             bitmap.StreamSource = new MemoryStream(System.Convert.FromBase64String((string)value));
+        //end initialization
         bitmap.EndInit();
 
+        //return the image
         return bitmap;
     }
 

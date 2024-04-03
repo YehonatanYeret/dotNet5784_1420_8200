@@ -299,8 +299,13 @@ internal class EngineerImplementation : IEngineer
 
     public string ConvertImageToBase64(string path)
     {
+        //open a file stream to the image path with read and open mode
         using FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read);
+
+        // Create a byte array to store the image data with the length of the stream
         byte[] bitmapBytes = new byte[stream.Length];
+
+        // Read the image data into the byte array
         stream.Read(bitmapBytes, 0, (int)stream.Length);
 
         // Convert the byte array to a Base64 string

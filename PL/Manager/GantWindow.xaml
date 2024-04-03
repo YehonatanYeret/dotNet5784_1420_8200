@@ -11,6 +11,8 @@
         Title="GantWindow" Height="650" Width="800">
 
     <!-- Main Grid with two rows -->
+    <!--the first row is for the data of the gant-->
+    <!--the second row is for the guide of the colors-->
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -20,55 +22,57 @@
         <!-- Border for the Gantt Chart with ScrollViewer -->
         <Border BorderBrush="Black" BorderThickness="2" Grid.Row="0">
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                
                 <!-- Grid for Gantt Chart ItemsControl -->
                 <Grid Background="#fdfad4">
                     <!-- ItemsControl for displaying Gantt items -->
                     <ItemsControl ItemsSource="{Binding GantData}" Grid.Row="0">
+                        
+                        
                         <ItemsControl.ItemTemplate>
                             <!-- DataTemplate for each Gantt item -->
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <!-- Grid for each Gantt item -->
-                                    <Grid>
-                                        <!-- Columns for Alias, Separator, and Gantt Chart -->
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="150"/>
-                                            <ColumnDefinition Width="3"/>
-                                            <ColumnDefinition Width="auto"/>
-                                        </Grid.ColumnDefinitions>
+                                <!-- Grid for each Gantt item so we can seperate to 3 culomns-->
+                                <Grid>
+                                    <!-- Columns for Alias, Separator, and Gantt Chart -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="3"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
 
-                                        <!-- TextBlock for Alias -->
-                                        <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
+                                    <!-- TextBlock for Alias -->
+                                    <TextBlock Text="{Binding Alias}" FontWeight="SemiBold"
                                             FontFamily="ariel" Grid.Column="0" 
                                             TextWrapping="WrapWithOverflow" TextAlignment="Center" Padding="3" Background="LightBlue">
-                                        </TextBlock>
+                                    </TextBlock>
 
-                                        <!-- Separator Border -->
-                                        <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
+                                    <!-- Separator Border -->
+                                    <Border Grid.Column="1" VerticalAlignment="Stretch" Width="3" Background="Black" />
 
-                                        <!-- Grid for Gantt Chart -->
-                                        <Grid Background="#564d525e" Grid.Column="2" Margin="0,1">
-                                            <!-- Rectangle representing task -->
-                                            <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
+                                    <!-- Grid for Gantt Chart -->
+                                    <!-- the real data we show in a rect format-->
+                                    <Grid Background="#564d525e" Grid.Column="2" Margin="0,1">
+                                        <!-- grid representing task -->
+                                        <Grid Width="{Binding RequiredEffortTime, Converter={StaticResource ConvertEffortTimeToWidthKey}}"
                                                 Margin="{Binding ScheduledDate, Converter={StaticResource ConvertStartDateToMarginKey}}" Height="20"  
                                                 Background="{Binding Id, Converter={StaticResource ConvertTaskStatusToColorKey}}"
                                                 MouseDown="Grid_MouseLeave" >
-                                                <!-- Border for Rectangle -->
-                                                <Border BorderBrush="Black" BorderThickness=".7"/>
+                                            <!-- Border for Rectangle -->
+                                            <Border BorderBrush="Black" BorderThickness=".7"/>
 
-                                                <!-- Tooltip for hovering tasks -->
-                                                <Grid.ToolTip>
-                                                    <StackPanel>
-                                                        <TextBlock Text="{Binding Id}" FontWeight="SemiBold"/>
-                                                        <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
-                                                        <TextBlock Text="{Binding ScheduledDate, StringFormat='dd/MM/yyyy'}"/>
-                                                        <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
-                                                    </StackPanel>
-                                                </Grid.ToolTip>
-                                            </Grid>
+                                            <!-- Tooltip for hovering tasks -->
+                                            <Grid.ToolTip>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding Id}" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{Binding Description}" TextWrapping="WrapWithOverflow"/>
+                                                    <TextBlock Text="{Binding ScheduledDate, StringFormat='dd/MM/yyyy'}"/>
+                                                    <TextBlock Text="{Binding RequiredEffortTime, StringFormat='dd\\.hh\\:mm\\:ss'}"/>
+                                                </StackPanel>
+                                            </Grid.ToolTip>
                                         </Grid>
                                     </Grid>
-                                </StackPanel>
+                                </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -78,6 +82,8 @@
                         <!-- Border indicating the current date line -->
                         <Border BorderBrush="Black" BorderThickness="2" Width="1" HorizontalAlignment="Left"
                             Margin="{Binding Now, Converter={StaticResource ConvertStartDateToMarginKey}}"/>
+                        <TextBlock Text="{Binding Now, StringFormat='dd/MM/yyyy'}" FontFamily="ariel" 
+                            HorizontalAlignment="Left" Margin="{Binding Now, Converter={StaticResource ConvertStartDateToMarginKey}}"/>
                     </Grid>
                 </Grid>
             </ScrollViewer>
