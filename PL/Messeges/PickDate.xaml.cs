@@ -1,5 +1,6 @@
 ﻿namespace PL.Messeges;
 
+using BlApi;
 using System.Windows;
 
 /// <summary>
@@ -20,7 +21,11 @@ public partial class PickDate : Window
     // Event handler for the "OK" button click
     private void OKButton_Click(object sender, RoutedEventArgs e)
     {
-        // Set DialogResult to true to indicate OK button click
-        DialogResult = true;
+        // Start the project
+        if (Date is not null)
+        {
+            Factory.Get().Task.StartProject((DateTime)Date);
+            Close();
+        }
     }
 }
