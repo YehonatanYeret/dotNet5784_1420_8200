@@ -95,6 +95,8 @@ public partial class ManagerWindow : Window, INotifyPropertyChanged
             s_bl.ResetDB();
             IsprojectStarted = Visibility.Visible;
             s_bl.Init();
+            MessageBox.Show("Data cleared successfully");
+            Close();
         }
     }
 

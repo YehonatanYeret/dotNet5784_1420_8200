@@ -164,7 +164,7 @@
                     <!-- Task Dependencies -->
                     <Label Grid.Row="0" Content="Dependencies:" HorizontalAlignment="Center"/>
                     <!-- ListBox for Task Dependencies -->
-                    <ListBox Grid.Row="1" ItemsSource="{Binding Dep}" HorizontalAlignment="Center" >
+                    <ListBox Grid.Row="1" ItemsSource="{Binding Dep}" HorizontalAlignment="Center" Width="200">
                         <ListBox.ItemTemplate>
                             <!-- CheckBox for each Dependency -->
                             <DataTemplate>
