@@ -14,11 +14,13 @@ internal static class DataSource
         internal const int StartTaskId = 1;
         private static int nextTaskId = StartTaskId;
         internal static int NextTaskId { get => nextTaskId++; }
+        internal static void ResetTaskId() => nextTaskId = StartTaskId;
 
         //running id for the engineers
         internal const int StartDependencyId = 1;
         private static int nextDependencyId = StartDependencyId;
         internal static int NextDependencyId { get => nextDependencyId++; }
+        internal static void ResetDependencyId() => nextDependencyId = StartDependencyId;
 
         //the start date of the project
         internal static DateTime? StartDate;

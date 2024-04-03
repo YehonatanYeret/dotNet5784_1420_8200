@@ -50,7 +50,10 @@
         /// <summary>
         /// delete all the db
         /// </summary>
-        public void ResetDB() => DalTest.Initialization.Reset();
+        public void ResetDB()
+        {
+            DalTest.Initialization.Reset();
+        }
 
         public void ResetTime()
         {

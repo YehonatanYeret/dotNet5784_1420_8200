@@ -64,5 +64,5 @@ internal class TaskImplementation : ITask
     }
 
     //delete all tasks
-    public void DeleteAll() { DataSource.Tasks.Clear(); }
+    public void DeleteAll() { DataSource.Tasks.Clear(); DataSource.Config.ResetTaskId(); }
 }

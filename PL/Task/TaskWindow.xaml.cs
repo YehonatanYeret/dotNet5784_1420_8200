@@ -6,7 +6,7 @@ using System.Windows;
 /// <summary>
 /// Represents the Task Window for managing tasks.
 /// </summary>
-public partial class TaskWindow : Window, INotifyPropertyChanged
+public partial class TaskWindow : Window/*, INotifyPropertyChanged*/
 {
     // Get the instance of the business logic.
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -15,8 +15,8 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
     // True means create and false means update.
     public bool UpdateOrCreate = false;
 
-    // Event raised when a property value changes.
-    public event PropertyChangedEventHandler? PropertyChanged;
+    //// Event raised when a property value changes.
+    //public event PropertyChangedEventHandler? PropertyChanged;
 
     // Dependency property for the Task.
     public BO.Task CurrentTask { get { return (BO.Task)GetValue(CTaskProperty); } set { SetValue(CTaskProperty, value); } }
@@ -208,6 +208,6 @@ public partial class TaskWindow : Window, INotifyPropertyChanged
 /// </summary>
 public class DependencyList
 {
-    public BO.TaskInList Task { get; set; }
+    public BO.TaskInList? Task { get; set; }
     public bool IsDep { get; set; }
 }

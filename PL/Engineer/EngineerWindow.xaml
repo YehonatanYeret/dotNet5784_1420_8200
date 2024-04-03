@@ -10,7 +10,7 @@
         Title="EngineerWindow" Height="480" Width="300"
         ResizeMode="NoResize"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
+ 
     <!-- Main Grid -->
     <Grid>
 
@@ -69,7 +69,8 @@
 
             <!-- Engineer ID Section -->
             <Label Content="ID:" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentEngineer.Id, Mode=TwoWay, NotifyOnValidationError=True}" IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}"  Margin="2,10"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding CurrentEngineer.Id, Mode=TwoWay, ValidatesOnExceptions=True}" IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource ConvertIdToBooleanKey}}" 
+                     PreviewKeyDown="Check_for_number"  Margin="2,10"/>
 
             <!-- Engineer Name Section -->
             <Label Content="Name:" HorizontalAlignment="Left" Grid.Row="2" Grid.Column="0" Margin="10"/>
@@ -100,7 +101,8 @@
 
             <!-- Engineer Cost Section -->
             <Label Content="Cost:" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="0" Margin="10"/>
-            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding CurrentEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=True}" Margin="2,10"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding CurrentEngineer.Cost, Mode=TwoWay, NotifyOnValidationError=True, FallbackValue=0}" Margin="2,10"
+                     PreviewKeyDown="Check_for_number"/>
 
             <!-- Engineer Password Section -->
             <Label Content="Password:" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="0" Margin="10"/>

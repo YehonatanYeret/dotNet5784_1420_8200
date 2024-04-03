@@ -31,7 +31,7 @@ internal class EngineerImplementation : IEngineer
     public Engineer? Read(Func<Engineer, bool> filter)
     {
         // return the first element that match the filter condition, else return null
-        return DataSource.Engineers.FirstOrDefault(filter); 
+        return DataSource.Engineers.FirstOrDefault(filter);
     }
 
     //return a copy of the list of engineers
@@ -52,9 +52,15 @@ internal class EngineerImplementation : IEngineer
             throw new DalDoesNotExistException($"Engineer with ID={item.Id} does not exist");//throw exception
 
         DataSource.Engineers.RemoveAll(temp => temp.Id == engineer.Id);//remove the engineer
-        DataSource.Users.RemoveAll(temp => temp.Email == engineer.Email);//remove the user
+        User u = DataSource.Users.FirstOrDefault(temp => temp.Email == engineer.Email)!;//find the user
+
+        //Delete the old engineer from the user
+        DataSource.Users.RemoveAll(temp => temp.Email == u.Email);
+
+       DataSource.Users.Add( u with { Email = item.Email, Name = item.Name });//update the user with the new engineer id
 
         DataSource.Engineers.Add(item);//add the new engineer
+
     }
 
     //we dont need to check if there is no tasks with the engineer id because we will check it in the logic layer
@@ -69,7 +75,7 @@ internal class EngineerImplementation : IEngineer
         DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
 
         //remove the engineer from all the tasks
-        foreach (var task in new TaskImplementation() .ReadAll(t => t.EngineerId == id))
+        foreach (var task in new TaskImplementation().ReadAll(t => t.EngineerId == id))
             new TaskImplementation().Update(task with { EngineerId = null });
     }
 

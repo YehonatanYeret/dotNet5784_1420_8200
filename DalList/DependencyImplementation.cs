@@ -59,5 +59,5 @@ internal class DependencyImplementation : IDependency
     }
 
     //delete all dependencies
-    public void DeleteAll(){ DataSource.Dependencies.Clear(); }
+    public void DeleteAll(){ DataSource.Dependencies.Clear(); DataSource.Config.ResetDependencyId(); }
 }

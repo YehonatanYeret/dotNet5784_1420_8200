@@ -24,7 +24,14 @@ public partial class PickDate : Window
         // Start the project
         if (Date is not null)
         {
-            Factory.Get().Task.StartProject((DateTime)Date);
+            try
+            {
+                Factory.Get().Task.StartProject((DateTime)Date);
+            }
+                        catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
             Close();
         }
     }

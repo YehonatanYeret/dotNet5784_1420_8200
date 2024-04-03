@@ -83,15 +83,23 @@ internal class TaskImplementation : BlApi.ITask
         Graph graph = new(_dal.Task.ReadAll().Max(x=>x.Id));
 
         // Add edges to the graph
-        foreach (BO.TaskInList t in task.Dependencies!)
+        var taskDep  = task.Dependencies!.ToArray();
+        for(int i = 0; i < taskDep.Length; i++)
         {
-            graph.AddEdge(task.Id-1, t.Id - 1);
+            graph.AddEdge(task.Id - 1, taskDep[i].Id - 1);
         }
+        //{
+        //    graph.AddEdge(task.Id-1, t.Id - 1);
+        //}
         //add the rest of the edges
-        IEnumerable<DO.Dependency> dependencies = _dal.Dependency.ReadAll();
-        foreach (DO.Dependency dep in dependencies)
-            if ((dep.DependentTask != task.Id))
-                graph.AddEdge(dep.DependentTask - 1, dep.DependentOnTask - 1);
+        var dependencies = _dal.Dependency.ReadAll().ToArray();
+        for(int i = 0; i < dependencies.Length; i++)
+        {
+            if (dependencies[i].DependentTask != task.Id)
+                graph.AddEdge(dependencies[i].DependentTask-1, dependencies[i].DependentOnTask - 1);
+        }
+            //if ((dep.DependentTask != task.Id))
+            //    graph.AddEdge(dep.DependentTask - 1, dep.DependentOnTask - 1);
 
         // Detect cross edges in the graph and throw an exception if found
         if (graph.DetectCycle())
@@ -119,8 +127,10 @@ internal class TaskImplementation : BlApi.ITask
             });
 
             // delete the old dependencies
-            foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id)!)
-                _dal.Dependency.Delete(item.Id);
+            dependencies = _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id)!.ToArray();
+            //foreach (DO.Dependency item in _dal.Dependency.ReadAll(dep => dep.DependentTask == task.Id)!)
+            for(int i = 0; i < dependencies.Length; i++)
+                _dal.Dependency.Delete(dependencies[i].Id);
 
             // Recreate dependencies if they exist
             task.Dependencies?.ForEach(dep => _dal.Dependency.Create(new(0, task.Id, dep.Id)));
@@ -395,18 +405,30 @@ internal class TaskImplementation : BlApi.ITask
         //go through all the tasks and set the scheduled date
         while (ReadAllTask(task => task.ScheduledDate == null).Any())
         {
-            foreach (var item in ReadAllTask(task => task.ScheduledDate == null))
+            var tasks = ReadAllTask(task => task.ScheduledDate == null).ToArray();
+            for(int i = 0; i < tasks.Length; i++)
             {
                 try
                 {
                     // calculate the closest date based on the startDate of the program and the depndencies 
-                    DateTime closest = CalculateClosestStartDate(item.Id, startProject);
-                    UpdateScheduledDate(item.Id, closest);
-                    UpdateDeadLineDate(item.Id, closest + item.RequiredEffortTime);
+                    DateTime closest = CalculateClosestStartDate(tasks[i].Id, startProject);
+                    UpdateScheduledDate(tasks[i].Id, closest);
+                    UpdateDeadLineDate(tasks[i].Id, closest + tasks[i].RequiredEffortTime);
                 }
                 //if the task has unscheduled dependencies ignore it
                 catch { }
             }
+            //{
+            //    try
+            //    {
+            //        // calculate the closest date based on the startDate of the program and the depndencies 
+            //        DateTime closest = CalculateClosestStartDate(item.Id, startProject);
+            //        UpdateScheduledDate(item.Id, closest);
+            //        UpdateDeadLineDate(item.Id, closest + item.RequiredEffortTime);
+            //    }
+            //    //if the task has unscheduled dependencies ignore it
+            //    catch { }
+            //}
         }
         //start the project
         _dal.Clock.SetStartProject(startProject);
@@ -439,9 +461,10 @@ internal class TaskImplementation : BlApi.ITask
     public IEnumerable<BO.Task> GetTopologicalTasks()
     {
         Graph graph = new(_dal.Task.ReadAll(task => task.IsActive).Count());
-        foreach (var item in _dal.Dependency.ReadAll())
+        var dependencies = _dal.Dependency.ReadAll().ToArray();
+        for(int i = 0; i < dependencies.Length; i++)
         {
-            graph.AddEdge(item.DependentTask - 1, item.DependentOnTask - 1);
+            graph.AddEdge(dependencies[i].DependentTask - 1, dependencies[i].DependentOnTask - 1);
         }
         return graph.TopologicalSort().Select(id => Read(id + 1));
     }
