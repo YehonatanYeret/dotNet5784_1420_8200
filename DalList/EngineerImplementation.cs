@@ -75,8 +75,9 @@ internal class EngineerImplementation : IEngineer
         DataSource.Engineers.RemoveAll(temp => temp.Id == id);//remove the engineer
 
         //remove the engineer from all the tasks
-        foreach (var task in new TaskImplementation().ReadAll(t => t.EngineerId == id))
-            new TaskImplementation().Update(task with { EngineerId = null });
+        var Tasks =  new TaskImplementation().ReadAll(t => t.EngineerId == id).ToArray();
+        for (int i = 0; i < Tasks.Length; i++)
+            new TaskImplementation().Update(Tasks[i] with { EngineerId = null });
     }
 
     //delete all engineers

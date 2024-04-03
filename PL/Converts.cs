@@ -206,6 +206,7 @@ internal class ConvertHiddenToVissible : IValueConverter
     {
         if (((Visibility)value) == Visibility.Visible)
             return Visibility.Collapsed;
+
         return Visibility.Visible;
     }
 
@@ -232,12 +233,15 @@ internal class ConvertTaskStatusToColor : IValueConverter
         if ((BlApi.Factory.Get().Task.InDelay((int)value)))
             return "#cc3232";
 
+        // Get the status of the task
+        BO.Status status = BlApi.Factory.Get().Task.Read((int)value).Status;
+
         // If the task is done
-        if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.Done)))
+        if (status.Equals(BO.Status.Done))
             return "#2dc937";
 
         // If the task is on track
-        if ((BlApi.Factory.Get().Task.Read((int)value).Status.Equals(BO.Status.OnTrack)))
+        if (status.Equals(BO.Status.OnTrack))
             return "#99c140";
 
         // If the task is scheduled
@@ -269,13 +273,14 @@ internal class ConvertStringToImage : IValueConverter
         // Start initialization
         bitmap.BeginInit();
 
-        // If the value is null or empty, show the no image found picture
+        // If the value is null or empty, show the no image found picture with the relative path
         if (value == null || string.IsNullOrEmpty((string)value))
             bitmap.UriSource = new Uri("../Images/noImageFound.jpg", UriKind.RelativeOrAbsolute);
-        // Else, show the image from the base64 string
+        // Else, show the image after decoding the base64 string
         else
             bitmap.StreamSource = new MemoryStream(System.Convert.FromBase64String((string)value));
-        //end initialization
+
+        // End initialization
         bitmap.EndInit();
 
         //return the image

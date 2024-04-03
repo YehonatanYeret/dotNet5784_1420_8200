@@ -19,7 +19,7 @@ internal class TaskImplementation : ITask
     //read a task and return it. if not found return null
     public Task? Read(int id)
     {
-        return DataSource.Tasks.FirstOrDefault(task => task.Id == id && task.IsActive);//find the task with the id and if not found return null
+        return DataSource.Tasks.FirstOrDefault(task => task.Id == id);//find the task with the id and if not found return null
     }
 
     //read a task that matches the condition and return it. if not found return null
@@ -42,7 +42,7 @@ internal class TaskImplementation : ITask
     public void Update(Task item)
     {
         //find the index of the task with the same id
-        Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == item.Id && task.IsActive);
+        Task? task = DataSource.Tasks.FirstOrDefault(task => task.Id == item.Id);
         if (task == null)//if not found
             throw new DalDoesNotExistException($"Task with ID={item.Id} does not exist");//throw exception
 

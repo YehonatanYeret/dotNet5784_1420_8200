@@ -88,9 +88,7 @@ internal class TaskImplementation : BlApi.ITask
         {
             graph.AddEdge(task.Id - 1, taskDep[i].Id - 1);
         }
-        //{
-        //    graph.AddEdge(task.Id-1, t.Id - 1);
-        //}
+
         //add the rest of the edges
         var dependencies = _dal.Dependency.ReadAll().ToArray();
         for(int i = 0; i < dependencies.Length; i++)
@@ -98,8 +96,6 @@ internal class TaskImplementation : BlApi.ITask
             if (dependencies[i].DependentTask != task.Id)
                 graph.AddEdge(dependencies[i].DependentTask-1, dependencies[i].DependentOnTask - 1);
         }
-            //if ((dep.DependentTask != task.Id))
-            //    graph.AddEdge(dep.DependentTask - 1, dep.DependentOnTask - 1);
 
         // Detect cross edges in the graph and throw an exception if found
         if (graph.DetectCycle())
