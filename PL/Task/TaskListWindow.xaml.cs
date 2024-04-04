@@ -100,6 +100,7 @@ public partial class TaskListWindow : Window, INotifyPropertyChanged
         NormalMode = 1;
 
         // Set the visibility of the search boxes based on the mode
+        //not in use for now
         SearchBoxesVisibility = Visibility.Visible;
 
         if (EngineerID != 0)
