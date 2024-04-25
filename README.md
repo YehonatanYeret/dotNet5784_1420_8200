@@ -4,25 +4,23 @@
 
 ## !By Maor Noy && Yehonatan Yeret!
 
-רשימת כל הבונוסים:
+**Project Summary:**
+The project is a **C# .NET application** designed for **project management**. It serves two main user roles:
 
-1.  שימוש ב- tryParse בקבצי daltest bltest (1 נק')
-2.  בניית ToStringProperty לדריסת מתודת ToString בקובץ tools (1 נק')
-3.  הוספת תמיכה בתמונות מהנדסים ושמירתן בכל שכבות הפרויקט כמעט בכל הקבצים בפרויקט (2 נק')
-4.  שמירה ושחזור שעון מערכת בהפעלה וכיבוי הפרויקט בקובץ app.xaml.cs (1 נק')
-5.  אלגוריתם לבניית לוז אוטומטי על בסיס הנתונים הקיימים בקובץ taskImplemntation שורה 339 (2 נק')
-6.  מחיקה לוגית וניהול אובייקטים מחוקים תוך אופציה לשיחזור אובייקטים בקובץ taskimplementation שורה 488 (2 נק')
-7.  שימוש בreflection בקובץ tools (1 נק')
-8.  סינגלטון בטוחה לתהליכונים ע"י המחלקה lazy בקבצים dalxml dallist שורות 11 8 (1 נק')
-9.  שימוש בגרפיקה – rectangle בקובץ gantwindow.xaml 97-110 להצגת מנחה צבעים (1 נק')
-10.  תצוגה גרפית בפורמט קלט לא תקין בקובץ engineerWindow.xaml בבינדינג (1 נק')
-11. סינון אוטומטי של רשימה תוך כדי הקלדה tasklistWindow.xaml שורה 87 (1 נק')
-12. אייקונים בכותרת כל חלון ושורת המשימות בכל קבצי הxaml (1 נק')
-13. שימוש בproperty trgger בקובץ app.xaml שורה 131 (1 נק')
-14 שימוש בטריגר נתונים בקובץ mainwindow שורה 191 (1 נק')
-15. שימוש ב- control template בקובץ app (1 נק')
-16. וולידציה בהכנסת קלט בקובץ engineerWindow שורה 73 (1 נק')
-17. שימוש ב- multivalueconverter בקובץ converts שורה 302 (1 נק')
-18. הוספת ישות משתמש ותמיכה בה בכל השכבות, נמצא בכל שכבות הפרויקט תחת ישות user (4 נק')
+1. **Manager Side:**
+   - **Task Assignment:** Managers can assign tasks to engineers and establish complex task dependencies.
+   - **Schedule Management:** The system manages the project schedule, ensuring tasks are aligned with the project timeline.
 
-הסבר על הפרויקט:
+2. **Engineer Side:**
+   - **Task Execution:** Engineers can initiate, advance, and report on tasks assigned to them.
+   - **Progress Tracking:** The system allows for monitoring the status and progression of tasks.
+
+**Key Features:**
+- **Gantt Chart Visualization:** All tasks are displayed in a Gantt chart, sorted in topological order for clear visualization of the project timeline.
+- **Dependency Validation:** The application checks for circular dependencies between tasks using the **Depth-First Search (DFS) scanning method**.
+- **Data Management:**
+   - **Timekeeping:** The project operates on a clock maintained in an XML file.
+   - **Data Storage:** Task data and other relevant information are saved in XML files.
+   - **Task Restoration:** There is functionality to restore tasks and generate an automatic timetable.
+
+This system streamlines the administrative and operational aspects of project management, enhancing efficiency and collaboration between managers and engineers.
