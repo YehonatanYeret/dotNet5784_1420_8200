@@ -373,6 +373,7 @@ internal class TaskImplementation : BlApi.ITask
             throw new BO.BLValueIsNotCorrectException("complexity must not be none");
     }
 
+
     /// <summary>
     /// Calculate the status of a task based on its scheduled date, complete date, and milestone status.
     /// </summary>
@@ -389,7 +390,6 @@ internal class TaskImplementation : BlApi.ITask
         //the task has started and completed
         else return BO.Status.Done;
     }
-
 
 
     /// <summary>
@@ -414,17 +414,6 @@ internal class TaskImplementation : BlApi.ITask
                 //if the task has unscheduled dependencies ignore it
                 catch { }
             }
-            //{
-            //    try
-            //    {
-            //        // calculate the closest date based on the startDate of the program and the depndencies 
-            //        DateTime closest = CalculateClosestStartDate(item.Id, startProject);
-            //        UpdateScheduledDate(item.Id, closest);
-            //        UpdateDeadLineDate(item.Id, closest + item.RequiredEffortTime);
-            //    }
-            //    //if the task has unscheduled dependencies ignore it
-            //    catch { }
-            //}
         }
         //start the project
         _dal.Clock.SetStartProject(startProject);

@@ -113,30 +113,3 @@ public class BLValueIsNotCorrectException : Exception
     /// <param name="context"></param>
     protected BLValueIsNotCorrectException(SerializationInfo info, StreamingContext context) : base(info, context) { }
 }
-
-///// <summary>
-///// Custom exception class for handling errors related to XML file loading or creation in business logic.
-///// </summary>
-//[Serializable]
-//public class BLXMLFileLoadCreateException : Exception
-//{
-//    /// <summary>
-//    /// Initializes a new instance of the <see cref="BLXMLFileLoadCreateException"/> class with a specified error message.
-//    /// </summary>
-//    /// <param name="message">The error message that explains the reason for the exception.</param>
-//    public BLXMLFileLoadCreateException(string? message) : base(message) { }
-
-//    /// <summary>
-//    /// Constructor for the BLXMLFileLoadCreateException class with an additional inner exception.
-//    /// </summary>
-//    /// <param name="message">The error message that explains the reason for the exception.</param>
-//    /// <param name="innerException">The exception that is the cause of the current exception.</param>
-//    public BLXMLFileLoadCreateException(string? message, Exception? innerException) : base(message, innerException) { }
-
-//    /// <summary>
-//    /// Constructor for deserialization of BLXMLFileLoadCreateException.
-//    /// </summary>
-//    /// <param name="info">The SerializationInfo that holds the serialized object data.</param>
-//    /// <param name="context">The StreamingContext that represents the source or destination of the serialized stream.</param>
-//    protected BLXMLFileLoadCreateException(SerializationInfo info, StreamingContext context) : base(info, context) { }
-//}

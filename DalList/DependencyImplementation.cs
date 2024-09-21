@@ -31,9 +31,8 @@ internal class DependencyImplementation : IDependency
     public IEnumerable<Dependency> ReadAll(Func<Dependency, bool>? filter = null)
     {
         if (filter != null)
-        {
             return DataSource.Dependencies.Where(filter);
-        }
+        
         return DataSource.Dependencies.Select(dependency=>dependency);
     }
     
@@ -48,7 +47,7 @@ internal class DependencyImplementation : IDependency
         DataSource.Dependencies.Add(item);
     }
 
-    //delete a dependency. always throw an exception
+    //delete a dependency
     public void Delete(int id)
     {
         Dependency? dependency = DataSource.Dependencies.FirstOrDefault(dependency => dependency.Id == id);

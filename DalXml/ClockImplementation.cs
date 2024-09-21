@@ -18,9 +18,8 @@ internal class ClockImplementation : IClock
         // Load the XML file with XElement.
         XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml).Element("CurrentDate")!;
         if(root.Value == "")
-        {
             return null;
-        }
+        
         return DateTime.Parse(root.Value);
     }
 
@@ -33,9 +32,8 @@ internal class ClockImplementation : IClock
         // Load the XML file with XElement.
         XElement root = XMLTools.LoadListFromXMLElement(s_clock_xml).Element("StartProject")!;
         if(root.Value == "")
-        {
             return null;
-        }
+        
         return DateTime.Parse(root.Value);
     }
 

@@ -8,6 +8,7 @@
 /// <param name="Name">The name of the Engineer.</param>
 /// <param name="Email">The email of the Engineer.</param>
 /// <param name="Level">The level of the Engineer - from Beginner to Expert.</param>
+/// <param name="Image">The image of the Engineer.</param>
 public record Engineer
 (
     int Id,

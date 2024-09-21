@@ -1,5 +1,8 @@
 ﻿namespace BlImplementation;
 
+/// <summary>
+/// A class to represent a graph
+/// </summary>
 class Graph
 {
     private int V; // number of vertices
